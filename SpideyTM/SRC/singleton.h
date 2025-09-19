@@ -2,6 +2,7 @@
 #define SINGLETON_H
 ////////////////////////////////////////////////////////////////////////////////
 
+#include "global.h"
 
 
 // a version of singleton that gives us full control over its

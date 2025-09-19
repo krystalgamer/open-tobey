@@ -1,6 +1,9 @@
 #include <windows.h>
 #include "forwards.h"
 
+// @TODO - remove when not needed
+#include "SpideyTM/SRC/signals.h"
+
 
 BOOL WINAPI DllMain(
     HINSTANCE hinstDLL,

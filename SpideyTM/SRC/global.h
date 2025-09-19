@@ -140,7 +140,7 @@
 #include <stdlib.h>  // prepares us for archalloc, defines our malloc/free
 
 // @TODO
-//#include "archalloc.h"  // prepares us for archalloc, defines our malloc/free
+#include "archalloc.h"  // prepares us for archalloc, defines our malloc/free
 
 //#include "stl_adapter.h"
 
@@ -210,7 +210,13 @@ extern "C" char* strupr( char* s );
 /*
 #include "osassert.h"
 #include "oserrmsg.h"	// needs osassert.h
+*/
+
+
 #include "stringx.h"
+
+// @TODO
+/*
 #include "errorcontext.h"
 #include "graph.h"
 #include "instance.h"
