@@ -88,10 +88,50 @@ LINK32=link.exe
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# Begin Source File
+
+SOURCE=.\dllmain.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\global.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\singleton.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\forwards.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\global.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\pc_port.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\project.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\singleton.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\types.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\users.h
+# End Source File
 # End Group
 # Begin Group "Resource Files"
 
