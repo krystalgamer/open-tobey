@@ -1,0 +1,7 @@
+Debug/
+Release/
+*.ncb
+*.plg
+**/env/
+*.swp
+*.opt
