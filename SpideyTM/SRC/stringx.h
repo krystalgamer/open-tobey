@@ -287,7 +287,7 @@ class stringx
     static string_buf *acquire_buffer(const char *str, int len = -1);
 
     // Silently refuses to cache strings for which is_buffer_mine() returns false.
-    static void add_buf_to_cache(string_buf *buf);
+    EXPORT static void add_buf_to_cache(string_buf *buf);
 
     // Decrements the refcount for my_buf, and sets my_buf to NULL.
     void release_buffer();
@@ -335,12 +335,12 @@ class stringx
     inline void append(char ch) { char buf[2]; buf[0] = ch; buf[1] = '\0'; append(buf, 1); };
 
     // Operators
-    stringx &operator=(const stringx &cp);
-    stringx &operator=(const char *str);
-    inline stringx &operator=(char ch) { copy(ch); return *this; };
-    stringx &operator+=(const stringx &cp);
-    stringx &operator+=(const char *str);
-    inline stringx &operator+=(char ch) { append(ch); return *this; };
+    EXPORT stringx &operator=(const stringx &cp);
+    EXPORT stringx &operator=(const char *str);
+    EXPORT inline stringx &operator=(char ch) { copy(ch); return *this; };
+    EXPORT stringx &operator+=(const stringx &cp);
+    EXPORT stringx &operator+=(const char *str);
+    EXPORT inline stringx &operator+=(char ch) { append(ch); return *this; };
 
     // Utilities for lexing
     inline void remove_surrounding_whitespace() { remove_leading(" \n\t\r"); remove_trailing(" \n\t\r"); };

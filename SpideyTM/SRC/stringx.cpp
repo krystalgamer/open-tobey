@@ -538,6 +538,7 @@ void stringx::truncate(int new_len)
 }
 
 
+// @Matching
 stringx &stringx::operator=(const stringx &cp)
 {
 	release_buffer();
