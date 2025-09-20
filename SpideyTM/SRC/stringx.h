@@ -257,18 +257,18 @@ class stringx
     string_buf *my_buf;
     char *chars;	// Placed first so shows up on top in the VS debugger. (dc 04/01/02)
 
-    static string_buf strings[];
+    EXPORT static string_buf strings[];
     static big_int string_pool[];
-    static bool stringx_initialized;
-    static string_buf *free_small_buffers[];   static unsigned int free_small_buffers_end;
+    EXPORT static bool stringx_initialized;
+    EXPORT static string_buf *free_small_buffers[];   EXPORT static unsigned int free_small_buffers_end;
 
-    static string_buf *free_medium_buffers[];  static unsigned int free_medium_buffers_end;
-    static string_buf *free_long_buffers[];    static unsigned int free_long_buffers_end;
+    EXPORT static string_buf *free_medium_buffers[];  EXPORT static unsigned int free_medium_buffers_end;
+    EXPORT static string_buf *free_long_buffers[];    EXPORT static unsigned int free_long_buffers_end;
 
     static string_buf *buf_cache[];            static unsigned int buf_cache_lru[256];
 
     // Checks whether a buffer is part of the strings[] array.
-    bool is_buffer_mine(string_buf *buf) const;
+    EXPORT bool is_buffer_mine(string_buf *buf) const;
 
     // Locates a buffer suitable for the given string.
 
@@ -290,7 +290,7 @@ class stringx
     EXPORT static void add_buf_to_cache(string_buf *buf);
 
     // Decrements the refcount for my_buf, and sets my_buf to NULL.
-    void release_buffer();
+    EXPORT void release_buffer();
 
     // If another copy of the current buffer exists in the cache, frees the current
     // buffer and points at that one instead.
@@ -310,7 +310,7 @@ class stringx
     explicit stringx(unsigned int i);
     enum fmtd { fmt }; stringx(fmtd, const char *fmtp, ...); // i.e. stringx(stringx::fmt, "%d", 5);
 
-    ~stringx();
+    EXPORT ~stringx();
 
     static void debug_dump_strings();
 

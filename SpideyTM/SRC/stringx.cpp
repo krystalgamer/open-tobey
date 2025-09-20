@@ -197,7 +197,8 @@ stringx::~stringx()
 }
 
 
-bool stringx::is_buffer_mine(string_buf *buf) const
+// @PATCH - inline
+bool inline stringx::is_buffer_mine(string_buf *buf) const
 {
 	if (buf >= &strings[0] && buf < &strings[STRINGX_TOTAL_STRINGS])
 
@@ -208,12 +209,17 @@ bool stringx::is_buffer_mine(string_buf *buf) const
 
 
 
+// @Matching - had to remove the initial refcount check
 void stringx::release_buffer()
 {
 	assert(my_buf);
 	assert(my_buf->ref_count > 0);
+
+	/*
 	if ( my_buf && my_buf->ref_count > 0 )
+	*/
 	{
+
 
 		my_buf->dec_ref();
 		
@@ -255,6 +261,7 @@ void stringx::release_buffer()
 		my_buf = NULL;
 	}
 }
+
 
 
 // @Matching
