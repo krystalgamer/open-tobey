@@ -275,7 +275,7 @@ class stringx
     // Does not increment the reference count; do this yourself.
     static string_buf *find_empty_buffer(int capacity, const char* str_just_for_error_msgs );
     static string_buf *find_small_buffer();
-    static string_buf *find_medium_buffer();
+    EXPORT static string_buf *find_medium_buffer();
     static string_buf *find_large_buffer();
 
     // Locates a buffer in the cache, and increments the refcount.
@@ -284,7 +284,7 @@ class stringx
     // Gets a buffer for a string and copies the data into it.
     // Searches the cache first, then falls back on find_empty_buffer.
     // Increments the reference count.
-    static string_buf *acquire_buffer(const char *str, int len = -1);
+    EXPORT static string_buf *acquire_buffer(const char *str, int len = -1);
 
     // Silently refuses to cache strings for which is_buffer_mine() returns false.
     EXPORT static void add_buf_to_cache(string_buf *buf);
@@ -325,8 +325,8 @@ class stringx
 
 
     // Copying and appending
-    void copy(const char *str, int len = -1);
-    void copy(stringx &cp);
+    EXPORT void copy(const char *str, int len = -1);
+    EXPORT void copy(stringx &cp);
 	int printf(const char *fmtp, ...);
     void append(const char *str, int len = -1);
     void append(const stringx &cp);

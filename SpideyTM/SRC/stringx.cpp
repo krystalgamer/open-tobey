@@ -197,21 +197,9 @@ stringx::~stringx()
 }
 
 
-// @PATCH - inline
 // @Matching
-bool inline stringx::is_buffer_mine(string_buf *buf) const
-{
-	if (buf >= &strings[0] && buf < &strings[STRINGX_TOTAL_STRINGS])
-
-		return true;
-	else
-		return false;
-}
-
-
-
-// @Matching - had to remove the initial refcount check
-void stringx::release_buffer()
+// @Patch - had to remove the initial refcount check
+INLINE void stringx::release_buffer()
 {
 	assert(my_buf);
 	assert(my_buf->ref_count > 0);
@@ -262,6 +250,19 @@ void stringx::release_buffer()
 		my_buf = NULL;
 	}
 }
+
+
+// @PATCH - inline
+// @Matching
+bool INLINE stringx::is_buffer_mine(string_buf *buf) const
+{
+	if (buf >= &strings[0] && buf < &strings[STRINGX_TOTAL_STRINGS])
+
+		return true;
+	else
+		return false;
+}
+
 
 
 
@@ -320,10 +321,14 @@ void stringx::init()
 }
 
 
-string_buf *stringx::acquire_buffer(const char *str, int len)
+INLINE string_buf *stringx::acquire_buffer(const char *str, int len)
 
 {
 	string_buf *buf;
+	if (len != -1 && len > strlen(str))
+	{
+		error("Invalid length %d for string '%s'.", len, str);
+	}
 	
 	buf = find_cached_string(str);
 	if (buf == NULL) {
@@ -368,6 +373,7 @@ string_buf *stringx::find_small_buffer()
 }
 
 
+// @Matching
 string_buf *stringx::find_medium_buffer()
 {
 	string_buf *buf = NULL;
@@ -386,14 +392,16 @@ string_buf *stringx::find_medium_buffer()
 }
 
 
-string_buf *stringx::find_large_buffer()
+// @Patch - remove the error
+INLINE string_buf *stringx::find_large_buffer()
 {
 	string_buf *buf = NULL;
 
 	
 	do {
 		if (free_long_buffers_end == 0) {
-			error("Out of large string buffers.");
+			// error("Out of large string buffers.");
+
 			return NULL;
 		}
 		
@@ -406,7 +414,7 @@ string_buf *stringx::find_large_buffer()
 }
 
 
-string_buf *stringx::find_empty_buffer( int capacity, const char* str_just_for_error_msgs )
+INLINE string_buf *stringx::find_empty_buffer( int capacity, const char* str_just_for_error_msgs )
 
 {
 	string_buf *tmpbuf = NULL;
@@ -609,7 +617,7 @@ void stringx::make_room(int size)
 
 
 
-void stringx::copy(const char *str, int len)
+void INLINE stringx::copy(const char *str, int len)
 {
 	if (str == NULL) {
 		copy("");
@@ -627,7 +635,7 @@ void stringx::copy(const char *str, int len)
 
 
 
-void stringx::copy(stringx &cp)
+void INLINE stringx::copy(stringx &cp)
 {
 	release_buffer();
 	my_buf = cp.my_buf;
