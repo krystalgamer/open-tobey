@@ -71,7 +71,6 @@
 #endif
 
 
-
 //Uncomment for PAL build
 //#define TV_PAL
 
@@ -206,11 +205,15 @@ extern "C" char* strupr( char* s );
 // we have to include this after STL stuff because STL includes <assert.h>
 // which bashes ours
 
+
+// @PATCH - stringx forward declared
+class stringx;
+
 // @TODO
 /*
 #include "osassert.h"
-#include "oserrmsg.h"	// needs osassert.h
 */
+#include "oserrmsg.h"	// needs osassert.h
 
 
 #include "stringx.h"
