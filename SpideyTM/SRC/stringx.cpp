@@ -198,6 +198,7 @@ stringx::~stringx()
 
 
 // @PATCH - inline
+// @Matching
 bool inline stringx::is_buffer_mine(string_buf *buf) const
 {
 	if (buf >= &strings[0] && buf < &strings[STRINGX_TOTAL_STRINGS])
