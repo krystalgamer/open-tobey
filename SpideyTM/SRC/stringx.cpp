@@ -127,6 +127,7 @@ stringx::stringx(const char *str, int len)
 }
 
 
+// @Matching
 stringx::stringx(const stringx &cp)
 {
 	if (!stringx_initialized) stringx::init();

@@ -254,8 +254,8 @@ class stringx
   friend class string_buf;
 
   protected:
-    char *chars;	// Placed first so shows up on top in the VS debugger. (dc 04/01/02)
     string_buf *my_buf;
+    char *chars;	// Placed first so shows up on top in the VS debugger. (dc 04/01/02)
 
     static string_buf strings[];
     static big_int string_pool[];
