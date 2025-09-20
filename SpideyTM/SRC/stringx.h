@@ -402,7 +402,8 @@ class stringx
 
 
     // Returns a pointer to the string
-    inline const char *c_str() const
+	// @Matching
+    EXPORT inline const char *c_str() const
     {
       assert(chars);
       return chars;
