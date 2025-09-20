@@ -353,6 +353,7 @@ INLINE string_buf *stringx::acquire_buffer(const char *str, int len)
 
 
 
+// @Matching
 string_buf *stringx::find_small_buffer()
 {
 
@@ -374,7 +375,7 @@ string_buf *stringx::find_small_buffer()
 
 
 // @Matching
-string_buf *stringx::find_medium_buffer()
+INLINE string_buf *stringx::find_medium_buffer()
 {
 	string_buf *buf = NULL;
 	
@@ -392,6 +393,7 @@ string_buf *stringx::find_medium_buffer()
 }
 
 
+// @Matching
 // @Patch - remove the error
 INLINE string_buf *stringx::find_large_buffer()
 {

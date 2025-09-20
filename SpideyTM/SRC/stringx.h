@@ -274,9 +274,9 @@ class stringx
 
     // Does not increment the reference count; do this yourself.
     static string_buf *find_empty_buffer(int capacity, const char* str_just_for_error_msgs );
-    static string_buf *find_small_buffer();
+    EXPORT static string_buf *find_small_buffer();
     EXPORT static string_buf *find_medium_buffer();
-    static string_buf *find_large_buffer();
+    EXPORT static string_buf *find_large_buffer();
 
     // Locates a buffer in the cache, and increments the refcount.
     static string_buf *find_cached_string(const char *str, int len = -1);
