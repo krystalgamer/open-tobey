@@ -25,6 +25,8 @@
 #include <string.h>
 #include <stdarg.h>
 
+#include "my_export.h"
+
 
 // @TODO - actually fix this
 #define assert(x)
@@ -299,9 +301,9 @@ class stringx
     static int npos;
     typedef int size_type;  // why the heck this was ever done is beyond me, but here it is, for compatibility
 
-    stringx();
-    stringx(const stringx &cp);
-    stringx(const char *str, int len = -1);
+    EXPORT stringx();
+    EXPORT stringx(const stringx &cp);
+    EXPORT stringx(const char *str, int len = -1);
 
     explicit stringx(float f);
     explicit stringx(int i);
@@ -314,7 +316,7 @@ class stringx
 
     // Allocates static buffers.
     // Call as early as possible in app init.
-    static void init();
+    EXPORT static void init();
 
     // Attempts to locate a buffer that already contains the given text.
     // Note that this necessitates searching all buffers. While this is

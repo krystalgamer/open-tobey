@@ -6,7 +6,6 @@
 
 #include "stringx.h"
 
-
 // define this to enable more aggressive caching, at the cost of
 // a small amount of performance
 
@@ -257,6 +256,7 @@ void stringx::release_buffer()
 }
 
 
+// @Matching
 void stringx::init()
 {
 	int i, s;
