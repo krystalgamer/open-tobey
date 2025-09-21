@@ -152,7 +152,7 @@ public:
     ref_count = r;
   }
 
-  void clear();
+  EXPORT void clear();
 
   inline void set_to_cstr(const char *str, int len = -1)
   {
@@ -279,7 +279,7 @@ class stringx
     EXPORT static string_buf *find_large_buffer();
 
     // Locates a buffer in the cache, and increments the refcount.
-    static string_buf *find_cached_string(const char *str, int len = -1);
+    EXPORT static string_buf *find_cached_string(const char *str, int len = -1);
 
     // Gets a buffer for a string and copies the data into it.
     // Searches the cache first, then falls back on find_empty_buffer.
@@ -294,7 +294,7 @@ class stringx
 
     // If another copy of the current buffer exists in the cache, frees the current
     // buffer and points at that one instead.
-    bool aggressively_cache_buffer();
+    EXPORT bool aggressively_cache_buffer();
 
   public:
 
@@ -436,7 +436,7 @@ class stringx
 
     // Makes sure the buffer can accomodate size characters.
     // If not, forks the buffer to one that can.
-    void make_room(int size);
+    EXPORT void make_room(int size);
 
     void to_upper();
     void to_lower();

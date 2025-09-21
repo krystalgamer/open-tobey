@@ -85,6 +85,7 @@ INLINE void string_buf::clear()
 {
 	assert(ref_count == 0 && "Attempted to clear string_buf with active references");
 	assert(data);
+
 	memset(data, 0, max_blocks * sizeof (big_int));
 
 }
@@ -468,6 +469,7 @@ INLINE string_buf *stringx::find_empty_buffer( int capacity, const char* str_jus
 }
 
 
+// @Matching
 string_buf *stringx::find_cached_string(const char *str, int len)
 {
 	// Uncomment this if you suspect a caching problem. This will disable caching.
