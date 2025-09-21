@@ -625,6 +625,7 @@ bool stringx::aggressively_cache_buffer()
 }
 
 
+// @NotMatching - clear() is not inlined
 void stringx::make_room(int size)
 {
 	assert(my_buf);
