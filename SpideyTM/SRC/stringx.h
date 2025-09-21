@@ -244,7 +244,7 @@ public:
     return max_blocks * sizeof (big_int) - 1;
   }
 
-  void null_terminate() const;
+  EXPORT void null_terminate() const;
 
 };
 
@@ -273,7 +273,7 @@ class stringx
     // Locates a buffer suitable for the given string.
 
     // Does not increment the reference count; do this yourself.
-    static string_buf *find_empty_buffer(int capacity, const char* str_just_for_error_msgs );
+    EXPORT static string_buf *find_empty_buffer(int capacity, const char* str_just_for_error_msgs );
     EXPORT static string_buf *find_small_buffer();
     EXPORT static string_buf *find_medium_buffer();
     EXPORT static string_buf *find_large_buffer();
@@ -398,7 +398,7 @@ class stringx
 
     // Truncates the string to the given length.
     // Pads leftover space with nulls.
-    void truncate(int new_len);
+    EXPORT void truncate(int new_len);
 
 
     // Returns a pointer to the string

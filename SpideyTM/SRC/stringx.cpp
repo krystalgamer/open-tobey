@@ -79,8 +79,9 @@ stringx sendl = stringx("\n");
 
 
 
-void string_buf::clear()
-
+// @Matching
+// @Patch - inline
+INLINE void string_buf::clear()
 {
 	assert(ref_count == 0 && "Attempted to clear string_buf with active references");
 	assert(data);
@@ -354,7 +355,8 @@ INLINE string_buf *stringx::acquire_buffer(const char *str, int len)
 
 
 // @Matching
-string_buf *stringx::find_small_buffer()
+// @Patch - inline
+INLINE string_buf *stringx::find_small_buffer()
 {
 
 	string_buf *buf = NULL;
@@ -416,6 +418,8 @@ INLINE string_buf *stringx::find_large_buffer()
 }
 
 
+// @Matching
+// @Patch - inline and error message
 INLINE string_buf *stringx::find_empty_buffer( int capacity, const char* str_just_for_error_msgs )
 
 {
@@ -436,6 +440,13 @@ INLINE string_buf *stringx::find_empty_buffer( int capacity, const char* str_jus
 	assert(tmpbuf);
 	assert(tmpbuf->get_ref() == 0);
 	assert(tmpbuf->data != NULL);
+
+	if (!tmpbuf)
+	{
+		char v10[4096];
+		sprintf(v10, "Out of string buffers, can't fit string:\n[%s]", str_just_for_error_msgs);
+		error(v10);
+	}
 	
 	tmpbuf->clear();
 	
@@ -515,7 +526,8 @@ void stringx::add_buf_to_cache(string_buf *buf)
 
 
 
-void stringx::fork_data(int new_len)
+// @Patch - Inline
+INLINE void stringx::fork_data(int new_len)
 {
 	assert(my_buf);
 
