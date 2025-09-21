@@ -305,9 +305,9 @@ class stringx
     EXPORT stringx(const stringx &cp);
     EXPORT stringx(const char *str, int len = -1);
 
-    explicit stringx(float f);
-    explicit stringx(int i);
-    explicit stringx(unsigned int i);
+    EXPORT explicit stringx(float f);
+    EXPORT explicit stringx(int i);
+    EXPORT explicit stringx(unsigned int i);
     enum fmtd { fmt }; stringx(fmtd, const char *fmtp, ...); // i.e. stringx(stringx::fmt, "%d", 5);
 
     EXPORT ~stringx();

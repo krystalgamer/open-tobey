@@ -104,8 +104,8 @@ void string_buf::null_terminate() const
 }
 
 
+// @NotMatching - find_*_buffer not inlined
 stringx::stringx()
-
 {
 	if (!stringx_initialized) stringx::init();
 	my_buf = acquire_buffer("", -1);
@@ -140,6 +140,7 @@ stringx::stringx(const stringx &cp)
 }
 
 
+// @Matching - with different inline settings
 stringx::stringx(float f)
 {
 	if (!stringx_initialized) stringx::init();
@@ -323,6 +324,7 @@ void stringx::init()
 }
 
 
+// @NotMatching - find_*_buffer not inlined
 INLINE string_buf *stringx::acquire_buffer(const char *str, int len)
 
 {

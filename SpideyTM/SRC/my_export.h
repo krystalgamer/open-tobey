@@ -4,6 +4,6 @@
 #define EXPORT __declspec( dllexport )
 
 #define INLINE inline
-//#define INLINE 
+// #define INLINE 
 
 #endif
