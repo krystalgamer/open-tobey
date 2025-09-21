@@ -166,6 +166,7 @@ stringx::stringx(int i)
 
 
 
+// @Matching
 stringx::stringx(unsigned int i)
 {
 	if (!stringx_initialized) stringx::init();
@@ -179,9 +180,16 @@ stringx::stringx(unsigned int i)
 
 
 
+// @NotMatching - release_buffer shouldn't get inlined
+// @Patch - added the my_buf check and releasse
 stringx::stringx(stringx::fmtd, const char *fmtp, ...)
 
 {
+	if (my_buf)
+	{
+		release_buffer();
+	}
+
 	if (!stringx_initialized) stringx::init();
 	va_list vlist;
 	va_start(vlist, fmtp);
