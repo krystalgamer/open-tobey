@@ -152,6 +152,7 @@ stringx::stringx(float f)
 }
 
 
+// @Matching
 stringx::stringx(int i)
 {
 	if (!stringx_initialized) stringx::init();
