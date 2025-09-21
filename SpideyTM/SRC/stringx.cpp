@@ -377,6 +377,7 @@ INLINE string_buf *stringx::find_small_buffer()
 
 
 // @Matching
+// @Patch - inline
 INLINE string_buf *stringx::find_medium_buffer()
 {
 	string_buf *buf = NULL;
@@ -396,7 +397,7 @@ INLINE string_buf *stringx::find_medium_buffer()
 
 
 // @Matching
-// @Patch - remove the error
+// @Patch - remove the error, inline
 INLINE string_buf *stringx::find_large_buffer()
 {
 	string_buf *buf = NULL;
@@ -497,6 +498,7 @@ string_buf *stringx::find_cached_string(const char *str, int len)
 }
 
 
+// @Matching
 void stringx::add_buf_to_cache(string_buf *buf)
 {
 	assert(buf != NULL);
