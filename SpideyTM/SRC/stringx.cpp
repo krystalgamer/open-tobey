@@ -28,9 +28,14 @@ unsigned int cache_hits, cache_misses;
 // increase these numbers if you run out of strings
 // try to increase only the category that ran out
 #define STRINGX_MAX_SHORT_STRINGS   15000
-#define STRINGX_MAX_MEDIUM_STRINGS  7000
+
+// @Patch - changed size
+#define STRINGX_MAX_MEDIUM_STRINGS  8000
 //#if defined(TARGET_XBOX)
-#define STRINGX_MAX_LONG_STRINGS    100
+
+// @Patch - changed size
+#define STRINGX_MAX_LONG_STRINGS    200
+
 //#else
 //#define STRINGX_MAX_LONG_STRINGS    50
 //#endif /* TARGET_XBOX JIV DEBUG */
@@ -178,17 +183,23 @@ stringx::stringx(unsigned int i)
 	chars = reinterpret_cast<char *>(my_buf->data);
 }
 
-
-
-// @NotMatching - release_buffer shouldn't get inlined
+// @TODO - unnamed function
 // @Patch - added the my_buf check and releasse
-stringx::stringx(stringx::fmtd, const char *fmtp, ...)
-
+stringx::stringx(double, int)
 {
+	error("KING SHIT");
+	/*
 	if (my_buf)
 	{
 		release_buffer();
 	}
+	*/
+}
+
+// @Matching
+stringx::stringx(stringx::fmtd, const char *fmtp, ...)
+
+{
 
 	if (!stringx_initialized) stringx::init();
 	va_list vlist;
@@ -208,6 +219,17 @@ stringx::~stringx()
 	release_buffer();
 }
 
+
+// @PATCH - inline
+// @Matching
+bool INLINE stringx::is_buffer_mine(string_buf *buf) const
+{
+	if (buf >= &strings[0] && buf < &strings[STRINGX_TOTAL_STRINGS])
+
+		return true;
+	else
+		return false;
+}
 
 // @Matching
 // @Patch - had to remove the initial refcount check
@@ -264,16 +286,6 @@ INLINE void stringx::release_buffer()
 }
 
 
-// @PATCH - inline
-// @Matching
-bool INLINE stringx::is_buffer_mine(string_buf *buf) const
-{
-	if (buf >= &strings[0] && buf < &strings[STRINGX_TOTAL_STRINGS])
-
-		return true;
-	else
-		return false;
-}
 
 
 

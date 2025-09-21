@@ -265,7 +265,7 @@ class stringx
     EXPORT static string_buf *free_medium_buffers[];  EXPORT static unsigned int free_medium_buffers_end;
     EXPORT static string_buf *free_long_buffers[];    EXPORT static unsigned int free_long_buffers_end;
 
-    static string_buf *buf_cache[];            static unsigned int buf_cache_lru[256];
+    EXPORT static string_buf *buf_cache[];            EXPORT static unsigned int buf_cache_lru[256];
 
     // Checks whether a buffer is part of the strings[] array.
     EXPORT bool is_buffer_mine(string_buf *buf) const;
@@ -308,6 +308,9 @@ class stringx
     EXPORT explicit stringx(float f);
     EXPORT explicit stringx(int i);
     EXPORT explicit stringx(unsigned int i);
+
+	// @TODO - unnamed function
+	EXPORT stringx(double, int);
     enum fmtd { fmt }; EXPORT stringx(fmtd, const char *fmtp, ...); // i.e. stringx(stringx::fmt, "%d", 5);
 
     EXPORT ~stringx();
