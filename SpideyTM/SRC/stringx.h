@@ -155,7 +155,8 @@ public:
 
   EXPORT void clear();
 
-  inline void set_to_cstr(const char *str, int len = -1)
+  // @Matching
+  EXPORT inline void set_to_cstr(const char *str, int len = -1)
   {
     assert(data != NULL);
     if (len == -1) len = strlen(str);
