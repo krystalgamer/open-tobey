@@ -696,6 +696,7 @@ void INLINE stringx::copy(const char *str, int len)
 
 
 
+// @Matching
 void INLINE stringx::copy(stringx &cp)
 {
 	release_buffer();
