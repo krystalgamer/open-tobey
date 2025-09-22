@@ -943,6 +943,7 @@ void stringx::remove_trailing(const char *remove)
 	copy(result);
 }
 
+// @NotMatching - slice not inlined for me
 stringx stringx::read_token(char *delim, int start_index, bool ignore_leading, bool chop)
 {
 	int start = start_index, end;
