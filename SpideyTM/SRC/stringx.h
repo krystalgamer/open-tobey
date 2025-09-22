@@ -398,7 +398,7 @@ class stringx
     // Decrements the refcount of the current data, finds a new buffer
     // that can accomodate new_len characters, and copies the data into
     // it. Increments the refcount of the new data.
-    void fork_data(int new_len = -1);
+    EXPORT void fork_data(int new_len = -1);
 
     // Truncates the string to the given length.
     // Pads leftover space with nulls.

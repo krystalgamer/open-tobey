@@ -224,6 +224,7 @@ stringx::stringx(stringx::fmtd, const char *fmtp, ...)
 
 
 
+// @Matching
 stringx::~stringx()
 {
 	assert(my_buf);
@@ -564,6 +565,7 @@ void stringx::add_buf_to_cache(string_buf *buf)
 
 
 
+// @NotMatching
 // @Patch - Inline
 INLINE void stringx::fork_data(int new_len)
 {
@@ -590,7 +592,8 @@ INLINE void stringx::fork_data(int new_len)
 
 
 
-void stringx::truncate(int new_len)
+// @NotMatching - inline is not perfect
+INLINE void stringx::truncate(int new_len)
 {
 	assert(my_buf);
 	assert(new_len <= my_buf->char_length);
