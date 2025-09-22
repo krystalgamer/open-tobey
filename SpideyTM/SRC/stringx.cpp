@@ -798,7 +798,23 @@ int stringx::find(const char *str) const
 	return -1;
 }
 
+// @Matching
+INLINE int stringx::find(int pos, char c) const
 
+{
+	int i;
+	
+	for (i = pos; i < my_buf->char_length; i++) {
+		if (chars[i] == c) return i;
+
+	}
+	
+	return -1;
+
+}
+
+
+// @Matching
 int stringx::rfind(const char *str) const
 {
 	int sl;
