@@ -632,6 +632,7 @@ stringx &stringx::operator=(const char *str)
 
 
 
+// @Matching
 stringx &stringx::operator+=(const stringx &cp)
 {
 	append(cp);
