@@ -757,6 +757,7 @@ void stringx::append(const char *str, int len)
 }
 
 
+// @NotMatching
 void stringx::append(const stringx &cp)
 {
 
