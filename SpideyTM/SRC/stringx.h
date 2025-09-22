@@ -232,7 +232,7 @@ public:
   }
 
   // Sets the length of the string. Pads leftover space with \0.
-  inline void set_char_length(int len)
+  EXPORT inline void set_char_length(int len)
   {
     assert(len <= max_blocks * (int)sizeof (big_int));
     char_length = len;
