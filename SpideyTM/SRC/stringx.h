@@ -113,7 +113,8 @@ public:
 
 
   // does not touch refcounts
-  inline void copy_data_from(string_buf *buf)
+  // @Matching
+  EXPORT inline void copy_data_from(string_buf *buf)
   {
     assert(buf->data != NULL);
     assert(data != NULL);
