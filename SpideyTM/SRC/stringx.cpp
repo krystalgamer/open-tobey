@@ -97,6 +97,7 @@ INLINE void string_buf::clear()
 
 
 
+// @Matching
 void string_buf::null_terminate() const
 {
 
