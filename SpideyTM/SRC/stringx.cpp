@@ -781,6 +781,7 @@ void stringx::append(const stringx &cp)
 
 
 
+// @Matching
 int stringx::find(const char *str) const
 {
 	int sl;
