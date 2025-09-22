@@ -934,6 +934,7 @@ void stringx::remove_leading(const char *remove)
 }
 
 
+// @NotMatching - slice is not inlined for me
 void stringx::remove_trailing(const char *remove)
 {
 	int end;
