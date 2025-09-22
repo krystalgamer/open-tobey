@@ -872,6 +872,7 @@ void stringx::to_upper()
 }
 
 
+// @NotMatching
 void stringx::to_lower()
 {
 	lock();
