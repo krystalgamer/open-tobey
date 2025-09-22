@@ -186,17 +186,25 @@ stringx::stringx(unsigned int i)
 	chars = reinterpret_cast<char *>(my_buf->data);
 }
 
-// @TODO - unnamed function
+// @NotMatching - validate later small diff in size, can't see it
 // @Patch - added the my_buf check and releasse
-stringx::stringx(double, int)
+char* stringx::reinit(const char *fmtp, ...)
 {
-	error("KING SHIT");
-	/*
 	if (my_buf)
 	{
 		release_buffer();
 	}
-	*/
+
+	if (!stringx_initialized) stringx::init();
+	va_list vlist;
+	va_start(vlist, fmtp);
+	char fmtbuff[1024];
+	int len = vsprintf(fmtbuff, fmtp, vlist);
+	my_buf = acquire_buffer(fmtbuff, len);
+	assert(my_buf);
+	chars = reinterpret_cast<char *>(my_buf->data);
+
+	return chars;
 }
 
 // @Matching
@@ -236,7 +244,7 @@ bool INLINE stringx::is_buffer_mine(string_buf *buf) const
 
 // @Matching
 // @Patch - had to remove the initial refcount check
-INLINE void stringx::release_buffer()
+void stringx::release_buffer()
 {
 	assert(my_buf);
 	assert(my_buf->ref_count > 0);

@@ -309,8 +309,9 @@ class stringx
     EXPORT explicit stringx(int i);
     EXPORT explicit stringx(unsigned int i);
 
-	// @TODO - unnamed function
-	EXPORT stringx(double, int);
+	// @Note - guessed the name
+	EXPORT char* reinit(const char *fmtp, ...);
+
     enum fmtd { fmt }; EXPORT stringx(fmtd, const char *fmtp, ...); // i.e. stringx(stringx::fmt, "%d", 5);
 
     EXPORT ~stringx();
