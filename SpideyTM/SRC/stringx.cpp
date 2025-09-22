@@ -111,7 +111,7 @@ void string_buf::null_terminate() const
 
 
 // @NotMatching - find_*_buffer not inlined
-stringx::stringx()
+INLINE stringx::stringx()
 {
 	if (!stringx_initialized) stringx::init();
 	my_buf = acquire_buffer("", -1);
@@ -123,7 +123,7 @@ stringx::stringx()
 
 // @Matching
 // @Patch - had to replace acquire_buffer with s instead of str
-stringx::stringx(const char *str, int len)
+INLINE stringx::stringx(const char *str, int len)
 {
 	if (!stringx_initialized) stringx::init();
 
@@ -138,7 +138,7 @@ stringx::stringx(const char *str, int len)
 
 
 // @Matching
-stringx::stringx(const stringx &cp)
+INLINE stringx::stringx(const stringx &cp)
 {
 	if (!stringx_initialized) stringx::init();
 	my_buf = cp.my_buf;
@@ -149,7 +149,7 @@ stringx::stringx(const stringx &cp)
 
 
 // @Matching - with different inline settings
-stringx::stringx(float f)
+INLINE stringx::stringx(float f)
 {
 	if (!stringx_initialized) stringx::init();
 	char work[128];
@@ -161,7 +161,7 @@ stringx::stringx(float f)
 
 
 // @Matching
-stringx::stringx(int i)
+INLINE stringx::stringx(int i)
 {
 	if (!stringx_initialized) stringx::init();
 	char work[128];
@@ -175,7 +175,7 @@ stringx::stringx(int i)
 
 
 // @Matching
-stringx::stringx(unsigned int i)
+INLINE stringx::stringx(unsigned int i)
 {
 	if (!stringx_initialized) stringx::init();
 	char work[128];
@@ -208,7 +208,7 @@ char* stringx::reinit(const char *fmtp, ...)
 }
 
 // @Matching
-stringx::stringx(stringx::fmtd, const char *fmtp, ...)
+INLINE stringx::stringx(stringx::fmtd, const char *fmtp, ...)
 
 {
 

@@ -332,8 +332,8 @@ class stringx
     EXPORT void copy(const char *str, int len = -1);
     EXPORT void copy(stringx &cp);
 	int printf(const char *fmtp, ...);
-    void append(const char *str, int len = -1);
-    void append(const stringx &cp);
+    EXPORT void append(const char *str, int len = -1);
+    EXPORT void append(const stringx &cp);
     inline void copy(char ch) { char buf[2]; buf[0] = ch; buf[1] = '\0'; copy(buf, 1); };
 
     inline void append(char ch) { char buf[2]; buf[0] = ch; buf[1] = '\0'; append(buf, 1); };
@@ -348,8 +348,8 @@ class stringx
 
     // Utilities for lexing
     inline void remove_surrounding_whitespace() { remove_leading(" \n\t\r"); remove_trailing(" \n\t\r"); };
-    void remove_leading(const char *remove);
-    void remove_trailing(const char *remove);
+    EXPORT void remove_leading(const char *remove);
+    EXPORT void remove_trailing(const char *remove);
 
 
     // Returns a portion of the string starting from start_index and up to but
@@ -358,7 +358,7 @@ class stringx
     // "  hello world! " would return "hello" and set the string to " world! ".
     // If ignore_leading is true, leading characters matching delim will be ignored.
     // If chop is true, destructively removes the token from the string.
-    stringx read_token(char *delim, int start_index = 0, bool ignore_leading = true, bool chop = false);
+    EXPORT stringx read_token(char *delim, int start_index = 0, bool ignore_leading = true, bool chop = false);
 
     // These are not guaranteed to account for extraneous characters. Trim the string first.
     float to_float() const { return (float)atof(chars); }
@@ -442,11 +442,11 @@ class stringx
     // If not, forks the buffer to one that can.
     EXPORT void make_room(int size);
 
-    void to_upper();
-    void to_lower();
-    stringx substr(int i = 0, int n = -1) const;
+    EXPORT void to_upper();
+    EXPORT void to_lower();
+    EXPORT stringx substr(int i = 0, int n = -1) const;
 
-    inline stringx slice(int start, int end) const
+    EXPORT inline stringx slice(int start, int end) const
     // Similar to the Python slice operator.
     // Returns a substring from start up to but not including end.
     // stringx foo("foobar"); foo.slice(2,4) would return "ob".
@@ -460,12 +460,12 @@ class stringx
       return substr(start, end-start);
     };
 
-    int find(const char *s) const;
-    int find(int pos, char c) const;
-    int rfind(char c) const;
+    EXPORT int find(const char *s) const;
+    EXPORT int find(int pos, char c) const;
+    EXPORT int rfind(char c) const;
 
-    int rfind(char c, int pos) const;
-    int rfind(const char *str) const;
+    EXPORT int rfind(char c, int pos) const;
+    EXPORT int rfind(const char *str) const;
 
     friend stringx operator+( const stringx& lhs, const stringx& rhs );
     friend stringx operator+( const char* lhs, const stringx& rhs );
