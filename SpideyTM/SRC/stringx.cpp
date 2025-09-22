@@ -121,6 +121,8 @@ stringx::stringx()
 
 
 
+// @Matching
+// @Patch - had to replace acquire_buffer with s instead of str
 stringx::stringx(const char *str, int len)
 {
 	if (!stringx_initialized) stringx::init();
@@ -129,7 +131,7 @@ stringx::stringx(const char *str, int len)
 	if (s == NULL) s = "";
 	assert(s != NULL);
 	if (len == -1) len = strlen(s);
-	my_buf = acquire_buffer(str, len);
+	my_buf = acquire_buffer(s, len);
 	assert(my_buf);
 	chars = reinterpret_cast<char *>(my_buf->data);
 }
