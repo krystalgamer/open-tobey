@@ -883,6 +883,7 @@ void stringx::to_lower()
 
 
 
+// @NotMatching - I have exception handling for some reason
 stringx stringx::substr(int i, int n) const
 {
 	if (i == 0 && n == -1)
