@@ -922,6 +922,7 @@ void stringx::debug_dump_strings()
 	}
 }
 
+// @NotMatching - slice is not inlined for me
 void stringx::remove_leading(const char *remove)
 {
 	int start;
