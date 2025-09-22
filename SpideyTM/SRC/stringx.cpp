@@ -648,6 +648,7 @@ stringx &stringx::operator+=(const char *str)
 }
 
 
+// @Matching
 bool stringx::aggressively_cache_buffer()
 {
 	string_buf *tmp_buf = find_cached_string(chars, my_buf->char_length);
