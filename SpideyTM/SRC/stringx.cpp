@@ -854,13 +854,15 @@ INLINE int stringx::rfind(char c, int pos) const
 
 
 
-int stringx::rfind(char c) const
+// @Matching
+INLINE int stringx::rfind(char c) const
 {
 	return rfind(c, my_buf->char_length - 1);
 }
 
 
 
+// @NotMatching
 void stringx::to_upper()
 {
 	lock();
