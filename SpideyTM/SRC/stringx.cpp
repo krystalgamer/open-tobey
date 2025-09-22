@@ -727,6 +727,7 @@ int stringx::printf(const char *fmtp, ...)
 }
 
 
+// @NotMatching
 void stringx::append(const char *str, int len)
 {
 	if (str == NULL) {
