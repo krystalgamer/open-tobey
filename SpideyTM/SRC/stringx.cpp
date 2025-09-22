@@ -677,6 +677,7 @@ void stringx::make_room(int size)
 
 
 
+// @Matching
 void INLINE stringx::copy(const char *str, int len)
 {
 	if (str == NULL) {
