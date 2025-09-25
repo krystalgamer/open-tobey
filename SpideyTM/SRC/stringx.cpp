@@ -973,3 +973,19 @@ stringx stringx::read_token(char *delim, int start_index, bool ignore_leading, b
 	
 	return result;
 }
+
+// @NotMatching - different inline
+stringx stringx::bogus_sum_sx_sx (const stringx& lhs, const stringx& rhs)
+{
+	return lhs + rhs;
+}
+
+stringx stringx::bogus_sum_ch_sx( const char* lhs, const stringx& rhs )
+{
+	return lhs + rhs;
+}
+
+stringx stringx::bogus_sum_sx_ch( const stringx& lhs, const char* rhs )
+{
+	return lhs + rhs;
+}

@@ -90,7 +90,7 @@ protected:
   int block_length;
   int max_blocks;
 
-  inline int blocks_needed(int chars)
+  EXPORT inline int blocks_needed(int chars)
   {
     chars++; //leave room for \0
     if (chars % sizeof (big_int) != 0)
@@ -390,7 +390,7 @@ class stringx
 
 
     // Call this before directly accessing the string's data.
-    inline void lock()
+    EXPORT inline void lock()
     {
       assert(my_buf);
       if (my_buf->get_ref() > 1)
@@ -478,7 +478,10 @@ class stringx
     friend inline bool operator!=( const stringx& lhs, const stringx& rhs );
     friend inline bool operator!=(const stringx& lhs, const char *rhs );
     friend inline bool operator<( const stringx& lhs, const stringx& rhs );
-
+	
+	EXPORT stringx bogus_sum_sx_sx(const stringx& lhs, const stringx& rhs);
+    EXPORT stringx bogus_sum_ch_sx( const char* lhs, const stringx& rhs );
+    EXPORT stringx bogus_sum_sx_ch( const stringx& lhs, const char* rhs );
 };
 
 
