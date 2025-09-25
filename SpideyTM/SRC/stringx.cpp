@@ -82,8 +82,6 @@ stringx empty_string = stringx("");
 stringx sendl = stringx("\n");
 
 
-
-
 // @Matching
 // @Patch - inline
 INLINE void string_buf::clear()
@@ -988,4 +986,32 @@ stringx stringx::bogus_sum_ch_sx( const char* lhs, const stringx& rhs )
 stringx stringx::bogus_sum_sx_ch( const stringx& lhs, const char* rhs )
 {
 	return lhs + rhs;
+}
+
+#include "my_assertions.h"
+static void compile_time_assertions()
+{
+	StaticAssert<sizeof(stringx) == 8>::sass();
+	StaticAssert<sizeof(string_buf) == 20>::sass();
+}
+
+
+
+void validate_stringx(void)
+{
+	VALIDATE_SIZE(stringx, 8);
+
+	VALIDATE(stringx, my_buf, 0);
+	VALIDATE(stringx, chars, 4);
+}
+
+void validate_string_buf(void)
+{
+	VALIDATE_SIZE(string_buf, 20);
+
+	VALIDATE(string_buf, data, 0);
+	VALIDATE(string_buf, ref_count, 4);
+	VALIDATE(string_buf, char_length, 8);
+	VALIDATE(string_buf, block_length, 12);
+	VALIDATE(string_buf, max_blocks, 16);
 }

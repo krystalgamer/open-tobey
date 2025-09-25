@@ -248,6 +248,8 @@ public:
 
   EXPORT void null_terminate() const;
 
+  friend void validate_string_buf(void);
+
 };
 
 
@@ -482,6 +484,8 @@ class stringx
 	EXPORT stringx bogus_sum_sx_sx(const stringx& lhs, const stringx& rhs);
     EXPORT stringx bogus_sum_ch_sx( const char* lhs, const stringx& rhs );
     EXPORT stringx bogus_sum_sx_ch( const stringx& lhs, const char* rhs );
+
+	friend void validate_stringx(void);
 };
 
 

@@ -4,6 +4,13 @@
 // @TODO - remove when not needed
 #include "SpideyTM/SRC/signals.h"
 
+#include "SpideyTM/SRC/my_assertions.h"
+
+void runtime_assertions()
+{
+	validate_stringx();
+	validate_string_buf();
+}
 
 BOOL WINAPI DllMain(
     HINSTANCE hinstDLL,
@@ -14,6 +21,11 @@ BOOL WINAPI DllMain(
     switch( fdwReason ) 
     { 
         case DLL_PROCESS_ATTACH:
+			AllocConsole();
+			freopen("CONOUT$", "w", stdout);
+
+			puts("open-tobey starting");
+			runtime_assertions();
             break;
 
         case DLL_THREAD_ATTACH:
