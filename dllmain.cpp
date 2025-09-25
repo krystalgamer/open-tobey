@@ -6,6 +6,8 @@
 
 #include "SpideyTM/SRC/my_assertions.h"
 
+HMODULE bink_dll;
+
 void runtime_assertions()
 {
 	validate_stringx();
@@ -39,6 +41,8 @@ BOOL WINAPI DllMain(
 			freopen("CONOUT$", "w", stdout);
 
 			puts("open-tobey starting");
+
+			bink_dll = GetModuleHandle("binkw32.dll");
 			runtime_assertions();
 			runtime_patches();
             break;
