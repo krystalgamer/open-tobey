@@ -988,6 +988,63 @@ stringx stringx::bogus_sum_sx_ch( const stringx& lhs, const char* rhs )
 	return lhs + rhs;
 }
 
+/*
+ * 
+0x007D6010 string_buf::clear(void)
+0x007D6040 string_buf::null_terminate(void)
+0x007D6090 stringx::stringx(void)
+0x007D62E0 stringx::stringx(char const *,int)
+
+0x007D65A0 stringx::stringx(stringx const &)
+0x007D65E0 stringx::stringx(float)
+0x007D6890 stringx::stringx(int)
+0x007D6B40 stringx::stringx(uint)
+0x007D6DF0 stringx::reinit(char const *,...)
+0x007D70B0 stringx::stringx(stringx::fmtd,char const *,...)
+0x007D7360 stringx::~stringx(void)
+0x007D73B0 stringx::release_buffer(void)
+0x007D74C0 stringx::init(void)
+0x007D7600 stringx::acquire_buffer(char const *,int)
+0x007D7850 stringx::find_small_buffer(void)
+
+0x007D78E0 stringx::find_medium_buffer(void)
+0x007D7950 stringx::find_large_buffer(void)
+0x007D7990 stringx::find_empty_buffer(int,char const *)
+0x007D7B50 stringx::find_cached_string(char const *,int)
+0x007D7C70 stringx::add_buf_to_cache(string_buf *)
+0x007D7CF0 stringx::fork_data(int)
+0x007D7F10 stringx::truncate(int)
+0x007D80A0 stringx::operator=(stringx const &)
+0x007D80E0 stringx::operator=(char const *)
+0x007D83A0 stringx::operator+=(stringx const &)
+
+0x007D83D0 stringx::operator+=(char const *)
+0x007D8400 stringx::aggressively_cache_buffer(void)
+0x007D8470 stringx::make_room(int)
+0x007D8690 stringx::copy(char const *,int)
+0x007D8950 stringx::copy(stringx &)
+0x007D8990 stringx::append(char const *,int)
+0x007D8BB0 string_buf::copy_data_from(string_buf *)
+0x007D8C00 stringx::append(stringx const &)
+0x007D8E10 stringx::find(char const *)
+0x007D8F10 stringx::find(int,char)
+0x007D8F50 stringx::rfind(char,int)
+0x007D8F90 stringx::rfind(char)
+0x007D8FD0 stringx::to_upper(void)
+0x007D91A0 stringx::to_lower(void)
+0x007D9370 stringx::substr(int,int)
+0x007D95C0 string_buf::set_to_cstr(char const *,int)
+0x007D9670 stringx::remove_leading(char const *)
+
+0x007D9730 stringx::remove_trailing(char const *)
+0x007D97F0 stringx::read_token(char *,int,bool,bool)
+0x007D9980 stringx::bogus_sum_sx_sx(stringx const &,stringx const &)
+0x007D9B10 string_buf::set_char_length(int)
+0x007D9B60 stringx::lock(void)
+0x007D9CF0 stringx::bogus_sum_ch_sx(char const *,stringx const &)
+0x007D9EA0 stringx::bogus_sum_sx_ch(stringx const &,char const *)
+	*/
+
 #include "my_assertions.h"
 static void compile_time_assertions()
 {
@@ -995,6 +1052,11 @@ static void compile_time_assertions()
 	StaticAssert<sizeof(string_buf) == 20>::sass();
 }
 
+#include "my_patch.h"
+void patch_string_buf()
+{
+	PATCH_PUSH_RET(0x007D9B10, string_buf::set_char_length, "set_char_length");
+}
 
 
 void validate_stringx(void)

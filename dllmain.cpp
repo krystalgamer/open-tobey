@@ -12,6 +12,20 @@ void runtime_assertions()
 	validate_string_buf();
 }
 
+void runtime_patches()
+{
+	LPVOID text_start = (void*)0x401000;
+	SIZE_T text_size = 0x896000 - (int)text_start;
+
+	DWORD text_protect;
+	VirtualProtect(text_start, text_size, PAGE_EXECUTE_READWRITE, &text_protect);
+
+	patch_string_buf();
+
+	DWORD t;
+	VirtualProtect(text_start, text_size, text_protect, &t);
+}
+
 BOOL WINAPI DllMain(
     HINSTANCE hinstDLL,
     DWORD fdwReason,
@@ -26,6 +40,7 @@ BOOL WINAPI DllMain(
 
 			puts("open-tobey starting");
 			runtime_assertions();
+			runtime_patches();
             break;
 
         case DLL_THREAD_ATTACH:

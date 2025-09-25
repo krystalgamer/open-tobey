@@ -622,4 +622,6 @@ inline stringx get_ext( const stringx& path )
 extern stringx empty_string;
 extern stringx sendl;
 
+void patch_string_buf();
+
 #endif
