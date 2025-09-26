@@ -977,126 +977,17 @@ stringx stringx::bogus_sum_sx_sx (const stringx& lhs, const stringx& rhs)
 	return lhs + rhs;
 }
 
+// @NotMatching - different inline
 stringx stringx::bogus_sum_ch_sx( const char* lhs, const stringx& rhs )
 {
 	return lhs + rhs;
 }
 
+// @NotMatching - different inline
 stringx stringx::bogus_sum_sx_ch( const stringx& lhs, const char* rhs )
 {
 	return lhs + rhs;
 }
-
-/*
- * 
- *
- PATCH_PUSH_RET(0x007D6010, string_buf::clear(void))
-PATCH_PUSH_RET_POLY(0x007D6010, string_buf::clear(void), "?clear@string_buf@@QAEXXZ")
-PATCH_PUSH_RET(0x007D6040, string_buf::null_terminate(void))
-PATCH_PUSH_RET_POLY(0x007D6040, string_buf::null_terminate(void), "?null_terminate@string_buf@@QBEXXZ")
-
-PATCH_PUSH_RET(0x007D62E0, stringx::stringx(char const *,int))
-PATCH_PUSH_RET_POLY(0x007D62E0, stringx::stringx(char const *,int), "??0stringx@@QAE@PBDH@Z")
-PATCH_PUSH_RET(0x007D65A0, stringx::stringx(stringx const &))
-PATCH_PUSH_RET_POLY(0x007D65A0, stringx::stringx(stringx const &), "??0stringx@@QAE@ABV0@@Z")
-PATCH_PUSH_RET(0x007D65E0, stringx::stringx(float))
-PATCH_PUSH_RET_POLY(0x007D65E0, stringx::stringx(float), "??0stringx@@QAE@M@Z")
-PATCH_PUSH_RET(0x007D6890, stringx::stringx(int))
-PATCH_PUSH_RET_POLY(0x007D6890, stringx::stringx(int), "??0stringx@@QAE@H@Z")
-PATCH_PUSH_RET(0x007D6B40, stringx::stringx(uint))
-PATCH_PUSH_RET_POLY(0x007D6B40, stringx::stringx(uint), "??0stringx@@QAE@I@Z")
-
-PATCH_PUSH_RET(0x007D6DF0, stringx::reinit(char const *,...))
-
-PATCH_PUSH_RET_POLY(0x007D6DF0, stringx::reinit(char const *,...), "?reinit@stringx@@QAAPADPBDZZ")
-PATCH_PUSH_RET(0x007D70B0, stringx::stringx(stringx::fmtd,char const *,...))
-PATCH_PUSH_RET_POLY(0x007D70B0, stringx::stringx(stringx::fmtd,char const *,...), "??0stringx@@QAA@W4fmtd@0@PBDZZ")
-PATCH_PUSH_RET(0x007D7360, stringx::~stringx(void))
-PATCH_PUSH_RET_POLY(0x007D7360, stringx::~stringx(void), "??1stringx@@QAE@XZ")
-PATCH_PUSH_RET(0x007D73B0, stringx::release_buffer(void))
-
-PATCH_PUSH_RET_POLY(0x007D73B0, stringx::release_buffer(void), "?release_buffer@stringx@@IAEXXZ")
-PATCH_PUSH_RET(0x007D74C0, stringx::init(void))
-PATCH_PUSH_RET_POLY(0x007D74C0, stringx::init(void), "?init@stringx@@SAXXZ")
-PATCH_PUSH_RET(0x007D7600, stringx::acquire_buffer(char const *,int))
-PATCH_PUSH_RET_POLY(0x007D7600, stringx::acquire_buffer(char const *,int), "?acquire_buffer@stringx@@KAPAVstring_buf@@PBDH@Z")
-PATCH_PUSH_RET(0x007D7850, stringx::find_small_buffer(void))
-PATCH_PUSH_RET_POLY(0x007D7850, stringx::find_small_buffer(void), "?find_small_buffer@stringx@@KAPAVstring_buf@@XZ")
-PATCH_PUSH_RET(0x007D78E0, stringx::find_medium_buffer(void))
-PATCH_PUSH_RET_POLY(0x007D78E0, stringx::find_medium_buffer(void), "?find_medium_buffer@stringx@@KAPAVstring_buf@@XZ")
-PATCH_PUSH_RET(0x007D7950, stringx::find_large_buffer(void))
-PATCH_PUSH_RET_POLY(0x007D7950, stringx::find_large_buffer(void), "?find_large_buffer@stringx@@KAPAVstring_buf@@XZ")
-PATCH_PUSH_RET(0x007D7990, stringx::find_empty_buffer(int,char const *))
-PATCH_PUSH_RET_POLY(0x007D7990, stringx::find_empty_buffer(int,char const *), "?find_empty_buffer@stringx@@KAPAVstring_buf@@HPBD@Z")
-PATCH_PUSH_RET(0x007D7B50, stringx::find_cached_string(char const *,int))
-PATCH_PUSH_RET_POLY(0x007D7B50, stringx::find_cached_string(char const *,int), "?find_cached_string@stringx@@KAPAVstring_buf@@PBDH@Z")
-PATCH_PUSH_RET(0x007D7C70, stringx::add_buf_to_cache(string_buf *))
-PATCH_PUSH_RET_POLY(0x007D7C70, stringx::add_buf_to_cache(string_buf *), "?add_buf_to_cache@stringx@@KAXPAVstring_buf@@@Z")
-PATCH_PUSH_RET(0x007D7CF0, stringx::fork_data(int))
-PATCH_PUSH_RET_POLY(0x007D7CF0, stringx::fork_data(int), "?fork_data@stringx@@QAEXH@Z")
-PATCH_PUSH_RET(0x007D7F10, stringx::truncate(int))
-PATCH_PUSH_RET_POLY(0x007D7F10, stringx::truncate(int), "?truncate@stringx@@QAEXH@Z")
-PATCH_PUSH_RET(0x007D80A0, stringx::operator=(stringx const &))
-PATCH_PUSH_RET_POLY(0x007D80A0, stringx::operator=(stringx const &), "??4stringx@@QAEAAV0@ABV0@@Z")
-PATCH_PUSH_RET(0x007D80E0, stringx::operator=(char const *))
-PATCH_PUSH_RET_POLY(0x007D80E0, stringx::operator=(char const *), "??4stringx@@QAEAAV0@PBD@Z")
-PATCH_PUSH_RET(0x007D83A0, stringx::operator+=(stringx const &))
-PATCH_PUSH_RET_POLY(0x007D83A0, stringx::operator+=(stringx const &), "??Ystringx@@QAEAAV0@ABV0@@Z")
-PATCH_PUSH_RET(0x007D83D0, stringx::operator+=(char const *))
-PATCH_PUSH_RET_POLY(0x007D83D0, stringx::operator+=(char const *), "??Ystringx@@QAEAAV0@PBD@Z")
-PATCH_PUSH_RET(0x007D8400, stringx::aggressively_cache_buffer(void))
-PATCH_PUSH_RET_POLY(0x007D8400, stringx::aggressively_cache_buffer(void), "?aggressively_cache_buffer@stringx@@IAE_NXZ")
-PATCH_PUSH_RET(0x007D8470, stringx::make_room(int))
-PATCH_PUSH_RET_POLY(0x007D8470, stringx::make_room(int), "?make_room@stringx@@QAEXH@Z")
-PATCH_PUSH_RET(0x007D8690, stringx::copy(char const *,int))
-PATCH_PUSH_RET_POLY(0x007D8690, stringx::copy(char const *,int), "?copy@stringx@@QAEXPBDH@Z")
-PATCH_PUSH_RET(0x007D8950, stringx::copy(stringx &))
-
-PATCH_PUSH_RET_POLY(0x007D8950, stringx::copy(stringx &), "?copy@stringx@@QAEXAAV1@@Z")
-PATCH_PUSH_RET(0x007D8990, stringx::append(char const *,int))
-PATCH_PUSH_RET_POLY(0x007D8990, stringx::append(char const *,int), "?append@stringx@@QAEXPBDH@Z")
-PATCH_PUSH_RET(0x007D8BB0, string_buf::copy_data_from(string_buf *))
-PATCH_PUSH_RET_POLY(0x007D8BB0, string_buf::copy_data_from(string_buf *), "?copy_data_from@string_buf@@QAEXPAV1@@Z")
-
-PATCH_PUSH_RET(0x007D8C00, stringx::append(stringx const &))
-PATCH_PUSH_RET_POLY(0x007D8C00, stringx::append(stringx const &), "?append@stringx@@QAEXABV1@@Z")
-PATCH_PUSH_RET(0x007D8E10, stringx::find(char const *))
-PATCH_PUSH_RET_POLY(0x007D8E10, stringx::find(char const *), "?find@stringx@@QBEHPBD@Z")
-PATCH_PUSH_RET(0x007D8F10, stringx::find(int,char))
-PATCH_PUSH_RET_POLY(0x007D8F10, stringx::find(int,char), "?find@stringx@@QBEHHD@Z")
-
-PATCH_PUSH_RET(0x007D8F50, stringx::rfind(char,int))
-PATCH_PUSH_RET_POLY(0x007D8F50, stringx::rfind(char,int), "?rfind@stringx@@QBEHDH@Z")
-PATCH_PUSH_RET(0x007D8F90, stringx::rfind(char))
-PATCH_PUSH_RET_POLY(0x007D8F90, stringx::rfind(char), "?rfind@stringx@@QBEHD@Z")
-PATCH_PUSH_RET(0x007D8FD0, stringx::to_upper(void))
-
-PATCH_PUSH_RET_POLY(0x007D8FD0, stringx::to_upper(void), "?to_upper@stringx@@QAEXXZ")
-PATCH_PUSH_RET(0x007D91A0, stringx::to_lower(void))
-PATCH_PUSH_RET_POLY(0x007D91A0, stringx::to_lower(void), "?to_lower@stringx@@QAEXXZ")
-
-PATCH_PUSH_RET(0x007D9370, stringx::substr(int,int))
-PATCH_PUSH_RET_POLY(0x007D9370, stringx::substr(int,int), "?substr@stringx@@QBE?AV1@HH@Z")
-PATCH_PUSH_RET(0x007D95C0, string_buf::set_to_cstr(char const *,int))
-PATCH_PUSH_RET_POLY(0x007D95C0, string_buf::set_to_cstr(char const *,int), "?set_to_cstr@string_buf@@QAEXPBDH@Z")
-PATCH_PUSH_RET(0x007D9670, stringx::remove_leading(char const *))
-PATCH_PUSH_RET_POLY(0x007D9670, stringx::remove_leading(char const *), "?remove_leading@stringx@@QAEXPBD@Z")
-PATCH_PUSH_RET(0x007D9730, stringx::remove_trailing(char const *))
-PATCH_PUSH_RET_POLY(0x007D9730, stringx::remove_trailing(char const *), "?remove_trailing@stringx@@QAEXPBD@Z")
-PATCH_PUSH_RET(0x007D97F0, stringx::read_token(char *,int,bool,bool))
-PATCH_PUSH_RET_POLY(0x007D97F0, stringx::read_token(char *,int,bool,bool), "?read_token@stringx@@QAE?AV1@PADH_N1@Z")
-PATCH_PUSH_RET(0x007D9980, stringx::bogus_sum_sx_sx(stringx const &,stringx const &))
-PATCH_PUSH_RET_POLY(0x007D9980, stringx::bogus_sum_sx_sx(stringx const &,stringx const &), "?bogus_sum_sx_sx@stringx@@QAE?AV1@ABV1@0@Z")
-PATCH_PUSH_RET(0x007D9B10, string_buf::set_char_length(int))
-PATCH_PUSH_RET_POLY(0x007D9B10, string_buf::set_char_length(int), "?set_char_length@string_buf@@QAEXH@Z")
-PATCH_PUSH_RET(0x007D9B60, stringx::lock(void))
-PATCH_PUSH_RET_POLY(0x007D9B60, stringx::lock(void), "?lock@stringx@@QAEXXZ")
-
-PATCH_PUSH_RET(0x007D9CF0, stringx::bogus_sum_ch_sx(char const *,stringx const &))
-PATCH_PUSH_RET_POLY(0x007D9CF0, stringx::bogus_sum_ch_sx(char const *,stringx const &), "?bogus_sum_ch_sx@stringx@@QAE?AV1@PBDABV1@@Z")
-PATCH_PUSH_RET(0x007D9EA0, stringx::bogus_sum_sx_ch(stringx const &,char const *))
-PATCH_PUSH_RET_POLY(0x007D9EA0, stringx::bogus_sum_sx_ch(stringx const &,char const *), "?bogus_sum_sx_ch@stringx@@QAE?AV1@ABV1@PBD@Z")
-	*/
 
 #include "my_assertions.h"
 static void compile_time_assertions()
@@ -1112,9 +1003,83 @@ void patch_string_buf()
 	PATCH_PUSH_RET(0x007D95C0, string_buf::set_to_cstr);
 	PATCH_PUSH_RET(0x007D8BB0, string_buf::copy_data_from);
 	PATCH_PUSH_RET(0x007D6010 , string_buf::clear);
+}
 
+void patch_stringx()
+{
 	PATCH_PUSH_RET_POLY(0x007D6090, stringx::stringx(void), "??0stringx@@QAE@XZ")
 
+	PATCH_PUSH_RET_POLY(0x007D62E0, stringx::stringx(char const *,int), "??0stringx@@QAE@PBDH@Z")
+	PATCH_PUSH_RET_POLY(0x007D65A0, stringx::stringx(stringx const &), "??0stringx@@QAE@ABV0@@Z")
+	PATCH_PUSH_RET_POLY(0x007D65E0, stringx::stringx(float), "??0stringx@@QAE@M@Z")
+	PATCH_PUSH_RET_POLY(0x007D6890, stringx::stringx(int), "??0stringx@@QAE@H@Z")
+	PATCH_PUSH_RET_POLY(0x007D6B40, stringx::stringx(uint), "??0stringx@@QAE@I@Z")
+
+	PATCH_PUSH_RET(0x007D6DF0, stringx::reinit)
+
+	PATCH_PUSH_RET_POLY(0x007D70B0, stringx::stringx(stringx::fmtd,char const *,...), "??0stringx@@QAA@W4fmtd@0@PBDZZ")
+
+	PATCH_PUSH_RET_POLY(0x007D7360, stringx::~stringx(void), "??1stringx@@QAE@XZ")
+	
+	PATCH_PUSH_RET_POLY(0x007D73B0, stringx::release_buffer(void), "?release_buffer@stringx@@IAEXXZ")
+
+	PATCH_PUSH_RET(0x007D74C0, stringx::init)
+
+	PATCH_PUSH_RET_POLY(0x007D7600, stringx::acquire_buffer(char const *,int), "?acquire_buffer@stringx@@KAPAVstring_buf@@PBDH@Z")
+
+	PATCH_PUSH_RET_POLY(0x007D7850, stringx::find_small_buffer(void), "?find_small_buffer@stringx@@KAPAVstring_buf@@XZ")
+
+	PATCH_PUSH_RET_POLY(0x007D78E0, stringx::find_medium_buffer(void), "?find_medium_buffer@stringx@@KAPAVstring_buf@@XZ")
+
+	PATCH_PUSH_RET_POLY(0x007D7950, stringx::find_large_buffer(void), "?find_large_buffer@stringx@@KAPAVstring_buf@@XZ")
+
+	PATCH_PUSH_RET_POLY(0x007D7990, stringx::find_empty_buffer(int,char const *), "?find_empty_buffer@stringx@@KAPAVstring_buf@@HPBD@Z")
+
+	PATCH_PUSH_RET_POLY(0x007D7B50, stringx::find_cached_string(char const *,int), "?find_cached_string@stringx@@KAPAVstring_buf@@PBDH@Z")
+
+	PATCH_PUSH_RET_POLY(0x007D7C70, stringx::add_buf_to_cache(string_buf *), "?add_buf_to_cache@stringx@@KAXPAVstring_buf@@@Z")
+
+	PATCH_PUSH_RET_POLY(0x007D7CF0, stringx::fork_data(int), "?fork_data@stringx@@QAEXH@Z")
+
+	PATCH_PUSH_RET_POLY(0x007D7F10, stringx::truncate(int), "?truncate@stringx@@QAEXH@Z")
+
+	PATCH_PUSH_RET_POLY(0x007D80A0, stringx::operator=(stringx const &), "??4stringx@@QAEAAV0@ABV0@@Z")
+	PATCH_PUSH_RET_POLY(0x007D80E0, stringx::operator=(char const *), "??4stringx@@QAEAAV0@PBD@Z")
+	PATCH_PUSH_RET_POLY(0x007D83A0, stringx::operator+=(stringx const &), "??Ystringx@@QAEAAV0@ABV0@@Z")
+	PATCH_PUSH_RET_POLY(0x007D83D0, stringx::operator+=(char const *), "??Ystringx@@QAEAAV0@PBD@Z")
+
+	PATCH_PUSH_RET_POLY(0x007D8400, stringx::aggressively_cache_buffer(void), "?aggressively_cache_buffer@stringx@@IAE_NXZ")
+
+	PATCH_PUSH_RET_POLY(0x007D8470, stringx::make_room(int), "?make_room@stringx@@QAEXH@Z")
+
+	PATCH_PUSH_RET_POLY(0x007D8690, stringx::copy(char const *,int), "?copy@stringx@@QAEXPBDH@Z")
+
+	PATCH_PUSH_RET_POLY(0x007D8950, stringx::copy(stringx &), "?copy@stringx@@QAEXAAV1@@Z")
+
+	PATCH_PUSH_RET_POLY(0x007D8990, stringx::append(char const *,int), "?append@stringx@@QAEXPBDH@Z")
+	PATCH_PUSH_RET_POLY(0x007D8C00, stringx::append(stringx const &), "?append@stringx@@QAEXABV1@@Z")
+
+	PATCH_PUSH_RET_POLY(0x007D8E10, stringx::find(char const *), "?find@stringx@@QBEHPBD@Z")
+	PATCH_PUSH_RET_POLY(0x007D8F10, stringx::find(int,char), "?find@stringx@@QBEHHD@Z")
+
+	PATCH_PUSH_RET_POLY(0x007D8F50, stringx::rfind(char,int), "?rfind@stringx@@QBEHDH@Z")
+	PATCH_PUSH_RET_POLY(0x007D8F90, stringx::rfind(char), "?rfind@stringx@@QBEHD@Z")
+
+	PATCH_PUSH_RET(0x007D8FD0, stringx::to_upper)
+	PATCH_PUSH_RET(0x007D91A0, stringx::to_lower)
+
+
+	PATCH_PUSH_RET(0x007D9370, stringx::substr)
+	PATCH_PUSH_RET(0x007D9670, stringx::remove_leading)
+	PATCH_PUSH_RET(0x007D9730, stringx::remove_trailing)
+
+	PATCH_PUSH_RET(0x007D97F0, stringx::read_token)
+
+	PATCH_PUSH_RET(0x007D9980, stringx::bogus_sum_sx_sx)
+	PATCH_PUSH_RET(0x007D9B60, stringx::lock)
+
+	PATCH_PUSH_RET(0x007D9CF0, stringx::bogus_sum_ch_sx)
+	PATCH_PUSH_RET(0x007D9EA0, stringx::bogus_sum_sx_ch)
 }
 
 

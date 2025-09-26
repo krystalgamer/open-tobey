@@ -14,6 +14,12 @@ void runtime_assertions()
 	validate_string_buf();
 }
 
+void game_patches()
+{
+	patch_string_buf();
+	patch_stringx();
+}
+
 void runtime_patches()
 {
 	LPVOID text_start = (void*)0x401000;
@@ -22,7 +28,7 @@ void runtime_patches()
 	DWORD text_protect;
 	VirtualProtect(text_start, text_size, PAGE_EXECUTE_READWRITE, &text_protect);
 
-	patch_string_buf();
+	game_patches();
 
 	DWORD t;
 	VirtualProtect(text_start, text_size, text_protect, &t);

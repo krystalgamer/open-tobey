@@ -483,9 +483,9 @@ class stringx
     friend inline bool operator!=(const stringx& lhs, const char *rhs );
     friend inline bool operator<( const stringx& lhs, const stringx& rhs );
 	
-	EXPORT stringx bogus_sum_sx_sx(const stringx& lhs, const stringx& rhs);
-    EXPORT stringx bogus_sum_ch_sx( const char* lhs, const stringx& rhs );
-    EXPORT stringx bogus_sum_sx_ch( const stringx& lhs, const char* rhs );
+	EXPORT static stringx bogus_sum_sx_sx(const stringx& lhs, const stringx& rhs);
+    EXPORT static stringx bogus_sum_ch_sx( const char* lhs, const stringx& rhs );
+    EXPORT static stringx bogus_sum_sx_ch( const stringx& lhs, const char* rhs );
 
 	friend void validate_stringx(void);
 };
@@ -625,5 +625,6 @@ extern stringx empty_string;
 extern stringx sendl;
 
 void patch_string_buf();
+void patch_stringx();
 
 #endif
