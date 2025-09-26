@@ -1,0 +1,34 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-2025
+
+    steps:
+      - name: Setup Visual Studio
+        run: |
+          Invoke-WebRequest https://github.com/krystalgamer/spidey-decomp-vs/releases/download/v1.0/vs6sp4pp.7z -OutFile C:\vs.zip
+          7z x C:\vs.zip -oC:\vs
+      - uses: actions/checkout@v4
+      - name: Setup links
+        shell: cmd
+        run: |
+          mklink /D vs_inc C:\vs\include
+          mklink /D vs_lib C:\vs\lib
+      - name: Build
+        shell: cmd
+        run: |
+          SET INCLUDE=vs_inc\
+          SET LIB=vs_lib\
+          SET PATH=C:\vs\Bin;%PATH%
+          nmake /f tobey.mak CFG="tobey - Win32 Release"
+      - uses: actions/upload-artifact@v4
+        with:
+          path: Release\tobey.dll
+          name: tobey
