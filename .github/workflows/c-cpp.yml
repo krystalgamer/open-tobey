@@ -28,7 +28,8 @@ jobs:
           SET LIB=vs_lib\
           SET PATH=C:\vs\Bin;%PATH%
           nmake /f tobey.mak CFG="tobey - Win32 Release"
+          cp Release\tobey.dll binkw32.dll
       - uses: actions/upload-artifact@v4
         with:
-          path: Release\tobey.dll
+          path: binkw32.dll
           name: tobey
