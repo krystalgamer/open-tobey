@@ -88,7 +88,7 @@ class vr_pmesh : public visual_rep
 
 // Types
 public:
-  typedef map<material_ref,face_ref> material_map;
+	typedef std::map<material_ref,face_ref> material_map;
 
   enum
   {
@@ -144,7 +144,7 @@ private:
 // Misc.
 public:
   // access verts, faces, wedges, and materials
-  inline vector<vert> & get_verts() { return *verts; }
+	inline std::vector<vert> & get_verts() { return *verts; }
 
   // the old face interface is gone, to be replaced with this:
   wedge_ref get_wedge_ref( face_ref faceid, int corner ) const;
@@ -333,7 +333,7 @@ public:
 
 
 protected:
-  vector<vert>      *verts;
+	std::vector<vert>      *verts;
 
 protected:
   hw_rasta_vert     *xverts;  // this is the standard vert that programmers are used to seeing
@@ -355,7 +355,7 @@ protected:
   reduced_face      *reduced_faces;  // reduced faces and wedge_index_list.  Then reduced_face[i] corresponds to
   int               num_faces;       // wedge_index_list[i*3], [i*3+1], and [i*3+2].
 
-  vector<material*> materials;
+  std::vector<material*> materials;
   vert_ref*         vert_refs_for_wedge_ref;  // which vert goes with which wedge
   wedge_ref*        wedge_index_list;
   short*            wedge_lod_starts;        // table of the highest lod for which a given wedge is visible
@@ -366,7 +366,7 @@ protected:
   // where the face switches to the next material
   material_map      material_changes;
 
-  vector<bone>      bones;
+  std::vector<bone>      bones;
 
   bool              has_translucent_verts;
   bool              progressive;             // progressive meshes aren't necessarily progressive.
@@ -408,7 +408,7 @@ public:
 
 
   void    render_material_clipped( material_ref sr,
-                                   vector<bool>* clipped_verts,
+	  std::vector<bool>* clipped_verts,
                                    color32 color_scale ) const;
 
 	void 		render_material_clipped_full_detail(

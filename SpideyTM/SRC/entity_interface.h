@@ -11,7 +11,6 @@
     bool has_##itype##_ifc() const { return (my_##itype##_interface != NULL); }     \
     itype##_interface * itype##_ifc() const                               \
     {                                                                     \
-
       assert(my_##itype##_interface);                                     \
       return my_##itype##_interface;                                      \
     }                                                                     \
@@ -80,7 +79,6 @@ public:                                                                   \
   virtual ~itype##_interface()  { my_##itype = NULL; }                    \
                                                                           \
   itype *get_my_##itype() const { return(my_##itype); }                   \
-
 };                                                                        \
 
 GENERIC_INTERFACE_DEC(bone)

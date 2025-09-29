@@ -68,7 +68,7 @@ class camera;
 //typedef graph<stringx,region*,portal*> region_graph;
 //typedef region_graph::node region_node;
 
-typedef vector<material*> material_list;
+typedef std::vector<material*> material_list;
 struct material_set
 {
   stringx         *name;
@@ -124,13 +124,13 @@ class anim_id_manager : public singleton
 
  public:
   //typedef vector<stringx> label_list;
-  typedef vector<stringx
+	 typedef std::vector<stringx
 	  #ifdef TARGET_PS2
                  ,malloc_alloc
 
   	#endif
                  > label_list;
-  typedef map< stringx, anim_id_t > label_map_t;
+  typedef std::map< stringx, anim_id_t > label_map_t;
   //typedef map< stringx, anim_id_t, less<stringx>, malloc_alloc > label_map_t;
 
   // Data
@@ -237,7 +237,7 @@ enum
 // entity_manager class
 ///////////////////////////////////////////////////////////////////////////////
 
-typedef map< entity_id, entity*
+typedef std::map< entity_id, entity*
   , less<entity_id>
 	#ifdef TARGET_PS2
 	, malloc_alloc

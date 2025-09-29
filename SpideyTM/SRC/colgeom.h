@@ -21,7 +21,7 @@ class region;
 
 
 //typedef vector<vector3d,malloc_alloc> vectorvector;
-typedef vector<vector3d> vectorvector;
+typedef std::vector<vector3d> vectorvector;
 
 
 // The following is workspace for the collision routines.

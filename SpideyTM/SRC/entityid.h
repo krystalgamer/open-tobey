@@ -24,7 +24,7 @@ class charstarwrap
 
 char* strdupcpp(const char* str);
 
-typedef map<charstarwrap,unsigned int
+typedef std::map<charstarwrap,unsigned int
   , less<charstarwrap>
   #ifdef TARGET_PS2
 	, malloc_alloc

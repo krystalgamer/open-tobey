@@ -48,10 +48,10 @@ template
       };
 
 
-    class node : public list<edge>
+    class node : public std::list<edge>
       {
       public:
-        typedef list<edge> _myL;
+		  typedef std::list<edge> _myL;
       private:
         _NodeData data;
       public:
@@ -62,10 +62,10 @@ template
       friend class graph;
 
       };
-    typedef map<_NodeKey,node,_KeyComp> node_list;
+    typedef std::map<_NodeKey,node,_KeyComp> node_list;
 
     typedef node_list::iterator iterator;
-    typedef pair<iterator,bool> _Pairib;
+    typedef std::pair<iterator,bool> _Pairib;
 
   // Data
   private:
