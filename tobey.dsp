@@ -43,7 +43,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /Gi- /GX /Zi /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /Zi /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -111,7 +111,15 @@ SOURCE=.\SpideyTM\SRC\stringx.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\vm_thread.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\HWOSPC\w32_errmsg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\w32_file.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -119,7 +127,135 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\w32_errmsg.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\aggvertbuf.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\algebra.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\anim.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\anim_flavor.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\anim_flavors.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\anim_ids.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\app.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\archalloc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\avltree.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\bone.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\bound.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\box_trigger_interface.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\camera.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\capsule.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\cface.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\chunkfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\colgeom.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\colmesh.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\color.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\conglom.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\constants.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\convex_box.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\d3d_rasterize.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\d3d_texturemgr.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\debug.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\entflavor.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\entity.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\entity_anim.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\entity_interface.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\entity_signals.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\entityid.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\face.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\faceflags.h
 # End Source File
 # Begin Source File
 
@@ -127,7 +263,31 @@ SOURCE=.\SpideyTM\SRC\fast_vector.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\file.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\filespec.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\forwards.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\frame_info.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\game.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\game_info_vars.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\generator.h
 # End Source File
 # Begin Source File
 
@@ -135,7 +295,79 @@ SOURCE=.\SpideyTM\SRC\global.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\global_signals.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\graph.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\hull.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\hwmath.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\hwrasterize.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\hyperplane.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\inputmgr.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\instance.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\ksheaps.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\light.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\linear_anim.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\link_interface.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\map_e.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\material.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\maxskinbones.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\meshrefs.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\mic.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\mobject.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\mustash.h
 # End Source File
 # Begin Source File
 
@@ -151,7 +383,35 @@ SOURCE=.\SpideyTM\SRC\my_patch.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\ode.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\opcodes.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\osalloc.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\oserrmsg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\osfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\ostimer.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\path.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\pc_algebra.h
 # End Source File
 # Begin Source File
 
@@ -159,7 +419,91 @@ SOURCE=.\SpideyTM\SRC\pc_port.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\pcglobals.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\physics.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\plane.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\platform_defines.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\pmesh.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\po.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\po_anim.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\portal.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\project.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\pstring.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\rect.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\refptr.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\region.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\region_graph.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\render_data.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\renderflav.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\scene_anim.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\script_lib_mfg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\script_library_class.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\script_mfg_signals.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\script_object.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\signal_anim.h
 # End Source File
 # Begin Source File
 
@@ -171,7 +515,39 @@ SOURCE=.\SpideyTM\SRC\singleton.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\sl_debugger.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\so_data_block.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sphere.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\stashes.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\staticmem.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\stringx.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\terrain.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\textfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\txtcoord.h
 # End Source File
 # Begin Source File
 
@@ -179,11 +555,71 @@ SOURCE=.\SpideyTM\SRC\types.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\usefulmath.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\users.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\vert.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\visrep.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\vm_executable.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\vm_stack.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\vm_symbol.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\vm_symbol_list.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\vm_thread.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\w32_alloc.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\HWOSPC\w32_errmsg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\w32_file.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\w32_timer.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\warnlvl.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\wds.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\wedge.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\x86_math.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
