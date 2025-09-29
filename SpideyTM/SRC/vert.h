@@ -44,7 +44,10 @@ inline void serial_in(chunk_file& io,vert* v)
 
 {
   memset( v, 0, sizeof( *v ) );
-  serial_in(io, &v->point);
+
+
+  // @Patch comment
+  //serial_in(io, &v->point);
 }
 
 inline vert::vert( chunk_file& io )

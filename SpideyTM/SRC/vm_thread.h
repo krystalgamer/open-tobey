@@ -9,6 +9,9 @@
 #include "vm_stack.h"
 
 
+// @Patch
+#include "pcglobals.h"
+
 
 #include <stack>
 #include <set>
@@ -62,7 +65,7 @@ class vm_thread
     const unsigned short* PC;
     // program counter stack
 
-    vector<const unsigned short*> PC_stack;
+	std::vector<const unsigned short*> PC_stack;
     // used when calling library functions
     script_library_class::function::entry_t entry;
     // if thread was spawned by an event callback, this points to the callback definition

@@ -104,8 +104,8 @@ class anim_texture
 
 	private:
 		stringx filename;
-		vector<refptr<hw_texture> > frame_list;
-    vector<vertex_context> vc_list;
+		std::vector<refptr<hw_texture> > frame_list;
+		std::vector<vertex_context> vc_list;
     // keeping a vertex_context with each texture frame
     // is an important optimization because processing
     // the vertext context takes more time than setting,

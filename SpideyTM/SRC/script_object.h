@@ -117,7 +117,7 @@ class script_object
     int data_blocksize;
 
     // script functions
-    vector<vm_executable*> funcs;
+	std::vector<vm_executable*> funcs;
 
     // instance management
     instance_list instances;
@@ -219,7 +219,7 @@ class script_manager
   {
   // Types
   public:
-    class sobj_less : public binary_function<const script_object*,const script_object*,bool>
+	  class sobj_less : public std::binary_function<const script_object*,const script_object*,bool>
       {
       public:
         bool operator()(const script_object* a,const script_object* b) const
@@ -228,9 +228,9 @@ class script_manager
 
           }
       };
-    typedef list<script_object*> sobj_list;
-    typedef map<stringx,script_object*> name_sobj_map;
-    typedef set<stringx> string_set_t;
+    typedef std::list<script_object*> sobj_list;
+    typedef std::map<stringx,script_object*> name_sobj_map;
+    typedef std::set<stringx> string_set_t;
 
   // Data
   protected:

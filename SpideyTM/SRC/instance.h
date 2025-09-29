@@ -38,7 +38,7 @@ public:
     }
 
   };
-  class less_by_ptr : public binary_function<const ref_t*,const ref_t*,bool>
+  class less_by_ptr : public std::binary_function<const ref_t*,const ref_t*,bool>
   {
 
   public:
@@ -52,8 +52,8 @@ public:
 
   typedef set<ref_t*,less_by_ptr,malloc_alloc> pref_set;
   #else
-  typedef set<ref_t*,less_by_label> lref_set;
-  typedef set<ref_t*,less_by_ptr> pref_set;
+  typedef std::set<ref_t*,less_by_label> lref_set;
+  typedef std::set<ref_t*,less_by_ptr> pref_set;
   #endif
 
 // Data

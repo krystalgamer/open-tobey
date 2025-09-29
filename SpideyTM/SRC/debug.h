@@ -30,6 +30,10 @@
 
 #include "users.h"
 
+
+// @Patch
+#define BUILD_FINAL
+
 #ifndef BUILD_FINAL
 
 void debug_print(const char* fmt, ...);

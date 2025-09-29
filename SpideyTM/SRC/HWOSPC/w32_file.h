@@ -106,5 +106,7 @@ class os_file
 
 };            
 
+// @Patch
+typedef os_file* host_system_file_handle;
 
 #endif

@@ -545,6 +545,8 @@ class stringx;
 #include "xbglobals.h"
 #endif
 
+// @Patch
+/*
 #define sin(x) sinf(x)
 #define cos(x) cosf(x)
 #define acos(x) acosf(x)
@@ -559,6 +561,7 @@ class stringx;
 #define mod(x) modf(x)
 #define pow(x,y) powf(x,y)
 #define sqrt(x) sqrtf(x)
+*/
 
 
 
