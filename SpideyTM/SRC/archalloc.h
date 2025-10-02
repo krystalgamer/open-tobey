@@ -28,6 +28,9 @@
 #include "staticmem.h"
 */
 
+// @Patch
+#define GCOLDHEAP
+
 #include "ksheaps.h"   // for heap ids
 
 #if (defined TARGET_PC) || (defined TARGET_XBOX) || (defined TARGET_GC)

@@ -18,8 +18,7 @@
 // #include "debug.h"
 
 
-// @PATCH - forward decl
-class stringx;
+#include "..\stringx.h"
 
 // Bring up a dialog box to warn the user.
 void warning(const stringx& str);

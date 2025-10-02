@@ -323,7 +323,9 @@ public:
 
     bool is_hero_frozen() const { return flag.hero_frozen; }
     void freeze_hero( bool freeze ); // used to disable the hero's controls for scripted sequences.
-	void take_snapshot(nglTexture * dest);
+
+	// @Patch
+	//void take_snapshot(nglTexture * dest);
 	SNAPSTATE get_snapshot_state(void) const { return snapshotState; }
 	//int get_num_snapshots_taken(void) const { return numSnapshots; }
 	//int get_snapshot_score(const int sIdx) const { assert(sIdx >= 0 && sIdx < MAX_SNAPSHOTS); return snapshotScores[sIdx]; }
@@ -488,9 +490,11 @@ public:
 	//po						snapshotPrevCamPo;
 	camera *				snapshotPrevCam;
 
-	nglTexture *			snapshot;
+	// @Patch
+	//nglTexture *			snapshot;
 	SNAPSTATE				snapshotState;
-	nglTexture *			destSnapshot;
+	// @Patch
+	//nglTexture *			destSnapshot;
 
 	// What we're drawing in the game
 	RENDER_STATE			renderState;

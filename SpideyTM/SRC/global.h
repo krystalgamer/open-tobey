@@ -40,7 +40,10 @@
 #endif /* TARGET_XBOX JIV DEBUG */
 
 #else
+
+#ifndef TARGET_PC
   #define TARGET_PC
+#endif
 #endif /* _XBOX JIV DEBUG */
 //  #define __SGI_STL
 #elif defined(__GNUC__)

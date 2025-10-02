@@ -14,6 +14,8 @@
 #include "hwosgc\gc_math.h"
 #elif defined(TARGET_NULL)
 #include "hwosnull\null_math.h"
+#else
+#error "FUCK YOU"
 #endif
 
 #include "usefulmath.h"

@@ -190,7 +190,9 @@ public:
   inline void set_vert(int i,vert v) { (*verts)[i] = v; }
   inline void set_wedge(int i,wedge & w)  { wedges[i] = w; }
   inline vector3d get_xvert_unxform_pos(int i) const { return xverts[i].xyz; }
-  inline void set_xvert_tc(int i, const texture_coord& tex) { xverts[i].tc[0] = tex; }
+
+  // @Patch
+	//inline void set_xvert_tc(int i, const texture_coord& tex) { xverts[i].tc[0] = tex; }
 
   inline void set_xvert_unxform_pos(int i,vector3d p) { xverts[i].xyz = p; }
   inline void set_xvert_xform_pos(int i,vector3d p)

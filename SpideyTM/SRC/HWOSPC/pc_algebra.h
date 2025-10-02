@@ -3,6 +3,7 @@
 
 #include "hwmath.h"
 #include "chunkfile.h"
+#include "..\pcglobals.h"
 
 class vector2d
 {

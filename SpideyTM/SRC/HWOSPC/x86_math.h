@@ -2,7 +2,6 @@
 #define X86_MATH_H
 
 #include <math.h>
-#include "..\global.h"
 
 
 typedef float rational_t;  
@@ -25,7 +24,9 @@ extern rational_t fast_acos_lookup_table[_FAST_ACOS_LOOKUP_SIZE+1];
 
 inline rational_t fast_acos(rational_t a)
 {
-  assert(a >= -1.0f && a <= 1.0f);
+
+	// @Patch
+  //assert(a >= -1.0f && a <= 1.0f);
   return(fast_acos_lookup_table[(int)((a+1.0f)*_FAST_ACOS_LOOKUP_MOD)]);
 }
 

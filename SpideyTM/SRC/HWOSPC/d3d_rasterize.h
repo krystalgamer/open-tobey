@@ -1,7 +1,7 @@
 #ifndef D3D_RASTERIZE_H
 #define D3D_RASTERIZE_H
 
-#include "hwospc\d3d_texturemgr.h"
+#include "d3d_texturemgr.h"
 #include "refptr.h"
 
 enum 
@@ -28,11 +28,14 @@ public:
 
   ////////////////////////////////////////////////////////////////////////////////
 
+  // @Patch
+  /*
   // untransformed constructors
   hw_rasta_vert_lit(const vector3d& _p, color32 _diffuse, float u, float v) 
     : xyz(_p), diffuse(_diffuse)
   {
-    tc[ 0 ] = vector2d( u, v );
+    // @Patch
+	//tc[ 0 ] = vector2d( u, v );
   }
 
 
@@ -40,8 +43,11 @@ public:
   hw_rasta_vert_lit(const vector3d& _p, const texture_coord& _tc, color32 _diffuse ) 
     : xyz(_p), diffuse(_diffuse)
   {
-    tc[ 0 ] = _tc;
+
+    // @Patch
+	//tc[ 0 ] = _tc;
   }
+  */
 
   // clear out stuff that isn't normally overwritten but needs cleared
   void reset() {}
@@ -65,10 +71,13 @@ public:
 
   // this is the simplest way I thought of to make sure verts match.
   // which is required.
-  unsigned char bone_ids[MAX_SKIN_BONES]; // used to be kept in specular.c.a
-  float bone_weights[MAX_SKIN_BONES];
+  // @Patch
+	//unsigned char bone_ids[MAX_SKIN_BONES]; // used to be kept in specular.c.a
+  // @Patch
+	//float bone_weights[MAX_SKIN_BONES];
 
-  vector2d tc[ MAX_TEXTURE_COORDS ]; // texture coordinate
+  // @Patch
+	//vector2d tc[ MAX_TEXTURE_COORDS ]; // texture coordinate
 };
 
 // @TODO
@@ -83,29 +92,39 @@ public:
 
   ////////////////////////////////////////////////////////////////////////////////
   // untransformed constructors
+  // @Patch
+	/*
   hw_rasta_vert(const vector3d& _p, color32 _diffuse, float u, float v)
-    : xyz(_p), diffuse(_diffuse)
   {
-    bone_ids[0] = 0;
-    tc[0].x = u;
-    tc[0].y = v;
+    // @Patch
+	//bone_ids[0] = 0;
+    // @Patch
+	//tc[0].x = u;
+    // @Patch
+	//tc[0].y = v;
 
   }
 
   // compatibility version with different param order.
+  // @Patch
+
   hw_rasta_vert(const vector3d& _p, const texture_coord& _tc, color32 _diffuse )
-    : xyz(_p), diffuse(_diffuse)
   {
-    bone_ids[0] = 0;
-    tc[0] = _tc;
+    // @Patch
+	//bone_ids[0] = 0;
+    // @Patch
+	//tc[0] = _tc;
   }
 
   hw_rasta_vert(const vector3d& _p, color32 _diffuse, uint8 bone_idx, float _u, float _v)
     : xyz(_p), diffuse(_diffuse)
   {
-    bone_ids[0] = bone_idx;
-    tc[0] = vector2d(_u,_v);
+    // @Patch
+	//bone_ids[0] = bone_idx;
+    // @Patch
+	//tc[0] = vector2d(_u,_v);
   }
+  */
 
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -144,6 +163,8 @@ public:
   color32 diffuse; // color
 
   int num_bones;
+  // @Patch
+	/*
   unsigned char bone_ids[MAX_SKIN_BONES]; // used to be kept in specular.c.a
   float bone_weights[MAX_SKIN_BONES];
 
@@ -151,6 +172,7 @@ public:
   const unsigned char& boneid() const { return bone_ids[0]; }
 
   vector2d tc[ MAX_TEXTURE_COORDS ]; // texture coordinate
+  */
 
 };
 
@@ -190,14 +212,17 @@ public:
   hw_rasta_vert_xformed() {}
 
 
-  hw_rasta_vert_xformed(const vector3d& _p, rational_t _rhw, texture_coord _tc, color32 _diffuse/*,
-                color32 _specular = color32(0,0,0,0)*/ ) 
+  // @Patch
+  /*
+  hw_rasta_vert_xformed(const vector3d& _p, rational_t _rhw, texture_coord _tc, color32 _diffuse,
+                color32 _specular = color32(0,0,0,0) ) 
      : xyz(_p)
      , rhw(_rhw) 
-     , diffuse(_diffuse) /*specular(_specular), */
+     , diffuse(_diffuse) specular(_specular),
   {
     tc[ 0 ] = _tc;
   }
+	 */
 
   // clear out stuff that isn't normally overwritten but needs cleared
   void reset() {}
@@ -231,11 +256,14 @@ public:
   color32 specular; // compat with D3D_TLVERTEX
   // this is the simplest way I thought of to make sure verts match.
   // which is required.
-  unsigned char bone_ids[MAX_SKIN_BONES]; // used to be kept in specular.c.a
-  float bone_weights[MAX_SKIN_BONES];
+  // @Patch
+	//unsigned char bone_ids[MAX_SKIN_BONES]; // used to be kept in specular.c.a
+  // @Patch
+	//float bone_weights[MAX_SKIN_BONES];
 
 
-  vector2d tc[ MAX_TEXTURE_COORDS ]; // texture coordinate
+  // @Patch
+	//vector2d tc[ MAX_TEXTURE_COORDS ]; // texture coordinate
 };
 
 class vert_buf_xformed : public ref

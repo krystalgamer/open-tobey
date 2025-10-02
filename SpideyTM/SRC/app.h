@@ -1,6 +1,7 @@
 #ifndef APP_H
 #define APP_H
 ////////////////////////////////////////////////////////////////////////////////
+
 /*
   app.h
   application class
@@ -38,6 +39,7 @@ class app : public singleton, public signaller
 
     static void cleanup();
     static void bomb(); // shuts down everything and calls exit(), or may reboot a console
+
 
 		static void cleanup_stl_memory_dregs( void );
 
@@ -80,6 +82,7 @@ class app : public singleton, public signaller
     // This static function must be implemented by every class which can generate
     // signals, and is called once only by the application for each such class;
     // the effect is to register the name and local id of each signal with the
+
     // signal_manager.  This call must be performed before any signal objects are
     // actually created for this class (via signaller::signal_ptr(); see signal.h).
     static void register_signals();

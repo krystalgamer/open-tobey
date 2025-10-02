@@ -32,3 +32,13 @@ os_file::~os_file()
 	if (is_open()) 
 		close();
 }
+
+// @TODO
+void os_file::open(const stringx & _name, int _flags)
+{
+}
+
+// @TODO
+void os_file::close()
+{
+}

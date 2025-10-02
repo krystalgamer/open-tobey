@@ -121,6 +121,11 @@ inline uint32 log10(uint32 v)
 
 inline bool is_zero(rational_t v) { return (__fabs(v) < EPSILONF); }
 
+// @Patch
+#ifndef assert
+#define assert(x)
+
+
 inline rational_t upper_quadratic( const rational_t a, const rational_t b, const rational_t c )
 {
   assert(a!=0);
@@ -142,6 +147,9 @@ inline rational_t lower_quadratic( const rational_t a, const rational_t b, const
 
   return ( -b-(rational_t)__fsqrt(discriminant) ) / (2*a);
 }
+
+#undef assert
+#endif
 
 // these don't specify the source units... I'd rather use macros that did. --Sean
 // #define _TO_RADIANS(a)    ((a) * (PI / 180.0f))

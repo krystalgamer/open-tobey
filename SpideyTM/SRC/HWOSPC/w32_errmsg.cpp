@@ -9,3 +9,8 @@ void error(const stringx& str)
 void error(const char* fmtp, ...)
 {
 }
+
+// @TODO
+void warning(const stringx& str )
+{
+}
