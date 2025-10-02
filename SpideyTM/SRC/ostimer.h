@@ -36,7 +36,8 @@ class game_clock
 
 
   static time_value_t delta;
-#if !defined(TARGET_PS2) && !defined(TARGET_XBOX) && !defined(TARGET_GC)
+  // @Patch
+#if !defined(TARGET_PS2) && !defined(TARGET_XBOX) && !defined(TARGET_GC) && !defined(TARGET_PC)
   static uint32 ticks;
 #else
   static uint64 ticks;

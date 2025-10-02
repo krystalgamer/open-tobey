@@ -155,7 +155,7 @@ public:
 
   // this is a list of all the facerefs in the world, pointed to by partition3's/
   std::vector<partition3::faceref> const & get_facerefs(){return facerefs;}
-  void add_to_facerefs(vector<partition3::faceref> _facerefs)
+  void add_to_facerefs(std::vector<partition3::faceref> _facerefs)
   {
     for (int i=0;i<(int)_facerefs.size();++i)
 
@@ -167,7 +167,7 @@ public:
 // Data
 private:
   std::vector<partition3::faceref> facerefs;
-  std::region_graph regions_graph;
+  region_graph regions_graph;
   region_list regions;
   portal_list portals;
   sector_list sectors;

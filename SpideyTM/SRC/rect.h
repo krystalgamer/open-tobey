@@ -13,6 +13,9 @@
 
 #include "algebra.h"
 
+// @Patch
+#define max(a,b) (a > b ? a : b)
+
 // Toby was here.
 
 class recti

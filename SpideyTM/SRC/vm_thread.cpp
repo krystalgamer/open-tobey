@@ -15,6 +15,7 @@
 #include "wds.h"
 
 #include "sl_debugger.h"
+#include "timer.h"
 
 // CLASS vm_thread
 
@@ -1111,6 +1112,8 @@ assert(PC_stack.end() >= PC_stack.begin());
 
 bool vm_thread::call_script_library_function( const argument_t& arg, const unsigned short* oldPC )
 {
+	// @Patch
+	/*
   char* oldSP = dstack.get_SP();
   if ( !((*arg.lfr)(dstack,entry)) )
   {
@@ -1130,6 +1133,8 @@ bool vm_thread::call_script_library_function( const argument_t& arg, const unsig
     entry = script_library_class::function::FIRST_ENTRY;  // reset for next library call
     return true;
   }
+  */
+	return false;
 }
 
 

@@ -1,6 +1,8 @@
 #pragma once
 
 
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 extern HMODULE bink_dll;
 static inline int* get_thunk_address(void* first,...)
 {
@@ -28,9 +30,3 @@ static inline int* get_thunk_address(void* first,...)
 	tmp[5] = 0xC3;\
 	puts("Hooking " #dest " at " #addr);\
 }
-
-
-#define SAY_HELLO() {\
-	puts("HELLO");\
-}
-

@@ -235,15 +235,12 @@ class stringx;
 //! Stub function macro
 
 // @TODO
-/*
 #define STUBBED(stub, str) \
     static bool once_##stub = true; \
     if (once_##stub) { \
       debug_print("Warning: %s function has been disabled.\n", str); \
       once_##stub = false; \
-
     }
-*/
 
 #ifdef TARGET_PS2
 

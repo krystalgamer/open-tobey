@@ -7,7 +7,9 @@ os_file::os_file()
 	flags=0;
 	opened=false;
 	from_cd = false;
-	io = INVALID_FP;
+
+	// @Patch
+	//io = INVALID_FP;
 }
 
 os_file::os_file(const stringx & _name, int _flags)
@@ -16,7 +18,8 @@ os_file::os_file(const stringx & _name, int _flags)
 	flags=0;
 	opened=false;
 	from_cd = false;
-	io = INVALID_FP;
+	// @Patch
+	//io = INVALID_FP;
 	open(_name,_flags);
 
 }

@@ -291,6 +291,9 @@ class world_dynamics_system
     particle_generator *add_particle_generator( const stringx& filename,
                                 bool invisible, bool nonstatic,
                                 entity_id &_id );
+
+	// @Patch
+	/*
     light_source* add_light_source( entity_id id,
                                     po const & loc,
                                     const light_properties& props,
@@ -307,6 +310,7 @@ class world_dynamics_system
                              //const list<region_node*>* forced_regions,
                              const region_node_list* forced_regions,
                              unsigned int scene_flags = entity::ACTIVE );
+							 */
     void add_box_trigger( entity* e );
 
     void add_marker( entity_id& _id );
@@ -347,6 +351,8 @@ class world_dynamics_system
 
     void recompute_all_sectors(); // calls compute_sector for each entity
 
+	// @Patch
+	/*
     entity* get_hero_ptr(int n){return hero_ptr[n];}
 
     void    set_hero_ptr(int n, entity *hptr) {hero_ptr[n]=hptr;}
@@ -355,9 +361,11 @@ class world_dynamics_system
 	kellyslater_controller ** get_ks_controllers(void) { return ks_controller; }
     kellyslater_controller *get_ai_controller()  { return (g_game_ptr->get_num_ai_players()?ks_controller[1]:NULL);}
 
+	
     void    set_ks_controller(int n, kellyslater_controller *ksc_ptr);
     entity *get_board_ptr(int n) {assert(ks_controller[n]); return ks_controller[n]->GetBoard();}
     entity *get_board_model_ptr(int n) {assert(ks_controller[n]); return ks_controller[n]->GetBoardModel();}
+	*/
     //
     void load_ai_hero(device_id_t joystick_num, int surfer_index, bool pers);
 
@@ -503,9 +511,12 @@ class world_dynamics_system
 
     terrain * the_terrain;
 
+	// @Patch
+	/*
     entity * hero_ptr[MAX_PLAYERS];
     kellyslater_controller * ks_controller[MAX_PLAYERS];
 
+	*/
     // file instancing
     entfile_map entfiles;
 
@@ -545,8 +556,12 @@ class world_dynamics_system
 
     // these pointers allow us to update the usercam when the game is paused.
     motion_control_system * usercam_orient_mcs;
+
+	// @Patch
+	/*
     theta_and_psi_mcs * usercam_move_mcs;
     controller * usercam_controller;
+	*/
     entity * usercam;
 	replay_camera* replay_cam_ptr;
 
@@ -577,7 +592,8 @@ class world_dynamics_system
 
     std::vector<entity*> dead_ents;
 
-	nglLightContext *current_light_context;
+	// @Patch
+	//nglLightContext *current_light_context;
   public:
     int setup_time;
 
@@ -587,9 +603,12 @@ class world_dynamics_system
     aggregate_vert_buf_list &get_matvertbufs() { return matvertbufs; }
     bool is_loading_from_scn_file() const;
 
+	// @Patch
+	/*
 	nglLightContext *get_current_light_context() { return current_light_context; }
 	nglLightContext *set_current_light_context(nglLightContext *new_lc); 
 
+	*/
     // scene animation stuff
   private:
     typedef std::map<stringx,scene_anim *> scene_anim_map_t;
@@ -676,8 +695,8 @@ class world_dynamics_system
 ////////////////////////////////////////////////////////////////////////////////
 extern world_dynamics_system * g_world_ptr;
 
-void build_region_list_radius(vector<region_node*> *regs, region_node* rn, const vector3d& pos, rational_t rad, bool only_active_portals = true, std::vector<region_node*> *append = NULL);
-void build_region_list(vector<region_node*> *regs, region_node *r, const vector3d& o, const vector3d& d, vector<region_node*> *append = NULL);
+void build_region_list_radius(std::vector<region_node*> *regs, region_node* rn, const vector3d& pos, rational_t rad, bool only_active_portals = true, std::vector<region_node*> *append = NULL);
+void build_region_list(std::vector<region_node*> *regs, region_node *r, const vector3d& o, const vector3d& d, std::vector<region_node*> *append = NULL);
 
 void compute_combat_target( entity* shooter, rational_t time_inc = 0.0f, bool use_los_only = false );
 

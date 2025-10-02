@@ -26,9 +26,11 @@
 //#include "ksnvl.h"
 //#include "fepanel.h"
 //#include "hwmovieplayer.h"
-//#include "random.h"
+#include "random.h"
 
 //#include "coords.h"
+
+#include "timer.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //  forward-declared classes
@@ -243,7 +245,9 @@ public:
 	// Gets the first beach id for the current beaches at the current location
   // IE - it will get the id for Tea if your current level is Tea Eve
 	int			get_first_beach();
-	camera *	get_player_camera(int n)		{assert(n<MAX_PLAYERS); return player_cam[n];}
+
+	// @Patch
+	//camera *	get_player_camera(int n)		{assert(n<MAX_PLAYERS); return player_cam[n];}
     void		set_player_camera(int n, camera *cam);
 	bool		is_user_cam_on;
 	bool		user_cam_is_on() {return is_user_cam_on;}
@@ -275,6 +279,9 @@ public:
 	bool		  is_splitscreen(void) { return num_active_players > 1 && num_ai_players == 0; }
 	int           get_active_player(void) { return active_player; }
 	const recti & get_player_viewport(const int playerIdx);
+
+	// @Patch
+	/*
 	void set_player_device( int player, int device ){ assert( player < MAX_PLAYERS ); player_devices[ player ] = device; };
 	int get_player_device( int player ){ assert( player < MAX_PLAYERS ); return player_devices[ player ]; };
 	int get_player_from_device( int device )
@@ -287,6 +294,7 @@ public:
 		assert( 0 );
     return -1;
 	}
+	*/
 
 	bool get_disconnect_status(){ return disconnect_status; };
 
@@ -473,7 +481,9 @@ public:
 #ifdef KSCULL
     script_mfg              m_script_mfg;
 #endif
-    std::list<game_process>      process_stack;      // front process in stack is only one active
+
+	// @Patch
+    //std::list<game_process>      process_stack;      // front process in stack is only one active
 
 	//po						snapshotPrevCamPo;
 	camera *				snapshotPrevCam;
@@ -493,16 +503,20 @@ public:
 	*/
 
 	// *** Two Player Data ***
-	game_mode_t				game_mode;			// 1 player, 2 player alternating, etc.
+	
+	// @Patch
+	/*game_mode_t				game_mode;			// 1 player, 2 player alternating, etc.
 	PlayMode				play_mode;			// game mode's runtime state data
 	camera *				player_cam[MAX_PLAYERS];
 	recti					player_viewports[MAX_PLAYERS];
+	*/
     int                     num_players;        // # of players (heroes)
     int                     num_ai_players;
 	int						num_active_players;
     int                     active_player;      // in multi-player alternating, which player is active
 
-	int player_devices[MAX_PLAYERS];
+	// @Patch
+	//int player_devices[MAX_PLAYERS];
   bool disconnect_status;  
 	void render_menu_screen();
 
@@ -599,24 +613,31 @@ public:
 
 		// BETH/Toby
 protected:
-	stringx		heroname[MAX_PLAYERS];
+	// @Patch
+	/*stringx		heroname[MAX_PLAYERS];
 	int	  		boardIdx[MAX_PLAYERS];
 	int     	surferIdx[MAX_PLAYERS];	// 0 thru SURFER_LAST-1 specifying current surfer (should sync with heroname[])
 	bool      personality[MAX_PLAYERS];
+	*/
 
 	// for non-career modes, to have a "home" beach for the map
 	int most_recent_beach;
 	int most_recent_level;
 
 public:
+	// @Patch
+	/*
 	stringx &   getHeroname(int hero_num) { assert(0 && "DONT USE THIS"); return heroname[hero_num]; }
 	void        setHeroname(int hero_num, stringx &name) { heroname[hero_num] = name; }
+
+	
 	int         GetBoardIdx(int hero_num) const { return boardIdx[hero_num]; }
 	void        SetBoardIdx(int hero_num, const int idx);
 	int         GetSurferIdx(int hero_num) const { return surferIdx[hero_num]; }
 	bool        GetUsingPersonalitySuit(int hero_num) const { return personality[hero_num]; }
 	void        SetUsingPersonalitySuit(int hero_num, bool val);
 	void        SetSurferIdx(int hero_num, int surfer);
+	*/
 
 	int GetMostRecentBeach() { return most_recent_beach; }
 	int GetMostRecentLevel() { return most_recent_level; }

@@ -2,6 +2,8 @@
 #define X86_MATH_H
 
 #include <math.h>
+#include "..\global.h"
+
 
 typedef float rational_t;  
 typedef float angle_t;
@@ -16,6 +18,8 @@ inline fp fast_recip_sqrt(fp x)
 #define _FAST_ACOS_LOOKUP_SIZE_DIV2   (_FAST_ACOS_LOOKUP_SIZE / 2)
 #define _FAST_ACOS_LOOKUP_MOD         ((float)_FAST_ACOS_LOOKUP_SIZE_DIV2) 
 #define _FAST_ACOS_LOOKUP_MOD_INV     (1.0f / _FAST_ACOS_LOOKUP_MOD)
+#define cos_to_lookup(a)              ((int)(((a)+1)*_FAST_ACOS_LOOKUP_MOD))
+#define lookup_to_cos(a)              (((float)((a)-_FAST_ACOS_LOOKUP_SIZE_DIV2))*_FAST_ACOS_LOOKUP_MOD_INV)
 
 extern rational_t fast_acos_lookup_table[_FAST_ACOS_LOOKUP_SIZE+1];
 
