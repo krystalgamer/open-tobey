@@ -335,9 +335,9 @@ public:
 };
 
 #if USE_STL_MAP_FOR_DEVICES
-typedef map<device_id_t, input_device *> device_map_t;
+typedef std::map<device_id_t, input_device *> device_map_t;
 #else
-typedef vector<input_device *> device_map_t;
+typedef std::vector<input_device *> device_map_t;
 #endif
 
 // Device/axis combination class.
@@ -375,7 +375,7 @@ inline bool operator==( const device_axis & lhs, const device_axis & rhs )
 }
 
 
-typedef list<device_axis> device_axis_list_t;
+typedef std::list<device_axis> device_axis_list_t;
 
 enum control_t
 {
@@ -413,7 +413,7 @@ private:
 // The control map is a map instead of a vector, since I expect we will eventually set up a numbering scheme
 // like Player = 100-199, Debug = 200-299, etc. where not every control ID is mapped and there are large gaps.
 //typedef vector<game_control> control_map_t;
-typedef map<control_id_t, game_control> control_map_t;
+typedef std::map<control_id_t, game_control> control_map_t;
 
 // Input manager class.  Keeps track of all input devices and game control mappings.
 class input_mgr : public singleton

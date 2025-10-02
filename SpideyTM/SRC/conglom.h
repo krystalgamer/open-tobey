@@ -11,7 +11,7 @@
 
 class light_manager;
 // BIGCULL class scanner;
-typedef vector<entity*> pentity_vector;
+typedef std::vector<entity*> pentity_vector;
 
 
 class conglomerate : public entity
@@ -24,12 +24,12 @@ class conglomerate : public entity
   // file.  This allows the user to refer to any instance of the group by a
   // given entity_id, and also allows the group to be recursively instanced.
   pentity_vector members;
-  vector<stringx
+  std::vector<stringx
 		#ifdef TARGET_PS2
 	       ,malloc_alloc
 		#endif
 	       > names;
-  vector<char> parents;  // parent indices; used by make_instance()
+  std::vector<char> parents;  // parent indices; used by make_instance()
   refptr<light_manager> lightmgr;
 
  public:

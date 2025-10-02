@@ -1,5 +1,6 @@
 #include "w32_file.h"
 
+#define INVLALID_FP INVLAID_HANDLE_VALUE
 
 os_file::os_file()
 {

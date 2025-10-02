@@ -5,6 +5,9 @@
 
 typedef float rational_t;
 
+// @TODO
+#define STUB(str)
+
 
 #endif
 

@@ -92,11 +92,11 @@ class region
 public:
   // Types
 
-  typedef vector<entity*> entity_list;
-  typedef vector<light_source*> light_list;
-  typedef vector<trigger*> trigger_list;
-  typedef list<crawl_box*> crawl_list;
-  typedef vector<ai_polypath_cell *> pathcell_list; // MUST match what the 'CELL_ARRAY' typedef is in class ai_polypath
+  typedef std::vector<entity*> entity_list;
+  typedef std::vector<light_source*> light_list;
+  typedef std::vector<trigger*> trigger_list;
+  typedef std::list<crawl_box*> crawl_list;
+  typedef std::vector<ai_polypath_cell *> pathcell_list; // MUST match what the 'CELL_ARRAY' typedef is in class ai_polypath
 
   enum flags_t
   {
@@ -115,11 +115,11 @@ public:
 
   int get_low_index(rational_t val) const;
   int get_high_index(rational_t val) const;
-  const vector<cface_replacement>& get_sorted() const { return sorted; }
+  const std::vector<cface_replacement>& get_sorted() const { return sorted; }
 
   int get_low_water_index( rational_t val ) const;
   int get_high_water_index( rational_t val ) const;
-  const vector<cface_replacement>& get_sorted_water() const { return sorted_water; }
+  const std::vector<cface_replacement>& get_sorted_water() const { return sorted_water; }
 
 #if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC)
   int get_num_meshes() const { return ps2_meshes.size(); }
@@ -234,25 +234,25 @@ private:
   void remove_cam_coll_ent( entity* e );
 
   // only one of these is valid
-  vector<cface_replacement> sorted;
+  std::vector<cface_replacement> sorted;
 
-  vector<int> sorted_lookup_low;
-  vector<int> sorted_lookup_high;
+  std::vector<int> sorted_lookup_low;
+  std::vector<int> sorted_lookup_high;
 
-  list<vm_thread *> local_thread_list;
+  std::list<vm_thread *> local_thread_list;
   rational_t solid_min;
 
   // water sold separately
-  vector<cface_replacement> sorted_water;
-  vector<int> sorted_water_lookup_low;
-  vector<int> sorted_water_lookup_high;
+  std::vector<cface_replacement> sorted_water;
+  std::vector<int> sorted_water_lookup_low;
+  std::vector<int> sorted_water_lookup_high;
   rational_t water_min;
 
 #if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC)
-  typedef vector<nglMesh*> ps2_mesh_list;
+  typedef std::vector<nglMesh*> ps2_mesh_list;
   ps2_mesh_list ps2_meshes;
 #else
-  typedef vector<visual_rep*> VisRepList;
+  typedef std::vector<visual_rep*> VisRepList;
   VisRepList visreps;
 #endif
 
@@ -288,8 +288,8 @@ private:
   entity_list x_sorted_entities;
   rational_t x_sorted_ent_min;
   rational_t x_sorted_ent_max;
-  vector<unsigned char> x_sorted_ent_lookup_low;
-  vector<unsigned char> x_sorted_ent_lookup_high;
+  std::vector<unsigned char> x_sorted_ent_lookup_low;
+  std::vector<unsigned char> x_sorted_ent_lookup_high;
 
   unsigned short flags;
 
@@ -304,6 +304,6 @@ private:
   friend void serial_in( chunk_file& fs, region* r, terrain* ter );
   friend class terrain;
 };
-typedef vector<region *> region_list;
+typedef std::vector<region *> region_list;
 
 #endif // REGION_H

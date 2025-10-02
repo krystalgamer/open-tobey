@@ -15,6 +15,10 @@ typedef unsigned int       uint32;
 #if defined(TARGET_PC) || defined(TARGET_XBOX)
 typedef __int64 int64;
 typedef unsigned __int64 uint64;
+
+
+typedef unsigned int u_int;
+
 #elif defined(TARGET_PS2)
 typedef long int64;
 typedef unsigned long uint64;
@@ -22,8 +26,6 @@ typedef unsigned long uint64;
 typedef long long int64;
 typedef unsigned long long uint64;
 
-
-typedef unsigned int u_int;
 
 #elif defined(TARGET_NULL)
 

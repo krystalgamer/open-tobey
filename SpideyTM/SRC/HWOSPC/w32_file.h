@@ -1,6 +1,8 @@
 #ifndef W32_FILE_H
 #define W32_FILE_H
 
+#include "..\stringx.h"
+
 
 class os_file
 {

@@ -36,11 +36,11 @@ public:
   // Clip the given polygon (expressed as an ordered convex list of points)
   // and return the result as a list of points (convex but not necessarily
   // ordered) filled into the given result parameter.
-  typedef vector<vector3d> poly_t;
+  typedef std::vector<vector3d> poly_t;
   void clip(const poly_t& poly, poly_t& result) const;
 
 private:
-  typedef vector<plane> plane_list_t;
+  typedef std::vector<plane> plane_list_t;
   plane_list_t faces;
   // bounding sphere that encompasses the entire hull 
   //sphere bound;

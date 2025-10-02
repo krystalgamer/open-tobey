@@ -32,7 +32,7 @@ protected:
   unsigned short flags;
 
   // sorted list of connecting edges, shortest to longest
-  vector<path_graph_edge *>edges;
+  std::vector<path_graph_edge *>edges;
 
   void remove_edge(const path_graph_edge *edge);
 
@@ -123,8 +123,8 @@ inline bool operator==(const path_graph_node &lhs, const path_graph_node &rhs )
   {
     if(lhs.edges.size() == rhs.edges.size())
     {
-      vector<path_graph_edge *>::const_iterator i = lhs.edges.begin();
-      vector<path_graph_edge *>::const_iterator j = rhs.edges.begin();
+		std::vector<path_graph_edge *>::const_iterator i = lhs.edges.begin();
+		std::vector<path_graph_edge *>::const_iterator j = rhs.edges.begin();
 
       while(i != lhs.edges.end())
 
@@ -249,7 +249,7 @@ inline bool operator==(const path_graph_edge &lhs, const path_graph_edge &rhs )
 class path
 {
 protected:
-  vector<path_graph_node *> nodes;
+	std::vector<path_graph_node *> nodes;
   rational_t distance;
   rational_t weight;
   rational_t additional_weight_mod;
@@ -328,8 +328,8 @@ inline bool operator==(const path &lhs, const path &rhs )
 
   if(lhs.distance == rhs.distance && lhs.weight == rhs.weight && lhs.nodes.size() == rhs.nodes.size())
   {
-    vector<path_graph_node *>::const_iterator i = lhs.nodes.begin();
-    vector<path_graph_node *>::const_iterator j = rhs.nodes.begin();
+	  std::vector<path_graph_node *>::const_iterator i = lhs.nodes.begin();
+	  std::vector<path_graph_node *>::const_iterator j = rhs.nodes.begin();
 
 
     while(i != lhs.nodes.end())
@@ -358,8 +358,8 @@ class path_graph
 {
 protected:
   stringx id;
-  vector<path_graph_node*> nodes;
-  vector<path_graph_edge*> edges;
+  std::vector<path_graph_node*> nodes;
+  std::vector<path_graph_edge*> edges;
 
 
   friend class path_graph_edge;
@@ -374,7 +374,7 @@ protected:
   void unsort_all();
   bool find_path_recurse(path_graph_node *cur, path_graph_node *dest, path &cur_path, path *best_path, int &depth, int &call_count, unsigned short node_flags = 0, rational_t max_dist = -1.0f, bool retval = false);
 
-  bool find_all_paths_recurse(path_graph_node *cur, path &cur_path, vector<path> &paths, int &depth, int &call_count, unsigned short node_flags, rational_t max_dist = -1.0f, bool retval = false);
+  bool find_all_paths_recurse(path_graph_node *cur, path &cur_path, std::vector<path> &paths, int &depth, int &call_count, unsigned short node_flags, rational_t max_dist = -1.0f, bool retval = false);
 
 #if !defined(BUILD_BOOTABLE)
   bool complexity_warning;
@@ -431,7 +431,7 @@ public:
   int get_num_edges() const   { return edges.size(); }
   int get_num_nodes() const   { return nodes.size(); }
 
-  inline const vector<path_graph_node *> &get_nodes() const { return(nodes); }
+  inline const std::vector<path_graph_node *> &get_nodes() const { return(nodes); }
 
 
   void read_data(chunk_file &fs, stringx &label);
@@ -453,8 +453,8 @@ public:
   bool find_path(const vector3d &start, const vector3d &dest, path *found_path = NULL, const unsigned short flags = 0);
   bool find_path(path_graph_node *start, path_graph_node *dest, path *found_path = NULL, const unsigned short flags = 0);
 
-  int find_all_paths(const vector3d &start, vector<path> &found_paths, const unsigned short flags, bool sort = true);
-  int find_all_paths(path_graph_node *start, vector<path> &found_paths, const unsigned short flags, bool sort = true);
+  int find_all_paths(const vector3d &start, std::vector<path> &found_paths, const unsigned short flags, bool sort = true);
+  int find_all_paths(path_graph_node *start, std::vector<path> &found_paths, const unsigned short flags, bool sort = true);
 
   bool find_path_to_hiding_spot(const vector3d &start, path *found_path = NULL, bool avoid_hero_sight = true);
   bool find_path_to_hiding_spot(path_graph_node *start, path *found_path = NULL, bool avoid_hero_sight = true);

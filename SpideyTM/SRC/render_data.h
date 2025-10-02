@@ -18,7 +18,7 @@ public:
     friend bool operator ==(const region_info& l,const region_info& r) { return l.reg==r.reg; }
   };
 
-  typedef vector<region_info> region_list;
+  typedef std::vector<region_info> region_list;
   region_list  regions;
   
   struct entity_info
@@ -32,7 +32,7 @@ public:
     friend bool operator ==(const entity_info& l,const entity_info& r) { return l.ent==r.ent; }
   };
 
-  typedef vector<entity_info> entity_list;
+  typedef std::vector<entity_info> entity_list;
   entity_list entities;
 
   vector3d	 cam;

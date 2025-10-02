@@ -63,6 +63,9 @@ class world_dynamics_system;
 // icon challenges.
 struct PlayMode
 {
+	// @Patch
+	void* a;
+	/*
 	// Multiplayer alternating modes.
 	TimeAttackMode *	timeAttack;
 	MeterAttackMode *	meterAttack;
@@ -72,7 +75,7 @@ struct PlayMode
 
 	HeadToHeadMode *	headToHead;
 	PushMode *			push;
-
+	*/
 };
 
 
@@ -252,12 +255,16 @@ public:
 	void    set_render_state(RENDER_STATE newRenderState) { renderState = newRenderState; };
 
 	// *** Game mode stuff ***
+
+	// @Patch
+	/*
 	void				set_game_mode(game_mode_t m);
 	game_mode_t			get_game_mode(void) { return game_mode; }
 	PushMode *			get_play_mode_push(void) { return play_mode.push; }
 	TimeAttackMode *	get_play_mode_time_attack(void) { return play_mode.timeAttack; }
 	MeterAttackMode *	get_play_mode_meter_attack(void) { return play_mode.meterAttack; }
 	HeadToHeadMode *	get_play_mode_head_to_head(void) { return play_mode.headToHead; }
+	*/
 
 	int     get_num_ai_players() { return num_ai_players; }
 	void    set_num_ai_players(int i);
@@ -466,7 +473,7 @@ public:
 #ifdef KSCULL
     script_mfg              m_script_mfg;
 #endif
-    list<game_process>      process_stack;      // front process in stack is only one active
+    std::list<game_process>      process_stack;      // front process in stack is only one active
 
 	//po						snapshotPrevCamPo;
 	camera *				snapshotPrevCam;

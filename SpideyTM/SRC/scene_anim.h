@@ -17,13 +17,13 @@ class scene_anims_info
 	entity_anim_tree* anim_tree;
   };
 
-typedef vector<scene_anims_info> scene_anim_list_t;
+typedef std::vector<scene_anims_info> scene_anim_list_t;
 
 class scene_anim
   {
   // Types
   public:
-    typedef map<stringx,entity_track_tree*> track_tree_list_t;
+	  typedef std::map<stringx,entity_track_tree*> track_tree_list_t;
 
   // Data
   private:

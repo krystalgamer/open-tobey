@@ -22,6 +22,8 @@
 #include "game.h"
 #include "inputmgr.h"
 
+#include <vector>
+
 
 //#include "kellyslater_controller.h"
 
@@ -79,7 +81,7 @@ class camera;
 class replay_camera;
 
 
-typedef map<stringx,entity*> entfile_map;
+typedef std::map<stringx,entity*> entfile_map;
 
 
 // I wrote this simply to get around a Metrowerks compiler bug  agh!
@@ -105,12 +107,12 @@ void check_po( entity* e );
 
 
 #if 1 //ndef __MSL_STL
-typedef vector<entity_anim_tree*> pentity_anim_tree_vector;
+typedef std::vector<entity_anim_tree*> pentity_anim_tree_vector;
 #else
 
 
 typedef simplestaticallocator<entity_anim_tree *> pentity_anim_tree_allocator;
-typedef vector<entity_anim_tree*,pentity_anim_tree_allocator> pentity_anim_tree_vector;
+typedef std::vector<entity_anim_tree*,pentity_anim_tree_allocator> pentity_anim_tree_vector;
 #endif
 
 
@@ -122,11 +124,11 @@ class world_dynamics_system
     friend class view_frustrum_projection;
     friend class KSReplay;
 
-	typedef vector<entity*> entity_list;
-    typedef vector<entity*> entity_archetype_list;
+	typedef std::vector<entity*> entity_list;
+    typedef std::vector<entity*> entity_archetype_list;
     //typedef vector<entity_anim_tree*> anim_list;
-    typedef vector<material_set*> material_set_list;
-    typedef vector<crawl_box*> crawl_box_list;
+    typedef std::vector<material_set*> material_set_list;
+    typedef std::vector<crawl_box*> crawl_box_list;
 
     world_dynamics_system();
     ~world_dynamics_system();
@@ -164,13 +166,13 @@ class world_dynamics_system
     entity *get_entity(const stringx &name);
 
     const entity_list& get_entities() const { return entities; }
-    const vector<item*>& get_items() const { return items; }
+    const std::vector<item*>& get_items() const { return items; }
 
     int get_num_controllers() const { return controllers.size(); }
     controller * get_controller(int i) const { return controllers[i]; }
-    const vector<controller*>& get_controllers() const { return controllers; }
+    const std::vector<controller*>& get_controllers() const { return controllers; }
 
-    const vector<light_source*>& get_lights() const { return lights; }
+    const std::vector<light_source*>& get_lights() const { return lights; }
 
 
 
@@ -405,7 +407,7 @@ class world_dynamics_system
     static bool wds_releasefile( unsigned char **buf );
 
 
-    vector<entity *> const & get_active_entities() const { return active_entities; }
+	std::vector<entity *> const & get_active_entities() const { return active_entities; }
 
     time_value_t get_cur_time_inc() const { return cur_time_inc; }
 
@@ -423,7 +425,7 @@ class world_dynamics_system
     stringx get_surface_sound_name( int surf_index );
     stringx get_surface_effect_name( int surf_index );
 
-  	vector<entity *> parented_entities;
+	std::vector<entity *> parented_entities;
 
 /*
 	// LipSync System...putting here because of mem allocation, per Jamie's recommendation
@@ -446,33 +448,33 @@ class world_dynamics_system
     bool entity_entity_collision(entity * p1,entity * p2, time_value_t t);
 
   private:
-    vector<force_generator *> generators;
-    vector<force_control_system *> fcs_list;
-    vector<motion_control_system *> mcs_list;
-    vector<controller * > controllers;
+	  std::vector<force_generator *> generators;
+    std::vector<force_control_system *> fcs_list;
+    std::vector<motion_control_system *> mcs_list;
+    std::vector<controller * > controllers;
 
     friend class EnableBrainsVariable;
 
 
-    vector<variant_descriptor*> variants;
+    std::vector<variant_descriptor*> variants;
 
-	  vector<entity*> moved_ents;
+	  std::vector<entity*> moved_ents;
 
     pentity_anim_tree_vector anims;
     ett_manager *ett_mgr;
 
     entity_list entities;
 
-    vector<path_graph *> path_graph_list;
+	std::vector<path_graph *> path_graph_list;
 //    dread_net *dread_network;
 
 // BIGCULL     ai_cue_manager * ai_cue_mgr;
 
     crawl_box_list crawl_boxes;
 
-    vector<item*> items;
-    vector<light_source*> lights;
-    vector<entity*> guaranteed_active_entities;
+    std::vector<item*> items;
+    std::vector<light_source*> lights;
+    std::vector<entity*> guaranteed_active_entities;
 
     entity* collision_dummy;
     render_data to_render;
@@ -485,7 +487,7 @@ class world_dynamics_system
       ent_time_limit() : ent(0) {}
       ent_time_limit( entity* _ent, time_value_t _duration ) : ent(_ent), duration(_duration) {}
     };
-    vector<ent_time_limit> time_limited_entities;
+    std::vector<ent_time_limit> time_limited_entities;
 
     struct surface_type_info
     {
@@ -496,7 +498,7 @@ class world_dynamics_system
 			vector<sound_group> sound_groups;
 #endif
     };
-    typedef map<int, surface_type_info*> surfaceinfo_list_t;
+    typedef std::map<int, surface_type_info*> surfaceinfo_list_t;
     surfaceinfo_list_t surfaceinfo_list;
 
     terrain * the_terrain;
@@ -563,8 +565,8 @@ class world_dynamics_system
     entity * origin_entity;
 
 	  // List of all active entities for frame_advance
-	  vector<entity *> active_entities;
-	  vector<entity *> collision_entities;
+	  std::vector<entity *> active_entities;
+	  std::vector<entity *> collision_entities;
 
     // this is the last value passed to frame_advance, representing the duration of the current time_slice.
     // It's here so everyone can access it without passing it everywhere as a parameter
@@ -573,7 +575,7 @@ class world_dynamics_system
     // used to optimize rendering of many small particle systems
     aggregate_vert_buf_list matvertbufs;
 
-    vector<entity*> dead_ents;
+    std::vector<entity*> dead_ents;
 
 	nglLightContext *current_light_context;
   public:
@@ -590,7 +592,7 @@ class world_dynamics_system
 
     // scene animation stuff
   private:
-    typedef map<stringx,scene_anim *> scene_anim_map_t;
+    typedef std::map<stringx,scene_anim *> scene_anim_map_t;
 
     scene_anim_handle_t last_snm_handle;
 
@@ -653,7 +655,7 @@ class world_dynamics_system
         stringx name;
     };
 
-    vector<entity_preload_pair> entity_preloads;
+    std::vector<entity_preload_pair> entity_preloads;
 
   private:
     ai_polypath *world_path;
@@ -674,7 +676,7 @@ class world_dynamics_system
 ////////////////////////////////////////////////////////////////////////////////
 extern world_dynamics_system * g_world_ptr;
 
-void build_region_list_radius(vector<region_node*> *regs, region_node* rn, const vector3d& pos, rational_t rad, bool only_active_portals = true, vector<region_node*> *append = NULL);
+void build_region_list_radius(vector<region_node*> *regs, region_node* rn, const vector3d& pos, rational_t rad, bool only_active_portals = true, std::vector<region_node*> *append = NULL);
 void build_region_list(vector<region_node*> *regs, region_node *r, const vector3d& o, const vector3d& d, vector<region_node*> *append = NULL);
 
 void compute_combat_target( entity* shooter, rational_t time_inc = 0.0f, bool use_los_only = false );

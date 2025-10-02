@@ -50,7 +50,7 @@ protected:
   region_node* back;
   bool inactive;
 };
-typedef list<portal*> portal_list;
+typedef std::list<portal*> portal_list;
 
 
 class plane;

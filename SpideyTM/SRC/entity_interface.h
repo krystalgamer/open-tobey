@@ -22,13 +22,11 @@
     itype##_interface * cls##::create_##itype##_ifc()                     \
     {                                                                     \
       assert(!my_##itype##_interface);                                    \
-
       my_##itype##_interface = NEW itype##_interface(this);               \
       return my_##itype##_interface;                                      \
     }                                                                     \
     void cls##::destroy_##itype##_ifc()                                   \
     {                                                                     \
-
       assert(my_##itype##_interface);                                     \
       delete my_##itype##_interface;                                      \
       my_##itype##_interface = NULL;                                      \

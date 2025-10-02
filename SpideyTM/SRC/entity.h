@@ -238,7 +238,7 @@ enum
 ///////////////////////////////////////////////////////////////////////////////
 
 typedef std::map< entity_id, entity*
-  , less<entity_id>
+, std::less<entity_id>
 	#ifdef TARGET_PS2
 	, malloc_alloc
 
@@ -1645,7 +1645,7 @@ public:
 // container info (for storing items)
 /////////////////////////////////////////////////////////////////////////////
 private:
-  typedef vector<item*> item_list_t;
+	typedef std::vector<item*> item_list_t;
   struct container_info
   {
     item_list_t items;
@@ -1992,7 +1992,7 @@ public:
   // searchers
 public:
 
-  typedef list<entity*> entity_search_list;
+	typedef std::list<entity*> entity_search_list;
   static entity_search_list found_entities;
 
   enum

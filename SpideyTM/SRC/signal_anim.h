@@ -108,7 +108,7 @@ class signal_track
 class signal_anim : public anim<signal_key> 
   {
   private:
-    vector<signal_key> signals;
+	  std::vector<signal_key> signals;
     time_value_t last_get_time;
   
   // Methods
@@ -122,7 +122,7 @@ class signal_anim : public anim<signal_key>
     // force current_time to given value
     virtual void set_time( time_value_t t );
 
-    void frame_advance( const anim_control_t& ac, vector<signal_id_t>* dest );
+    void frame_advance( const anim_control_t& ac, std::vector<signal_id_t>* dest );
   };
 
 #endif  // _SIGNAL_ANIM_H

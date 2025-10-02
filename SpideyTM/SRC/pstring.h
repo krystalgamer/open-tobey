@@ -20,7 +20,8 @@
 #ifndef ARCH_ENGINE
 #include <stdio.h>
 
-#define error nglPrintf
+// @Patch
+//#define error nglPrintf
 #endif
 #endif
 

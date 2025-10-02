@@ -7,6 +7,12 @@
 class region;
 class portal;
 
+typedef graph< stringx, region*, portal*
+,	std::less<stringx>
+//	,	malloc_alloc
+  > region_graph;
+typedef region_graph::node region_node;
+
 // @Patch
 /*
 typedef graph< stringx, region*, portal*

@@ -3,6 +3,7 @@
 
 #include "material.h"
 #include "hwrasterize.h"
+#include "refptr.h"
 
 class aggregate_vert_buf // this could be a generic class, not really specific to particles, anything with quads works
 {

@@ -181,9 +181,9 @@ struct ett_node
   
 class ett_manager
 {
-  typedef map< stringx, ett_node > ett_map_t;
+	typedef std::map< stringx, ett_node > ett_map_t;
 
-  typedef map< stringx, ett_node >::iterator ett_map_itr_t;
+	typedef std::map< stringx, ett_node >::iterator ett_map_itr_t;
   
   public:
 
@@ -344,7 +344,7 @@ void entity_anim_tree_stl_dealloc ();
 
 
 #if 1 //ndef __MSL_STL
-typedef vector<entity_anim*> pentity_anim_vector;
+typedef std::vector<entity_anim*> pentity_anim_vector;
 
 #else
 

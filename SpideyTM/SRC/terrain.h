@@ -58,9 +58,9 @@ public:
   region_node* get_region() const { return my_region; }
 };
 
-typedef vector<sector> sector_list;
+typedef std::vector<sector> sector_list;
 
-typedef vector<sector> sector_vector;
+typedef std::vector<sector> sector_vector;
 
 
 // This class partitions R3 into two halfspaces, and is used by the bsp_tree
@@ -121,7 +121,7 @@ public:
     bool valid() const { return region_idx!=(unsigned short)-1; } 
     face_ref get_face_ref() const { return face_idx; } 
   };
-  typedef vector<faceref> faceref_list;
+  typedef std::vector<faceref> faceref_list;
 
 // Data
 
@@ -154,7 +154,7 @@ public:
   };
 
   // this is a list of all the facerefs in the world, pointed to by partition3's/
-  vector<partition3::faceref> const & get_facerefs(){return facerefs;}
+  std::vector<partition3::faceref> const & get_facerefs(){return facerefs;}
   void add_to_facerefs(vector<partition3::faceref> _facerefs)
   {
     for (int i=0;i<(int)_facerefs.size();++i)
@@ -166,8 +166,8 @@ public:
   }
 // Data
 private:
-  vector<partition3::faceref> facerefs;
-  region_graph regions_graph;
+  std::vector<partition3::faceref> facerefs;
+  std::region_graph regions_graph;
   region_list regions;
   portal_list portals;
   sector_list sectors;

@@ -11,18 +11,18 @@
 class vr_pmesh;
 class entity;
 
-typedef vector<cface
+typedef std::vector<cface
 	#ifdef TARGET_PS2
                ,malloc_alloc
 	#endif
 							 > cface_vect;
-typedef vector<vert
+typedef std::vector<vert
 	#ifdef TARGET_PS2
                ,malloc_alloc
 	#endif
 							 >  vert_vect;
 
-typedef vector<int
+typedef std::vector<int
 	#ifdef TARGET_PS2
                ,malloc_alloc
 	#endif
@@ -49,7 +49,7 @@ public:
   cg_mesh( chunk_file& fs, bool allow_warnings = true );  // for reading NEWENT files
   cg_mesh(const char * colgeom_mesh_fname, bool allow_warnings = true);
   cg_mesh(vr_pmesh * my_pmesh, const stringx & mesh_fname, bool allow_warnings = true);
-  typedef vector<visual_rep*> VisRepList;
+  typedef std::vector<visual_rep*> VisRepList;
   cg_mesh(const VisRepList& visreps, const stringx & mesh_fname, bool allow_warnings = true);
   virtual ~cg_mesh();
   virtual collision_geometry* make_instance( entity* _owner ) const;
@@ -129,7 +129,7 @@ protected:
 
   vert_vect    verts;
   cface_vect    cfaces;  // now sorted by center X value
-  vector<material*> materials;
+  std::vector<material*> materials;
 
   // sorted cface indexing
   rational_t cface_xmin;

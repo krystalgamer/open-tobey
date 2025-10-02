@@ -124,7 +124,10 @@
 //P  #define __STL_DEFAULT_ALLOCATOR(T) my_alloc
 
   #include <time.h>
-	#define nglPrintf printf
+
+
+// @Patch
+	//#define nglPrintf printf
 
 #elif defined(TARGET_MKS)
 #endif

@@ -12,6 +12,8 @@
 
 #include "entity.h"
 #include "color.h"
+#include "types.h"
+#include "ngl.h"
 
 class light_source;
 class vector3d;
