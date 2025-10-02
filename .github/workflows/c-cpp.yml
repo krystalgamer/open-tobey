@@ -21,6 +21,10 @@ jobs:
         run: |
           mklink /D vs_inc C:\vs\include
           mklink /D vs_lib C:\vs\lib
+      - name: Setup build version
+        run: |
+          $version = git rev-parse HEAD
+          Write-Output "#define RUNTIME_VERSION `"$version`"" | Out-File -FilePath .\runtime_version.h -Encoding ascii
       - name: Build
         shell: cmd
         run: |

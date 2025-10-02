@@ -6,6 +6,13 @@
 
 #include "SpideyTM/SRC/my_assertions.h"
 
+#include "runtime_version.h"
+
+#ifndef RUNTIME_VERSION
+#define RUNTIME_VERSION "LOCAL"
+
+#endif
+
 HMODULE bink_dll;
 
 void runtime_assertions()
@@ -44,9 +51,10 @@ BOOL WINAPI DllMain(
     { 
         case DLL_PROCESS_ATTACH:
 			AllocConsole();
+			SetConsoleTitle("open-tobey - " RUNTIME_VERSION);
 			freopen("CONOUT$", "w", stdout);
 
-			puts("open-tobey starting");
+			puts("open-tobey starting " RUNTIME_VERSION);
 
 			bink_dll = GetModuleHandle("binkw32.dll");
 			runtime_assertions();
