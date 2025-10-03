@@ -53,3 +53,8 @@ void validate_vm_stack(void)
 	VALIDATE(vm_stack, buffer, 0x4);
 	VALIDATE(vm_stack, SP, 0x8);
 }
+
+void patch_vm_stack(void)
+{
+	PATCH_PUSH_RET_POLY(0x007E5B90, vm_stack::push, "?push@vm_stack@@QAE_NPBDH@Z");
+}

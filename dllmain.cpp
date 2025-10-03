@@ -31,6 +31,8 @@ void game_patches()
 {
 	patch_string_buf();
 	patch_stringx();
+
+	patch_vm_stack();
 }
 
 void runtime_patches()
