@@ -121,12 +121,14 @@ vm_thread::~vm_thread()
 
 // @Ok
 // @Matching
-void vm_thread::set_suspended(bool v)
+INLINE void vm_thread::set_suspended(bool v)
 {
   if ( !v || is_suspendable() )
     set_flag( SUSPENDED, v );
 }
 
+// @Ok
+// @Matching
 void vm_thread::set_suspendable( bool v )
 {
   set_flag( SUSPENDABLE, v);
@@ -1314,4 +1316,5 @@ void validate_vm_thread(void)
 void patch_vm_thread(void)
 {
 	PATCH_PUSH_RET(0x007E76F0, vm_thread::set_suspended);
+	PATCH_PUSH_RET(0x007E7720, vm_thread::set_suspendable);
 }
