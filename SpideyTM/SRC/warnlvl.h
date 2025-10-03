@@ -28,6 +28,8 @@
 
 #pragma warning(disable: 4065) // disable annoying default but no case warning
 
+// @Patch
+#pragma warning(disable: 4800) // disable annoying default but no case warning
 #endif // _MSC_VER
 
 #endif // WARNLVL_H

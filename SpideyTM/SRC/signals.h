@@ -2,6 +2,8 @@
 #define _SIGNALS_H
 
 
+#include "warnlvl.h"
+
 #include "singleton.h"
 #include "fast_vector.h"
 #include "script_object.h"

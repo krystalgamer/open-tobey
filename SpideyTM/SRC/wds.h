@@ -1,6 +1,7 @@
 #ifndef WDS_H
 #define WDS_H
 
+#include "warnlvl.h"
 #include "graph.h"
 
 #include "generator.h"

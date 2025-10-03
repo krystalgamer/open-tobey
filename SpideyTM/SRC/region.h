@@ -4,6 +4,8 @@
 #ifndef REGION_H
 #define REGION_H
 
+#include "warnlvl.h"
+
 #include "algebra.h"
 #include "stringx.h"
 #include "pmesh.h"

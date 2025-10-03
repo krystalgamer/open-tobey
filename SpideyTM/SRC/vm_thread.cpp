@@ -130,7 +130,6 @@ void vm_thread::set_suspendable( bool v )
   set_flag( SUSPENDABLE, v);
   if ( !v )
     set_suspended( false );
-
 }
 
 
