@@ -23,10 +23,13 @@ void runtime_assertions()
 
 	validate_vm_stack();
 	validate_vm_thread();
+	validate_script_object_instance();
 
+	/*
 	do
 	{
 	} while (FAIL_VALIDATION);
+	*/
 }
 
 void game_patches()
@@ -36,6 +39,8 @@ void game_patches()
 
 	patch_vm_stack();
 	patch_vm_thread();
+
+	patch_alloc();
 }
 
 void runtime_patches()

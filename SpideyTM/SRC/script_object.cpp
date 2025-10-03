@@ -1,4 +1,5 @@
 #include "script_object.h"
+#include "vm_thread.h"
 
 // @TODO
 void script_object::instance::kill_thread(const vm_executable* ex)
@@ -36,3 +37,34 @@ const vm_executable* script_manager::find_function_by_address( const unsigned sh
   return NULL;
 }
 
+void script_object::instance::suspend()
+{
+  thread_list::iterator i = threads.begin();
+  thread_list::iterator i_end = threads.end();
+  for ( ; i!=i_end; ++i )
+    {
+    vm_thread* t = *i;
+    assert(t != NULL);
+    t->set_suspended( true );
+    }
+
+  suspended = true;
+}
+
+void script_object::instance::unsuspend()
+{
+}
+
+#include "my_assertions.h"
+static void compile_time_assertions()
+{
+	//StaticAssert<sizeof(vm_thread) == 0x48>::sass();
+}
+
+
+void validate_script_object_instance(void)
+{
+	VALIDATE_SIZE(script_object::instance, 0x20);
+
+	VALIDATE(script_object::instance, suspended, 0x14);
+}

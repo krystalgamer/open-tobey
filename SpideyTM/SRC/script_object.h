@@ -72,8 +72,8 @@ class script_object
         // run a single thread
         void run_single_thread( vm_thread* t, bool ignore_suspended );
 
-        void suspend();
-        void unsuspend();
+        EXPORT void suspend();
+        EXPORT void unsuspend();
 
         // for debugging purposes; dump information on all threads to a file
         void dump_threads( host_system_file_handle outfile ) const;
@@ -91,6 +91,7 @@ class script_object
 
       // Friends
       friend class script_object;
+      friend void validate_script_object_instance(void);
       };
 
     // instance management

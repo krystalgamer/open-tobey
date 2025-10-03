@@ -28,9 +28,6 @@
 #include "staticmem.h"
 */
 
-// @Patch
-#define GCOLDHEAP
-
 #include "ksheaps.h"   // for heap ids
 
 #if (defined TARGET_PC) || (defined TARGET_XBOX) || (defined TARGET_GC)
@@ -142,13 +139,20 @@ bool mem_heap_locked( int heapindex );
 		#define malloc(s)     arch_malloc(s,__PRETTY_FUNCTION__,0)
 		#define NEW           new(0,__PRETTY_FUNCTION__,0)
 	#else
+// @Patch
+/*
 		#define memalign      arch_memalign
 		#define malloc        arch_malloc
+		*/
 		#define NEW           new
 	#endif
-	#define free          arch_free
+
+// @Patch
+	//#define free          arch_free
 #endif /* TARGET_XBOX JIV FIXME */
 
+// @Patch
+/*
 void* arch_malloc( size_t size );
 void* arch_malloc( size_t size, const char *desc, int line=0 );
 
@@ -158,6 +162,7 @@ void* arch_trymalloc( size_t size, const char *desc=NULL, int line=0  );
 void* arch_memalign( size_t boundary, size_t size, const char *desc=NULL, int line=0  );
 void* arch_memalignhigh( size_t boundary, size_t size, const char *desc=NULL, int line=0  );
 void  arch_free( void* block );
+*/
 
 #ifndef GCOLDHEAP
 void *operator new(size_t size);
