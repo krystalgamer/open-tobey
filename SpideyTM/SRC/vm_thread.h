@@ -108,6 +108,8 @@ class vm_thread
     bool is_flagged( flags_t f ) const { return flags & f; }
 
     EXPORT void set_suspended( bool v );
+	// @Ok
+	// @Matching
     EXPORT bool is_suspended() const { return is_flagged( SUSPENDED ); }
     
     EXPORT void set_suspendable( bool v );
