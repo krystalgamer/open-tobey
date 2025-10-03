@@ -1266,6 +1266,8 @@ void vm_thread::remove_from_local_region()
 
 
 
+// @Ok
+// @Matching
 void vm_thread::remove_from_local_character()
 {
 STUBBED(vm_thread_remove_from_local_character, "vm_thread::remove_from_local_character");
@@ -1327,4 +1329,6 @@ void patch_vm_thread(void)
 
 	// @TODO - when region code is done
 	//PATCH_PUSH_RET(0x007E93D0, vm_thread::remove_from_local_region);
+
+	PATCH_PUSH_RET(0x007E93F0, vm_thread::remove_from_local_character);
 }

@@ -97,7 +97,7 @@ class vm_thread
 
 //!    character * get_local_character() const {return local_character;}
 //!    void set_local_character(character * chr) {local_character = chr; local_region = NULL;}
-    void remove_from_local_character();
+    EXPORT void remove_from_local_character();
 
   // Methods
   public:
