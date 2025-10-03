@@ -6,6 +6,7 @@
 
 #include "SpideyTM/SRC/my_assertions.h"
 
+#include "my_validations.h"
 #include "runtime_version.h"
 
 #ifndef RUNTIME_VERSION
@@ -19,6 +20,11 @@ void runtime_assertions()
 {
 	validate_stringx();
 	validate_string_buf();
+	validate_vm_stack();
+
+	do
+	{
+	} while (FAIL_VALIDATION);
 }
 
 void game_patches()

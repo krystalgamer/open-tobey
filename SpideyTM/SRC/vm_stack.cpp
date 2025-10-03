@@ -19,7 +19,7 @@ vm_stack::~vm_stack()
 
 // @Ok
 // @Matching
-bool vm_stack::push( const char* src, int n )
+bool vm_stack::push(const char* src, int n)
 {
 	memcpy(SP,src,n);
 	move_SP( n );
@@ -37,4 +37,19 @@ bool vm_stack::push( const char* src, int n )
 vm_num_t vm_stack::pop_num()
 {
 	return 0;
+}
+
+#include "my_assertions.h"
+static void compile_time_assertions()
+{
+	StaticAssert<sizeof(vm_stack) == 0x10>::sass();
+}
+
+void validate_vm_stack(void)
+{
+	VALIDATE_SIZE(vm_stack, 0x10);
+
+	VALIDATE(vm_stack, salloc, 0x0);
+	VALIDATE(vm_stack, buffer, 0x4);
+	VALIDATE(vm_stack, SP, 0x8);
 }

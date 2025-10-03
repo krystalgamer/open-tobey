@@ -35,6 +35,8 @@ class vm_stack
     void init(int sa);
     void set_SP(char* _sp) { SP = _sp; }
 
+	// @Ok
+	// @Matching
     void move_SP(int n)
       {
       assert(!(n&3));
@@ -149,5 +151,6 @@ class vm_stack
   friend class vm_thread;
   };
 
+void validate_vm_stack(void);
 
 #endif  // _VM_STACK_H
