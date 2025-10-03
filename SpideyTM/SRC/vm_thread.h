@@ -79,7 +79,9 @@ class vm_thread
     rational_t camera_priority;
 
     static unsigned int id_counter;
-    unsigned int thread_id;
+
+	// @Patch
+    //unsigned int thread_id;
 
   // Constructors
   public:
@@ -129,7 +131,7 @@ class vm_thread
     void slf_error( const stringx& err );
     void slf_warning( const stringx& err );
 
-    unsigned int get_thread_id() const     { return(thread_id); }
+    //unsigned int get_thread_id() const     { return(thread_id); }
 
 
 #if THREAD_PROFILING

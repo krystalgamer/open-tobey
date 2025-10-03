@@ -45,7 +45,8 @@ vm_thread::vm_thread()
   my_callback = NULL;
   camera_priority = 0;
 
-  thread_id = ++id_counter;
+  // @Patch
+  //thread_id = ++id_counter;
 }
 
 #ifdef TARGET_XBOX
@@ -76,7 +77,8 @@ vm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa)
   my_callback = NULL;
   camera_priority = 0;
 
-  thread_id = ++id_counter;
+  // @Patch
+  //thread_id = ++id_counter;
 }
 
 // create a thread spawned via the given event callback
@@ -106,7 +108,8 @@ vm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa,sc
   camera_priority = 0;
 
 
-  thread_id = ++id_counter;
+  // @Patch
+  //thread_id = ++id_counter;
 }
 
 vm_thread::~vm_thread()
@@ -1302,13 +1305,12 @@ void vm_thread::set_camera_priority( rational_t pr )
 #include "my_assertions.h"
 static void compile_time_assertions()
 {
-	// @TODO
-	//StaticAssert<sizeof(vm_thread) == 0x10>::sass();
+	StaticAssert<sizeof(vm_thread) == 0x48>::sass();
 }
 
 void validate_vm_thread(void)
 {
-	VALIDATE_SIZE(vm_thread, 0x4C);
+	VALIDATE_SIZE(vm_thread, 0x48);
 
 	VALIDATE(vm_thread, flags, 0x8);
 }
