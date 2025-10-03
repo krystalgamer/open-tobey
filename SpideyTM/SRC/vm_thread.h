@@ -104,7 +104,9 @@ class vm_thread
 
     vm_stack& get_data_stack() { return dstack; }
 
-    void set_flag( flags_t f, bool v ) { flags = v? (flags|f) : (flags&~f); }
+	// @Ok
+	// @Matching
+    EXPORT void set_flag( flags_t f, bool v ) { flags = v? (flags|f) : (flags&~f); }
     bool is_flagged( flags_t f ) const { return flags & f; }
 
     EXPORT void set_suspended( bool v );
