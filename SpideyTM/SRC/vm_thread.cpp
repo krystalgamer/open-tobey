@@ -32,8 +32,11 @@ vm_thread::vm_thread()
 
     PC(NULL),
 
-    PC_stack(),
-    entry(script_library_class::function::FIRST_ENTRY)
+    PC_stack()
+
+	//@Patch
+	//,
+    //entry(script_library_class::function::FIRST_ENTRY)
 {
   PC_stack.reserve(8);
   local_region = NULL;
@@ -45,8 +48,7 @@ vm_thread::vm_thread()
   my_callback = NULL;
   camera_priority = 0;
 
-  // @Patch
-  //thread_id = ++id_counter;
+  thread_id = ++id_counter;
 }
 
 #ifdef TARGET_XBOX
@@ -62,8 +64,10 @@ vm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa)
     flags( vm_thread::SUSPENDABLE ),
     dstack(sa,this),
     PC(ex->get_start()),
-    PC_stack(),
-    entry(script_library_class::function::FIRST_ENTRY)
+    PC_stack()
+    //@Patch
+	//,
+    //entry(script_library_class::function::FIRST_ENTRY)
 
 {
   PC_stack.reserve(8);
@@ -77,8 +81,7 @@ vm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa)
   my_callback = NULL;
   camera_priority = 0;
 
-  // @Patch
-  //thread_id = ++id_counter;
+  thread_id = ++id_counter;
 }
 
 // create a thread spawned via the given event callback
@@ -89,8 +92,10 @@ vm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa,sc
     flags( vm_thread::SUSPENDABLE ),
     dstack(sa,this),
     PC(ex->get_start()),
-    PC_stack(),
-    entry(script_library_class::function::FIRST_ENTRY)
+    PC_stack()
+    //@Patch
+	//,
+    //entry(script_library_class::function::FIRST_ENTRY)
 {
   PC_stack.reserve(8);
   local_region = NULL;
@@ -108,8 +113,7 @@ vm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa,sc
   camera_priority = 0;
 
 
-  // @Patch
-  //thread_id = ++id_counter;
+  thread_id = ++id_counter;
 }
 
 vm_thread::~vm_thread()
@@ -1250,11 +1254,11 @@ void vm_thread::pop_PC()
 
 
 
+// @Ok
+// @Matching
 void vm_thread::remove_from_local_region()
-
 {
   if ( local_region )
-
   {
     local_region->remove_local_thread(this);
   }
@@ -1313,10 +1317,14 @@ void validate_vm_thread(void)
 	VALIDATE_SIZE(vm_thread, 0x48);
 
 	VALIDATE(vm_thread, flags, 0x8);
+	VALIDATE(vm_thread, local_region, 0x34);
 }
 
 void patch_vm_thread(void)
 {
 	PATCH_PUSH_RET(0x007E76F0, vm_thread::set_suspended);
 	PATCH_PUSH_RET(0x007E7720, vm_thread::set_suspendable);
+
+	// @TODO - when region code is done
+	//PATCH_PUSH_RET(0x007E93D0, vm_thread::remove_from_local_region);
 }

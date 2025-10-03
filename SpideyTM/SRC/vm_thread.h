@@ -68,7 +68,9 @@ class vm_thread
 
 	std::vector<const unsigned short*> PC_stack;
     // used when calling library functions
-    script_library_class::function::entry_t entry;
+
+	// @Patch
+    //script_library_class::function::entry_t entry;
     // if thread was spawned by an event callback, this points to the callback definition
     script_callback* my_callback;
 
@@ -80,8 +82,7 @@ class vm_thread
 
     static unsigned int id_counter;
 
-	// @Patch
-    //unsigned int thread_id;
+    unsigned int thread_id;
 
   // Constructors
   public:
@@ -92,7 +93,7 @@ class vm_thread
     ~vm_thread();
     region * get_local_region() const {return local_region;}
     void set_local_region(region * reg) {local_region = reg; /*! local_character = NULL; !*/}
-    void remove_from_local_region();
+    EXPORT void remove_from_local_region();
 
 //!    character * get_local_character() const {return local_character;}
 //!    void set_local_character(character * chr) {local_character = chr; local_region = NULL;}
