@@ -20,7 +20,9 @@ void runtime_assertions()
 {
 	validate_stringx();
 	validate_string_buf();
+
 	validate_vm_stack();
+	validate_vm_thread();
 
 	do
 	{
@@ -33,6 +35,7 @@ void game_patches()
 	patch_stringx();
 
 	patch_vm_stack();
+	patch_vm_thread();
 }
 
 void runtime_patches()

@@ -119,7 +119,9 @@ vm_thread::~vm_thread()
 
 // Methods
 
-void vm_thread::set_suspended( bool v )
+// @Ok
+// @Matching
+void vm_thread::set_suspended(bool v)
 {
   if ( !v || is_suspendable() )
     set_flag( SUSPENDED, v );
@@ -1293,4 +1295,23 @@ void vm_thread::slf_warning( const stringx& err )
 void vm_thread::set_camera_priority( rational_t pr )
 {
   camera_priority = pr;
+}
+
+#include "my_assertions.h"
+static void compile_time_assertions()
+{
+	// @TODO
+	//StaticAssert<sizeof(vm_thread) == 0x10>::sass();
+}
+
+void validate_vm_thread(void)
+{
+	VALIDATE_SIZE(vm_thread, 0x4C);
+
+	VALIDATE(vm_thread, flags, 0x8);
+}
+
+void patch_vm_thread(void)
+{
+	PATCH_PUSH_RET(0x007E76F0, vm_thread::set_suspended);
 }

@@ -155,6 +155,7 @@ class vm_thread
 
   friend class script_object::instance;
   friend class script_object;            // remove me on sight -- gt
+  friend void validate_vm_thread(void);
   };
 
 
