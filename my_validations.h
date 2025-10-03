@@ -1,0 +1,14 @@
+#ifndef MY_VALIDATIONS_H
+#define MY_VALIDATIONS_H
+
+void validate_stringx(void);
+void validate_string_buf(void);
+
+void validate_vm_stack(void);
+void validate_vm_thread(void);
+void validate_script_object_instance(void);
+
+void patch_vm_stack(void);
+void patch_vm_thread(void);
+void patch_alloc(void);
+#endif

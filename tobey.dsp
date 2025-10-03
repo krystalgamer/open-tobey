@@ -127,6 +127,10 @@ SOURCE=.\SpideyTM\SRC\singleton.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\so_data_block.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\stringx.cpp
 # End Source File
 # Begin Source File
@@ -136,6 +140,10 @@ SOURCE=.\SpideyTM\SRC\vm_stack.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\vm_thread.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\w32_archalloc.cpp
 # End Source File
 # Begin Source File
 
@@ -412,6 +420,10 @@ SOURCE=.\SpideyTM\SRC\my_export.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\my_patch.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\my_validations.h
 # End Source File
 # Begin Source File
 
