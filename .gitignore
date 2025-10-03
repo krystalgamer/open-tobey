@@ -6,3 +6,4 @@ Release/
 *.swp
 *.opt
 *.sh
+*.dep

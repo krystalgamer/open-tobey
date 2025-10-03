@@ -17,11 +17,20 @@ vm_stack::~vm_stack()
   }
 
 
-// @TODO
+// @Ok
+// @Matching
 bool vm_stack::push( const char* src, int n )
-  {
-	  return true;
-  }
+{
+	memcpy(SP,src,n);
+	move_SP( n );
+#if REPORT_OVERFLOW
+  // check for stack overflow
+
+  if ( size() > capacity() )
+    return false;
+#endif
+  return true;
+}
 
 
 // @TODO
@@ -29,4 +38,3 @@ vm_num_t vm_stack::pop_num()
 {
 	return 0;
 }
-

@@ -43,7 +43,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX /Zi /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /Zi /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -91,6 +91,10 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\app.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\dllmain.cpp
 # End Source File
 # Begin Source File
@@ -103,11 +107,31 @@ SOURCE=.\SpideyTM\SRC\my_assertions.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\HWOSPC\pc_timer.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\region.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\script_object.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\signal.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\singleton.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\stringx.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\vm_stack.cpp
 # End Source File
 # Begin Source File
 
@@ -120,6 +144,14 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\w32_errmsg.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\HWOSPC\w32_file.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\wds.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\x86_math.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -383,6 +415,14 @@ SOURCE=.\SpideyTM\SRC\my_patch.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\ngl.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\NGL\PC\ngl_pc.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\ode.h
 # End Source File
 # Begin Source File
@@ -456,6 +496,10 @@ SOURCE=.\SpideyTM\SRC\project.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\pstring.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\random.h
 # End Source File
 # Begin Source File
 
@@ -544,6 +588,10 @@ SOURCE=.\SpideyTM\SRC\terrain.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\textfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\timer.h
 # End Source File
 # Begin Source File
 

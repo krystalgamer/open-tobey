@@ -21,7 +21,7 @@ typedef signal* vm_signal_t;
 
 
 class vm_stack
-  {
+{
   // Data
   public:
     int salloc;
@@ -90,7 +90,7 @@ class vm_stack
       return *(void**)SP;
       }
 
-    bool push( const char* src, int n );
+    EXPORT bool push( const char* src, int n );
     bool push(vm_num_t v)
       {
       *(vm_num_t*)SP = v;
