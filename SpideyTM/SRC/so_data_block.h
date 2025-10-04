@@ -32,7 +32,9 @@ class so_data_block
   // Internal Methods
   protected:
     EXPORT void _destroy();
-    EXPORT void _init(int sz);
+
+
+	friend void validate_so_data_block(void);
   };
 
 

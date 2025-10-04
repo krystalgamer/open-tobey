@@ -25,22 +25,24 @@ void runtime_assertions()
 	validate_vm_thread();
 	validate_script_object_instance();
 
-	/*
+	validate_so_data_block();
+
 	do
 	{
 	} while (FAIL_VALIDATION);
-	*/
 }
 
 void game_patches()
 {
+	patch_alloc();
+
 	patch_string_buf();
 	patch_stringx();
 
 	patch_vm_stack();
 	patch_vm_thread();
 
-	patch_alloc();
+	patch_so_data_block();
 }
 
 void runtime_patches()
