@@ -81,6 +81,8 @@ void patch_so_data_block(void)
 
 	PATCH_PUSH_RET(0x007E33F0, so_data_block::init);
 	PATCH_PUSH_RET(0x007E3470, so_data_block::clear);
+
+	PATCH_PUSH_RET(0x007E34C0, so_data_block::_init);
 }
 
 #include "my_assertions.h"

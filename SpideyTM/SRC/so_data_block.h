@@ -36,6 +36,7 @@ class so_data_block
 
 
 	friend void validate_so_data_block(void);
+	friend void patch_so_data_block(void);
   };
 
 
