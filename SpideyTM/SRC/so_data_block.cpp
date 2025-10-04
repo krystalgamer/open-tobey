@@ -11,7 +11,7 @@
 
 so_data_block::so_data_block(const so_data_block& b)
 {
-	init(b.blocksize);
+	_init(b.blocksize);
 	memcpy(buffer,b.buffer,blocksize);
 }
 
@@ -19,22 +19,29 @@ so_data_block::so_data_block(const so_data_block& b)
 // @Matching
 so_data_block::so_data_block(int sz)
 {
-	init(sz);
+	_init(sz);
 }
 
 // @Ok
 // @Matching
 so_data_block::~so_data_block()
 {
-	destroy();
+	_destroy();
 }
 
+// @Ok 
+// @Matching
+void so_data_block::init(int sz)
+{
+	_destroy();
+	_init(sz);
+}
 
 // Methods
 
 // @Ok 
 // @Matching
-INLINE void so_data_block::init(int sz)
+INLINE void so_data_block::_init(int sz)
 {
 	blocksize = sz;
 	if (sz)
@@ -51,13 +58,13 @@ INLINE void so_data_block::init(int sz)
 
 void so_data_block::clear()
 {
-	destroy();
+	_destroy();
 	blocksize = 0;
 }
 
 // @Ok
 // @Matching
-INLINE void so_data_block::destroy()
+INLINE void so_data_block::_destroy()
 {
 	if (buffer)
 		delete[] buffer;
@@ -68,7 +75,9 @@ INLINE void so_data_block::destroy()
 void patch_so_data_block(void)
 {
 	PATCH_PUSH_RET_POLY(0x007E3360, so_data_block::so_data_block, "??0so_data_block@@QAE@H@Z");
-	PATCH_PUSH_RET(0x007E33D0, so_data_block::~so_data_block, "??1so_data_block@@QAE@XZ");
+	PATCH_PUSH_RET_POLY(0x007E33D0, so_data_block::~so_data_block, "??1so_data_block@@QAE@XZ");
+
+	PATCH_PUSH_RET(0x007E33F0, so_data_block::init);
 }
 
 #include "my_assertions.h"

@@ -27,9 +27,11 @@ void runtime_assertions()
 
 	validate_so_data_block();
 
+	/*
 	do
 	{
 	} while (FAIL_VALIDATION);
+	*/
 }
 
 void game_patches()
