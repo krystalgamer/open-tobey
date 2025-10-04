@@ -22,10 +22,12 @@ so_data_block::so_data_block(int sz)
 	init(sz);
 }
 
+// @Ok
+// @Matching
 so_data_block::~so_data_block()
-  {
-    _destroy();
-  }
+{
+	destroy();
+}
 
 
 // Methods
@@ -48,18 +50,17 @@ INLINE void so_data_block::init(int sz)
 }
 
 void so_data_block::clear()
-  {
-  _destroy();
-  blocksize = 0;
-  }
-
-
-// Internal Methods
-
-void so_data_block::_destroy()
 {
-if (buffer)
-delete[] buffer;
+	destroy();
+	blocksize = 0;
+}
+
+// @Ok
+// @Matching
+INLINE void so_data_block::destroy()
+{
+	if (buffer)
+		delete[] buffer;
 }
 
 #include "my_patch.h"
@@ -67,6 +68,7 @@ delete[] buffer;
 void patch_so_data_block(void)
 {
 	PATCH_PUSH_RET_POLY(0x007E3360, so_data_block::so_data_block, "??0so_data_block@@QAE@H@Z");
+	PATCH_PUSH_RET(0x007E33D0, so_data_block::~so_data_block, "??1so_data_block@@QAE@XZ");
 }
 
 #include "my_assertions.h"

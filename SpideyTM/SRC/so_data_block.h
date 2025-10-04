@@ -31,7 +31,7 @@ class so_data_block
 
   // Internal Methods
   protected:
-    EXPORT void _destroy();
+    EXPORT void destroy();
 
 
 	friend void validate_so_data_block(void);
