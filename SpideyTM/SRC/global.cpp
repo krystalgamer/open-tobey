@@ -4,4 +4,5 @@
 */
 
 
+#include "warnlvl.h"
 #include "global.h"
