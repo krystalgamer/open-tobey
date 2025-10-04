@@ -18,8 +18,8 @@ class vm_symbol
 
   // Constructors
   public:
-    vm_symbol();
-    vm_symbol(const vm_symbol& b);
+    EXPORT vm_symbol();
+    EXPORT vm_symbol(const vm_symbol& b);
     vm_symbol(const symbol& b);  // script compiler support
 
   // Methods
@@ -35,6 +35,8 @@ class vm_symbol
 #if !defined(NO_SERIAL_OUT)
   friend void serial_out(chunk_file& io,const vm_symbol& s);
 #endif
+
+	friend void validate_vm_symbol(void);
   };
 
 

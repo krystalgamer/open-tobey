@@ -26,12 +26,11 @@ void runtime_assertions()
 	validate_script_object_instance();
 
 	validate_so_data_block();
+	validate_vm_symbol();
 
-	/*
 	do
 	{
 	} while (FAIL_VALIDATION);
-	*/
 }
 
 void game_patches()
@@ -43,6 +42,7 @@ void game_patches()
 
 	patch_vm_stack();
 	patch_vm_thread();
+	patch_vm_symbol();
 
 	patch_so_data_block();
 }
