@@ -55,6 +55,7 @@ CLEAN :
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
 	-@erase "$(INTDIR)\vm_stack.obj"
+	-@erase "$(INTDIR)\vm_symbol.obj"
 	-@erase "$(INTDIR)\vm_thread.obj"
 	-@erase "$(INTDIR)\w32_archalloc.obj"
 	-@erase "$(INTDIR)\w32_errmsg.obj"
@@ -68,7 +69,7 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MT /W3 /GX /Zi /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MT /W3 /GX- /Zi /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
@@ -86,15 +87,16 @@ LINK32_OBJS= \
 	"$(INTDIR)\script_object.obj" \
 	"$(INTDIR)\signal.obj" \
 	"$(INTDIR)\singleton.obj" \
+	"$(INTDIR)\so_data_block.obj" \
 	"$(INTDIR)\stringx.obj" \
 	"$(INTDIR)\vm_stack.obj" \
 	"$(INTDIR)\vm_thread.obj" \
+	"$(INTDIR)\w32_archalloc.obj" \
 	"$(INTDIR)\w32_errmsg.obj" \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\so_data_block.obj" \
-	"$(INTDIR)\w32_archalloc.obj"
+	"$(INTDIR)\vm_symbol.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -127,6 +129,7 @@ CLEAN :
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
 	-@erase "$(INTDIR)\vm_stack.obj"
+	-@erase "$(INTDIR)\vm_symbol.obj"
 	-@erase "$(INTDIR)\vm_thread.obj"
 	-@erase "$(INTDIR)\w32_archalloc.obj"
 	-@erase "$(INTDIR)\w32_errmsg.obj"
@@ -160,15 +163,16 @@ LINK32_OBJS= \
 	"$(INTDIR)\script_object.obj" \
 	"$(INTDIR)\signal.obj" \
 	"$(INTDIR)\singleton.obj" \
+	"$(INTDIR)\so_data_block.obj" \
 	"$(INTDIR)\stringx.obj" \
 	"$(INTDIR)\vm_stack.obj" \
 	"$(INTDIR)\vm_thread.obj" \
+	"$(INTDIR)\w32_archalloc.obj" \
 	"$(INTDIR)\w32_errmsg.obj" \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\so_data_block.obj" \
-	"$(INTDIR)\w32_archalloc.obj"
+	"$(INTDIR)\vm_symbol.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -286,6 +290,12 @@ SOURCE=.\SpideyTM\SRC\stringx.cpp
 SOURCE=.\SpideyTM\SRC\vm_stack.cpp
 
 "$(INTDIR)\vm_stack.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\vm_symbol.cpp
+
+"$(INTDIR)\vm_symbol.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
