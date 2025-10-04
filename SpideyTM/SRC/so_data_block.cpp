@@ -56,6 +56,8 @@ INLINE void so_data_block::_init(int sz)
 	buffer = NULL;
 }
 
+// @Ok
+// @Matching
 void so_data_block::clear()
 {
 	_destroy();
@@ -78,6 +80,7 @@ void patch_so_data_block(void)
 	PATCH_PUSH_RET_POLY(0x007E33D0, so_data_block::~so_data_block, "??1so_data_block@@QAE@XZ");
 
 	PATCH_PUSH_RET(0x007E33F0, so_data_block::init);
+	PATCH_PUSH_RET(0x007E3470, so_data_block::clear);
 }
 
 #include "my_assertions.h"
