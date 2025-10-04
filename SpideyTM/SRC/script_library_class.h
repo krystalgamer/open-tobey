@@ -263,7 +263,8 @@ void verify_parms_integrity( script_library_class::function* the_function,
 
                              int parms_size );
 
-const unsigned int UNINITIALIZED_SCRIPT_PARM = 0xFCFCFCFC;
+// @Patch - different value for spidey
+const unsigned int UNINITIALIZED_SCRIPT_PARM = 0x7BAD05CF;
 
 
 ///////////////////////////////////////////////////////////////////////////////
