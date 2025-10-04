@@ -150,7 +150,7 @@
 //#include "stl_adapter.h"
 
 // @TODO
-// #include "warnlvl.h"
+#include "warnlvl.h"
 
 #ifdef TARGET_GC
 extern "C" int stricmp( const char* s1, const char* s2 );

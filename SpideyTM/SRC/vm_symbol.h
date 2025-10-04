@@ -30,6 +30,7 @@ class vm_symbol
 
   // Friends
 #if !defined(NO_SERIAL_IN)
+	// @TODO - this exists
   friend void serial_in(chunk_file& io,vm_symbol* s);
 #endif
 #if !defined(NO_SERIAL_OUT)

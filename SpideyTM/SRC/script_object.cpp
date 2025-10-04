@@ -1,6 +1,15 @@
 #include "script_object.h"
 #include "vm_thread.h"
 
+script_object::instance::instance(const stringx& n,int sz)
+: name( n ),
+
+  data( sz ),
+  threads(),
+  suspended( false )
+{
+}
+
 // @TODO
 void script_object::instance::kill_thread(const vm_executable* ex)
 {
@@ -64,7 +73,11 @@ static void compile_time_assertions()
 
 void validate_script_object_instance(void)
 {
-	VALIDATE_SIZE(script_object::instance, 0x20);
+	VALIDATE_SIZE(script_object::instance, 0x18);
+	VALIDATE_SIZE(std::list<vm_thread*>, 0x18);
 
+	VALIDATE(script_object::instance, name, 0x0);
+	VALIDATE(script_object::instance, data, 0x8);
+	VALIDATE(script_object::instance, threads, 0x10);
 	VALIDATE(script_object::instance, suspended, 0x14);
 }

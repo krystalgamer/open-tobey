@@ -2,6 +2,10 @@
 #ifndef _SCRIPT_OBJECT_H
 #define _SCRIPT_OBJECT_H
 
+#define __STL_NO_EXCEPTION_HEADER
+#define __STL_NO_EXCEPTIONS
+#define __STL_USE_SGI_ALLOCATORS
+
 
 #include "stringx.h"
 #include "vm_symbol_list.h"
@@ -29,6 +33,7 @@ class script_object
   {
   // Types
   public:
+	#pragma pack(push, 1)
     class instance
       {
       // Types
@@ -45,7 +50,7 @@ class script_object
 
       // Constructors
       public:
-        instance(const stringx& n,int sz);
+        EXPORT instance(const stringx& n,int sz);
         ~instance();
       protected:
 
@@ -57,7 +62,7 @@ class script_object
         char* get_buffer() const { return data.get_buffer(); }
 
         // thread management
-        const thread_list& get_threads() const { return threads; }
+        //const thread_list& get_threads() const { return threads; }
         vm_thread* add_thread(const vm_executable* ex);
         vm_thread* add_thread( const vm_executable* ex, const char* parms );
 
@@ -66,7 +71,7 @@ class script_object
 
         vm_thread* spawn_subthread(const vm_executable* ex);
         void kill_thread(const vm_executable* ex);
-        bool has_threads() const { return threads.size()? true : false; }
+        //bool has_threads() const { return threads.size()? true : false; }
         // execute all threads
         void run(bool ignore_suspended);
         // run a single thread
@@ -93,6 +98,7 @@ class script_object
       friend class script_object;
       friend void validate_script_object_instance(void);
       };
+#pragma pack(pop)
 
     // instance management
 

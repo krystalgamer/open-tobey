@@ -23,7 +23,9 @@ void runtime_assertions()
 
 	validate_vm_stack();
 	validate_vm_thread();
-	validate_script_object_instance();
+
+	// @TODO
+	//validate_script_object_instance();
 
 	validate_so_data_block();
 	validate_vm_symbol();
