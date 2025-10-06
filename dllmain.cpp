@@ -49,6 +49,7 @@ void game_patches()
 	patch_vm_symbol();
 
 	patch_so_data_block();
+	patch_os_file();
 }
 
 void runtime_patches()

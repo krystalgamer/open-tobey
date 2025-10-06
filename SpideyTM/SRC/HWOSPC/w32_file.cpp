@@ -2,6 +2,8 @@
 
 #define INVLALID_FP INVLAID_HANDLE_VALUE
 
+// @Ok
+// @Mataching
 os_file::os_file()
 {
 	field_10 = -1;
@@ -12,7 +14,6 @@ os_file::os_file()
 }
 
 os_file::os_file(const stringx & _name, int _flags)
-
 {
 	flags=0;
 	opened=false;
@@ -56,4 +57,11 @@ void validate_os_file()
 
 	VALIDATE(os_file, field_10, 0x10);
 	VALIDATE(os_file, field_14, 0x14);
+}
+
+#include "..\my_patch.h"
+
+void patch_os_file()
+{
+	PATCH_PUSH_RET_POLY(0x007F45F0, os_file::os_file, "??0os_file@@QAE@XZ");
 }

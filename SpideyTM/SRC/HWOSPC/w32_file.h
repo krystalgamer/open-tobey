@@ -110,6 +110,7 @@ class os_file
     friend class movieplayer;
 
 	friend void validate_os_file();
+	friend void patch_os_file();
 };            
 
 // @Patch

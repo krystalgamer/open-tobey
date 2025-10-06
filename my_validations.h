@@ -16,4 +16,5 @@ void patch_vm_thread(void);
 void patch_alloc(void);
 void patch_so_data_block(void);
 void patch_vm_symbol(void);
+void patch_os_file(void);
 #endif
