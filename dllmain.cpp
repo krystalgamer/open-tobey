@@ -30,6 +30,8 @@ void runtime_assertions()
 	validate_so_data_block();
 	validate_vm_symbol();
 
+	validate_os_file();
+
 	do
 	{
 	} while (FAIL_VALIDATION);

@@ -4,6 +4,12 @@
 #include "..\stringx.h"
 
 
+#ifndef INVALID_HANDLE_VALUE
+
+#define INVALID_HANDLE_VALUE -1
+
+#endif
+
 class os_file
 {
   public:
@@ -16,7 +22,7 @@ class os_file
     };
 
     // ctors & dtor.
-    os_file();
+    EXPORT os_file();
 
     os_file(const stringx & _name, int _flags);
 
@@ -72,10 +78,6 @@ class os_file
 
     bool operator!() const { return false; }
 
-    static void system_lock() { system_locked = true; }
-    static void system_unlock() { system_locked = false; }
-    static bool is_system_locked() { return system_locked; }
-
     bool is_from_cd() { return from_cd; }
 
     enum {MAX_DIR_LEN=256};
@@ -93,10 +95,11 @@ class os_file
     static char root_dir[MAX_DIR_LEN];
     static char pre_root_dir[MAX_DIR_LEN];
 
-    static bool system_locked;
+	int field_10;
+	int field_14;
+
     
     // implementation stuff
-    FILE *io;
     bool check_for_errors(int sce_error_code, char *_activity);
 
 //    bool try_to_open_from_cd();
@@ -106,6 +109,7 @@ class os_file
 	// @Patch
     friend class movieplayer;
 
+	friend void validate_os_file();
 };            
 
 // @Patch

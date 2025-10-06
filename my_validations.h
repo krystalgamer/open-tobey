@@ -9,6 +9,7 @@ void validate_vm_thread(void);
 void validate_script_object_instance(void);
 void validate_so_data_block(void);
 void validate_vm_symbol(void);
+void validate_os_file(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
