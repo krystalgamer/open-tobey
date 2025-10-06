@@ -54,6 +54,9 @@ class os_file
     // state queries
 
     inline const stringx & get_name() const { return name; }
+
+	// @Ok
+	// @Matching
     inline bool is_open() const { return opened; }           // returns true after a successful open call.
     inline bool at_eof() const;               // check this after a read operation.
 
