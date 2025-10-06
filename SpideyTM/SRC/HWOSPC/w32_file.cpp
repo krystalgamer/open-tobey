@@ -1,6 +1,8 @@
 #include "w32_file.h"
 
 #define INVLALID_FP INVLAID_HANDLE_VALUE
+char os_file::root_dir[MAX_DIR_LEN];
+char os_file::pre_root_dir[MAX_DIR_LEN];
 
 // @Ok
 // @Mataching
@@ -78,6 +80,44 @@ int os_file::get_size()
 	return GetFileSize(this->file_handle, 0);
 }
 
+
+// @Ok
+// @Matching
+void os_file::set_fp(int pos, filepos_t base)
+{
+	int method = 0;
+	switch (base)
+	{
+    case FP_BEGIN:
+		method = FILE_BEGIN;
+		break;
+    case FP_CURRENT:
+		method = FILE_CURRENT;
+		break;
+    case FP_END:
+		method = FILE_END;
+		break;
+	}
+	
+	SetFilePointer(this->file_handle, pos, 0, method);
+}
+
+// @Ok
+// @Matching
+void os_file::set_root_dir(const stringx & dir)
+{
+	assert( dir.size()<MAX_DIR_LEN );
+	strcpy( root_dir, dir.c_str() );
+}
+
+// @Ok
+// @Matching
+void os_file::set_pre_root_dir(const stringx& dir)
+{
+	assert( dir.size()<MAX_DIR_LEN );
+	strcpy( pre_root_dir, dir.c_str() );
+}
+
 #include "..\my_assertions.h"
 
 void validate_os_file()
@@ -102,4 +142,9 @@ void patch_os_file()
 	
 	PATCH_PUSH_RET(0x007F4940, os_file::write);
 	PATCH_PUSH_RET(0x007F4980, os_file::get_size);
+
+	PATCH_PUSH_RET(0x007F4AB0, os_file::set_fp);
+
+
+	// @TODO - replace root dir stuff
 }

@@ -48,7 +48,7 @@ class os_file
     };
 
     // set file pointer 
-    void set_fp( int pos, filepos_t base );
+    EXPORT void set_fp( int pos, filepos_t base );
     unsigned int get_fp(); // relative to beginning
 
     // state queries
@@ -62,13 +62,13 @@ class os_file
 
 
     // once this is set, all os_file open operations that specify use_root are opened relative to this directory.
-    static void set_root_dir(const stringx & dir);
+    EXPORT static void set_root_dir(const stringx & dir);
     static const char* get_root_dir() { return root_dir; }
 
 
     // By default,the dir above root (e.g. \die2 to \die2\data)
 
-    static void set_pre_root_dir(const stringx & dir);
+    EXPORT static void set_pre_root_dir(const stringx & dir);
     static const char* get_pre_root_dir() { return pre_root_dir; }
 
     // file system queries
@@ -95,8 +95,8 @@ class os_file
 
 
 
-    static char root_dir[MAX_DIR_LEN];
-    static char pre_root_dir[MAX_DIR_LEN];
+    EXPORT static char root_dir[MAX_DIR_LEN];
+    EXPORT static char pre_root_dir[MAX_DIR_LEN];
 
 	HANDLE file_handle;
 	void* file_ptr;
