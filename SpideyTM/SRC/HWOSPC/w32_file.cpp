@@ -66,6 +66,18 @@ int os_file::write(void * data, int bytes)
 	return written;
 }
 
+// @Ok
+// @Matching
+int os_file::get_size()
+{
+	if(!is_open())
+	{
+		return -1;
+	}
+
+	return GetFileSize(this->file_handle, 0);
+}
+
 #include "..\my_assertions.h"
 
 void validate_os_file()
@@ -89,4 +101,5 @@ void patch_os_file()
 	PATCH_PUSH_RET_POLY(0x007F4680, os_file::~os_file, "??1os_file@@QAE@XZ");
 	
 	PATCH_PUSH_RET(0x007F4940, os_file::write);
+	PATCH_PUSH_RET(0x007F4980, os_file::get_size);
 }

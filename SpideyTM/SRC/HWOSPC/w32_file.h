@@ -37,7 +37,7 @@ class os_file
     EXPORT int write(void * data, int bytes);
 
     // returns file size
-    int get_size(); 
+    EXPORT int get_size(); 
 
     enum filepos_t
 
