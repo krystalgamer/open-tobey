@@ -117,6 +117,22 @@ class os_file
 };            
 
 // @Patch
-typedef os_file* host_system_file_handle;
+typedef FILE* host_system_file_handle;
+
+enum host_fopen_flags_t
+  {
+  HOST_RWA_MASK = 0x0003,
+  HOST_READ     = 0x0000,
+  HOST_WRITE    = 0x0001,
+  HOST_APPEND   = 0x0002,
+
+
+  HOST_TB_MASK  = 0x0004,
+  HOST_BINARY   = 0x0000,
+  HOST_TEXT     = 0x0004,
+  };
+
+EXPORT host_system_file_handle host_fopen(const char* fname, host_fopen_flags_t flags);
+
 
 #endif

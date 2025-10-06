@@ -118,6 +118,39 @@ void os_file::set_pre_root_dir(const stringx& dir)
 	strcpy( pre_root_dir, dir.c_str() );
 }
 
+// @Ok
+// @Matching
+host_system_file_handle host_fopen(const char* fname, host_fopen_flags_t flags)
+{
+	char open_flags[3];
+	switch (flags & HOST_RWA_MASK)
+	{
+		case HOST_READ:
+			open_flags[0] = 'r';
+			break;
+		case HOST_WRITE:
+			open_flags[0] = 'w';
+			break;
+		case HOST_APPEND:
+			open_flags[0] = 'a';
+			break;
+	}
+
+	switch (flags & HOST_TB_MASK)
+	{
+		case HOST_TEXT:
+			open_flags[1] = 't';
+			break;
+		case HOST_BINARY:
+			open_flags[1] = 'b';
+			break;
+	}
+
+	open_flags[2] = '\0';
+
+	return fopen(fname, open_flags);
+}
+
 #include "..\my_assertions.h"
 
 void validate_os_file()
@@ -147,4 +180,7 @@ void patch_os_file()
 
 
 	// @TODO - replace root dir stuff
+	
+
+	PATCH_PUSH_RET(0x007F4D80, host_fopen);
 }
