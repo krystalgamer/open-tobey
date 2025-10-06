@@ -57,6 +57,15 @@ INLINE void os_file::close()
 	this->from_cd = 1;
 }
 
+// @Ok - reuse of stack as local
+// @Matching
+int os_file::write(void * data, int bytes)
+{
+	DWORD written;
+	WriteFile(this->file_handle, data, bytes, &written, 0);
+	return written;
+}
+
 #include "..\my_assertions.h"
 
 void validate_os_file()
@@ -78,4 +87,6 @@ void patch_os_file()
 {
 	PATCH_PUSH_RET_POLY(0x007F45F0, os_file::os_file, "??0os_file@@QAE@XZ");
 	PATCH_PUSH_RET_POLY(0x007F4680, os_file::~os_file, "??1os_file@@QAE@XZ");
+	
+	PATCH_PUSH_RET(0x007F4940, os_file::write);
 }

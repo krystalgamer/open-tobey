@@ -34,7 +34,7 @@ class os_file
 
     // read/write return number of bytes read/written.
     int read(void * data, int bytes, bool async = false);
-    int write(void * data, int bytes);
+    EXPORT int write(void * data, int bytes);
 
     // returns file size
     int get_size(); 
