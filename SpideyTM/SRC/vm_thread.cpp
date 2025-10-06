@@ -1303,7 +1303,9 @@ void vm_thread::slf_warning( const stringx& err )
 }
 
 
-void vm_thread::set_camera_priority( rational_t pr )
+// @Ok
+// @Matching
+void vm_thread::set_camera_priority(rational_t pr)
 {
   camera_priority = pr;
 }
@@ -1320,6 +1322,7 @@ void validate_vm_thread(void)
 
 	VALIDATE(vm_thread, flags, 0x8);
 	VALIDATE(vm_thread, local_region, 0x34);
+	VALIDATE(vm_thread, camera_priority, 0x38);
 }
 
 void patch_vm_thread(void)
@@ -1331,4 +1334,6 @@ void patch_vm_thread(void)
 	//PATCH_PUSH_RET(0x007E93D0, vm_thread::remove_from_local_region);
 
 	PATCH_PUSH_RET(0x007E93F0, vm_thread::remove_from_local_character);
+
+	PATCH_PUSH_RET(0x007E9710, vm_thread::set_camera_priority);
 }

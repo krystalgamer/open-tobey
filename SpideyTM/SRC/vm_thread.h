@@ -120,7 +120,7 @@ class vm_thread
     EXPORT void set_suspendable( bool v );
     EXPORT bool is_suspendable() const { return is_flagged( SUSPENDABLE ); }
 
-    void set_camera_priority( rational_t pr );
+    EXPORT void set_camera_priority( rational_t pr );
     rational_t get_camera_priority() { return(camera_priority); }
 
     // Execute this thread until interrupted or terminated.
