@@ -26,7 +26,7 @@ class os_file
 
     os_file(const stringx & _name, int _flags);
 
-    ~os_file();
+    EXPORT ~os_file();
 
     void open(const stringx & _name, int _flags);
     void close();
@@ -98,8 +98,8 @@ class os_file
     static char root_dir[MAX_DIR_LEN];
     static char pre_root_dir[MAX_DIR_LEN];
 
-	int field_10;
-	int field_14;
+	HANDLE file_handle;
+	void* file_ptr;
 
     
     // implementation stuff
