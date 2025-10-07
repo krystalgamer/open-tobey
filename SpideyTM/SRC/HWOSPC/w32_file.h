@@ -68,13 +68,16 @@ class os_file
 
     // once this is set, all os_file open operations that specify use_root are opened relative to this directory.
     EXPORT static void set_root_dir(const stringx & dir);
-    static const char* get_root_dir() { return root_dir; }
+	// @Ok
+	// @Matching
+    EXPORT static const char* get_root_dir() { return root_dir; }
 
 
     // By default,the dir above root (e.g. \die2 to \die2\data)
 
     EXPORT static void set_pre_root_dir(const stringx & dir);
-    static const char* get_pre_root_dir() { return pre_root_dir; }
+	// @Matching
+    EXPORT static const char* get_pre_root_dir() { return pre_root_dir; }
 
     // file system queries
     EXPORT static bool file_exists(const stringx& name);

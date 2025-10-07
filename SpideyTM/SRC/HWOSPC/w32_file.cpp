@@ -216,6 +216,8 @@ void os_file::set_pre_root_dir(const stringx& dir)
 	strcpy( pre_root_dir, dir.c_str() );
 }
 
+// @Ok
+// @Matching
 bool os_file::file_exists(const stringx& name)
 {
 	stringx dir_name;
@@ -344,21 +346,25 @@ void validate_os_file()
 void patch_os_file()
 {
 	PATCH_PUSH_RET_POLY(0x007F45F0, os_file::os_file, "??0os_file@@QAE@XZ");
-	// @TODO - when open is done
-	//PATCH_PUSH_RET_POLY(0x007F4630, os_file::os_file, "??0os_file@@QAE@ABVstringx@@H@Z");
+	PATCH_PUSH_RET_POLY(0x007F4630, os_file::os_file, "??0os_file@@QAE@ABVstringx@@H@Z");
 	PATCH_PUSH_RET_POLY(0x007F4680, os_file::~os_file, "??1os_file@@QAE@XZ");
 	
+	PATCH_PUSH_RET(0x007F46D0, os_file::open);
+	PATCH_PUSH_RET(0x007F4850, os_file::close);
 	PATCH_PUSH_RET(0x007F48A0, os_file::read);
 	PATCH_PUSH_RET(0x007F4940, os_file::write);
 	PATCH_PUSH_RET(0x007F4980, os_file::get_size);
-
+	PATCH_PUSH_RET(0x007F4A70, os_file::try_unmap_file);
 	PATCH_PUSH_RET(0x007F4AB0, os_file::set_fp);
 
-	PATCH_PUSH_RET(0x007F4BD0, os_file::file_exists);
 
+	PATCH_PUSH_RET(0x007F4B30, os_file::set_root_dir);
+	PATCH_PUSH_RET(0x007F4B60, os_file::get_root_dir);
 
-	// @TODO - replace root dir stuff
+	PATCH_PUSH_RET(0x007F4B80, os_file::set_pre_root_dir);
+	PATCH_PUSH_RET(0x007F4BB0, os_file::get_pre_root_dir);
 	
+	PATCH_PUSH_RET(0x007F4BD0, os_file::file_exists);
 
 	PATCH_PUSH_RET(0x007F4D80, host_fopen);
 	PATCH_PUSH_RET(0x007F4E20, host_fclose);
@@ -366,7 +372,4 @@ void patch_os_file()
 	PATCH_PUSH_RET(0x007F4E70, host_write);
 	PATCH_PUSH_RET(0x007F4EA0, host_fseek);
 	PATCH_PUSH_RET(0x007F4EF0, host_get_size);
-
-	PATCH_PUSH_RET(0x007F4850, os_file::close);
-	PATCH_PUSH_RET(0x007F4A70, os_file::try_unmap_file);
 }
