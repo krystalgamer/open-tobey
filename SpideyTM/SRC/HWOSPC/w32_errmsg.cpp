@@ -3,6 +3,8 @@
 // @TODO
 void error(const stringx& str)
 {
+	OutputDebugStringA(str.c_str());
+	exit(-1);
 }
 
 // @TODO

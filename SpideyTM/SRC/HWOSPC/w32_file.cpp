@@ -60,6 +60,20 @@ INLINE void os_file::close()
 	this->from_cd = 1;
 }
 
+// @Ok
+// @Matching
+int os_file::read(void *data, int bytes)
+{
+	DWORD numRead; 
+	if (!ReadFile(this->file_handle, data, bytes, &numRead, 0))
+	{
+		error(stringx("Something weird about file ") + this->name);
+	}
+
+	this->from_cd = numRead < bytes;
+	return numRead;
+}
+
 // @Ok - reuse of stack as local
 // @Matching
 int os_file::write(void * data, int bytes)
@@ -262,6 +276,7 @@ void patch_os_file()
 	//PATCH_PUSH_RET_POLY(0x007F4630, os_file::os_file, "??0os_file@@QAE@ABVstringx@@H@Z");
 	PATCH_PUSH_RET_POLY(0x007F4680, os_file::~os_file, "??1os_file@@QAE@XZ");
 	
+	PATCH_PUSH_RET(0x007F48A0, os_file::read);
 	PATCH_PUSH_RET(0x007F4940, os_file::write);
 	PATCH_PUSH_RET(0x007F4980, os_file::get_size);
 
