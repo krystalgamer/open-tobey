@@ -15,16 +15,17 @@ os_file::os_file()
 	file_ptr = 0;
 }
 
+// @Ok
+// @Matching
 os_file::os_file(const stringx & _name, int _flags)
 {
-	flags=0;
-	opened=false;
-	from_cd = false;
+	this->flags = 0;
+	this->opened = 0;
+	this->from_cd = 0;
+	this->file_ptr = 0;
+	this->file_handle = INVALID_HANDLE_VALUE;
 
-	// @Patch
-	//io = INVALID_FP;
 	open(_name,_flags);
-
 }
 
 
@@ -171,6 +172,8 @@ void validate_os_file()
 void patch_os_file()
 {
 	PATCH_PUSH_RET_POLY(0x007F45F0, os_file::os_file, "??0os_file@@QAE@XZ");
+	// @TODO - when open is done
+	//PATCH_PUSH_RET_POLY(0x007F4630, os_file::os_file, "??0os_file@@QAE@ABVstringx@@H@Z");
 	PATCH_PUSH_RET_POLY(0x007F4680, os_file::~os_file, "??1os_file@@QAE@XZ");
 	
 	PATCH_PUSH_RET(0x007F4940, os_file::write);
@@ -183,4 +186,5 @@ void patch_os_file()
 	
 
 	PATCH_PUSH_RET(0x007F4D80, host_fopen);
+
 }

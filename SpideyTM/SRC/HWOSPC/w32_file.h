@@ -24,7 +24,7 @@ class os_file
     // ctors & dtor.
     EXPORT os_file();
 
-    os_file(const stringx & _name, int _flags);
+    EXPORT os_file(const stringx & _name, int _flags);
 
     EXPORT ~os_file();
 
