@@ -81,6 +81,17 @@ int os_file::get_size()
 	return GetFileSize(this->file_handle, 0);
 }
 
+bool os_file::try_unmap_file(int)
+{
+	if (file_ptr)
+	{
+		UnmapViewOfFile(file_ptr);
+		file_ptr = 0;
+		return true;
+	}
+
+	return false;
+}
 
 // @Ok
 // @Matching
@@ -187,4 +198,5 @@ void patch_os_file()
 
 	PATCH_PUSH_RET(0x007F4D80, host_fopen);
 	PATCH_PUSH_RET(0x007F4850, os_file::close);
+	PATCH_PUSH_RET(0x007F4A70, os_file::try_unmap_file);
 }

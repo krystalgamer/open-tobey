@@ -39,6 +39,9 @@ class os_file
     // returns file size
     EXPORT int get_size(); 
 
+	// @Patch - guessed the name
+	EXPORT bool try_unmap_file(int);
+
     enum filepos_t
 
     {
