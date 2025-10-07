@@ -61,7 +61,7 @@ void os_file::open(const stringx & _name, int _flags)
 	if (this->name[1] != ':' &&this->name[0] != '\\')
 	{
 		{
-			this->name = os_file::pre_root_dir + this->name;
+			this->name = os_file::root_dir + this->name;
 		}
 	}
 
@@ -226,7 +226,7 @@ bool os_file::file_exists(const stringx& name)
 	}
 	else
 	{
-		dir_name = os_file::pre_root_dir + name;
+		dir_name = os_file::root_dir + name;
 	}
 
 	return (GetFileAttributes(dir_name.c_str()) & FILE_ATTRIBUTE_DIRECTORY);
