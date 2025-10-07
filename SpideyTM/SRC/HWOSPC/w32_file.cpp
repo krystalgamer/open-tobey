@@ -206,6 +206,22 @@ int host_fseek( host_system_file_handle fp, int offset, host_seek_mode_t mode )
 	return fseek(fp, offset, origin);
 }
 
+#include <sys/stat.h>
+
+// @Ok
+// @Matching
+int host_get_size( host_system_file_handle fp )
+{
+	struct _stat v2; // [esp+0h] [ebp-24h] BYREF
+
+	if (_fstat(fp->_file, &v2) )
+	{
+		return -1;
+	}
+
+	return v2.st_size;
+}
+
 #include "..\my_assertions.h"
 
 void validate_os_file()
@@ -244,6 +260,7 @@ void patch_os_file()
 	PATCH_PUSH_RET(0x007F4E40, host_read);
 	PATCH_PUSH_RET(0x007F4E70, host_write);
 	PATCH_PUSH_RET(0x007F4EA0, host_fseek);
+	PATCH_PUSH_RET(0x007F4EF0, host_get_size);
 
 	PATCH_PUSH_RET(0x007F4850, os_file::close);
 	PATCH_PUSH_RET(0x007F4A70, os_file::try_unmap_file);
