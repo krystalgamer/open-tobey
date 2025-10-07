@@ -135,9 +135,17 @@ enum host_fopen_flags_t
   HOST_TEXT     = 0x0004,
   };
 
+enum host_seek_mode_t {
+	HOST_CUR   = 0x0000,
+	HOST_BEGIN = 0x0001,
+	HOST_END   = 0x0002,
+};
+
 EXPORT host_system_file_handle host_fopen(const char* fname, host_fopen_flags_t flags);
 EXPORT void host_fclose(host_system_file_handle);
 EXPORT int host_read( host_system_file_handle fp, void* buf, int len );
+EXPORT int host_write( host_system_file_handle fp, void const * buf, int len );
+EXPORT int host_fseek( host_system_file_handle fp, int offset, host_seek_mode_t mode );
 
 
 #endif

@@ -177,6 +177,35 @@ int host_read( host_system_file_handle fp, void* buf, int len )
 	return fread(buf, 1, len, fp);
 }
 
+// @Ok
+// @Matching
+int host_write( host_system_file_handle fp, void const * buf, int len )
+{
+	return fwrite(buf, 1, len, fp);
+}
+
+// @Ok
+// @Matching
+int host_fseek( host_system_file_handle fp, int offset, host_seek_mode_t mode )
+{
+	int origin = 0;
+	
+	switch (mode)
+	{
+		case HOST_CUR:
+			origin = SEEK_CUR;
+			break;
+		case HOST_BEGIN:
+			origin = SEEK_SET;
+			break;
+		case HOST_END:
+			origin = SEEK_END;
+			break;
+	}
+
+	return fseek(fp, offset, origin);
+}
+
 #include "..\my_assertions.h"
 
 void validate_os_file()
@@ -212,7 +241,9 @@ void patch_os_file()
 
 	PATCH_PUSH_RET(0x007F4D80, host_fopen);
 	PATCH_PUSH_RET(0x007F4E20, host_fclose);
-	PATCH_PUSH_RET(0x007F4E40, host_fread);
+	PATCH_PUSH_RET(0x007F4E40, host_read);
+	PATCH_PUSH_RET(0x007F4E70, host_write);
+	PATCH_PUSH_RET(0x007F4EA0, host_fseek);
 
 	PATCH_PUSH_RET(0x007F4850, os_file::close);
 	PATCH_PUSH_RET(0x007F4A70, os_file::try_unmap_file);
