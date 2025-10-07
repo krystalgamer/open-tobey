@@ -28,7 +28,7 @@ class os_file
 
     EXPORT ~os_file();
 
-    void open(const stringx & _name, int _flags);
+    EXPORT void open(const stringx & _name, int _flags);
     EXPORT void close();
 
 
@@ -85,6 +85,10 @@ class os_file
 
     bool operator!() const { return false; }
 
+	static void system_lock() { system_locked = true; }
+	static void system_unlock() { system_locked = false; }
+	static bool is_system_locked() { return system_locked; }
+
     bool is_from_cd() { return from_cd; }
 
     enum {MAX_DIR_LEN=256};
@@ -104,6 +108,8 @@ class os_file
 
 	HANDLE file_handle;
 	void* file_ptr;
+
+	static bool system_locked;
 
     
     // implementation stuff

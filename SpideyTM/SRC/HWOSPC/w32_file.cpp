@@ -3,6 +3,7 @@
 #define INVLALID_FP INVLAID_HANDLE_VALUE
 char os_file::root_dir[MAX_DIR_LEN];
 char os_file::pre_root_dir[MAX_DIR_LEN];
+bool os_file::system_locked = false;
 
 // @Ok
 // @Mataching
