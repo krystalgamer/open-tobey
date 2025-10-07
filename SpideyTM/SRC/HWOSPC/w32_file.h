@@ -29,7 +29,7 @@ class os_file
     EXPORT ~os_file();
 
     void open(const stringx & _name, int _flags);
-    void close();
+    EXPORT void close();
 
 
     // read/write return number of bytes read/written.

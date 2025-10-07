@@ -186,5 +186,5 @@ void patch_os_file()
 	
 
 	PATCH_PUSH_RET(0x007F4D80, host_fopen);
-
+	PATCH_PUSH_RET(0x007F4850, os_file::close);
 }
