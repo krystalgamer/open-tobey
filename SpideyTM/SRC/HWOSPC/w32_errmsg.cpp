@@ -15,4 +15,6 @@ void error(const char* fmtp, ...)
 // @TODO
 void warning(const stringx& str )
 {
+	OutputDebugStringA("WARNING BOY");
+	OutputDebugStringA(str.c_str());
 }

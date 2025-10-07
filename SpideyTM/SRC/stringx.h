@@ -537,19 +537,6 @@ inline bool operator<( const stringx& lhs, const stringx& rhs )
 }
 
 
-inline stringx operator+( const stringx& lhs, const char* rhs )
-
-{
-  stringx foo;
-  int len = strlen(rhs);
-
-  foo.make_room(len + lhs.my_buf->char_length);
-  foo.append(lhs);
-  foo.append(rhs, len);
-
-  return foo;
-}
-
 inline stringx get_dir( const stringx& path )
 {
   stringx retval;

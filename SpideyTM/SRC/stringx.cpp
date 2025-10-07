@@ -995,6 +995,20 @@ stringx operator+( const char* lhs, const stringx& rhs )
   return foo;
 }
 
+stringx operator+( const stringx& lhs, const char* rhs )
+
+{
+  stringx foo;
+  int len = strlen(rhs);
+
+  foo.make_room(len + lhs.my_buf->char_length);
+  foo.append(lhs);
+  foo.append(rhs, len);
+
+  return foo;
+}
+
+
 
 // @NotMatching - different inline
 stringx stringx::bogus_sum_sx_sx (const stringx& lhs, const stringx& rhs)

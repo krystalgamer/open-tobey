@@ -17,8 +17,10 @@ class os_file
     {
       FILE_READ   = 1,
       FILE_WRITE  = 2,
-      FILE_MODIFY = 3,    // opens the file for writing, w/o deleting existing contents. (how to set new EOF? huh? --Sean)
-      FILE_APPEND = 4
+	  // @Patch - 3 to 4
+      FILE_MODIFY = 4,    // opens the file for writing, w/o deleting existing contents. (how to set new EOF? huh? --Sean)
+	  // @Patch - 4 to 8
+      FILE_APPEND = 8
     };
 
     // ctors & dtor.

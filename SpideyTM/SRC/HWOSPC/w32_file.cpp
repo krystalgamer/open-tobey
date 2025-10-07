@@ -40,9 +40,80 @@ os_file::~os_file()
 		close();
 }
 
-// @TODO
+// @NotOk - missing the os_developer
+static inline void check_system_locked( const stringx& name )
+{
+	// @TODO
+	if (os_file::is_system_locked() /*&& !os_developer_options::inst()->is_flagged(os_developer_options::FLAG_MOVE_EDITOR)*/)
+	{
+		warning( name + ": os_file system is locked; no file access allowed" );
+	}
+}
+
+// @Ok
+// @Matching
 void os_file::open(const stringx & _name, int _flags)
 {
+	check_system_locked( _name );
+
+	this->name = _name;
+
+	if (this->name[1] != ':' &&this->name[0] != '\\')
+	{
+		{
+			this->name = os_file::pre_root_dir + this->name;
+		}
+	}
+
+
+	DWORD desiredAccess = -1;
+	DWORD creationDisposition = -1;
+	DWORD sharedMode = -1;
+	this->flags = _flags;
+	if (_flags & FILE_READ)
+	{
+		desiredAccess = GENERIC_READ;
+		creationDisposition = OPEN_EXISTING;
+		sharedMode = FILE_SHARE_READ;
+	}
+	else if (_flags & FILE_WRITE)
+	{
+		desiredAccess = GENERIC_WRITE;
+		creationDisposition = CREATE_ALWAYS;
+		sharedMode = 0;
+	}
+	else if (_flags & FILE_MODIFY)
+	{
+		desiredAccess = GENERIC_WRITE | GENERIC_READ;
+		creationDisposition = OPEN_ALWAYS;
+		sharedMode = 0;
+	}
+	else if (_flags & FILE_APPEND)
+	{
+		desiredAccess = GENERIC_WRITE;
+		creationDisposition = OPEN_ALWAYS;
+		sharedMode = 0;
+	}
+
+
+	this->file_handle = CreateFileA(
+			this->name.c_str(),
+			desiredAccess,
+			sharedMode,
+			0,
+			creationDisposition,
+			FILE_FLAG_SEQUENTIAL_SCAN | FILE_ATTRIBUTE_NORMAL,
+			0);
+
+	if (this->file_handle == INVALID_HANDLE_VALUE)
+	{
+		this->opened = 0;
+	}
+	else
+	{
+		this->opened = 1;
+		this->from_cd = 0;
+	}
 }
 
 // @Ok
