@@ -537,30 +537,6 @@ inline bool operator<( const stringx& lhs, const stringx& rhs )
 }
 
 
-inline stringx operator+( const stringx& lhs, const stringx& rhs )
-{
-
-  stringx foo;
-
-  foo.make_room(lhs.my_buf->char_length + rhs.my_buf->char_length);
-  foo.append(lhs);
-  foo.append(rhs);
-
-  return foo;
-}
-
-inline stringx operator+( const char* lhs, const stringx& rhs )
-{
-  stringx foo;
-  int len = strlen(lhs);
-
-  foo.make_room(len + rhs.my_buf->char_length);
-  foo.append(lhs, len);
-  foo.append(rhs);
-
-  return foo;
-}
-
 inline stringx operator+( const stringx& lhs, const char* rhs )
 
 {

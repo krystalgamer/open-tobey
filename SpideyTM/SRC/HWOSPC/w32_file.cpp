@@ -130,6 +130,22 @@ void os_file::set_pre_root_dir(const stringx& dir)
 	strcpy( pre_root_dir, dir.c_str() );
 }
 
+bool os_file::file_exists(const stringx& name)
+{
+	stringx dir_name;
+
+	if (name[1] == ':' || name[0] == '\\')
+	{
+		dir_name = name;
+	}
+	else
+	{
+		dir_name = os_file::pre_root_dir + name;
+	}
+
+	return (GetFileAttributes(dir_name.c_str()) & FILE_ATTRIBUTE_DIRECTORY);
+}
+
 // @Ok
 // @Matching
 host_system_file_handle host_fopen(const char* fname, host_fopen_flags_t flags)
@@ -250,6 +266,8 @@ void patch_os_file()
 	PATCH_PUSH_RET(0x007F4980, os_file::get_size);
 
 	PATCH_PUSH_RET(0x007F4AB0, os_file::set_fp);
+
+	PATCH_PUSH_RET(0x007F4BD0, os_file::file_exists);
 
 
 	// @TODO - replace root dir stuff

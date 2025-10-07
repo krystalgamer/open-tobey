@@ -75,7 +75,8 @@ class os_file
     static const char* get_pre_root_dir() { return pre_root_dir; }
 
     // file system queries
-    static bool file_exists(const stringx& name);
+    EXPORT static bool file_exists(const stringx& name);
+	// @TODO
     static bool directory_exists(const stringx& name);
 
     // returns true if file1 is newer than file2.
