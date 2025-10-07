@@ -163,9 +163,18 @@ host_system_file_handle host_fopen(const char* fname, host_fopen_flags_t flags)
 	return fopen(fname, open_flags);
 }
 
+// @Ok
+// @Matching
 void host_fclose(host_system_file_handle handle)
 {
-	return fclose(handle);
+	fclose(handle);
+}
+
+// @Ok
+// @Matching
+int host_read( host_system_file_handle fp, void* buf, int len )
+{
+	return fread(buf, 1, len, fp);
 }
 
 #include "..\my_assertions.h"
@@ -203,6 +212,7 @@ void patch_os_file()
 
 	PATCH_PUSH_RET(0x007F4D80, host_fopen);
 	PATCH_PUSH_RET(0x007F4E20, host_fclose);
+	PATCH_PUSH_RET(0x007F4E40, host_fread);
 
 	PATCH_PUSH_RET(0x007F4850, os_file::close);
 	PATCH_PUSH_RET(0x007F4A70, os_file::try_unmap_file);

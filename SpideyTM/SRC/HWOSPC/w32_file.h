@@ -137,6 +137,7 @@ enum host_fopen_flags_t
 
 EXPORT host_system_file_handle host_fopen(const char* fname, host_fopen_flags_t flags);
 EXPORT void host_fclose(host_system_file_handle);
+EXPORT int host_read( host_system_file_handle fp, void* buf, int len );
 
 
 #endif
