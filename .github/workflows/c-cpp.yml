@@ -16,6 +16,10 @@ jobs:
           Invoke-WebRequest https://github.com/krystalgamer/spidey-decomp-vs/releases/download/v1.0/vs6sp4pp.7z -OutFile C:\vs.zip
           7z x C:\vs.zip -oC:\vs
       - uses: actions/checkout@v4
+      - name: Setup Validator
+        run: |
+          Invoke-WebRequest https://github.com/krystalgamer/tobey-validator/releases/download/v1/tobey_validator.zip -OutFile tobey_validator.zip
+          7z x tobey_validator.zip
       - name: Setup links
         shell: cmd
         run: |
@@ -33,6 +37,9 @@ jobs:
           SET PATH=C:\vs\Bin;%PATH%
           nmake /f tobey.mak CFG="tobey - Win32 Release"
           cp Release\tobey.dll binkw32.dll
+      - name: Validate
+        shell: cmd
+        run: tobey_validator.exe binkw32.dll
       - uses: actions/upload-artifact@v4
         with:
           path: binkw32.dll

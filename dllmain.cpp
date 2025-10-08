@@ -16,7 +16,7 @@
 
 HMODULE bink_dll;
 
-void runtime_assertions()
+extern "C" EXPORT int run_assertions(void)
 {
 	validate_stringx();
 	validate_string_buf();
@@ -32,9 +32,15 @@ void runtime_assertions()
 
 	validate_os_file();
 
-	do
-	{
-	} while (FAIL_VALIDATION);
+	return FAIL_VALIDATION;
+}
+
+void runtime_assertions()
+{
+	int result = run_assertions();
+
+	while(result)
+		;
 }
 
 void game_patches()
@@ -132,9 +138,17 @@ BOOL WINAPI DllMain(
     switch( fdwReason ) 
     { 
         case DLL_PROCESS_ATTACH:
+
+			if(GetModuleHandle("tobey_validator.exe") != NULL)
+			{
+				puts("In validator");
+				break;
+			}
+
 			AllocConsole();
 			SetConsoleTitle("open-tobey - " RUNTIME_VERSION);
 			freopen("CONOUT$", "w", stdout);
+
 
 			puts("open-tobey starting " RUNTIME_VERSION);
 
