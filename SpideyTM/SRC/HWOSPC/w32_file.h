@@ -82,7 +82,7 @@ class os_file
     // file system queries
     EXPORT static bool file_exists(const stringx& name);
 	// @TODO
-    static bool directory_exists(const stringx& name);
+    EXPORT static bool directory_exists(const stringx& name);
 
     // returns true if file1 is newer than file2.
     static bool is_file_newer(const stringx& file1, const stringx& file2);

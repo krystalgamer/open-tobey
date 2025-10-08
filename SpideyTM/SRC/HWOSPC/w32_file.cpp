@@ -231,7 +231,35 @@ bool os_file::file_exists(const stringx& name)
 		dir_name = os_file::root_dir + name;
 	}
 
-	return (GetFileAttributes(dir_name.c_str()) & FILE_ATTRIBUTE_DIRECTORY);
+	return (GetFileAttributesA(dir_name.c_str()) & FILE_ATTRIBUTE_DIRECTORY);
+}
+
+// @Ok
+// @NotMatching - missing the other part of system check
+bool os_file::directory_exists(const stringx &name)
+{
+	check_system_locked(name);
+
+
+	stringx dir_name;
+
+	if (name[1] == ':' || name[0] == '\\')
+	{
+		dir_name = name;
+	}
+	else
+	{
+		dir_name = os_file::root_dir + name;
+	}
+
+	DWORD ret = GetFileAttributesA(dir_name.c_str());
+
+	if (ret == -1)
+	{
+		return false;
+	}
+
+	return ret & FILE_ATTRIBUTE_DIRECTORY;
 }
 
 // @Ok
@@ -365,6 +393,7 @@ void patch_os_file()
 	PATCH_PUSH_RET(0x007F4BB0, os_file::get_pre_root_dir);
 	
 	PATCH_PUSH_RET(0x007F4BD0, os_file::file_exists);
+	PATCH_PUSH_RET(0x007F4C70, os_file::directory_exists);
 
 	PATCH_PUSH_RET(0x007F4D80, host_fopen);
 	PATCH_PUSH_RET(0x007F4E20, host_fclose);
