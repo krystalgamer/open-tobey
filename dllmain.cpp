@@ -52,6 +52,60 @@ void game_patches()
 	patch_os_file();
 }
 
+#pragma pack(push,1)
+struct Thunk
+{
+	unsigned char jmp; //always 0xE9
+	DWORD offset;
+};
+
+struct MyPatch
+{
+	unsigned char push; //always 0x68
+	DWORD finalAddress;
+	unsigned char ret; //always 0xC3
+};
+#pragma pack(pop)
+
+void optimize_thunks()
+{
+	StaticAssert<sizeof(Thunk) == 5>::sass();
+	StaticAssert<sizeof(MyPatch) == 6>::sass();
+
+
+	Thunk *pThunk = (Thunk*)0x00401005;
+	int counter = 0;
+
+	for (int i = 0; ; i++)
+	{
+		if (pThunk[i].jmp != 0xE9)
+		{
+			printf("Stopping the optimizer at (%08X):(%d)\n", &pThunk[i], i);
+			break;
+		}
+
+		DWORD dest = pThunk[i].offset + (DWORD)&pThunk[i] + 5;
+
+
+		MyPatch *pPatch = (MyPatch*)dest;
+
+		if (pPatch->push != 0x68)
+		{
+			continue;
+		}
+
+		if (pPatch->ret != 0xC3)
+		{
+			continue;
+		}
+
+		pThunk[i].offset = pPatch->finalAddress - (DWORD)&pThunk[i] - 5;
+		counter++;
+	}
+
+	printf("Optimized %d thunks\n", counter);
+}
+
 void runtime_patches()
 {
 	LPVOID text_start = (void*)0x401000;
@@ -62,9 +116,12 @@ void runtime_patches()
 
 	game_patches();
 
+	optimize_thunks();
+
 	DWORD t;
 	VirtualProtect(text_start, text_size, text_protect, &t);
 }
+
 
 BOOL WINAPI DllMain(
     HINSTANCE hinstDLL,
