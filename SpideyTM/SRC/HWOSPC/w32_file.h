@@ -85,7 +85,7 @@ class os_file
     EXPORT static bool directory_exists(const stringx& name);
 
     // returns true if file1 is newer than file2.
-    static bool is_file_newer(const stringx& file1, const stringx& file2);
+    EXPORT static bool is_file_newer(const stringx& file1, const stringx& file2);
 
 
     bool operator!() const { return false; }

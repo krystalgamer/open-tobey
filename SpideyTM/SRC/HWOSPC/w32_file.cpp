@@ -264,6 +264,13 @@ bool os_file::directory_exists(const stringx &name)
 
 // @Ok
 // @Matching
+bool os_file::is_file_newer(const stringx& file1, const stringx& file2)
+{
+	return false;
+}
+
+// @Ok
+// @Matching
 host_system_file_handle host_fopen(const char* fname, host_fopen_flags_t flags)
 {
 	char open_flags[3];
@@ -394,6 +401,7 @@ void patch_os_file()
 	
 	PATCH_PUSH_RET(0x007F4BD0, os_file::file_exists);
 	PATCH_PUSH_RET(0x007F4C70, os_file::directory_exists);
+	PATCH_PUSH_RET(0x007F4D60, os_file::is_file_newer);
 
 	PATCH_PUSH_RET(0x007F4D80, host_fopen);
 	PATCH_PUSH_RET(0x007F4E20, host_fclose);
