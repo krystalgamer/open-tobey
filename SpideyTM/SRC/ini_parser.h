@@ -140,8 +140,8 @@ class ini_parser
     char stored_num;
 
 
-    int build_token(char *line, char *the_token);
-    int get_token(char **curr_token, int *token_type, int *num_value);
+    EXPORT int build_token(char *line, char *the_token);
+    EXPORT int get_token(char **curr_token, int *token_type, int *num_value);
     EXPORT void unget_token();
     EXPORT void new_line(char *curr_line);
     bool parse(os_developer_options *opts);

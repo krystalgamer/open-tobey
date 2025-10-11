@@ -282,72 +282,70 @@ void ini_parser::despacify_token(char *curr_token)
 // token is a pointer which we change to point to the token to use
 int ini_parser::get_token(char **curr_token, int *token_type, int *num_value)
 {
-  int ret;
-  if (stored_token)
-  {
-    *curr_token = token;
+	int ret;
+	if (stored_token)
+	{
+		*curr_token = token;
 
-    *token_type = stored_type;
-    *num_value = stored_num;
+		*token_type = stored_type;
+		*num_value = stored_num;
 
-    stored_token = 0;
-    return *token_type;
-  }
-
-
-  // eat up whitespace
-  token[0] = '\0';
-  while( (isspace(line[scan_pos]) && (line[scan_pos] != '\0')) ||
-
-    line[scan_pos] == '\n' || line[scan_pos] == '\r' || line[scan_pos] == ';' )
-  {
-    if (line[scan_pos] == ';')
-    {
-      // a comment, scan to the end of the line
-
-      while (line[scan_pos] != '\n' && line[scan_pos] != '\r' && (line[scan_pos] != '\0'))
-        ++scan_pos;
-    }
-    else
-
-      ++scan_pos;
-  }
-  ret = build_token(&line[scan_pos], token);
-  scan_pos += ret;
-
-  if (ret == 0)
-
-  {
-    *curr_token = NULL;
-    return NO_TOKEN;
-  }
+		stored_token = 0;
+		return *token_type;
+	}
 
 
-  *curr_token = token;
-  despacify_token(token);
+	// eat up whitespace
+	token[0] = '\0';
+	while( (isspace(line[scan_pos]) && (line[scan_pos] != '\0')) ||
+		line[scan_pos] == '\n' || line[scan_pos] == '\r' || line[scan_pos] == ';' )
+	{
+		if (line[scan_pos] == ';')
+		{
+			// a comment, scan to the end of the line
 
-  if (token[0] == '[')
-  {
-    strlwr(token);
-    *token_type = TOKEN_GROUP;
-  }
-  else if (token[0] == '=')
-    *token_type = TOKEN_EQUALS;
-  else if (strlen(token) > 0)
+			while (line[scan_pos] != '\n' && line[scan_pos] != '\r' && (line[scan_pos] != '\0'))
+			++scan_pos;
+		}
+		else
+		  ++scan_pos;
+	}
+	ret = build_token(&line[scan_pos], token);
+	scan_pos += ret;
 
-    *token_type = TOKEN_STRING;
+	if (ret == 0)
+	{
+		*curr_token = NULL;
+		return NO_TOKEN;
+	}
 
-  else
-    *token_type = NO_TOKEN;
-  stored_num = *num_value;
-  stored_type = *token_type;
 
-  return *token_type;
+	*curr_token = token;
+	despacify_token(token);
+
+	if (token[0] == '[')
+	{
+		strlwr(token);
+		*token_type = TOKEN_GROUP;
+	}
+	else if (token[0] == '=')
+		*token_type = TOKEN_EQUALS;
+	else if (strlen(token) > 0)
+		*token_type = TOKEN_STRING;
+	else
+		*token_type = NO_TOKEN;
+
+	stored_num = *num_value;
+	stored_type = *token_type;
+
+	return *token_type;
 
 }
 
 
 /*** build_token ***/
+// @Ok
+// @Matching
 int ini_parser::build_token(char *curr_line, char *curr_token)
 {
   int i=0;
@@ -404,6 +402,8 @@ void validate_ini_parser(void)
 void patch_ini_parser(void)
 {
 	PATCH_PUSH_RET(0x0079C520, ini_parser::despacify_token);
+
+	PATCH_PUSH_RET(0x0079C7C0, ini_parser::build_token);
 
 	PATCH_PUSH_RET(0x0079C840, ini_parser::unget_token);
 	PATCH_PUSH_RET(0x0079C860, ini_parser::new_line);
