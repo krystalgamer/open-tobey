@@ -95,6 +95,10 @@ SOURCE=.\SpideyTM\SRC\app.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\debugutil.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\dllmain.cpp
 # End Source File
 # Begin Source File
@@ -108,6 +112,10 @@ SOURCE=.\SpideyTM\SRC\ini_parser.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\my_assertions.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\NGL\PC\ngl_pc.cpp
 # End Source File
 # Begin Source File
 

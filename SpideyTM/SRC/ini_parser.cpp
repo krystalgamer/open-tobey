@@ -8,8 +8,6 @@
 #include "osfile.h"
 
 
-// @Patch
-/*
 char* flag_names[] =
 {
 #define MAC(x,y,d) y,
@@ -55,9 +53,12 @@ int int_defaults[] =
 #undef MAC
 };
 
+#include "ngl.h"
 
 DEFINE_SINGLETON(os_developer_options)
 
+// @Patch
+/*
 os_developer_options::os_developer_options()
 {
   ini_parser game_ini("GAME.INI", this);
@@ -93,13 +94,11 @@ os_developer_options::os_developer_options()
 }
 */
 
-
+#include "debug.h"
+// @Ok
+// @Matching
 bool ini_parser::parse(os_developer_options *opts)
 {
-	// @Patch
-	
-	return true;
-	/*
   assert(filename != NULL);
   int i, j;
   os_file ini_file;
@@ -128,7 +127,7 @@ bool ini_parser::parse(os_developer_options *opts)
   if (ini_file.is_open())
   {
     unsigned int buf_size = ini_file.get_size();
-    unsigned char *buf = (unsigned char *)arch_mallochigh(buf_size+1);
+    unsigned char *buf = (unsigned char *)arch_malloc(buf_size+1);
 
     assert(buf != NULL);
 
@@ -154,18 +153,14 @@ bool ini_parser::parse(os_developer_options *opts)
         strlwr(curr_token);
         if (strcmp("[flags]", curr_token) == 0)
         {
-          debug_print("Parsing %s INI group", curr_token);
           curr_group = FLAGS_GROUP;
         }
         else if (strcmp("[ints]", curr_token) == 0)
-
         {
-          debug_print("Parsing %s INI group", curr_token);
           curr_group = INTS_GROUP;
         }
         else if (strcmp("[strings]", curr_token) == 0)
         {
-          debug_print("Parsing %s INI group", curr_token);
           curr_group = STRINGS_GROUP;
         }
         else
@@ -180,7 +175,6 @@ bool ini_parser::parse(os_developer_options *opts)
         // a key value pair, let's set the correct INI setting.
         assert(curr_group != NO_GROUP);
         strupr(curr_token);
-		debug_print("KEY\t'%s'", curr_token);
 
         // look for the string in our current group's names
         switch (curr_group)
@@ -211,7 +205,6 @@ bool ini_parser::parse(os_developer_options *opts)
 
         if (i != name_count)
         {
-		debug_print("VALUE\t'%s'", curr_token);
           // set it to the NEW value
           switch (curr_group)
           {
@@ -249,13 +242,12 @@ bool ini_parser::parse(os_developer_options *opts)
     }
 
 
-    free(buf);
+    arch_free(buf);
   }
   else
     debug_print("Error.  Could not open ini file %s\n", filename);
 
 
-  */
   return true;
 }
 
@@ -371,7 +363,7 @@ INLINE int ini_parser::build_token(char *curr_line, char *curr_token)
 // pushes back the last token, only works for one-token's worth
 // @Ok
 // @Matching
-void ini_parser::unget_token()
+INLINE void ini_parser::unget_token()
 {
   stored_token = 1;
 }
@@ -380,7 +372,7 @@ void ini_parser::unget_token()
 // passes in a NEW line to get tokens from
 // @Ok
 // @Matching
-void ini_parser::new_line(char *curr_line)
+INLINE void ini_parser::new_line(char *curr_line)
 {
 
   line = curr_line;
@@ -388,6 +380,15 @@ void ini_parser::new_line(char *curr_line)
 }
 
 #include "my_assertions.h"
+
+void validate_os_developer_options(void)
+{
+	//VALIDATE_SIZE(os_developer_options, 0);
+
+	VALIDATE(os_developer_options, flags, 0x4);
+	VALIDATE(os_developer_options, strings, 0x6C);
+	VALIDATE(os_developer_options, ints, 0xBC);
+}
 
 void validate_ini_parser(void)
 {
@@ -409,6 +410,8 @@ void validate_ini_parser(void)
 
 void patch_ini_parser(void)
 {
+	PATCH_PUSH_RET(0x0079C110, ini_parser::parse);
+
 	PATCH_PUSH_RET(0x0079C520, ini_parser::despacify_token);
 	PATCH_PUSH_RET(0x0079C570, ini_parser::get_token);
 

@@ -76,4 +76,6 @@ enum
 	NGLMESH_LIGHTCAT_8      = 0x80000000,
 };
 
+EXPORT void nglPrintf(const char *Format, ...);
+
 #endif

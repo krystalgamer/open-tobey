@@ -35,7 +35,7 @@
 
 
 
-void nglPrintf( const char* Format, ... );
+EXPORT void nglPrintf( const char* Format, ... );
 
 
 #define STATICALLOCCLASSHEADER 	public:\

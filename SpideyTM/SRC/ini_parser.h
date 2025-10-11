@@ -1,7 +1,8 @@
 #ifndef INI_FILE_PARSER_HEADER
 #define INI_FILE_PARSER_HEADER
 
-/*
+#include "singleton.h"
+
 class os_developer_options : public singleton
 {
 public:
@@ -45,14 +46,18 @@ public:
   void set_int( ints_t _int, int a ) { ints[_int] = a; }
 
   //  get scene name
-  const stringx& get_scene_name() const   { return get_string( STRING_SCENE_NAME ); }
+  // @Patch
+  //const stringx& get_scene_name() const   { return get_string( STRING_SCENE_NAME ); }
 
 
   // get stash_name
-  const stringx& get_stash_name() const   { return get_string( STRING_STASH_NAME ); }
+  // @Patch
+  //const stringx& get_stash_name() const   { return get_string( STRING_STASH_NAME ); }
 
 
   //  get hero name
+  // @Patch
+  /*
   const stringx& get_hero_name(int hero_num) const
       {
         assert(STRING_HERO_NAME_0 + hero_num < STRING_END_HERO_NAMES);
@@ -61,11 +66,14 @@ public:
       }
 
   const stringx& get_song_name() const    { return get_string( STRING_SONG_NAME ); }
+  */
 
   const stringx& get_exe_name() const     { return exe_name; }
 
   // temporary
 
+  // @Patch
+  /*
   int get_camera_state() const { return get_int( INT_CAMERA_STATE ); }
   void set_camera_state(int i) { ints[INT_CAMERA_STATE]=i; }
 
@@ -86,6 +94,7 @@ public:
   bool is_locked_hero() const { return is_flagged( FLAG_LOCKED_HERO ); }
 
   bool is_move_editor() const { return is_flagged( FLAG_MOVE_EDITOR ); }
+  */
 
 //  const stringx& get_herostate_file() const { return get_string( STRING_HERO_STATE_FILE ); }
 
@@ -103,8 +112,8 @@ private:
 
 
   friend class ini_parser;
+  friend void validate_os_developer_options(void);
 };
-*/
 
 class os_developer_options;
 
@@ -144,7 +153,7 @@ class ini_parser
     EXPORT int get_token(char **curr_token, int *token_type, int *num_value);
     EXPORT void unget_token();
     EXPORT void new_line(char *curr_line);
-    bool parse(os_developer_options *opts);
+    EXPORT bool parse(os_developer_options *opts);
 
     EXPORT void despacify_token(char *curr_token);
 

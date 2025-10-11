@@ -11,6 +11,7 @@ void validate_so_data_block(void);
 void validate_vm_symbol(void);
 void validate_os_file(void);
 void validate_ini_parser(void);
+void validate_os_developer_options(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);

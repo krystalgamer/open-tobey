@@ -33,6 +33,7 @@ extern "C" EXPORT int run_assertions(void)
 	validate_os_file();
 
 	validate_ini_parser();
+	validate_os_developer_options();
 
 	return FAIL_VALIDATION;
 }
@@ -131,6 +132,45 @@ void runtime_patches()
 	VirtualProtect(text_start, text_size, text_protect, &t);
 }
 
+void dumper()
+{
+	/*
+	const char **flag_names = (const char**)0x008DE560;
+	int num_flags = 102;
+	const int* flag_defaults = (const int*)0x008DE6F8;
+
+	for (int i = 0; i < num_flags; i++)
+	{
+		const char *flag_name = flag_names[i];
+		printf("MAC(FLAG_%s, \"%s\", %d)\n", flag_name, flag_name, flag_defaults[i]);
+	}
+	*/
+
+	/*
+	const char **int_names = (const char**)0x008DE8E0;
+	int num_ints = 17;
+	const int* int_defaults = (const int*)0x008DE928;
+
+	for (int i = 0; i < num_ints; i++)
+	{
+		const char *int_name = int_names[i];
+		printf("MAC(INT_%s, \"%s\", %d)\n", int_name, int_name, int_defaults[i]);
+	}
+	*/
+
+	/*
+	const char **string_names = (const char**)0x008DE890;
+	int num_strings = 10;
+	const char** string_defaults = (const char**)0x008DE8B8;
+
+	for (int i = 0; i < num_strings; i++)
+	{
+		const char *string_name = string_names[i];
+		printf("MAC(STRING_%s, \"%s\", \"%s\")\n", string_name, string_name, string_defaults[i]);
+	}
+	*/
+
+}
 
 BOOL WINAPI DllMain(
     HINSTANCE hinstDLL,
@@ -158,6 +198,8 @@ BOOL WINAPI DllMain(
 			bink_dll = GetModuleHandle("binkw32.dll");
 			runtime_assertions();
 			runtime_patches();
+
+			//dumper();
             break;
 
         case DLL_THREAD_ATTACH:

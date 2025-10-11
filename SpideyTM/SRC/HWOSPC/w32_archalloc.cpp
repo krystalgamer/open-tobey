@@ -1,5 +1,7 @@
 #include <memory>
 
+#include "w32_errmsg.h"
+
 int my_atexit(
    void (__cdecl *func )( void )
 )
@@ -50,6 +52,28 @@ void operator delete( void* block )
 void operator delete[]( void* block )
 {
 	my_free(block);
+}
+
+// @Ok
+// @Note: not matching, don't care there's extra debug stuff that polutes the
+// disasm but is not relevant
+void *arch_malloc(size_t size)
+{
+	static unsigned int counter = 0;
+	counter++;
+
+	void *result = malloc(size);
+	if (!result)
+	{
+		error("MALLOC FAILED!");
+	}
+
+	return result;
+}
+
+void arch_free(void *ptr)
+{
+	free(ptr);
 }
 
 #include "..\my_patch.h"

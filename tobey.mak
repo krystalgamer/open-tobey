@@ -42,9 +42,12 @@ ALL : "$(OUTDIR)\tobey.dll"
 
 CLEAN :
 	-@erase "$(INTDIR)\app.obj"
+	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
 	-@erase "$(INTDIR)\global.obj"
+	-@erase "$(INTDIR)\ini_parser.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
+	-@erase "$(INTDIR)\ngl_pc.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\region.obj"
 	-@erase "$(INTDIR)\script_object.obj"
@@ -69,7 +72,7 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MT /W3 /GX- /Zi /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MT /W3 /Zi /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
@@ -90,13 +93,16 @@ LINK32_OBJS= \
 	"$(INTDIR)\so_data_block.obj" \
 	"$(INTDIR)\stringx.obj" \
 	"$(INTDIR)\vm_stack.obj" \
+	"$(INTDIR)\vm_symbol.obj" \
 	"$(INTDIR)\vm_thread.obj" \
 	"$(INTDIR)\w32_archalloc.obj" \
 	"$(INTDIR)\w32_errmsg.obj" \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\vm_symbol.obj"
+	"$(INTDIR)\ini_parser.obj" \
+	"$(INTDIR)\ngl_pc.obj" \
+	"$(INTDIR)\debugutil.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -116,9 +122,12 @@ ALL : "$(OUTDIR)\tobey.dll"
 
 CLEAN :
 	-@erase "$(INTDIR)\app.obj"
+	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
 	-@erase "$(INTDIR)\global.obj"
+	-@erase "$(INTDIR)\ini_parser.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
+	-@erase "$(INTDIR)\ngl_pc.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\region.obj"
 	-@erase "$(INTDIR)\script_object.obj"
@@ -166,13 +175,16 @@ LINK32_OBJS= \
 	"$(INTDIR)\so_data_block.obj" \
 	"$(INTDIR)\stringx.obj" \
 	"$(INTDIR)\vm_stack.obj" \
+	"$(INTDIR)\vm_symbol.obj" \
 	"$(INTDIR)\vm_thread.obj" \
 	"$(INTDIR)\w32_archalloc.obj" \
 	"$(INTDIR)\w32_errmsg.obj" \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\vm_symbol.obj"
+	"$(INTDIR)\ini_parser.obj" \
+	"$(INTDIR)\ngl_pc.obj" \
+	"$(INTDIR)\debugutil.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -228,6 +240,12 @@ SOURCE=.\SpideyTM\SRC\app.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\debugutil.cpp
+
+"$(INTDIR)\debugutil.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\dllmain.cpp
 
 "$(INTDIR)\dllmain.obj" : $(SOURCE) "$(INTDIR)"
@@ -239,9 +257,21 @@ SOURCE=.\SpideyTM\SRC\global.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\ini_parser.cpp
+
+"$(INTDIR)\ini_parser.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\my_assertions.cpp
 
 "$(INTDIR)\my_assertions.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\NGL\PC\ngl_pc.cpp
+
+"$(INTDIR)\ngl_pc.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

@@ -203,6 +203,7 @@ extern "C" char* strupr( char* s );
 	#include <stdio.h>
 
 
+// @Patch
 //#include "debug.h"  // this gets internal compiler errors!
 
 // stuff that's here just to precompile and make the build faster

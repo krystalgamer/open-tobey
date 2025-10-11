@@ -151,9 +151,10 @@ bool mem_heap_locked( int heapindex );
 	//#define free          arch_free
 #endif /* TARGET_XBOX JIV FIXME */
 
+void* arch_malloc( size_t size );
+void  arch_free( void* block );
 // @Patch
 /*
-void* arch_malloc( size_t size );
 void* arch_malloc( size_t size, const char *desc, int line=0 );
 
 void* arch_mallochigh( size_t size );
@@ -161,7 +162,6 @@ void* arch_mallochigh( size_t size, const char *desc, int line=0 );
 void* arch_trymalloc( size_t size, const char *desc=NULL, int line=0  );
 void* arch_memalign( size_t boundary, size_t size, const char *desc=NULL, int line=0  );
 void* arch_memalignhigh( size_t boundary, size_t size, const char *desc=NULL, int line=0  );
-void  arch_free( void* block );
 */
 
 #ifndef GCOLDHEAP

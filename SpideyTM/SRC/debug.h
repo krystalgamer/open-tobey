@@ -32,7 +32,7 @@
 
 
 // @Patch
-#define BUILD_FINAL
+//#define BUILD_FINAL
 
 #ifndef BUILD_FINAL
 
@@ -82,7 +82,6 @@ void debug_out( char*, int, const char* );
     #define XDEBUG_MSG(str)   debug_out( __FILE__, __LINE__, str )
 #else
     #define XDEBUG_MSG(str)
-
 #endif
 
 #endif  // #ifdef DEBUG_H
