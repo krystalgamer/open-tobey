@@ -7,3 +7,5 @@ Release/
 *.opt
 *.sh
 *.dep
+*.dll
+*.exe
