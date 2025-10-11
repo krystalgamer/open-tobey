@@ -146,7 +146,7 @@ class ini_parser
     EXPORT void new_line(char *curr_line);
     bool parse(os_developer_options *opts);
 
-    void despacify_token(char *curr_token);
+    EXPORT void despacify_token(char *curr_token);
 
   public:
     ini_parser(const char *ini_filename, os_developer_options *opts)

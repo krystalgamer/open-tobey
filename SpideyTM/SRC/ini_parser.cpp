@@ -260,6 +260,8 @@ bool ini_parser::parse(os_developer_options *opts)
 }
 
 
+// @Ok
+// @Matching
 void ini_parser::despacify_token(char *curr_token)
 {
   int i;
@@ -401,6 +403,8 @@ void validate_ini_parser(void)
 
 void patch_ini_parser(void)
 {
+	PATCH_PUSH_RET(0x0079C520, ini_parser::despacify_token);
+
 	PATCH_PUSH_RET(0x0079C840, ini_parser::unget_token);
 	PATCH_PUSH_RET(0x0079C860, ini_parser::new_line);
 }

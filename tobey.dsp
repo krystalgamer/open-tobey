@@ -43,7 +43,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /YX /FD /c
-# ADD CPP /nologo /MT /W3 /GX- /Zi /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /Zi /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -100,6 +100,10 @@ SOURCE=.\dllmain.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\global.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\ini_parser.cpp
 # End Source File
 # Begin Source File
 
@@ -360,6 +364,10 @@ SOURCE=.\SpideyTM\SRC\hwrasterize.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\hyperplane.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\ini_parser.h
 # End Source File
 # Begin Source File
 
