@@ -262,7 +262,7 @@ bool ini_parser::parse(os_developer_options *opts)
 
 // @Ok
 // @Matching
-void ini_parser::despacify_token(char *curr_token)
+INLINE void ini_parser::despacify_token(char *curr_token)
 {
   int i;
 
@@ -280,6 +280,8 @@ void ini_parser::despacify_token(char *curr_token)
 
 /*** get_token ***/
 // token is a pointer which we change to point to the token to use
+// @Ok
+// @Matching
 int ini_parser::get_token(char **curr_token, int *token_type, int *num_value)
 {
 	int ret;
@@ -346,7 +348,7 @@ int ini_parser::get_token(char **curr_token, int *token_type, int *num_value)
 /*** build_token ***/
 // @Ok
 // @Matching
-int ini_parser::build_token(char *curr_line, char *curr_token)
+INLINE int ini_parser::build_token(char *curr_line, char *curr_token)
 {
   int i=0;
   if (curr_line[0] == '=')
@@ -391,10 +393,16 @@ void validate_ini_parser(void)
 {
 	//VALIDATE_SIZE(ini_parser, 0);
 
+	VALIDATE(ini_parser, filename, 0);
+	VALIDATE(ini_parser, token, 0x100);
+
 
 	VALIDATE(ini_parser, scan_pos, 0x200);
 	VALIDATE(ini_parser, line, 0x204);
+
 	VALIDATE(ini_parser, stored_token, 0x208);
+	VALIDATE(ini_parser, stored_type, 0x209);
+	VALIDATE(ini_parser, stored_num, 0x20A);
 }
 
 #include "my_patch.h"
@@ -402,6 +410,7 @@ void validate_ini_parser(void)
 void patch_ini_parser(void)
 {
 	PATCH_PUSH_RET(0x0079C520, ini_parser::despacify_token);
+	PATCH_PUSH_RET(0x0079C570, ini_parser::get_token);
 
 	PATCH_PUSH_RET(0x0079C7C0, ini_parser::build_token);
 
