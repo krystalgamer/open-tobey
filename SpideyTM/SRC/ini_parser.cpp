@@ -381,11 +381,14 @@ INLINE void ini_parser::new_line(char *curr_line)
 
 void validate_os_developer_options(void)
 {
-	//VALIDATE_SIZE(os_developer_options, 0);
+	VALIDATE_SIZE(os_developer_options, 0x108);
 
 	VALIDATE(os_developer_options, flags, 0x4);
 	VALIDATE(os_developer_options, strings, 0x6C);
 	VALIDATE(os_developer_options, ints, 0xBC);
+
+
+	VALIDATE(os_developer_options, flags[os_developer_options::FLAG_MOVE_EDITOR], 0x24);
 }
 
 void validate_ini_parser(void)
