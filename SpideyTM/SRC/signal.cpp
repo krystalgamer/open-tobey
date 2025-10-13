@@ -696,4 +696,5 @@ void validate_signaller(void)
 void patch_signaller(void)
 {
 	PATCH_PUSH_RET(0x004E4820, signaller::construct_signal_list);
+	PATCH_PUSH_RET(0x004E4890, signaller::get_signal_name);
 }

@@ -238,22 +238,22 @@ class signaller
     signaller();
     virtual ~signaller();
 
-    void set_flag( flags_t f ) { flags |= f; }
-    void clear_flag( flags_t f ) { flags &= ~f; }
-    bool is_flagged( flags_t f ) const { return (flags & f); }
+    EXPORT void set_flag( flags_t f ) { flags |= f; }
+    EXPORT void clear_flag( flags_t f ) { flags &= ~f; }
+    EXPORT bool is_flagged( flags_t f ) const { return (flags & f); }
 
-    virtual bool is_an_entity() const { return(false); }
-    virtual bool is_a_trigger() const { return(false); }
+    EXPORT virtual bool is_an_entity() const { return(false); }
+    EXPORT virtual bool is_a_trigger() const { return(false); }
 //    virtual bool is_dread_net() const { return(false); }
 
-    void disable() { set_flag(DISABLED); }
-    void enable() { clear_flag(DISABLED); }
+    EXPORT void disable() { set_flag(DISABLED); }
+    EXPORT void enable() { clear_flag(DISABLED); }
 
-    signal_list::size_t n_signals() const { return signals? signals->size() : 0; }
+    EXPORT signal_list::size_t n_signals() const { return signals? signals->size() : 0; }
 
     // given local signal id, return corresponding pointer;
     // this will construct objects as required, and never return NULL
-    signal* signal_ptr( signal_list::size_t idx )
+    EXPORT signal* signal_ptr( signal_list::size_t idx )
       {
       if ( signals == NULL )
         signals = construct_signal_list();
@@ -270,7 +270,7 @@ class signaller
       }
 
     // this will raise the given signal, if present (non-NULL)
-    virtual void raise_signal( signal_list::size_t idx ) const
+    EXPORT virtual void raise_signal( signal_list::size_t idx ) const
       {
       if ( signals && !is_flagged(DISABLED) )
         {
@@ -280,7 +280,7 @@ class signaller
         }
       }
 
-    static unsigned short get_signal_id( const char *name )
+    EXPORT static unsigned short get_signal_id( const char *name )
       {
         return (unsigned short)-1;    // return invalid id in order for caller to print complete error msg (with entity name)
       }
@@ -314,6 +314,8 @@ class signaller
   protected:
     // This virtual function, used only for debugging purposes, returns the
     // name of the given local signal
+	// @Ok
+	// @Matching
     EXPORT virtual const char* get_signal_name( unsigned short idx ) const { return ""; }
 	
 	friend void validate_signaller(void);
