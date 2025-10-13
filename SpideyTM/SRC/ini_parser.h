@@ -101,7 +101,12 @@ public:
   //void set_debugaipath(bool on) { flags[FLAG_AI_PATH_DEBUG]=on; }
 
   // the instance of the command line
-  DECLARE_SINGLETON(os_developer_options)
+  // @Patch - provide the already existing instance
+  public:
+    static inline os_developer_options* inst()
+    {
+		return *reinterpret_cast<os_developer_options**>(0x009441C8);
+    }
 
 private:
   bool    flags[NUM_FLAGS];

@@ -55,8 +55,6 @@ int int_defaults[] =
 
 #include "ngl.h"
 
-DEFINE_SINGLETON(os_developer_options)
-
 // @Patch
 /*
 os_developer_options::os_developer_options()

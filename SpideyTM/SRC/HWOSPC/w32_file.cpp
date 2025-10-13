@@ -1,5 +1,7 @@
 #include "w32_file.h"
 
+#include "..\ini_parser.h"
+
 #define INVLALID_FP INVLAID_HANDLE_VALUE
 char os_file::root_dir[MAX_DIR_LEN];
 char os_file::pre_root_dir[MAX_DIR_LEN];
@@ -40,11 +42,10 @@ os_file::~os_file()
 		close();
 }
 
-// @NotOk - missing the os_developer
+// @Ok
 static inline void check_system_locked( const stringx& name )
 {
-	// @TODO
-	if (os_file::is_system_locked() /*&& !os_developer_options::inst()->is_flagged(os_developer_options::FLAG_MOVE_EDITOR)*/)
+	if (os_file::is_system_locked() && !os_developer_options::inst()->is_flagged(os_developer_options::FLAG_MOVE_EDITOR))
 	{
 		warning( name + ": os_file system is locked; no file access allowed" );
 	}
