@@ -55,42 +55,12 @@ int int_defaults[] =
 
 #include "ngl.h"
 
-// @Patch
-/*
+// @Ok
+// @Matching
 os_developer_options::os_developer_options()
 {
   ini_parser game_ini("GAME.INI", this);
-
-  // make sure the root dir has a \.
-  stringx root_dir = get_string( STRING_ROOT_DIR );
-  if ( root_dir[root_dir.length()-1]!='\\' )
-    root_dir += stringx( "\\" );
-  strings[ STRING_ROOT_DIR ] = root_dir;
-  debug_print(root_dir);
-
-
-  stringx pre_root_dir = get_string( STRING_PRE_ROOT_DIR );
-  if ( pre_root_dir[pre_root_dir.length()-1]!='\\' )
-    pre_root_dir += stringx( "\\" );
-  strings[ STRING_PRE_ROOT_DIR ] = pre_root_dir;
-  debug_print(pre_root_dir);
-
-
-  // pc_sounds dir defaults to pre_root_dir\\pc_sounds
-
-  stringx pc_sound_dir = strings[STRING_PC_SOUNDS_DIR];
-
-  if ( pc_sound_dir.empty() )
-    pc_sound_dir = pre_root_dir + "pc_sounds\\";
-  else if ( pc_sound_dir[pc_sound_dir.length()-1] != '\\' )
-
-    pc_sound_dir += "\\";
-  strings[STRING_PC_SOUNDS_DIR] = pc_sound_dir;
-
-  os_file::set_root_dir( root_dir );
-  os_file::set_pre_root_dir( pre_root_dir );
 }
-*/
 
 #include "debug.h"
 // @Ok
@@ -389,6 +359,11 @@ void validate_os_developer_options(void)
 
 
 	VALIDATE(os_developer_options, flags[os_developer_options::FLAG_MOVE_EDITOR], 0x24);
+}
+
+void patch_os_developer_options(void)
+{
+	PATCH_PUSH_RET_POLY(0x0079BFD0, os_developer_options::os_developer_options, "??0os_developer_options@@QAE@XZ");
 }
 
 void validate_ini_parser(void)

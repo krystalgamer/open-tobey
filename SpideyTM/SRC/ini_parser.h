@@ -7,7 +7,7 @@ class os_developer_options : public singleton
 {
 public:
   // construct and read the ini file
-  os_developer_options();
+  EXPORT os_developer_options();
 
   enum flags_t
   {
@@ -183,6 +183,5 @@ class ini_parser
 	friend void validate_ini_parser();
 	friend void patch_ini_parser();
 };
-
 
 #endif

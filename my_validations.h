@@ -20,4 +20,5 @@ void patch_so_data_block(void);
 void patch_vm_symbol(void);
 void patch_os_file(void);
 void patch_ini_parser(void);
+void patch_os_developer_options(void);
 #endif

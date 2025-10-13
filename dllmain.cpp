@@ -60,6 +60,7 @@ void game_patches()
 	patch_so_data_block();
 	patch_os_file();
 	patch_ini_parser();
+	patch_os_developer_options();
 }
 
 #pragma pack(push,1)
