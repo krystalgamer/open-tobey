@@ -306,12 +306,18 @@ class signaller
     // defined its own local list of signal ids should implement this virtual
     // function for the construction of the signal list, so that it will reserve
     // exactly the number of signal pointers required, on demand.
-    virtual signal_list* construct_signal_list() { return NEW signal_list( N_SIGNALS, (signal*)NULL ); }
+
+	// @Ok
+	// @Matching
+    EXPORT virtual signal_list* construct_signal_list() { return NEW signal_list( N_SIGNALS, (signal*)NULL ); }
 
   protected:
     // This virtual function, used only for debugging purposes, returns the
     // name of the given local signal
-    virtual const char* get_signal_name( unsigned short idx ) const { return ""; }
+    EXPORT virtual const char* get_signal_name( unsigned short idx ) const { return ""; }
+	
+	friend void validate_signaller(void);
+	friend void patch_signaller(void);
   };
 
 

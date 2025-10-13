@@ -35,6 +35,8 @@ extern "C" EXPORT int run_assertions(void)
 	validate_ini_parser();
 	validate_os_developer_options();
 
+	validate_signaller();
+
 	return FAIL_VALIDATION;
 }
 
@@ -61,6 +63,8 @@ void game_patches()
 	patch_os_file();
 	patch_ini_parser();
 	patch_os_developer_options();
+
+	patch_signaller();
 }
 
 #pragma pack(push,1)

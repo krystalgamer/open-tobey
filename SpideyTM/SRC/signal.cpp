@@ -684,3 +684,16 @@ void signal_manager::purge()
   refresh_list.resize(0);
   signal_id_map.clear();
 }
+
+#include "my_assertions.h"
+void validate_signaller(void)
+{
+	VALIDATE_SIZE(signaller, 0xC);
+}
+
+#include "my_patch.h"
+
+void patch_signaller(void)
+{
+	PATCH_PUSH_RET(0x004E4820, signaller::construct_signal_list);
+}
