@@ -1,19 +1,13 @@
 #pragma once
 
+#ifndef MY_PATCH_H
+#define MY_PATCH_H
+
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 extern HMODULE bink_dll;
-static inline int* get_thunk_address(void* first,...)
-{
-	va_list args;
-	va_start(args, first);
-
-
-	int* res = va_arg(args, int*);
-	va_end(args);
-	return res;
-}
+int* get_thunk_address(void* first,...);
 
 #define PATCH_PUSH_RET(addr, dest) {\
 	unsigned char *tmp = (unsigned char*)(addr);\
@@ -30,3 +24,5 @@ static inline int* get_thunk_address(void* first,...)
 	tmp[5] = 0xC3;\
 	puts("Hooking " #dest " at " #addr);\
 }
+
+#endif

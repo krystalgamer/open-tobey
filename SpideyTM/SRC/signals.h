@@ -235,7 +235,7 @@ class signaller
 
   // Methods
   public:
-    signaller();
+    EXPORT signaller();
     virtual ~signaller();
 
     EXPORT void set_flag( flags_t f ) { flags |= f; }
@@ -245,6 +245,8 @@ class signaller
     EXPORT virtual bool is_an_entity() const { return(false); }
     EXPORT virtual bool is_a_trigger() const { return(false); }
 //    virtual bool is_dread_net() const { return(false); }
+
+    EXPORT virtual void signal_error(unsigned int, const stringx&);
 
     EXPORT void disable() { set_flag(DISABLED); }
     EXPORT void enable() { clear_flag(DISABLED); }

@@ -507,6 +507,12 @@ signaller::~signaller()
   }
 }
 
+// @TODO
+void signaller::signal_error(unsigned int, const stringx& parm)
+{
+	error(parm);
+}
+
 
 void signaller::clear_callbacks()
 {
@@ -689,12 +695,22 @@ void signal_manager::purge()
 void validate_signaller(void)
 {
 	VALIDATE_SIZE(signaller, 0xC);
+
+	VALIDATE_VTABLE(signaller, is_an_entity, 1);
+	VALIDATE_VTABLE(signaller, is_a_trigger, 2);
+	VALIDATE_VTABLE(signaller, signal_error, 3);
+	VALIDATE_VTABLE(signaller, raise_signal, 4);
+	VALIDATE_VTABLE(signaller, construct_signal_list, 5);
+	VALIDATE_VTABLE(signaller, get_signal_name, 6);
 }
 
 #include "my_patch.h"
 
 void patch_signaller(void)
 {
+	PATCH_PUSH_RET(0x004A09B0, signaller::is_a_trigger);
+	PATCH_PUSH_RET(0x004E4800, signaller::is_an_entity);
+
 	PATCH_PUSH_RET(0x004E4820, signaller::construct_signal_list);
 	PATCH_PUSH_RET(0x004E4890, signaller::get_signal_name);
 }
