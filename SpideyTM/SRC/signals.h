@@ -105,6 +105,8 @@ class signal
     const char* name;
     #endif
 
+
+
     signal_list* outputs;
     callback_list callbacks;
 
@@ -233,6 +235,8 @@ class signaller
     unsigned int flags;
     signal_list* signals;
 
+	int field_C[2];
+
   // Methods
   public:
     EXPORT signaller();
@@ -271,16 +275,36 @@ class signaller
       return sl[idx];
       }
 
-    // this will raise the given signal, if present (non-NULL)
-    EXPORT virtual void raise_signal( signal_list::size_t idx ) const
-      {
-      if ( signals && !is_flagged(DISABLED) )
-        {
-        signal_list& sl = *signals;
-        if ( sl[idx] )
-          sl[idx]->raise();
-        }
-      }
+	// this will raise the given signal, if present (non-NULL)
+	// @Ok
+	// @Matching
+	EXPORT virtual void raise_signal( signal_list::size_t idx )
+	{
+		if (!is_flagged(DISABLED))
+		{
+			// @Patch - build signal table
+			if (!this->signals)
+			{
+				this->signals = this->construct_signal_list();
+			}
+
+			signal_list& sl = *signals;
+			if ( sl[idx] )
+			{
+				sl[idx]->raise();
+			}
+
+			// @Patch - add write
+			signal_list::size_t v3 = idx;
+			if (idx >= 0x20)
+			{
+				v3 -= 0x20;
+			}
+
+			this->field_C[idx < 0x20] |= 0x80000000 >> v3;
+		}
+
+	}
 
     EXPORT static unsigned short get_signal_id( const char *name )
       {

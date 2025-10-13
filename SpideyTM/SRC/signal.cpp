@@ -213,7 +213,15 @@ signal* signal::find_OR( const signal* b ) const
 // raise this signal!
 void signal::raise()
 {
+	// @TODO
+	typedef void (__fastcall *real_raise_ptr)(signal*);
+	real_raise_ptr real_raise = (real_raise_ptr)0x007D26F0;
+
+	real_raise(this);
+
+		// @Patch
 //if ( !(flags & (DISABLED|RAISED)) )
+		/*
   if ( !(flags & DISABLED) )
   {
     set_flag( RAISED );
@@ -233,6 +241,7 @@ void signal::raise()
     }
 
   }
+	*/
 }
 
 
@@ -694,7 +703,11 @@ void signal_manager::purge()
 #include "my_assertions.h"
 void validate_signaller(void)
 {
-	VALIDATE_SIZE(signaller, 0xC);
+	VALIDATE_SIZE(signaller, 0x14);
+
+	VALIDATE(signaller, flags, 0x4);
+	VALIDATE(signaller, signals, 0x8);
+	VALIDATE(signaller, field_C, 0xC);
 
 	VALIDATE_VTABLE(signaller, is_an_entity, 1);
 	VALIDATE_VTABLE(signaller, is_a_trigger, 2);
@@ -708,9 +721,11 @@ void validate_signaller(void)
 
 void patch_signaller(void)
 {
-	PATCH_PUSH_RET(0x004A09B0, signaller::is_a_trigger);
-	PATCH_PUSH_RET(0x004E4800, signaller::is_an_entity);
+	PATCH_PUSH_RET_POLY(0x004A09B0, signaller::is_a_trigger, "?is_a_trigger@signaller@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004E4800, signaller::is_an_entity, "?is_an_entity@signaller@@UBE_NXZ");
 
-	PATCH_PUSH_RET(0x004E4820, signaller::construct_signal_list);
-	PATCH_PUSH_RET(0x004E4890, signaller::get_signal_name);
+	PATCH_PUSH_RET_POLY(0x004E4820, signaller::construct_signal_list, "?construct_signal_list@signaller@@EAEPAV?$fast_vector@PAVsignal@@@@XZ");
+	PATCH_PUSH_RET_POLY(0x004E4890, signaller::get_signal_name, "?get_signal_name@signaller@@MBEPBDG@Z");
+
+	PATCH_PUSH_RET_POLY(0x004A09D0, signaller::raise_signal, "?raise_signal@signaller@@UAEXI@Z");
 }
