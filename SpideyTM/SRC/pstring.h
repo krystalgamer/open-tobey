@@ -71,7 +71,7 @@ class pstring
 	  void pack_string(const char *the_string);
 
     /*** unpack_string ***/
-    const char * unpack_string() const;
+    EXPORT const char * unpack_string() const;
 
 
   public:
@@ -146,6 +146,8 @@ class pstring
     }
 
     /*** c_str ***/
+	// @Ok
+	// @Matching
     EXPORT const char *c_str() const
     {
       // This method does the same thing as the cast overload but in some situations can
