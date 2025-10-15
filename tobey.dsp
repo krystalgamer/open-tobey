@@ -123,6 +123,10 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\pc_timer.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\pstring.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\region.cpp
 # End Source File
 # Begin Source File

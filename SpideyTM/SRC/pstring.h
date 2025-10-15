@@ -54,14 +54,14 @@ class stringx;
 class pstring
 {
   private:
-    static char output_cache[PSTRING_CACHE_SIZE][PSTRING_MAX_LENGTH_PLUS_ONE];
-    static unsigned output_index;
+    EXPORT static char output_cache[PSTRING_CACHE_SIZE][PSTRING_MAX_LENGTH_PLUS_ONE];
+    EXPORT static unsigned output_index;
 
     /* The 'alphabet' of a pstring (6-bit encoding) */
-    static const char pc_to_ascii[64];
+    EXPORT static const char pc_to_ascii[64];
 
     /* assuming standard ascii (7-bit encoding) */
-    static const char ascii_to_pc[128];
+    EXPORT static const char ascii_to_pc[128];
 
     /* pstring data itself */
     uint64 pchunk[PSTRING_PCHUNK_NUMBER];
@@ -76,7 +76,7 @@ class pstring
 
   public:
     /*** constructors/destructors ***/
-    pstring() {
+    EXPORT pstring() {
       for (unsigned i=0; i<PSTRING_PCHUNK_NUMBER; ++i)
       {
         pchunk[i] = 0;
@@ -84,7 +84,7 @@ class pstring
       }
     }
 
-    pstring (const char *target_string)
+    EXPORT pstring (const char *target_string)
     {
 	    assert (target_string != NULL);
 
@@ -94,11 +94,11 @@ class pstring
 
 
 //#ifdef ARCH_ENGINE
-    pstring (const stringx &target_string);
+    EXPORT pstring (const stringx &target_string);
 //#endif
 
     /*** copy constructor ***/
-    pstring (const pstring& new_guy)
+    EXPORT pstring (const pstring& new_guy)
     {
       assert(new_guy.is_set());
       for (unsigned i=0; i<PSTRING_PCHUNK_NUMBER; ++i)
@@ -108,7 +108,7 @@ class pstring
     }
 
     /*** Assignment operators ***/
-    pstring& operator = (const pstring& new_guy)
+    EXPORT pstring& operator = (const pstring& new_guy)
     {
       if (&new_guy == this)
 
@@ -124,7 +124,7 @@ class pstring
       return *this;
     }
 
-    pstring& operator = (const char *str)
+    EXPORT pstring& operator = (const char *str)
 
     {
       assert(str != NULL);
@@ -135,18 +135,18 @@ class pstring
 
 
 //#ifdef ARCH_ENGINE
-    pstring& operator = (const stringx &str);
+    EXPORT pstring& operator = (const stringx &str);
 //#endif
 
     /*** Type casts ***/
 
-    operator const char *() const
+    EXPORT operator const char *() const
     {
       return unpack_string();
     }
 
     /*** c_str ***/
-    const char *c_str() const
+    EXPORT const char *c_str() const
     {
       // This method does the same thing as the cast overload but in some situations can
       // be more convenient
@@ -154,7 +154,7 @@ class pstring
     }
 
     /*** Logical operators ***/
-    bool operator == (const pstring &check_me) const
+    EXPORT bool operator == (const pstring &check_me) const
     {
       assert(check_me.is_set());
 
@@ -165,16 +165,16 @@ class pstring
       }
       return true;
     }
-    bool operator == (const char *check_me) const
+    EXPORT bool operator == (const char *check_me) const
     {
 
       return(*this == pstring(check_me));
     }
 //#ifdef ARCH_ENGINE
-    bool operator == (const stringx &check_me) const;
+    EXPORT bool operator == (const stringx &check_me) const;
 //#endif
 
-    bool operator != (const pstring &check_me) const
+    EXPORT bool operator != (const pstring &check_me) const
     {
       assert(check_me.is_set());
 
@@ -186,7 +186,7 @@ class pstring
       }
       return false;
     }
-    bool operator != (const char *check_me) const
+    EXPORT bool operator != (const char *check_me) const
     {
 
       return(!(*this == check_me));
@@ -274,7 +274,7 @@ class pstring
       return ret_val;
     }
 
-    bool concatinate(const char *the_string);
+    EXPORT bool concatinate(const char *the_string);
 
 
     // optimized version, if you are doing multiple crop operations with the same descriptor, generate
