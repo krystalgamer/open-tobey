@@ -68,7 +68,7 @@ class pstring
 
 
     /*** pack_string ***/
-	  void pack_string(const char *the_string);
+	EXPORT void pack_string(const char *the_string);
 
     /*** unpack_string ***/
     EXPORT const char * unpack_string() const;
