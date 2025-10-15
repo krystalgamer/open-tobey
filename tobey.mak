@@ -49,6 +49,7 @@ CLEAN :
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
+	-@erase "$(INTDIR)\pstring.obj"
 	-@erase "$(INTDIR)\region.obj"
 	-@erase "$(INTDIR)\script_object.obj"
 	-@erase "$(INTDIR)\signal.obj"
@@ -82,9 +83,12 @@ LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\tobey.pdb" /machine:I386 /out:"$(OUTDIR)\tobey.dll" /implib:"$(OUTDIR)\tobey.lib" 
 LINK32_OBJS= \
 	"$(INTDIR)\app.obj" \
+	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
 	"$(INTDIR)\global.obj" \
+	"$(INTDIR)\ini_parser.obj" \
 	"$(INTDIR)\my_assertions.obj" \
+	"$(INTDIR)\ngl_pc.obj" \
 	"$(INTDIR)\pc_timer.obj" \
 	"$(INTDIR)\region.obj" \
 	"$(INTDIR)\script_object.obj" \
@@ -100,9 +104,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\ini_parser.obj" \
-	"$(INTDIR)\ngl_pc.obj" \
-	"$(INTDIR)\debugutil.obj"
+	"$(INTDIR)\pstring.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -129,6 +131,7 @@ CLEAN :
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
+	-@erase "$(INTDIR)\pstring.obj"
 	-@erase "$(INTDIR)\region.obj"
 	-@erase "$(INTDIR)\script_object.obj"
 	-@erase "$(INTDIR)\signal.obj"
@@ -164,9 +167,12 @@ LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\tobey.pdb" /debug /machine:I386 /out:"$(OUTDIR)\tobey.dll" /implib:"$(OUTDIR)\tobey.lib" /pdbtype:sept 
 LINK32_OBJS= \
 	"$(INTDIR)\app.obj" \
+	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
 	"$(INTDIR)\global.obj" \
+	"$(INTDIR)\ini_parser.obj" \
 	"$(INTDIR)\my_assertions.obj" \
+	"$(INTDIR)\ngl_pc.obj" \
 	"$(INTDIR)\pc_timer.obj" \
 	"$(INTDIR)\region.obj" \
 	"$(INTDIR)\script_object.obj" \
@@ -182,9 +188,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\ini_parser.obj" \
-	"$(INTDIR)\ngl_pc.obj" \
-	"$(INTDIR)\debugutil.obj"
+	"$(INTDIR)\pstring.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -278,6 +282,12 @@ SOURCE=.\NGL\PC\ngl_pc.cpp
 SOURCE=.\SpideyTM\SRC\HWOSPC\pc_timer.cpp
 
 "$(INTDIR)\pc_timer.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\pstring.cpp
+
+"$(INTDIR)\pstring.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

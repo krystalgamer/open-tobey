@@ -296,3 +296,29 @@ bool pstring::concatinate(const char *the_string)
   return true;
 
 }
+
+
+#include "my_assertions.h"
+
+void validate_pstring(void)
+{
+	VALIDATE_SIZE(pstring, 0x20);
+
+	VALIDATE(pstring, pchunk[0], 0);
+	VALIDATE(pstring, pchunk[1], 0x8);
+	VALIDATE(pstring, pchunk[2], 0x10);
+	VALIDATE(pstring, pchunk[3], 0x18);
+}
+
+#include "my_patch.h"
+
+void patch_pstring(void)
+{
+	PATCH_PUSH_RET_POLY(0x007D1380, pstring::pstring(const stringx&), "??0pstring@@QAE@ABVstringx@@@Z");
+	PATCH_PUSH_RET_POLY(0x007D13B0, pstring::operator=(const stringx&), "??4pstring@@QAEAAV0@ABVstringx@@@Z");
+	PATCH_PUSH_RET_POLY(0x007D13E0, pstring::operator==(const stringx&), "??8pstring@@QBE_NABVstringx@@@Z");
+
+	PATCH_PUSH_RET(0x007D1460, pstring::pack_string);
+	PATCH_PUSH_RET(0x007D15C0, pstring::c_str);
+	PATCH_PUSH_RET(0x007D16B0, pstring::concatinate);
+}

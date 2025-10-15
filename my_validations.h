@@ -13,6 +13,7 @@ void validate_os_file(void);
 void validate_ini_parser(void);
 void validate_os_developer_options(void);
 void validate_signaller(void);
+void validate_pstring(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -23,4 +24,5 @@ void patch_os_file(void);
 void patch_ini_parser(void);
 void patch_os_developer_options(void);
 void patch_signaller(void);
+void patch_pstring(void);
 #endif

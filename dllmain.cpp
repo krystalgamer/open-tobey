@@ -37,6 +37,8 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_signaller();
 
+	validate_pstring();
+
 	return FAIL_VALIDATION;
 }
 
@@ -65,6 +67,8 @@ void game_patches()
 	patch_os_developer_options();
 
 	patch_signaller();
+
+	patch_pstring();
 }
 
 #pragma pack(push,1)

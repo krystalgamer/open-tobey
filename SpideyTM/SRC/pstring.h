@@ -53,6 +53,8 @@ class stringx;
 /*** pstring ***/
 class pstring
 {
+	friend void validate_pstring(void);
+	friend void patch_pstring(void);
   private:
     EXPORT static char output_cache[PSTRING_CACHE_SIZE][PSTRING_MAX_LENGTH_PLUS_ONE];
     EXPORT static unsigned output_index;
