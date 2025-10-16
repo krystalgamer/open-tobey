@@ -97,6 +97,7 @@ class script_object
       // Friends
       friend class script_object;
       friend void validate_script_object_instance(void);
+      friend void patch_script_object_instance(void);
       };
 
     // instance management

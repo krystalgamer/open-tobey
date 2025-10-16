@@ -46,6 +46,8 @@ const vm_executable* script_manager::find_function_by_address( const unsigned sh
   return NULL;
 }
 
+// @Ok
+// @Matching
 void script_object::instance::suspend()
 {
   thread_list::iterator i = threads.begin();
@@ -67,7 +69,7 @@ void script_object::instance::unsuspend()
 #include "my_assertions.h"
 static void compile_time_assertions()
 {
-	//StaticAssert<sizeof(vm_thread) == 0x48>::sass();
+	StaticAssert<sizeof(vm_thread) == 0x48>::sass();
 }
 
 
@@ -80,4 +82,12 @@ void validate_script_object_instance(void)
 	VALIDATE(script_object::instance, data, 0x8);
 	VALIDATE(script_object::instance, threads, 0x10);
 	VALIDATE(script_object::instance, suspended, 0x14);
+}
+
+
+#include "my_patch.h"
+
+void patch_script_object_instance(void)
+{
+	PATCH_PUSH_RET(0x007DE8C0, script_object::instance::suspend);
 }

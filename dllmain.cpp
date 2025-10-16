@@ -68,6 +68,8 @@ void game_patches()
 	patch_signaller();
 
 	patch_pstring();
+
+	patch_script_object_instance();
 }
 
 #pragma pack(push,1)
