@@ -2,6 +2,10 @@
 #ifndef _SCRIPT_OBJECT_H
 #define _SCRIPT_OBJECT_H
 
+#ifndef __THROW_BAD_ALLOC
+#define __THROW_BAD_ALLOC
+#endif
+
 #define __STL_NO_EXCEPTION_HEADER
 #define __STL_NO_EXCEPTIONS
 #define __STL_USE_SGI_ALLOCATORS
@@ -38,7 +42,7 @@ class script_object
       {
       // Types
 
-		typedef std::list<vm_thread*> thread_list;
+		typedef std::list<vm_thread*, std::single_client_alloc> thread_list;
 
       // Data
       protected:

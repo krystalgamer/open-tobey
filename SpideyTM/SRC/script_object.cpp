@@ -62,8 +62,20 @@ void script_object::instance::suspend()
   suspended = true;
 }
 
+// @Ok
+// @Matching
 void script_object::instance::unsuspend()
 {
+	  thread_list::iterator i = threads.begin();
+  thread_list::iterator i_end = threads.end();
+  for ( ; i!=i_end; ++i )
+    {
+    vm_thread* t = *i;
+    assert(t != NULL);
+    t->set_suspended( false );
+
+    }
+  suspended = false;
 }
 
 #include "my_assertions.h"
@@ -90,4 +102,5 @@ void validate_script_object_instance(void)
 void patch_script_object_instance(void)
 {
 	PATCH_PUSH_RET(0x007DE8C0, script_object::instance::suspend);
+	PATCH_PUSH_RET(0x007DE900, script_object::instance::unsuspend);
 }
