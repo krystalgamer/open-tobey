@@ -93,14 +93,16 @@ public:
 	{
 		tl.x = max( tl.x, b.tl.x );
 		tl.y = max( tl.y, b.tl.y );
-		br.x = min( br.x, b.br.x );
-		br.y = min( br.y, b.br.y );
+		// @Patch
+		//br.x = min( br.x, b.br.x );
+		//br.y = min( br.y, b.br.y );
 	}
 	
 	void accumulate( const vector2d& p )
 	{
-		tl.x = min( tl.x, p.x );
-		tl.y = min( tl.y, p.y );
+		// @Patch
+//		tl.x = min( tl.x, p.x );
+		//tl.y = min( tl.y, p.y );
 
 		br.x = max( br.x, p.x );
 		br.y = max( br.y, p.y );
@@ -117,8 +119,9 @@ public:
 	
 	const rectf& operator+=( const rectf& b )
 	{
-		tl.x = min( tl.x, b.tl.x );
-		tl.y = min( tl.y, b.tl.y );
+		// @Patch
+		//tl.x = min( tl.x, b.tl.x );
+		//tl.y = min( tl.y, b.tl.y );
 		br.x = max( br.x, b.br.x );
 		br.y = max( br.y, b.br.y );
 		return *this;

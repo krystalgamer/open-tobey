@@ -185,6 +185,282 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\x86_math.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Group "sgistl"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\algo.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\algobase.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\alloc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\bvector.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\char_traits.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\concept_checks.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\container_concepts.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\defalloc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\deque.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\function.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\hash_map.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\hash_set.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\hashtable.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\heap.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\iterator.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\list.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\map.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\multimap.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\multiset.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\pair.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\pthread_alloc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\rope.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\ropeimpl.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\sequence_concepts.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\set.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\slist.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stack.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_algo.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_algobase.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_alloc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_bvector.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_config.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_construct.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_ctraits_fns.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_deque.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_exception.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_function.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_hash_fun.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_hash_map.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_hash_set.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_hashtable.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_heap.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_iterator.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_iterator_base.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_list.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_map.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_multimap.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_multiset.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_numeric.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_pair.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_queue.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_range_errors.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_raw_storage_iter.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_relops.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_rope.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_set.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_slist.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_stack.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_string_fwd.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_tempbuf.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_threads.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_tree.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_uninitialized.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\stl_vector.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\tempbuf.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\tree.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\type_traits.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sgistl\vector.h
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\aggvertbuf.h

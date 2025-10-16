@@ -24,8 +24,7 @@ extern "C" EXPORT int run_assertions(void)
 	validate_vm_stack();
 	validate_vm_thread();
 
-	// @TODO
-	//validate_script_object_instance();
+	validate_script_object_instance();
 
 	validate_so_data_block();
 	validate_vm_symbol();

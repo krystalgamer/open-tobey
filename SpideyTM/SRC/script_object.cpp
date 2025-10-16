@@ -74,7 +74,7 @@ static void compile_time_assertions()
 void validate_script_object_instance(void)
 {
 	VALIDATE_SIZE(script_object::instance, 0x18);
-	VALIDATE_SIZE(std::list<vm_thread*>, 0x18);
+	VALIDATE_SIZE(std::list<vm_thread*>, 0x4);
 
 	VALIDATE(script_object::instance, name, 0x0);
 	VALIDATE(script_object::instance, data, 0x8);

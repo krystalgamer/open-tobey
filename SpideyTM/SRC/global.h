@@ -192,7 +192,7 @@ extern "C" char* strupr( char* s );
 #ifdef TARGET_XBOX
 	using namespace std;
 #endif
-	#include <list>
+	//#include <list>
 	#include <string>
 	#if !defined(NO_FSTREAM)
 		#include <fstream>

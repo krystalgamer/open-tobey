@@ -31,7 +31,9 @@
 
 
 // @TODO - actually fix this
+#ifndef assert
 #define assert(x)
+#endif
 
 #if !defined(JOHNS_UNIT_TEST)
 

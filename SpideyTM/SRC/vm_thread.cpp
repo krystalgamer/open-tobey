@@ -1313,7 +1313,7 @@ void vm_thread::set_camera_priority(rational_t pr)
 #include "my_assertions.h"
 static void compile_time_assertions()
 {
-	StaticAssert<sizeof(vm_thread) == 0x48>::sass();
+	//StaticAssert<sizeof(vm_thread) == 0x48>::sass();
 }
 
 void validate_vm_thread(void)

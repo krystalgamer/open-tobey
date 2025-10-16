@@ -13,6 +13,7 @@
 #include "so_data_block.h"
 #include "chunkfile.h"
 #include "ostimer.h"
+#include <list>
 #include <set>
 #include <map>
 
@@ -33,7 +34,6 @@ class script_object
   {
   // Types
   public:
-	#pragma pack(push, 1)
     class instance
       {
       // Types
@@ -98,7 +98,6 @@ class script_object
       friend class script_object;
       friend void validate_script_object_instance(void);
       };
-#pragma pack(pop)
 
     // instance management
 

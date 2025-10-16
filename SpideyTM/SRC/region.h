@@ -21,6 +21,7 @@
 #include "ngl.h"
 #endif /* TARGET_XBOX JIV DEBUG */
 
+#include <list>
 #include <vector>
 
 struct cface_replacement

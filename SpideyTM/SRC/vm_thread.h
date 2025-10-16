@@ -75,9 +75,12 @@ class vm_thread
     script_callback* my_callback;
 
 
+
+	PADDING(4);
+
     region * local_region;
 //!    character * local_character;
-
+	
     rational_t camera_priority;
 
     static unsigned int id_counter;
