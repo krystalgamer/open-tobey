@@ -73,7 +73,7 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MT /W3 /Zi /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MT /W3 /vd1 /Zi /O2 /I "SpideyTM\SRC\sgistl" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
@@ -90,6 +90,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\my_assertions.obj" \
 	"$(INTDIR)\ngl_pc.obj" \
 	"$(INTDIR)\pc_timer.obj" \
+	"$(INTDIR)\pstring.obj" \
 	"$(INTDIR)\region.obj" \
 	"$(INTDIR)\script_object.obj" \
 	"$(INTDIR)\signal.obj" \
@@ -103,8 +104,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_errmsg.obj" \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
-	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\pstring.obj"
+	"$(INTDIR)\x86_math.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -174,6 +174,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\my_assertions.obj" \
 	"$(INTDIR)\ngl_pc.obj" \
 	"$(INTDIR)\pc_timer.obj" \
+	"$(INTDIR)\pstring.obj" \
 	"$(INTDIR)\region.obj" \
 	"$(INTDIR)\script_object.obj" \
 	"$(INTDIR)\signal.obj" \
@@ -187,8 +188,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_errmsg.obj" \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
-	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\pstring.obj"
+	"$(INTDIR)\x86_math.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
