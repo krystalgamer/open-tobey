@@ -1,6 +1,8 @@
 #include "script_object.h"
 #include "vm_thread.h"
 
+#define VM_STACKSIZE 0x180
+
 script_object::instance::instance(const stringx& n,int sz)
 : name( n ),
 
@@ -15,10 +17,19 @@ void script_object::instance::kill_thread(const vm_executable* ex)
 {
 }
 
-// @TODO
+// @Ok
+// @NotMatching - the thread-safety on lists
 vm_thread* script_object::instance::add_thread(const vm_executable* ex)
 {
-	return NULL;
+	vm_thread* nt = NEW vm_thread(this,ex,VM_STACKSIZE);
+  assert(nt != NULL);
+  threads.push_back(nt);
+  // if this script object instance is suspended, we must suspend any thread
+  // that is added here
+  if ( suspended )
+    nt->set_suspended( true );
+
+  return nt;
 }
 
 // @TODO
@@ -103,4 +114,6 @@ void patch_script_object_instance(void)
 {
 	PATCH_PUSH_RET(0x007DE8C0, script_object::instance::suspend);
 	PATCH_PUSH_RET(0x007DE900, script_object::instance::unsuspend);
+
+	//PATCH_PUSH_RET_POLY(0x007DE340, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@@Z");
 }

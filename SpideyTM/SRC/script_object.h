@@ -70,14 +70,14 @@ class script_object
 
         // thread management
         //const thread_list& get_threads() const { return threads; }
-        vm_thread* add_thread(const vm_executable* ex);
-        vm_thread* add_thread( const vm_executable* ex, const char* parms );
+        EXPORT vm_thread* add_thread(const vm_executable* ex);
+        EXPORT vm_thread* add_thread( const vm_executable* ex, const char* parms );
 
         // spawn a NEW thread via the given event callback
-        vm_thread* add_thread( script_callback* cb, const vm_executable* ex, const char* parms );
+        EXPORT vm_thread* add_thread( script_callback* cb, const vm_executable* ex, const char* parms );
 
-        vm_thread* spawn_subthread(const vm_executable* ex);
-        void kill_thread(const vm_executable* ex);
+        EXPORT vm_thread* spawn_subthread(const vm_executable* ex);
+        EXPORT void kill_thread(const vm_executable* ex);
         //bool has_threads() const { return threads.size()? true : false; }
         // execute all threads
         void run(bool ignore_suspended);
@@ -91,9 +91,9 @@ class script_object
         void dump_threads( host_system_file_handle outfile ) const;
         void clear_callback_references( script_callback *remove_me );
 
-        bool thread_exists(vm_thread* thread) const;
-        bool thread_exists(unsigned int thread_id) const;
-        bool thread_exists(vm_thread* thread, unsigned int thread_id) const;
+        EXPORT bool thread_exists(vm_thread* thread) const;
+        EXPORT bool thread_exists(unsigned int thread_id) const;
+        EXPORT bool thread_exists(vm_thread* thread, unsigned int thread_id) const;
 
 
 #if _CONSOLE_ENABLE
