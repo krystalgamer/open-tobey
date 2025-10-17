@@ -77,7 +77,9 @@ class script_object
         EXPORT vm_thread* add_thread( script_callback* cb, const vm_executable* ex, const char* parms );
 
         EXPORT vm_thread* spawn_subthread(const vm_executable* ex);
-        EXPORT void kill_thread(const vm_executable* ex);
+
+		// @Patch - added parameter
+        EXPORT void kill_thread(const vm_executable* ex, const vm_thread* thr);
         //bool has_threads() const { return threads.size()? true : false; }
         // execute all threads
         EXPORT void run(bool ignore_suspended);

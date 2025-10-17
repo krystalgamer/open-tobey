@@ -12,11 +12,6 @@ script_object::instance::instance(const stringx& n,int sz)
 {
 }
 
-// @TODO
-void script_object::instance::kill_thread(const vm_executable* ex)
-{
-}
-
 // @Ok
 // @NotMatching - the thread-safety on lists
 INLINE vm_thread* script_object::instance::add_thread(const vm_executable* ex)
@@ -77,6 +72,35 @@ const vm_executable* script_manager::find_function_by_address( const unsigned sh
 {
   return NULL;
 }
+
+
+// @Ok
+// @NotMatching - list thread safety
+void script_object::instance::kill_thread(const vm_executable* ex, const vm_thread* thr)
+{
+	thread_list::iterator ti = threads.begin();
+	while (ti != threads.end())
+	{
+		vm_thread* t = *ti;
+		assert(t != NULL);
+		if ( t->get_instance()==this && t->get_executable()==ex && t != thr)
+		{
+			// found matching thread (same script object instance, same function);
+			// kill it dead
+			t->remove_from_local_region();
+			t->remove_from_local_character();
+			//krPrintf("killing thread %s %s\n", t->ex->get_fullname().c_str(), t->inst->get_name().c_str());
+			delete t;
+			ti = threads.erase( ti );  // erase returns next value for iterator
+		}
+		else
+		{
+			++ti;
+		}
+	}
+}
+
+
 
 // @Ok
 // @NotMatching - list thread safety
@@ -265,11 +289,12 @@ void patch_script_object_instance(void)
 	PATCH_PUSH_RET(0x007DE940, script_object::instance::clear_callback_references);
 	PATCH_PUSH_RET(0x007DE980, script_object::instance::dump_threads);
 
-	// @TODO when more of this is done
+	// @TODO when more of this is done - vm_thread
 	//PATCH_PUSH_RET_POLY(0x007DE340, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@@Z");
 	//PATCH_PUSH_RET_POLY(0x007DE420, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@PBD@Z");
 	//PATCH_PUSH_RET_POLY(0x007DE540, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PAVscript_callback@@PBVvm_executable@@PBD@Z");
 	//PATCH_PUSH_RET(0x007DE800, script_object::instance::run_single_thread);
+	//PATCH_PUSH_RET(0x007DE6A0, script_object::instance::kill_thread);
 
 	PATCH_PUSH_RET_POLY(0x007DE9F0, script_object::instance::thread_exists, "?thread_exists@instance@script_object@@QBE_NPAVvm_thread@@@Z");
 	PATCH_PUSH_RET_POLY(0x007DEA30, script_object::instance::thread_exists, "?thread_exists@instance@script_object@@QBE_NI@Z");
