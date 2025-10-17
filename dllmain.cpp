@@ -38,6 +38,8 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_pstring();
 
+	validate_vm_executable();
+
 	return FAIL_VALIDATION;
 }
 

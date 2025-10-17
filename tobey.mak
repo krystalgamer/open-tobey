@@ -58,6 +58,7 @@ CLEAN :
 	-@erase "$(INTDIR)\stringx.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
+	-@erase "$(INTDIR)\vm_executable.obj"
 	-@erase "$(INTDIR)\vm_stack.obj"
 	-@erase "$(INTDIR)\vm_symbol.obj"
 	-@erase "$(INTDIR)\vm_thread.obj"
@@ -73,7 +74,7 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MT /W3 /vd1 /Zi /O2 /I "SpideyTM\SRC\sgistl" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MT /W3 /Zi /O2 /I "SpideyTM\SRC\sgistl" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
@@ -104,7 +105,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_errmsg.obj" \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
-	"$(INTDIR)\x86_math.obj"
+	"$(INTDIR)\x86_math.obj" \
+	"$(INTDIR)\vm_executable.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -140,6 +142,7 @@ CLEAN :
 	-@erase "$(INTDIR)\stringx.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
+	-@erase "$(INTDIR)\vm_executable.obj"
 	-@erase "$(INTDIR)\vm_stack.obj"
 	-@erase "$(INTDIR)\vm_symbol.obj"
 	-@erase "$(INTDIR)\vm_thread.obj"
@@ -188,7 +191,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_errmsg.obj" \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
-	"$(INTDIR)\x86_math.obj"
+	"$(INTDIR)\x86_math.obj" \
+	"$(INTDIR)\vm_executable.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -324,6 +328,12 @@ SOURCE=.\SpideyTM\SRC\so_data_block.cpp
 SOURCE=.\SpideyTM\SRC\stringx.cpp
 
 "$(INTDIR)\stringx.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\vm_executable.cpp
+
+"$(INTDIR)\vm_executable.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

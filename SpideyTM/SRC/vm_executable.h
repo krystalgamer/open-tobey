@@ -15,6 +15,8 @@ class script_manager;
 
 class vm_executable
   {
+		friend void validate_vm_executable(void);
+		friend void patch_vm_executable(void);
   // Types
   public:
 	  typedef std::vector<script_library_class*> parms_list;
