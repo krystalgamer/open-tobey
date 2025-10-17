@@ -100,6 +100,56 @@ void script_object::instance::kill_thread(const vm_executable* ex, const vm_thre
 	}
 }
 
+// @Ok
+// @NotMatching - list thread safety
+void script_object::instance::run(bool ignore_suspended)
+{
+#if defined(TARGET_PC) && !defined(BUILD_BOOTABLE)
+	if(g_script_debugger_running)
+	{
+		g_sl_debugger.set_new_instance(this, threads.size());
+	}
+#endif
+
+	thread_list::iterator i = threads.begin();
+
+	while ( i != threads.end() )
+	{
+		vm_thread* t = *i;
+		assert(t != NULL);
+		if ( ignore_suspended || !t->is_suspended() )
+		{
+			// execute thread (will run until finished or interrupted)
+#if _CONSOLE_ENABLE && 0
+			console_process("console_log c:\\console.txt", 0);
+
+			console_log("execing thread %s %s\n", t->ex->get_fullname().c_str(), t->inst->get_name().c_str());
+			console_process("console_log end", 0);
+#endif
+
+			if ( t->run() )
+			{
+				// thread has asked to be killed
+				t->remove_from_local_region();
+				t->remove_from_local_character();
+
+				//krPrintf("removing thread %s %s\n", t->ex->get_fullname().c_str(), t->inst->get_name().c_str());
+				delete t;
+
+				i = threads.erase( i );  // erase returns next value for iterator
+			}
+			else
+			{
+				++i;
+			}
+		}
+		else
+		{
+			++i;
+		}
+	}
+}
+
 
 
 // @Ok
@@ -295,6 +345,7 @@ void patch_script_object_instance(void)
 	//PATCH_PUSH_RET_POLY(0x007DE540, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PAVscript_callback@@PBVvm_executable@@PBD@Z");
 	//PATCH_PUSH_RET(0x007DE800, script_object::instance::run_single_thread);
 	//PATCH_PUSH_RET(0x007DE6A0, script_object::instance::kill_thread);
+	//PATCH_PUSH_RET(0x007DE740, script_object::instance::run);
 
 	PATCH_PUSH_RET_POLY(0x007DE9F0, script_object::instance::thread_exists, "?thread_exists@instance@script_object@@QBE_NPAVvm_thread@@@Z");
 	PATCH_PUSH_RET_POLY(0x007DEA30, script_object::instance::thread_exists, "?thread_exists@instance@script_object@@QBE_NI@Z");
