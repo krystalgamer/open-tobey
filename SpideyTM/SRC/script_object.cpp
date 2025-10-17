@@ -79,6 +79,38 @@ const vm_executable* script_manager::find_function_by_address( const unsigned sh
 }
 
 // @Ok
+// @NotMatching - list thread safety
+void script_object::instance::run_single_thread( vm_thread* t, bool ignore_suspended )
+{
+	if ( ignore_suspended || !t->is_suspended() )
+	{
+		// execute thread (will run until finished or interrupted)
+		if ( t->run() )
+		{
+			// thread has asked to be killed
+			t->remove_from_local_region();
+			t->remove_from_local_character();
+			delete t;
+			// remove thread from list
+
+			//krPrintf("I shouldn't be called - thread %s %s\n", t->ex->get_fullname().c_str(), t->inst->get_name().c_str());
+
+			thread_list::iterator i = threads.begin();
+
+			for ( ; i!=threads.end(); ++i )
+			{
+				if ( *i == t )
+				{
+					threads.erase( i );  // erase returns next value for iterator
+					break;
+				}
+			}
+		}
+	}
+}
+
+
+// @Ok
 // @Matching
 void script_object::instance::suspend()
 {
@@ -237,7 +269,7 @@ void patch_script_object_instance(void)
 	//PATCH_PUSH_RET_POLY(0x007DE340, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@@Z");
 	//PATCH_PUSH_RET_POLY(0x007DE420, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@PBD@Z");
 	//PATCH_PUSH_RET_POLY(0x007DE540, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PAVscript_callback@@PBVvm_executable@@PBD@Z");
-
+	//PATCH_PUSH_RET(0x007DE800, script_object::instance::run_single_thread);
 
 	PATCH_PUSH_RET_POLY(0x007DE9F0, script_object::instance::thread_exists, "?thread_exists@instance@script_object@@QBE_NPAVvm_thread@@@Z");
 	PATCH_PUSH_RET_POLY(0x007DEA30, script_object::instance::thread_exists, "?thread_exists@instance@script_object@@QBE_NI@Z");

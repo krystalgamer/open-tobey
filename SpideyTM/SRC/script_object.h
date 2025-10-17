@@ -80,9 +80,9 @@ class script_object
         EXPORT void kill_thread(const vm_executable* ex);
         //bool has_threads() const { return threads.size()? true : false; }
         // execute all threads
-        void run(bool ignore_suspended);
+        EXPORT void run(bool ignore_suspended);
         // run a single thread
-        void run_single_thread( vm_thread* t, bool ignore_suspended );
+        EXPORT void run_single_thread( vm_thread* t, bool ignore_suspended );
 
         EXPORT void suspend();
         EXPORT void unsuspend();

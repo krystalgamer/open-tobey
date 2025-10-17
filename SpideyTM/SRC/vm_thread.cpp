@@ -143,11 +143,16 @@ void vm_thread::set_suspendable( bool v )
     set_suspended( false );
 }
 
+typedef bool (__fastcall *vm_thread_run_ptr)(vm_thread*);
 
+// @TODO
 // Execute this thread until interrupted or terminated.
 // Return true if the thread should be killed.
 bool vm_thread::run()
 {
+	vm_thread_run_ptr vm_thread_run = (vm_thread_run_ptr)0x007E7750;
+	return vm_thread_run(this);
+
 #if defined(TARGET_PC) && !defined(BUILD_BOOTABLE)
   if(g_script_debugger_running)
   {
