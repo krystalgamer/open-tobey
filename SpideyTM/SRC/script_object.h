@@ -89,7 +89,7 @@ class script_object
 
         // for debugging purposes; dump information on all threads to a file
         void dump_threads( host_system_file_handle outfile ) const;
-        void clear_callback_references( script_callback *remove_me );
+        EXPORT void clear_callback_references( script_callback *remove_me );
 
         EXPORT bool thread_exists(vm_thread* thread) const;
         EXPORT bool thread_exists(unsigned int thread_id) const;

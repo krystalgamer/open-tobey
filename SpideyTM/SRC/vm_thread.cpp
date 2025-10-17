@@ -1324,6 +1324,7 @@ void validate_vm_thread(void)
 
 	VALIDATE(vm_thread, PC, 0x1C);
 
+	VALIDATE(vm_thread, my_callback, 0x30);
 	VALIDATE(vm_thread, local_region, 0x34);
 	VALIDATE(vm_thread, camera_priority, 0x38);
 }

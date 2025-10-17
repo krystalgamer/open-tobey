@@ -72,11 +72,6 @@ vm_thread* script_object::instance::add_thread( script_callback* cb, const vm_ex
 }
 
 // @TODO
-void script_object::instance::clear_callback_references( script_callback *remove_me )
-{
-}
-
-// @TODO
 // return pointer to executable that corresponds to given PC (NULL if not found)
 const vm_executable* script_manager::find_function_by_address( const unsigned short* PC ) const
 {
@@ -115,6 +110,26 @@ void script_object::instance::unsuspend()
   suspended = false;
 }
 
+// @Ok
+// @Matching
+// for bug purposes; fixes a dangling pointer
+void script_object::instance::clear_callback_references( script_callback *remove_me )
+{
+	thread_list::const_iterator i = threads.begin();
+	thread_list::const_iterator i_end = threads.end();
+	for ( ; i!=i_end; ++i )
+	{
+		vm_thread* t = *i;
+
+		assert(t != NULL);
+
+		if (t->my_callback == remove_me)
+		  t->my_callback = NULL;
+	}
+
+}
+
+
 #include "my_assertions.h"
 static void compile_time_assertions()
 {
@@ -141,6 +156,9 @@ void patch_script_object_instance(void)
 	PATCH_PUSH_RET(0x007DE8C0, script_object::instance::suspend);
 	PATCH_PUSH_RET(0x007DE900, script_object::instance::unsuspend);
 
+	PATCH_PUSH_RET(0x007DE940, script_object::instance::clear_callback_references);
+
+	// @TODO when more of this is done
 	//PATCH_PUSH_RET_POLY(0x007DE340, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@@Z");
 	//PATCH_PUSH_RET_POLY(0x007DE420, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@PBD@Z");
 	//PATCH_PUSH_RET_POLY(0x007DE540, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PAVscript_callback@@PBVvm_executable@@PBD@Z");

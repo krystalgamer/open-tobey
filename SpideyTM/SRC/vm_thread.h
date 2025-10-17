@@ -69,6 +69,7 @@ class vm_thread
 	std::vector<const unsigned short*> PC_stack;
     // used when calling library functions
 
+	PADDING(4);
 	// @Patch
     //script_library_class::function::entry_t entry;
     // if thread was spawned by an event callback, this points to the callback definition
@@ -76,7 +77,6 @@ class vm_thread
 
 
 
-	PADDING(4);
 
     region * local_region;
 //!    character * local_character;
