@@ -153,6 +153,56 @@ void script_object::instance::dump_threads( host_system_file_handle outfile ) co
 	}
 }
 
+// @Ok
+// @Matching
+bool script_object::instance::thread_exists(vm_thread* thread) const
+{
+	thread_list::const_iterator i = threads.begin();
+	thread_list::const_iterator i_end = threads.end();
+	for ( ; i!=i_end; ++i )
+	{
+		if((*i) == thread)
+			return(true);
+	}
+
+	return(false);
+}
+
+// @Ok
+// @Matching
+bool script_object::instance::thread_exists(unsigned int thread_id) const
+{
+
+	thread_list::const_iterator i = threads.begin();
+	thread_list::const_iterator i_end = threads.end();
+	for ( ; i!=i_end; ++i )
+	{
+		if((*i)->thread_id == thread_id)
+			return(true);
+	}
+
+
+	return(false);
+
+}
+
+
+// @Ok
+// @Matching
+bool script_object::instance::thread_exists(vm_thread* thread, unsigned int thread_id) const
+{
+	thread_list::const_iterator i = threads.begin();
+	thread_list::const_iterator i_end = threads.end();
+
+	for ( ; i!=i_end; ++i )
+	{
+		if((*i) == thread)
+		return((*i)->thread_id == thread_id);
+	}
+
+	return(false);
+}
+
 
 #include "my_assertions.h"
 static void compile_time_assertions()
@@ -187,4 +237,10 @@ void patch_script_object_instance(void)
 	//PATCH_PUSH_RET_POLY(0x007DE340, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@@Z");
 	//PATCH_PUSH_RET_POLY(0x007DE420, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@PBD@Z");
 	//PATCH_PUSH_RET_POLY(0x007DE540, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PAVscript_callback@@PBVvm_executable@@PBD@Z");
+
+
+	PATCH_PUSH_RET_POLY(0x007DE9F0, script_object::instance::thread_exists, "?thread_exists@instance@script_object@@QBE_NPAVvm_thread@@@Z");
+	PATCH_PUSH_RET_POLY(0x007DEA30, script_object::instance::thread_exists, "?thread_exists@instance@script_object@@QBE_NI@Z");
+	PATCH_PUSH_RET_POLY(0x007DEA70, script_object::instance::thread_exists, "?thread_exists@instance@script_object@@QBE_NPAVvm_thread@@I@Z");
+
 }
