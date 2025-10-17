@@ -129,6 +129,30 @@ void script_object::instance::clear_callback_references( script_callback *remove
 
 }
 
+// @Ok
+// @Matching
+// for debugging purposes; dump information on all threads to a file
+void script_object::instance::dump_threads( host_system_file_handle outfile ) const
+{
+
+	thread_list::const_iterator i = threads.begin();
+	thread_list::const_iterator i_end = threads.end();
+	for ( ; i!=i_end; ++i )
+	{
+		vm_thread* t = *i;
+
+		if (!t->is_suspended())
+		{
+
+#if THREAD_PROFILING
+			host_fprintf( outfile, "%s %s %f %i\n", name.c_str(), t->get_executable()->get_name().c_str(), t->prof_runtime, t->prof_opcount );
+#else
+			host_fprintf( outfile, "%s %s\n", name.c_str(), t->get_executable()->get_name().c_str() );
+#endif
+		}
+	}
+}
+
 
 #include "my_assertions.h"
 static void compile_time_assertions()
@@ -157,6 +181,7 @@ void patch_script_object_instance(void)
 	PATCH_PUSH_RET(0x007DE900, script_object::instance::unsuspend);
 
 	PATCH_PUSH_RET(0x007DE940, script_object::instance::clear_callback_references);
+	PATCH_PUSH_RET(0x007DE980, script_object::instance::dump_threads);
 
 	// @TODO when more of this is done
 	//PATCH_PUSH_RET_POLY(0x007DE340, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@@Z");

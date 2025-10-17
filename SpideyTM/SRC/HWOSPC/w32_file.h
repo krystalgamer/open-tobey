@@ -160,5 +160,8 @@ EXPORT int host_write( host_system_file_handle fp, void const * buf, int len );
 EXPORT int host_fseek( host_system_file_handle fp, int offset, host_seek_mode_t mode );
 EXPORT int host_get_size( host_system_file_handle fp );
 
+// @Patch
+#define host_fprintf fprintf
+
 
 #endif
