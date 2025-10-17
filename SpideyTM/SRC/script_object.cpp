@@ -48,12 +48,28 @@ vm_thread* script_object::instance::add_thread( const vm_executable* ex, const c
 	return nt;
 }
 
-// @TODO
+// @Ok
+// @Matching
 // spawn a NEW thread via the given event callback
 vm_thread* script_object::instance::add_thread( script_callback* cb, const vm_executable* ex, const char* parms )
-  {
-	  return NULL;
-  }
+{
+	vm_thread* nt = NEW vm_thread( this, ex, VM_STACKSIZE, cb );
+	assert(nt != NULL);
+	threads.push_back( nt );
+	// if this script object instance is suspended, we must suspend any thread
+	// that is added here
+	if ( suspended )
+	{
+		nt->set_suspended( true );
+	}
+	if ( parms && !nt->get_data_stack().push( parms, ex->get_parms_stacksize() ) )
+	{
+		error( get_name() + ": stack overflow spawning " + ex->get_fullname() );
+	}
+
+	nt->PC = ex->get_start();
+	return nt;
+}
 
 // @TODO
 void script_object::instance::clear_callback_references( script_callback *remove_me )
@@ -127,4 +143,5 @@ void patch_script_object_instance(void)
 
 	//PATCH_PUSH_RET_POLY(0x007DE340, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@@Z");
 	//PATCH_PUSH_RET_POLY(0x007DE420, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@PBD@Z");
+	//PATCH_PUSH_RET_POLY(0x007DE540, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PAVscript_callback@@PBVvm_executable@@PBD@Z");
 }
