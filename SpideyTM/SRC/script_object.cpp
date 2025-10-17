@@ -19,7 +19,7 @@ void script_object::instance::kill_thread(const vm_executable* ex)
 
 // @Ok
 // @NotMatching - the thread-safety on lists
-vm_thread* script_object::instance::add_thread(const vm_executable* ex)
+INLINE vm_thread* script_object::instance::add_thread(const vm_executable* ex)
 {
 	vm_thread* nt = NEW vm_thread(this,ex,VM_STACKSIZE);
   assert(nt != NULL);
@@ -32,11 +32,21 @@ vm_thread* script_object::instance::add_thread(const vm_executable* ex)
   return nt;
 }
 
-// @TODO
+// @Ok
+// @Matching
 vm_thread* script_object::instance::add_thread( const vm_executable* ex, const char* parms )
-  {
-	  return NULL;
-  }
+{
+	vm_thread* nt = add_thread( ex );
+	assert(nt != NULL);
+
+	if ( parms && !nt->get_data_stack().push( parms, ex->get_parms_stacksize() ) )
+	{
+		error( get_name() + ": stack overflow spawning " + ex->get_fullname() );
+	}
+
+	nt->PC = ex->get_start();
+	return nt;
+}
 
 // @TODO
 // spawn a NEW thread via the given event callback
@@ -116,4 +126,5 @@ void patch_script_object_instance(void)
 	PATCH_PUSH_RET(0x007DE900, script_object::instance::unsuspend);
 
 	//PATCH_PUSH_RET_POLY(0x007DE340, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@@Z");
+	//PATCH_PUSH_RET_POLY(0x007DE420, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@PBD@Z");
 }
