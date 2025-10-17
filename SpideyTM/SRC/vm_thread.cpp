@@ -355,6 +355,9 @@ void validate_vm_thread(void)
 {
 	VALIDATE_SIZE(vm_thread, 0x48);
 
+	VALIDATE(vm_thread, inst, 0x0);
+	VALIDATE(vm_thread, ex, 0x4);
+
 	VALIDATE(vm_thread, flags, 0x8);
 
 	VALIDATE(vm_thread, PC, 0x1C);
