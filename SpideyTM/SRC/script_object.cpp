@@ -353,6 +353,27 @@ bool script_object::has_threads() const
 	return false;
 }
 
+// @Ok
+// @Matching
+// execute all threads on all instances of this object
+void script_object::run( bool ignore_suspended )
+{
+#if defined(TARGET_PC) && !defined(BUILD_BOOTABLE)
+	if(g_script_debugger_running)
+	g_sl_debugger.set_new_object(this, instances.size());
+#endif
+
+	// remove me on sight!!! debugging only
+	//check_all_instances();
+
+
+	for ( instance_list::iterator i=instances.begin(); i!=instances.end(); ++i )
+	{
+		instance* inst = *i;
+		inst->run( ignore_suspended );
+	}
+}
+
 
 #include "my_assertions.h"
 static void compile_time_assertions()
@@ -385,6 +406,9 @@ void patch_script_object(void)
 {
 	PATCH_PUSH_RET(0x007DF950, script_object::has_threads);
 	PATCH_PUSH_RET(0x007DEED0, script_object::link);
+
+	// @TODO - can only do when vm_thread destructor is done
+	//PATCH_PUSH_RET(0x007DF9A0, script_object::run);
 }
 
 void patch_script_object_instance(void)

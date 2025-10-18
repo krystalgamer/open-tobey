@@ -194,7 +194,7 @@ void check_all_instances(); // debugging code, remove me please!!! -GT
     EXPORT bool has_threads() const;
 
     // execute all threads on all instances of this script object
-    void run(bool ignore_suspended);
+    EXPORT void run(bool ignore_suspended);
 
     // for debugging purposes; dump information on all threads to a file
     EXPORT void dump_threads( host_system_file_handle outfile ) const;
@@ -286,7 +286,7 @@ void check_all_objects( ); // debugging code, please remove me!  --GT
     EXPORT void link();
 
     // execute all threads on all script object instances
-    void run(time_value_t t = 0.0f, bool ignore_suspended = USE_SUSPENDED);
+    EXPORT void run(time_value_t t = 0.0f, bool ignore_suspended = USE_SUSPENDED);
 
 
     inline time_value_t get_time_inc() const { return(time_inc); }
