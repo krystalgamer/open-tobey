@@ -108,7 +108,7 @@ class vm_thread
 
     const vm_executable* get_executable() const { return ex; }
 
-    vm_stack& get_data_stack() { return dstack; }
+    EXPORT vm_stack& get_data_stack() { return dstack; }
 
 	// @Ok
 	// @Matching

@@ -360,6 +360,8 @@ void validate_vm_thread(void)
 
 	VALIDATE(vm_thread, flags, 0x8);
 
+	VALIDATE(vm_thread, dstack, 0xC);
+
 	VALIDATE(vm_thread, PC, 0x1C);
 
 	VALIDATE(vm_thread, my_callback, 0x30);
