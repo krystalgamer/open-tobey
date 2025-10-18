@@ -103,6 +103,10 @@ SOURCE=.\dllmain.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\errorcontext.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\global.cpp
 # End Source File
 # Begin Source File
@@ -588,6 +592,10 @@ SOURCE=.\SpideyTM\SRC\entity_signals.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\entityid.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\errorcontext.h
 # End Source File
 # Begin Source File
 

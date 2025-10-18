@@ -44,6 +44,7 @@ CLEAN :
 	-@erase "$(INTDIR)\app.obj"
 	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
+	-@erase "$(INTDIR)\errorcontext.obj"
 	-@erase "$(INTDIR)\global.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
@@ -98,6 +99,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\singleton.obj" \
 	"$(INTDIR)\so_data_block.obj" \
 	"$(INTDIR)\stringx.obj" \
+	"$(INTDIR)\vm_executable.obj" \
 	"$(INTDIR)\vm_stack.obj" \
 	"$(INTDIR)\vm_symbol.obj" \
 	"$(INTDIR)\vm_thread.obj" \
@@ -106,7 +108,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\vm_executable.obj"
+	"$(INTDIR)\errorcontext.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -128,6 +130,7 @@ CLEAN :
 	-@erase "$(INTDIR)\app.obj"
 	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
+	-@erase "$(INTDIR)\errorcontext.obj"
 	-@erase "$(INTDIR)\global.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
@@ -184,6 +187,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\singleton.obj" \
 	"$(INTDIR)\so_data_block.obj" \
 	"$(INTDIR)\stringx.obj" \
+	"$(INTDIR)\vm_executable.obj" \
 	"$(INTDIR)\vm_stack.obj" \
 	"$(INTDIR)\vm_symbol.obj" \
 	"$(INTDIR)\vm_thread.obj" \
@@ -192,7 +196,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\vm_executable.obj"
+	"$(INTDIR)\errorcontext.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -257,6 +261,12 @@ SOURCE=.\SpideyTM\SRC\debugutil.cpp
 SOURCE=.\dllmain.cpp
 
 "$(INTDIR)\dllmain.obj" : $(SOURCE) "$(INTDIR)"
+
+
+SOURCE=.\SpideyTM\SRC\errorcontext.cpp
+
+"$(INTDIR)\errorcontext.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
 SOURCE=.\SpideyTM\SRC\global.cpp
