@@ -355,6 +355,21 @@ void script_object::_add( instance* inst )
 
 // @Ok
 // @Matching
+// add a thread to run the given member function on the given instance
+vm_thread* script_object::add_thread( instance* inst, int fidx )
+{
+	// create thread for given member function
+	assert(fidx<(int)funcs.size());
+	vm_thread* nt = inst->add_thread( funcs[fidx] );
+
+	// push implicit THIS parameter (not necessary for static member functions,
+	// but since this is a NEW thread it won't hurt anything)
+	nt->get_data_stack().push((char*)&inst,4);
+	return nt;
+}
+
+// @Ok
+// @Matching
 bool script_object::has_threads() const
 {
 	instance_list::const_iterator i = instances.begin();
@@ -429,6 +444,7 @@ void patch_script_object(void)
 
 	// @TODO - can only do when vm_thread destructor is done
 	//PATCH_PUSH_RET(0x007DF9A0, script_object::run);
+	//PATCH_PUSH_RET_POLY(0x007DF880, script_object::add_thread, "?add_thread@script_object@@QAEPAVvm_thread@@PAVinstance@1@H@Z");
 }
 
 void patch_script_object_instance(void)
