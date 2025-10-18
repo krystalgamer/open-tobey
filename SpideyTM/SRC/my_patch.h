@@ -25,4 +25,18 @@ int* get_thunk_address(void* first,...);
 	puts("Hooking " #dest " at " #addr);\
 }
 
+#define NOP_MEMORY(addr, num) {\
+	memset((void*)addr, 0x90909090, num);\
+}
+
+#define PATCH_CALL_ADDR(addr, dest) {\
+	unsigned char *tmp = (unsigned char*)(addr);\
+	tmp[0] = 0xE8;\
+	int destAddr = (int)get_thunk_address(0, dest);\
+	destAddr -= addr;\
+	destAddr -= 5;\
+	*(int*)&tmp[1] = destAddr;\
+	puts("Adding call " #dest " at " #addr);\
+}
+
 #endif

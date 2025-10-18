@@ -30,6 +30,11 @@ ectx::~ectx()
   error_context::inst()->pop_context(); 
 }
 
+void peek_and_pop(void)
+{
+	//error_context::inst()->pop_context();
+}
+
 #include "my_assertions.h"
 static void compile_time_assertions()
 {
@@ -46,17 +51,24 @@ void validate_error_context(void)
 #include "my_patch.h"
 void patch_error_context(void)
 {
-	PATCH_PUSH_RET(0x0082F1A0, my_create_errorcontext_instance);
-
-	PATCH_PUSH_RET_POLY(0x0082F2B0, error_context::~error_context, "??1error_context@@UAE@XZ");
+	//PATCH_PUSH_RET(0x0082F1A0, my_create_errorcontext_instance);
+	// @Note: makes it crash on exit
+	//PATCH_PUSH_RET_POLY(0x0082F2B0, error_context::~error_context, "??1error_context@@UAE@XZ");
 
 	PATCH_PUSH_RET(0x007D00C0, error_context::get_context);
+	/*
 	PATCH_PUSH_RET(0x005143E0, error_context::push_context);
+	*/
+
+	
+	NOP_MEMORY(0x00512642, 0x00512654-0x00512642);
+	PATCH_CALL_ADDR(0x00512642, peek_and_pop);
 }
 
 
 void patch_ectx(void)
 {
+	// @Note - this work fine despite push_context and pop_context not working for terrain functions
 	PATCH_PUSH_RET_POLY(0x007CFF00, ectx::ectx, "??0ectx@@QAE@ABVstringx@@@Z");
 	PATCH_PUSH_RET_POLY(0x007D0090, ectx::~ectx, "??1ectx@@QAE@XZ");
 }

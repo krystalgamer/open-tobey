@@ -49,13 +49,13 @@ class error_context : public singleton
 			context_stack.resize(0);
 		}
 
-		inline void push_context( const stringx & context ) 
+		EXPORT void push_context( const stringx & context ) 
 		{ 
 			assert( context_stack.size() < ECTX_STACK_SIZE );
 			context_stack.push_back(context); 
 		}
 
-		inline void pop_context() { context_stack.pop_back(); }
+		EXPORT inline void pop_context() { context_stack.pop_back(); }
 
 		// @Patch - introduced static variable
 		EXPORT static char error_message[1024];
