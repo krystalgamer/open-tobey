@@ -310,10 +310,44 @@ bool script_object::instance::thread_exists(vm_thread* thread, unsigned int thre
 }
 
 
+
+// @TODO
+void script_object::_add( instance* inst )
+{
+#ifndef BUILD_BOOTABLE
+	pair<instance_name_list::iterator,bool> iret = instance_names.insert( inst->get_name() );
+	if ( !iret.second )
+	{
+		error( "Duplicate script instance name " + inst->name );
+	}
+#endif
+	instances.push_back( inst );
+}
+
+// @Ok
+// @Matching
+bool script_object::has_threads() const
+{
+	instance_list::const_iterator i = instances.begin();
+	instance_list::const_iterator i_end = instances.end();
+	for ( ; i!=i_end; ++i )
+	{
+		instance* inst = *i;
+		if ( inst->has_threads() )
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
 #include "my_assertions.h"
 static void compile_time_assertions()
 {
 	StaticAssert<sizeof(vm_thread) == 0x48>::sass();
+	StaticAssert<sizeof(script_object::instance) == 0x18>::sass();
 }
 
 
@@ -328,8 +362,17 @@ void validate_script_object_instance(void)
 	VALIDATE(script_object::instance, suspended, 0x14);
 }
 
+void validate_script_object(void)
+{
+	VALIDATE(script_object, instances, 0x2C);
+}
 
 #include "my_patch.h"
+
+void patch_script_object(void)
+{
+	PATCH_PUSH_RET(0x7DF950, script_object::has_threads);
+}
 
 void patch_script_object_instance(void)
 {

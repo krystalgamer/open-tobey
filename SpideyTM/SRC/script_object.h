@@ -39,6 +39,8 @@ enum
 
 class script_object
   {
+	friend void validate_script_object(void);
+	friend void patch_script_object(void);
   // Types
   public:
     class instance
@@ -80,7 +82,11 @@ class script_object
 
 		// @Patch - added parameter
         EXPORT void kill_thread(const vm_executable* ex, const vm_thread* thr);
-        //bool has_threads() const { return threads.size()? true : false; }
+
+		// @Ok
+		// @Matching
+        EXPORT bool has_threads() const { return threads.size()? true : false; }
+
         // execute all threads
         EXPORT void run(bool ignore_suspended);
         // run a single thread
@@ -185,7 +191,7 @@ void check_all_instances(); // debugging code, remove me please!!! -GT
     vm_thread* add_thread(instance* inst,int fidx);
 
 
-    bool has_threads() const;
+    EXPORT bool has_threads() const;
 
     // execute all threads on all instances of this script object
     void run(bool ignore_suspended);
@@ -203,7 +209,7 @@ void check_all_instances(); // debugging code, remove me please!!! -GT
     void _clear();
 
 
-    void _add(script_object::instance* inst);
+    EXPORT void _add(script_object::instance* inst);
 
   // Friends
 #if !defined(NO_SERIAL_IN)
@@ -285,7 +291,7 @@ void check_all_objects( ); // debugging code, please remove me!  --GT
 
     inline time_value_t get_time_inc() const { return(time_inc); }
 
-    bool has_threads() const;
+    EXPORT bool has_threads() const;
 
     // for debugging purposes; dump information on all threads to a file
     void dump_threads() const;
