@@ -3,9 +3,11 @@
 //P #include "memorycontext.h"
 
 //! DEFINE_AUTO_SINGLETON(error_context)
-DEFINE_SINGLETON(error_context)
+//DEFINE_SINGLETON(error_context)
 //P memory_context g_memory_context;
 //P bool memory_context::initialized = false;
+
+char error_context::error_message[1024];
 
 ectx::ectx(const stringx & desc) 
 {
@@ -15,4 +17,23 @@ ectx::ectx(const stringx & desc)
 ectx::~ectx() 
 {
   error_context::inst()->pop_context(); 
+}
+
+#include "my_assertions.h"
+static void compile_time_assertions()
+{
+	StaticAssert<sizeof(error_context) == 0x10>::sass();
+}
+
+void validate_error_context(void)
+{
+	VALIDATE_SIZE(error_context, 0x10);
+
+	VALIDATE(error_context, context_stack, 0x4);
+}
+
+#include "my_patch.h"
+void patch_error_context(void)
+{
+	PATCH_PUSH_RET(0x007D00C0, error_context::get_context);
 }

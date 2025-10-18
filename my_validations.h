@@ -14,6 +14,7 @@ void validate_ini_parser(void);
 void validate_os_developer_options(void);
 void validate_signaller(void);
 void validate_pstring(void);
+void validate_error_context(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -26,4 +27,5 @@ void patch_os_developer_options(void);
 void patch_signaller(void);
 void patch_pstring(void);
 void patch_script_object_instance(void);
+void patch_error_context(void);
 #endif

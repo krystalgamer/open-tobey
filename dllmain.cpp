@@ -41,6 +41,8 @@ extern "C" EXPORT int run_assertions(void)
 	validate_vm_executable();
 	validate_script_object();
 
+	validate_error_context();
+
 	return FAIL_VALIDATION;
 }
 
@@ -75,6 +77,7 @@ void game_patches()
 	patch_script_object_instance();
 
 	patch_script_object();
+	patch_error_context();
 }
 
 #pragma pack(push,1)
