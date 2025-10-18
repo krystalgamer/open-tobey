@@ -33,7 +33,6 @@ class error_context : public singleton
 			return *reinterpret_cast<error_context**>(0x00948410);
 		}
 
-
 		enum { ECTX_STACK_SIZE = 64 };
 
 		// @Ok
@@ -48,7 +47,6 @@ class error_context : public singleton
 		EXPORT ~error_context()
 		{
 			context_stack.resize(0);
-
 		}
 
 		inline void push_context( const stringx & context ) 
