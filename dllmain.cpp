@@ -78,6 +78,7 @@ void game_patches()
 
 	patch_script_object();
 	patch_error_context();
+	patch_ectx();
 }
 
 #pragma pack(push,1)

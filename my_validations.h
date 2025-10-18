@@ -28,4 +28,5 @@ void patch_signaller(void);
 void patch_pstring(void);
 void patch_script_object_instance(void);
 void patch_error_context(void);
+void patch_ectx(void);
 #endif

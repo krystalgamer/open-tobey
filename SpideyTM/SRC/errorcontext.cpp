@@ -14,6 +14,8 @@ ectx::ectx(const stringx & desc)
   error_context::inst()->push_context(desc); 
 }
 	
+// @Ok
+// @NotMatching - same but offsets are always +4 -4 for some reason
 ectx::~ectx() 
 {
   error_context::inst()->pop_context(); 
@@ -36,4 +38,10 @@ void validate_error_context(void)
 void patch_error_context(void)
 {
 	PATCH_PUSH_RET(0x007D00C0, error_context::get_context);
+}
+
+
+void patch_ectx(void)
+{
+	PATCH_PUSH_RET_POLY(0x007D0090, ectx::~ectx, "??1ectx@@QAE@XZ");
 }
