@@ -38,6 +38,8 @@ class error_context : public singleton
 			context_stack.reserve(ECTX_STACK_SIZE);
 		}
 
+		// @Ok
+		// @NotMatching - weird resize implementation
 		EXPORT ~error_context()
 		{
 			context_stack.resize(0);
