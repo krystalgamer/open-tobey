@@ -35,6 +35,14 @@ void peek_and_pop(void)
 	//error_context::inst()->pop_context();
 }
 
+// @Note: the original calls are offseted because they're inlined, this fixes the pointer
+void __fastcall offseted_push_context(error_context* this_ptr, int, const stringx& context)
+{
+	error_context *fixed = reinterpret_cast<error_context*>(reinterpret_cast<int>(this_ptr) - 4);
+
+	fixed->push_context(context);
+}
+
 #include "my_assertions.h"
 static void compile_time_assertions()
 {
@@ -56,9 +64,7 @@ void patch_error_context(void)
 	//PATCH_PUSH_RET_POLY(0x0082F2B0, error_context::~error_context, "??1error_context@@UAE@XZ");
 
 	PATCH_PUSH_RET(0x007D00C0, error_context::get_context);
-	/*
-	PATCH_PUSH_RET(0x005143E0, error_context::push_context);
-	*/
+	PATCH_PUSH_RET(0x005143E0, offseted_push_context);
 
 	
 	NOP_MEMORY(0x00512642, 0x00512654-0x00512642);
