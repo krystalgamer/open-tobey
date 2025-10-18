@@ -172,7 +172,7 @@ void check_all_instances(); // debugging code, remove me please!!! -GT
 
     // Link all SDR, SFR, and LFR references in the script functions to the
     // appropriate run-time addresses found via the given script manager.
-    void link(const script_manager& sm);
+    EXPORT void link(const script_manager& sm);
 
 
     // succeeds only if script object has a default constructor
@@ -283,7 +283,7 @@ void check_all_objects( ); // debugging code, please remove me!  --GT
     // have been loaded and added to the manager.  (We are forced to make load
     // and link separate steps in order to allow linking to script object
     // instances.)
-    void link();
+    EXPORT void link();
 
     // execute all threads on all script object instances
     void run(time_value_t t = 0.0f, bool ignore_suspended = USE_SUSPENDED);

@@ -310,6 +310,17 @@ bool script_object::instance::thread_exists(vm_thread* thread, unsigned int thre
 }
 
 
+// @Ok
+// @Matching
+void script_object::link(const script_manager& sm)
+{
+	std::vector<vm_executable*>::iterator xi;
+	for ( xi=funcs.begin(); xi!=funcs.end(); ++xi )
+	{
+		(*xi)->link( sm );
+	}
+}
+
 
 // @TODO
 void script_object::_add( instance* inst )
@@ -364,6 +375,7 @@ void validate_script_object_instance(void)
 
 void validate_script_object(void)
 {
+	VALIDATE(script_object, funcs, 0x20);
 	VALIDATE(script_object, instances, 0x2C);
 }
 
@@ -371,7 +383,8 @@ void validate_script_object(void)
 
 void patch_script_object(void)
 {
-	PATCH_PUSH_RET(0x7DF950, script_object::has_threads);
+	PATCH_PUSH_RET(0x007DF950, script_object::has_threads);
+	PATCH_PUSH_RET(0x007DEED0, script_object::link);
 }
 
 void patch_script_object_instance(void)

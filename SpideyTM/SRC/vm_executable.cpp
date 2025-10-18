@@ -1,5 +1,13 @@
 #include "vm_executable.h"
 
+typedef void (__fastcall *vm_executable_link_ptr)(vm_executable*, int, const script_manager&);
+
+// @TODO
+void vm_executable::link(const script_manager& sm)
+{
+	vm_executable_link_ptr vm_executable_link = (vm_executable_link_ptr)0x007E45C0;
+	vm_executable_link(this, 0, sm);
+}
 
 #include "my_assertions.h"
 void validate_vm_executable(void)

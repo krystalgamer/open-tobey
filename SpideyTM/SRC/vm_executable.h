@@ -70,7 +70,7 @@ class vm_executable
 
     // Link all SDR, SFR, and LFR references in the executable code to the
     // appropriate run-time addresses found via the given script manager.
-    void _link(const script_manager& sm);
+    void link(const script_manager& sm);
 
   // Friends
 #if !defined(NO_SERIAL_IN)
