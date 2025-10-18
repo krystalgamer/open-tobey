@@ -179,16 +179,17 @@ void check_all_instances(); // debugging code, remove me please!!! -GT
     instance* create_auto_instance();
 
     // instance management
-    instance* find_instance(const stringx& name) const;
-    instance* add_instance(const stringx& inst_name, chunk_file* fs_ptr=NULL,
+    EXPORT instance* find_instance(const stringx& name) const;
+
+    EXPORT instance* add_instance(const stringx& inst_name, chunk_file* fs_ptr=NULL,
                            char* implict_parms_buffer=NULL, int parm_count=0,
                            const vm_executable::parms_list* check_parms=NULL);
-    instance* add_instance( const stringx& inst_name,
+    EXPORT instance* add_instance( const stringx& inst_name,
                             char* constructor_parms_buffer );
 
-    int get_num_instances() const { return instances.size(); }
+    EXPORT int get_num_instances() const { return instances.size(); }
 
-    vm_thread* add_thread(instance* inst,int fidx);
+    EXPORT vm_thread* add_thread(instance* inst,int fidx);
 
 
     EXPORT bool has_threads() const;

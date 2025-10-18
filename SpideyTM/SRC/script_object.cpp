@@ -321,6 +321,24 @@ void script_object::link(const script_manager& sm)
 	}
 }
 
+// @Ok
+// @Matching
+script_object::instance* script_object::find_instance( const stringx& name ) const
+{
+	instance_list::const_iterator i = instances.begin();
+	instance_list::const_iterator i_end = instances.end();
+	for ( ; i!=i_end; ++i )
+	{
+
+		instance* inst = *i;
+		if ( inst->get_name() == name )
+		{
+			return inst;
+		}
+	}
+	return NULL;
+}
+
 
 // @TODO
 void script_object::_add( instance* inst )
@@ -406,6 +424,8 @@ void patch_script_object(void)
 {
 	PATCH_PUSH_RET(0x007DF950, script_object::has_threads);
 	PATCH_PUSH_RET(0x007DEED0, script_object::link);
+
+	PATCH_PUSH_RET(0x007DF140, script_object::find_instance);
 
 	// @TODO - can only do when vm_thread destructor is done
 	//PATCH_PUSH_RET(0x007DF9A0, script_object::run);
