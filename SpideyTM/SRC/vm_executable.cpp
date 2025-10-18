@@ -15,6 +15,9 @@ void validate_vm_executable(void)
 	VALIDATE(vm_executable, fullname, 0xC);
 
 	VALIDATE(vm_executable, parms_stacksize, 0x20);
+
+	VALIDATE(vm_executable, static_func, 0x24);
+
 	VALIDATE(vm_executable, buffer, 0x28);
 }
 

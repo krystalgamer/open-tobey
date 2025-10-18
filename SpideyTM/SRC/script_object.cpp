@@ -340,8 +340,7 @@ script_object::instance* script_object::find_instance( const stringx& name ) con
 }
 
 
-// @TODO
-void script_object::_add( instance* inst )
+INLINE void script_object::add( instance* inst )
 {
 #ifndef BUILD_BOOTABLE
 	pair<instance_name_list::iterator,bool> iret = instance_names.insert( inst->get_name() );
@@ -352,6 +351,40 @@ void script_object::_add( instance* inst )
 #endif
 	instances.push_back( inst );
 }
+
+// @Ok
+// @NotMatching - thread safety in list
+// Build and add a NEW instance of this script object and initialize a
+// constructor thread with the instance (implicit THIS) pointer plus the given
+// stack data.
+script_object::instance*
+script_object::add_instance( const stringx& inst_name,
+                             char* constructor_parms_buffer )
+{
+
+	instance* inst = NEW instance( inst_name, data_blocksize );
+
+	add( inst );
+
+	// find constructor
+	const vm_executable& con = get_func(0);
+	assert( con.get_name() == name );
+	// create constructor thread
+	vm_thread* con_thread = inst->add_thread( &con );
+	// push implicit THIS pointer
+	con_thread->get_data_stack().push( (char*)&inst, 4 );
+	// push additional parameters
+	int parmsize = con.get_parms_stacksize();
+	if ( !con.is_static() )
+	{
+		parmsize -= 4;
+	}
+
+	con_thread->get_data_stack().push( constructor_parms_buffer, parmsize );
+
+	return inst;
+}
+
 
 // @Ok
 // @Matching
@@ -445,6 +478,7 @@ void patch_script_object(void)
 	// @TODO - can only do when vm_thread destructor is done
 	//PATCH_PUSH_RET(0x007DF9A0, script_object::run);
 	//PATCH_PUSH_RET_POLY(0x007DF880, script_object::add_thread, "?add_thread@script_object@@QAEPAVvm_thread@@PAVinstance@1@H@Z");
+	//PATCH_PUSH_RET_POLY(0x007DF720, script_object::add_instance, "?add_instance@script_object@@QAEPAVinstance@1@ABVstringx@@PAD@Z");
 }
 
 void patch_script_object_instance(void)

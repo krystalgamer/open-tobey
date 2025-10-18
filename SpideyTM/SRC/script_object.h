@@ -176,7 +176,7 @@ void check_all_instances(); // debugging code, remove me please!!! -GT
 
 
     // succeeds only if script object has a default constructor
-    instance* create_auto_instance();
+    EXPORT instance* create_auto_instance();
 
     // instance management
     EXPORT instance* find_instance(const stringx& name) const;
@@ -210,7 +210,7 @@ void check_all_instances(); // debugging code, remove me please!!! -GT
     void _clear();
 
 
-    EXPORT void _add(script_object::instance* inst);
+    EXPORT void add(script_object::instance* inst);
 
   // Friends
 #if !defined(NO_SERIAL_IN)
