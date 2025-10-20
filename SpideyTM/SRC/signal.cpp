@@ -717,6 +717,24 @@ void validate_signaller(void)
 	VALIDATE_VTABLE(signaller, get_signal_name, 6);
 }
 
+void validate_signal_callback(void)
+{
+	VALIDATE_SIZE(signal_callback, 0x10);
+
+	VALIDATE(signal_callback, parms, 0x4);
+	VALIDATE(signal_callback, disabled, 0x8);
+	VALIDATE(signal_callback, one_shot, 0x9);
+	VALIDATE(signal_callback, id, 0xC);
+}
+
+void validate_script_callback(void)
+{
+	VALIDATE_SIZE(script_callback, 0x18);
+
+	VALIDATE(script_callback, inst, 0x10);
+	VALIDATE(script_callback, func, 0x14);
+}
+
 #include "my_patch.h"
 
 void patch_signaller(void)
@@ -728,4 +746,9 @@ void patch_signaller(void)
 	PATCH_PUSH_RET_POLY(0x004E4890, signaller::get_signal_name, "?get_signal_name@signaller@@MBEPBDG@Z");
 
 	PATCH_PUSH_RET_POLY(0x004A09D0, signaller::raise_signal, "?raise_signal@signaller@@UAEXI@Z");
+}
+
+void patch_signal_callback(void)
+{
+	PATCH_PUSH_RET_POLY(0x007D1B70, signal_callback::signal_callback, "??0signal_callback@@QAE@XZ");
 }

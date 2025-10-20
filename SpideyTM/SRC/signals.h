@@ -14,23 +14,37 @@ class signal;
 
 class signal_callback
 {
+	friend void validate_signal_callback(void);
+	friend void patch_signal_callback(void);
  public:
-  signal_callback(){ disabled=one_shot=false; id=id_counter++; }
-  virtual ~signal_callback(){}
 
-  virtual void spawn(signaller*sgrptr=0) = 0;
+	// @Ok
+	// @Matching
+  EXPORT signal_callback(){
+	  disabled=one_shot=false;
+	  id=id_counter++;
 
-  void disable() { disabled = true; }
-  void enable() { disabled = false; }
-  bool is_disabled() const { return disabled; }
+	  // @Patch - make it non-zero
+	  if (!id)
+	  {
+		  id=id_counter++;
+	  }
+  }
+  EXPORT virtual ~signal_callback(){}
 
-  void set_one_shot( bool tf ) { one_shot = tf; }
-  bool is_one_shot() const { return one_shot; }
+  EXPORT virtual void spawn(signaller*sgrptr=0) = 0;
 
-  unsigned int get_id() const { return(id); }
+  EXPORT void disable() { disabled = true; }
+  EXPORT void enable() { disabled = false; }
+  EXPORT bool is_disabled() const { return disabled; }
 
-  virtual bool is_code_callback() { return(false); }
-  virtual bool is_script_callback() { return(false); }
+  EXPORT void set_one_shot( bool tf ) { one_shot = tf; }
+  EXPORT bool is_one_shot() const { return one_shot; }
+
+  EXPORT unsigned int get_id() const { return(id); }
+
+  EXPORT virtual bool is_code_callback() { return(false); }
+  EXPORT virtual bool is_script_callback() { return(false); }
 
  protected:
     char* parms;
@@ -38,22 +52,24 @@ class signal_callback
     bool one_shot;
     unsigned int id;
 
-    static unsigned int id_counter;
+    EXPORT static unsigned int id_counter;
+
 };
 
 
 class script_callback : public signal_callback
   {
+	friend void validate_script_callback(void);
   private:
     script_object::instance* inst;
     const vm_executable* func;
 
   public:
-    script_callback( script_object::instance* _inst, const vm_executable* _func, const char* _parms );
-    virtual ~script_callback();
+    EXPORT script_callback( script_object::instance* _inst, const vm_executable* _func, const char* _parms );
+    EXPORT virtual ~script_callback();
 
-    virtual bool is_script_callback() { return(true); }
-    const stringx &get_func_name();
+    EXPORT virtual bool is_script_callback() { return(true); }
+    EXPORT const stringx &get_func_name();
 
   virtual void spawn(signaller*sgrptr=0);
   };
@@ -61,12 +77,12 @@ class script_callback : public signal_callback
 class code_callback : public signal_callback
   {
   public:
-    code_callback( void (*fn)(signaller*,const char*), const char *cptr );
-    virtual ~code_callback();
+    EXPORT code_callback( void (*fn)(signaller*,const char*), const char *cptr );
+    EXPORT virtual ~code_callback();
 
-    virtual void spawn(signaller*sgrptr=0);
+    EXPORT virtual void spawn(signaller*sgrptr=0);
 
-    virtual bool is_code_callback() { return(true); }
+    EXPORT virtual bool is_code_callback() { return(true); }
 
   private:
     void (*func)(signaller*,const char*);
