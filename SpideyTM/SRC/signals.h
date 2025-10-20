@@ -99,6 +99,8 @@ class code_callback : public signal_callback
 
     EXPORT virtual void spawn(signaller*sgrptr=0);
 
+	// @Ok
+	// @Matching
     EXPORT virtual bool is_code_callback() { return(true); }
 
   private:
