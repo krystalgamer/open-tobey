@@ -81,6 +81,8 @@ class script_callback : public signal_callback
     EXPORT script_callback( script_object::instance* _inst, const vm_executable* _func, const char* _parms );
     EXPORT virtual ~script_callback();
 
+	// @Ok
+	// @Matching
     EXPORT virtual bool is_script_callback() { return(true); }
     EXPORT const stringx &get_func_name();
 

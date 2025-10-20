@@ -741,6 +741,10 @@ void validate_script_callback(void)
 
 	VALIDATE(script_callback, inst, 0x10);
 	VALIDATE(script_callback, func, 0x14);
+
+	VALIDATE_VTABLE(signal_callback, spawn, 1);
+	VALIDATE_VTABLE(signal_callback, is_code_callback, 2);
+	VALIDATE_VTABLE(signal_callback, is_script_callback, 3);
 }
 
 #include "my_patch.h"
@@ -771,4 +775,5 @@ void patch_script_callback(void)
 	//PATCH_PUSH_RET_POLY(0x007D1C30, script_callback::script_callback, "??0script_callback@@QAE@PAVinstance@script_object@@PBVvm_executable@@PBD@Z");
 
 	PATCH_PUSH_RET_POLY(0x007D1DD0, script_callback::spawn, "?spawn@script_callback@@UAEXPAVsignaller@@@Z");
+	PATCH_PUSH_RET_POLY(0x007D1CF0, script_callback::is_script_callback, "?is_script_callback@script_callback@@UAE_NXZ");
 }
