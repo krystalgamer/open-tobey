@@ -11,6 +11,8 @@ unsigned int signal_callback::id_counter = 0;
 ///////////////////////////////////////
 // script callback data
 
+// @Ok
+// @Matching
 script_callback::script_callback( script_object::instance* _inst, const vm_executable* _func, const char* _parms )
   : signal_callback(),
   inst( _inst ),
@@ -759,4 +761,10 @@ void patch_signal_callback(void)
 
 	PATCH_PUSH_RET_POLY(0x007D1BC0, signal_callback::is_code_callback, "?is_code_callback@signal_callback@@UAE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007D1BE0, signal_callback::is_script_callback, "?is_script_callback@signal_callback@@UAE_NXZ");
+}
+
+void patch_script_callback(void)
+{
+	// @TODO - only patch when fully done, the ID is static and can cause issues
+	//PATCH_PUSH_RET_POLY(0x007D1C30, script_callback::script_callback, "??0script_callback@@QAE@PAVinstance@script_object@@PBVvm_executable@@PBD@Z");
 }
