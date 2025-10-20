@@ -30,6 +30,9 @@ class signal_callback
 		  id=id_counter++;
 	  }
   }
+
+  // @Ok
+  // @Matching
   EXPORT virtual ~signal_callback(){}
 
   EXPORT virtual void spawn(signaller*sgrptr=0) = 0;
