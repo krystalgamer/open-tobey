@@ -39,4 +39,14 @@ int* get_thunk_address(void* first,...);
 	puts("Adding call " #dest " at " #addr);\
 }
 
+#define PATCH_CALL_ADDR_POLY(addr, poly) {\
+	unsigned char *tmp = (unsigned char*)(addr);\
+	tmp[0] = 0xE8;\
+	int destAddr = (int)GetProcAddress(bink_dll, poly);\
+	destAddr -= addr;\
+	destAddr -= 5;\
+	*(int*)&tmp[1] = destAddr;\
+	puts("Adding call " #poly " at " #addr);\
+}
+
 #endif

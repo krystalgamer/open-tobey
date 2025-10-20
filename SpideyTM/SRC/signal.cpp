@@ -785,9 +785,7 @@ void patch_signaller(void)
 
 void patch_signal_callback(void)
 {
-	// @TODO - patch the inline when fully done
-	// @TODO - only patch when fully done, the ID is static and can cause issues
-	//PATCH_PUSH_RET_POLY(0x007D1B70, signal_callback::signal_callback, "??0signal_callback@@QAE@XZ");
+	PATCH_PUSH_RET_POLY(0x007D1B70, signal_callback::signal_callback, "??0signal_callback@@QAE@XZ");
 
 	PATCH_PUSH_RET_POLY(0x007D1BC0, signal_callback::is_code_callback, "?is_code_callback@signal_callback@@UAE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007D1BE0, signal_callback::is_script_callback, "?is_script_callback@signal_callback@@UAE_NXZ");
@@ -795,11 +793,12 @@ void patch_signal_callback(void)
 
 void patch_script_callback(void)
 {
-	// @TODO - patch the inline when fully done
-	// @TODO - only patch when fully done, the ID is static and can cause issues
-	//PATCH_PUSH_RET_POLY(0x007D1C30, script_callback::script_callback, "??0script_callback@@QAE@PAVinstance@script_object@@PBVvm_executable@@PBD@Z");
 
-	PATCH_PUSH_RET_POLY(0x007D1D10, script_callback::~script_callback, "??1script_callback@@UAE@XZ");
+	PATCH_PUSH_RET_POLY(0x007D1C30, script_callback::script_callback, "??0script_callback@@QAE@PAVinstance@script_object@@PBVvm_executable@@PBD@Z");
+
+	// @Note: don't patch virtual destructors really dumb
+	// it might not free the memory and cause issues later on
+	//PATCH_PUSH_RET_POLY(0x007D1D10, script_callback::~script_callback, "??1script_callback@@UAE@XZ");
 
 	PATCH_PUSH_RET_POLY(0x007D1DD0, script_callback::spawn, "?spawn@script_callback@@UAEXPAVsignaller@@@Z");
 	PATCH_PUSH_RET_POLY(0x007D1CF0, script_callback::is_script_callback, "?is_script_callback@script_callback@@UAE_NXZ");
@@ -807,6 +806,9 @@ void patch_script_callback(void)
 
 void patch_code_callback(void)
 {
-	// @TODO - patch the inline when fully done
+
 	PATCH_PUSH_RET_POLY(0x007D1E30, code_callback::code_callback, "??0code_callback@@QAE@P6AXPAVsignaller@@PBD@Z1@Z");
+	PATCH_PUSH_RET_POLY(0x007D1F10, code_callback::spawn, "?spawn@code_callback@@UAEXPAVsignaller@@@Z");
+
+	PATCH_PUSH_RET_POLY(0x007D1EA0, code_callback::is_code_callback, "?is_code_callback@code_callback@@UAE_NXZ");
 }
