@@ -34,13 +34,19 @@ script_callback::script_callback( script_object::instance* _inst, const vm_execu
 script_callback::~script_callback()
 {
 
-  // fix up dangling pointers to me, change this code with care, it fixed a bug once.
+	// fix up dangling pointers to me, change this code with care, it fixed a bug once.
 
-  inst->clear_callback_references(this);
+	// @Patch - add the g_world_ptr check
+	if (GET_G_WORLD_PTR)
+	{
+		inst->clear_callback_references(this);
+	}
 
 
-  if ( parms )
-    delete[] parms;
+	if ( parms )
+	{
+		delete[] parms;
+	}
 }
 
 
@@ -773,6 +779,8 @@ void patch_script_callback(void)
 {
 	// @TODO - only patch when fully done, the ID is static and can cause issues
 	//PATCH_PUSH_RET_POLY(0x007D1C30, script_callback::script_callback, "??0script_callback@@QAE@PAVinstance@script_object@@PBVvm_executable@@PBD@Z");
+
+	PATCH_PUSH_RET_POLY(0x007D1D10, script_callback::~script_callback, "??1script_callback@@UAE@XZ");
 
 	PATCH_PUSH_RET_POLY(0x007D1DD0, script_callback::spawn, "?spawn@script_callback@@UAEXPAVsignaller@@@Z");
 	PATCH_PUSH_RET_POLY(0x007D1CF0, script_callback::is_script_callback, "?is_script_callback@script_callback@@UAE_NXZ");
