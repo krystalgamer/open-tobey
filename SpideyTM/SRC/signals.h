@@ -46,7 +46,11 @@ class signal_callback
 
   EXPORT unsigned int get_id() const { return(id); }
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_code_callback() { return(false); }
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_script_callback() { return(false); }
 
  protected:

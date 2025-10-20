@@ -725,6 +725,10 @@ void validate_signal_callback(void)
 	VALIDATE(signal_callback, disabled, 0x8);
 	VALIDATE(signal_callback, one_shot, 0x9);
 	VALIDATE(signal_callback, id, 0xC);
+
+	VALIDATE_VTABLE(signal_callback, spawn, 1);
+	VALIDATE_VTABLE(signal_callback, is_code_callback, 2);
+	VALIDATE_VTABLE(signal_callback, is_script_callback, 3);
 }
 
 void validate_script_callback(void)
@@ -751,4 +755,7 @@ void patch_signaller(void)
 void patch_signal_callback(void)
 {
 	PATCH_PUSH_RET_POLY(0x007D1B70, signal_callback::signal_callback, "??0signal_callback@@QAE@XZ");
+
+	PATCH_PUSH_RET_POLY(0x007D1BC0, signal_callback::is_code_callback, "?is_code_callback@signal_callback@@UAE_NXZ");
+	PATCH_PUSH_RET_POLY(0x007D1BE0, signal_callback::is_script_callback, "?is_script_callback@signal_callback@@UAE_NXZ");
 }
