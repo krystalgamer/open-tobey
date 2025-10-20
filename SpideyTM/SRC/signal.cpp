@@ -77,6 +77,8 @@ const stringx &script_callback::get_func_name()
 
 ///////////////////////////////////////
 // script code callback data
+// @Ok
+// @Matching
 code_callback::code_callback( void (*fn)(signaller*,const char*), const char *cptr )
   : signal_callback()
 {
@@ -748,9 +750,20 @@ void validate_script_callback(void)
 	VALIDATE(script_callback, inst, 0x10);
 	VALIDATE(script_callback, func, 0x14);
 
-	VALIDATE_VTABLE(signal_callback, spawn, 1);
-	VALIDATE_VTABLE(signal_callback, is_code_callback, 2);
-	VALIDATE_VTABLE(signal_callback, is_script_callback, 3);
+	VALIDATE_VTABLE(script_callback, spawn, 1);
+	VALIDATE_VTABLE(script_callback, is_code_callback, 2);
+	VALIDATE_VTABLE(script_callback, is_script_callback, 3);
+}
+
+void validate_code_callback(void)
+{
+	VALIDATE_SIZE(code_callback, 0x14);
+
+	VALIDATE(code_callback, func, 0x10);
+
+	VALIDATE_VTABLE(code_callback, spawn, 1);
+	VALIDATE_VTABLE(code_callback, is_code_callback, 2);
+	VALIDATE_VTABLE(code_callback, is_script_callback, 3);
 }
 
 #include "my_patch.h"
@@ -768,6 +781,7 @@ void patch_signaller(void)
 
 void patch_signal_callback(void)
 {
+	// @TODO - patch the inline when fully done
 	// @TODO - only patch when fully done, the ID is static and can cause issues
 	//PATCH_PUSH_RET_POLY(0x007D1B70, signal_callback::signal_callback, "??0signal_callback@@QAE@XZ");
 
@@ -777,6 +791,7 @@ void patch_signal_callback(void)
 
 void patch_script_callback(void)
 {
+	// @TODO - patch the inline when fully done
 	// @TODO - only patch when fully done, the ID is static and can cause issues
 	//PATCH_PUSH_RET_POLY(0x007D1C30, script_callback::script_callback, "??0script_callback@@QAE@PAVinstance@script_object@@PBVvm_executable@@PBD@Z");
 
@@ -784,4 +799,10 @@ void patch_script_callback(void)
 
 	PATCH_PUSH_RET_POLY(0x007D1DD0, script_callback::spawn, "?spawn@script_callback@@UAEXPAVsignaller@@@Z");
 	PATCH_PUSH_RET_POLY(0x007D1CF0, script_callback::is_script_callback, "?is_script_callback@script_callback@@UAE_NXZ");
+}
+
+void patch_code_callback(void)
+{
+	// @TODO - patch the inline when fully done
+	PATCH_PUSH_RET_POLY(0x007D1E30, code_callback::code_callback, "??0code_callback@@QAE@P6AXPAVsignaller@@PBD@Z1@Z");
 }

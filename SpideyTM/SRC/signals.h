@@ -91,6 +91,8 @@ class script_callback : public signal_callback
 
 class code_callback : public signal_callback
   {
+	friend void validate_code_callback(void);
+	friend void patch_code_callback(void);
   public:
     EXPORT code_callback( void (*fn)(signaller*,const char*), const char *cptr );
     EXPORT virtual ~code_callback();
