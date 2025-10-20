@@ -754,7 +754,8 @@ void patch_signaller(void)
 
 void patch_signal_callback(void)
 {
-	PATCH_PUSH_RET_POLY(0x007D1B70, signal_callback::signal_callback, "??0signal_callback@@QAE@XZ");
+	// @TODO - only patch when fully done, the ID is static and can cause issues
+	//PATCH_PUSH_RET_POLY(0x007D1B70, signal_callback::signal_callback, "??0signal_callback@@QAE@XZ");
 
 	PATCH_PUSH_RET_POLY(0x007D1BC0, signal_callback::is_code_callback, "?is_code_callback@signal_callback@@UAE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007D1BE0, signal_callback::is_script_callback, "?is_script_callback@signal_callback@@UAE_NXZ");

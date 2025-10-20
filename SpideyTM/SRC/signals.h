@@ -22,12 +22,13 @@ class signal_callback
 	// @Matching
   EXPORT signal_callback(){
 	  disabled=one_shot=false;
-	  id=id_counter++;
+	  // @Patch - infix instead of postfix
+	  id=++id_counter;
 
 	  // @Patch - make it non-zero
 	  if (!id)
 	  {
-		  id=id_counter++;
+		  id=++id_counter;
 	  }
   }
 
@@ -35,6 +36,8 @@ class signal_callback
   // @Matching
   EXPORT virtual ~signal_callback(){}
 
+  // @Ok
+  // @Matching
   EXPORT virtual void spawn(signaller*sgrptr=0) = 0;
 
   EXPORT void disable() { disabled = true; }
