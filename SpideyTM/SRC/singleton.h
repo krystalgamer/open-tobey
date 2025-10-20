@@ -40,7 +40,12 @@ public:
 class singleton
 {
   protected:
+	  // @Ok
+	  // @Matching
     singleton() {}
+
+	  // @Ok
+	  // @Matching
     virtual ~singleton() {}
   private: // no copying allowed
     singleton(const singleton&);
