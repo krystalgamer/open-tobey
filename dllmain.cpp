@@ -83,6 +83,7 @@ void game_patches()
 	patch_ectx();
 
 	patch_signal_callback();
+	patch_script_callback();
 }
 
 #pragma pack(push,1)

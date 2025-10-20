@@ -27,10 +27,16 @@ INLINE vm_thread* script_object::instance::add_thread(const vm_executable* ex)
   return nt;
 }
 
+
 // @Ok
 // @Matching
 vm_thread* script_object::instance::add_thread( const vm_executable* ex, const char* parms )
 {
+	// @TODO - remove when vm_thread done
+	typedef vm_thread* (__fastcall *script_object_instance_add_thread_ptr)(script_object::instance*, int, const vm_executable*, const char*);
+	script_object_instance_add_thread_ptr script_object_instance_add_thread = (script_object_instance_add_thread_ptr)0x007DE420;
+	return script_object_instance_add_thread(this, 0, ex, parms);
+
 	vm_thread* nt = add_thread( ex );
 	assert(nt != NULL);
 
@@ -48,6 +54,11 @@ vm_thread* script_object::instance::add_thread( const vm_executable* ex, const c
 // spawn a NEW thread via the given event callback
 vm_thread* script_object::instance::add_thread( script_callback* cb, const vm_executable* ex, const char* parms )
 {
+	// @TODO - remove when vm_thread done
+	typedef vm_thread* (__fastcall *script_object_instance_add_thread_ptr)(script_object::instance*, int, script_callback*, const vm_executable*, const char*);
+	script_object_instance_add_thread_ptr script_object_instance_add_thread = (script_object_instance_add_thread_ptr)0x007DE540;
+	return script_object_instance_add_thread(this, 0, cb, ex, parms);
+
 	vm_thread* nt = NEW vm_thread( this, ex, VM_STACKSIZE, cb );
 	assert(nt != NULL);
 	threads.push_back( nt );
@@ -72,7 +83,6 @@ const vm_executable* script_manager::find_function_by_address( const unsigned sh
 {
   return NULL;
 }
-
 
 // @Ok
 // @NotMatching - list thread safety

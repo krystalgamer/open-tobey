@@ -44,6 +44,8 @@ script_callback::~script_callback()
 }
 
 
+// @Ok
+// @Matching
 // spawn script callback function
 void script_callback::spawn(signaller*sgrptr)
 {
@@ -767,4 +769,6 @@ void patch_script_callback(void)
 {
 	// @TODO - only patch when fully done, the ID is static and can cause issues
 	//PATCH_PUSH_RET_POLY(0x007D1C30, script_callback::script_callback, "??0script_callback@@QAE@PAVinstance@script_object@@PBVvm_executable@@PBD@Z");
+
+	PATCH_PUSH_RET_POLY(0x007D1DD0, script_callback::spawn, "?spawn@script_callback@@UAEXPAVsignaller@@@Z");
 }

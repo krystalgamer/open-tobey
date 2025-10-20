@@ -42,6 +42,8 @@ class signal_callback
 
   EXPORT void disable() { disabled = true; }
   EXPORT void enable() { disabled = false; }
+  // @Ok
+  // @Matching
   EXPORT bool is_disabled() const { return disabled; }
 
   EXPORT void set_one_shot( bool tf ) { one_shot = tf; }
@@ -70,6 +72,7 @@ class signal_callback
 class script_callback : public signal_callback
   {
 	friend void validate_script_callback(void);
+	friend void patch_script_callback(void);
   private:
     script_object::instance* inst;
     const vm_executable* func;
@@ -81,7 +84,7 @@ class script_callback : public signal_callback
     EXPORT virtual bool is_script_callback() { return(true); }
     EXPORT const stringx &get_func_name();
 
-  virtual void spawn(signaller*sgrptr=0);
+	  EXPORT virtual void spawn(signaller*sgrptr=0);
   };
 
 class code_callback : public signal_callback
