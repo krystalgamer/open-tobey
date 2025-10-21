@@ -105,6 +105,7 @@ public:
   public:
     static inline os_developer_options* inst()
     {
+		// @Hardcoded
 		return *reinterpret_cast<os_developer_options**>(0x009441C8);
     }
 

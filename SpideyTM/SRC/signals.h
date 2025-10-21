@@ -8,6 +8,10 @@
 #include "fast_vector.h"
 #include "script_object.h"
 
+
+// @Patch
+#include "pcglobals.h"
+
 #define DEBUG_SIGNAL_NAMES 1
 class signaller;
 class signal;
@@ -199,7 +203,7 @@ class signal
     signaller *owner;
 
     // process the raising of an input
-    virtual void raise_input( signal* input, signaller*sgrptr=0 );
+    EXPORT virtual void raise_input( signal* input, signaller*sgrptr=0 );
 
     // spawn script callbacks, if any
     EXPORT void do_callbacks();
@@ -388,10 +392,18 @@ class signaller
 
   class signal_manager : public singleton
   {
+	  friend void validate_signal_manager(void);
+	  friend void patch_signal_manager(void);
   // SINGLETON
   public:
     // returns a pointer to the single instance
-    DECLARE_SINGLETON( signal_manager )
+	  // @Patch - manual signgleton
+    //DECLARE_SINGLETON( signal_manager )
+	static inline signal_manager* inst()
+	{
+		// @Hardcoded
+		return *reinterpret_cast<signal_manager**>(0x00948C28);
+	}
 
   // Constructors (not public in a singleton)
   private:
@@ -408,6 +420,8 @@ class signaller
   private:
     signal_id_map_t signal_id_map;
     signal_list refresh_list;
+
+	PADDING(0x28-0x1C);
 
   // Methods
   public:

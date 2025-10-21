@@ -231,42 +231,37 @@ signal* signal::find_OR( const signal* b ) const
 
 
 
+// @Ok
+// @Matching
 // raise this signal!
-void signal::raise()
+INLINE void signal::raise()
 {
-	// @TODO
-	typedef void (__fastcall *real_raise_ptr)(signal*);
-	real_raise_ptr real_raise = (real_raise_ptr)0x007D26F0;
 
-	real_raise(this);
-
-		// @Patch
-//if ( !(flags & (DISABLED|RAISED)) )
-		/*
-  if ( !(flags & DISABLED) )
-  {
-    set_flag( RAISED );
-    set_needs_refresh();
-    // spawn script callbacks, if any
-    do_callbacks();
-    // raise the inputs of all linked output signals
-    if ( outputs )
-    {
-      signal_list::const_iterator i = outputs->begin();
-      signal_list::const_iterator i_end = outputs->end();
-      for ( ; i!=i_end; i++ )
-      {
-        signal* s = *i;
-        s->raise_input( this );
-      }
-    }
-
-  }
-	*/
+	//if ( !(flags & (DISABLED|RAISED)) )
+	if ( !(flags & DISABLED) )
+	{
+		set_flag( RAISED );
+		set_needs_refresh();
+		// spawn script callbacks, if any
+		do_callbacks();
+		// raise the inputs of all linked output signals
+		if ( outputs )
+		{
+			signal_list::const_iterator i = outputs->begin();
+			signal_list::const_iterator i_end = outputs->end();
+			for ( ; i!=i_end; i++ )
+			{
+				signal* s = *i;
+				s->raise_input( this );
+			}
+		}
+	}
 }
 
 
-void signal::set_needs_refresh()
+// @Ok
+// @Note - same as needs_refresh
+INLINE void signal::set_needs_refresh()
   {
   if ( !is_flagged( NEEDS_REFRESH ) )  // avoid duplicate entries on the refresh list
   {
@@ -278,6 +273,8 @@ void signal::set_needs_refresh()
 }
 
 
+// @Ok
+// @Matching
 // virtual function processes the raising of an input
 void signal::raise_input( signal* input, signaller*sgrptr )
 {
@@ -646,7 +643,8 @@ void signaller::clear_script_callback(const stringx &name)
 // CLASS signal_manager
 
 
-DEFINE_SINGLETON( signal_manager )
+// @Patch
+//DEFINE_SINGLETON( signal_manager )
 
 
 
@@ -713,7 +711,9 @@ signal* signal_manager::signal_OR( signal* a, signal* b ) const
 
 // will need to be reset at the end of the game frame
 
-void signal_manager::needs_refresh( signal* s )
+// @Ok
+// @PartialMatching - thread safety
+INLINE void signal_manager::needs_refresh( signal* s )
 {
   refresh_list.push_back( s );
 }
@@ -810,7 +810,18 @@ void validate_signal(void)
 	VALIDATE(signal, owner, 0x18);
 }
 
+void validate_signal_manager(void)
+{
+	VALIDATE_SIZE(signal_manager, 0x28);
+
+	VALIDATE(signal_manager, refresh_list, 0x10);
+}
+
 #include "my_patch.h"
+
+void patch_signal_manager(void)
+{
+}
 
 void patch_signal(void)
 {
@@ -823,6 +834,10 @@ void patch_signal(void)
 	PATCH_PUSH_RET(0x007D2D70, signal::clear_code_callbacks);
 	PATCH_PUSH_RET_POLY(0x007D2CF0, signal::clear_script_callbacks, "?clear_script_callbacks@signal@@QAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007D2DF0, signal::clear_script_callbacks, "?clear_script_callback@signal@@QAEXABVstringx@@@Z");
+
+	PATCH_PUSH_RET_POLY(0x007D28F0, signal::raise_input, "?raise_input@signal@@EAEXPAV1@PAVsignaller@@@Z");
+	PATCH_PUSH_RET(0x007D27B0, signal::set_needs_refresh);
+	PATCH_PUSH_RET(0x007D26F0, signal::raise);
 
 	PATCH_PUSH_RET(0x007D2BE0, signal::kill_callback);
 	PATCH_PUSH_RET(0x007D2C60, signal::clear_callbacks);

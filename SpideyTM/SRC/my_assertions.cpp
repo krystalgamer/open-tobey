@@ -35,7 +35,7 @@ void validate_size(int cur, int expected, const char *name)
 {
 	if (expected != cur){
 		FAIL_VALIDATION = 1;
-		printf("[!] Expected %d but got %d, size of %s\n", expected, cur, name);
+		printf("[!] Expected %X but got %X, size of %s\n", expected, cur, name);
 	}
 	else{
 
