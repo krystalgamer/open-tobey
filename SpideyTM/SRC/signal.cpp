@@ -363,8 +363,9 @@ void signal::clear_callbacks()
 }
 
 
+// @Ok
+// @PartialMatch - thread safety
 void signal::clear_script_callbacks()
-
 {
   callback_list::iterator i = callbacks.begin();
 
@@ -807,7 +808,9 @@ void patch_signal(void)
 	//PATCH_PUSH_RET_POLY(0x007D2180, signal::signal, "??0signal@@QAE@PBDPAVsignaller@@@Z");
 
 	PATCH_PUSH_RET(0x007D2ED0, signal::do_callbacks);
+
 	PATCH_PUSH_RET(0x007D2D70, signal::clear_code_callbacks);
+	PATCH_PUSH_RET(0x007D2CF0, signal::clear_script_callbacks, "?clear_script_callbacks@signal@@QAEXXZ");
 
 	PATCH_PUSH_RET_POLY(0x007D29B0, signal::refresh, "?refresh@signal@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007D2B00, signal::add_callback, "?add_callback@signal@@QAEIP6AXPAVsignaller@@PBD@ZPAD_N@Z");
