@@ -110,6 +110,8 @@ class code_callback : public signal_callback
 // @TODO
 class signal
   {
+	  friend void patch_signal(void);
+	  friend void validate_signal(void);
   // Types
   public:
     enum flavor_t
@@ -178,15 +180,15 @@ class signal
     bool raised() { return(is_flagged(RAISED)); }
 
     // add a script callback for this signal
-    unsigned int add_callback( script_object::instance* _inst, vm_executable* _func, char* _parms, bool one_shot=false );
-    unsigned int add_callback( void (*fn)(signaller*,const char*), char* _parms, bool one_shot=false );
+    EXPORT unsigned int add_callback( script_object::instance* _inst, vm_executable* _func, char* _parms, bool one_shot=false );
+    EXPORT unsigned int add_callback( void (*fn)(signaller*,const char*), char* _parms, bool one_shot=false );
     // clear the script callback list
-    void kill_callback(unsigned int callback_id);
+    EXPORT void kill_callback(unsigned int callback_id);
 
-    void clear_callbacks();
-    void clear_script_callbacks();
-    void clear_code_callbacks();
-    void clear_script_callback(const stringx &name);
+    EXPORT void clear_callbacks();
+    EXPORT void clear_script_callbacks();
+    EXPORT void clear_code_callbacks();
+    EXPORT void clear_script_callback(const stringx &name);
 
     // This virtual function performs an internal reset (once per frame, initiated by the
     // signal_manager; see below) of ephemeral changes accumulated while raising signals

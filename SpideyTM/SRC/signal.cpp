@@ -13,7 +13,7 @@ unsigned int signal_callback::id_counter = 0;
 
 // @Ok
 // @Matching
-script_callback::script_callback( script_object::instance* _inst, const vm_executable* _func, const char* _parms )
+INLINE script_callback::script_callback( script_object::instance* _inst, const vm_executable* _func, const char* _parms )
   : signal_callback(),
   inst( _inst ),
   func( _func )
@@ -79,7 +79,7 @@ const stringx &script_callback::get_func_name()
 // script code callback data
 // @Ok
 // @Matching
-code_callback::code_callback( void (*fn)(signaller*,const char*), const char *cptr )
+INLINE code_callback::code_callback( void (*fn)(signaller*,const char*), const char *cptr )
   : signal_callback()
 {
 
@@ -305,6 +305,8 @@ unsigned int signal::add_callback( script_object::instance* _inst, vm_executable
   return(new_callback->get_id());
 }
 
+// @Ok
+// @Matching
 // add code callback for this signal
 unsigned int signal::add_callback( void (*fn)(signaller*,const char*), char* _parms, bool one_shot )
 {
@@ -770,7 +772,16 @@ void validate_code_callback(void)
 	VALIDATE_VTABLE(code_callback, is_script_callback, 3);
 }
 
+void validate_signal(void)
+{
+}
+
 #include "my_patch.h"
+
+void patch_signal(void)
+{
+	PATCH_PUSH_RET_POLY(0x007D2B00, signal::add_callback, "?add_callback@signal@@QAEIP6AXPAVsignaller@@PBD@ZPAD_N@Z");
+}
 
 void patch_signaller(void)
 {
