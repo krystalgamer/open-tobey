@@ -70,7 +70,7 @@ void script_callback::spawn(signaller*sgrptr)
   }
 }
 
-const stringx &script_callback::get_func_name()
+INLINE const stringx &script_callback::get_func_name()
 {
   return(func->get_fullname());
 }
@@ -404,6 +404,8 @@ void signal::clear_code_callbacks()
   }
 }
 
+// @Ok
+// @PartialMatching - thread safety
 void signal::clear_script_callback(const stringx &name)
 {
   callback_list::iterator i = callbacks.begin();
@@ -810,7 +812,8 @@ void patch_signal(void)
 	PATCH_PUSH_RET(0x007D2ED0, signal::do_callbacks);
 
 	PATCH_PUSH_RET(0x007D2D70, signal::clear_code_callbacks);
-	PATCH_PUSH_RET(0x007D2CF0, signal::clear_script_callbacks, "?clear_script_callbacks@signal@@QAEXXZ");
+	PATCH_PUSH_RET_POLY(0x007D2CF0, signal::clear_script_callbacks, "?clear_script_callbacks@signal@@QAEXXZ");
+	PATCH_PUSH_RET_POLY(0x007D2DF0, signal::clear_script_callbacks, "?clear_script_callback@signal@@QAEXABVstringx@@@Z");
 
 	PATCH_PUSH_RET_POLY(0x007D29B0, signal::refresh, "?refresh@signal@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007D2B00, signal::add_callback, "?add_callback@signal@@QAEIP6AXPAVsignaller@@PBD@ZPAD_N@Z");
