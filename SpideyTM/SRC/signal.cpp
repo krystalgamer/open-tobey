@@ -327,6 +327,8 @@ unsigned int signal::add_callback( void (*fn)(signaller*,const char*), char* _pa
 }
 
 
+// @Ok
+// @Patch - thread safety
 // clear the script callback list
 void signal::kill_callback(unsigned int callback_id)
 {
@@ -816,6 +818,8 @@ void patch_signal(void)
 	PATCH_PUSH_RET(0x007D2D70, signal::clear_code_callbacks);
 	PATCH_PUSH_RET_POLY(0x007D2CF0, signal::clear_script_callbacks, "?clear_script_callbacks@signal@@QAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007D2DF0, signal::clear_script_callbacks, "?clear_script_callback@signal@@QAEXABVstringx@@@Z");
+
+	PATCH_PUSH_RET(0x007D2BE0, signal::kill_callback);
 
 	PATCH_PUSH_RET_POLY(0x007D29B0, signal::refresh, "?refresh@signal@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007D2B00, signal::add_callback, "?add_callback@signal@@QAEIP6AXPAVsignaller@@PBD@ZPAD_N@Z");
