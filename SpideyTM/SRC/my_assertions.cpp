@@ -88,5 +88,4 @@ void validate_vtable_index(
 
 
 	fflush(stdout);
-
 }

@@ -808,6 +808,9 @@ void validate_signal(void)
 	VALIDATE(signal, callbacks, 0x14);
 
 	VALIDATE(signal, owner, 0x18);
+
+	VALIDATE_VTABLE(signal, refresh, 1);
+	VALIDATE_VTABLE(signal, raise_input, 2);
 }
 
 void validate_signal_manager(void)
@@ -846,8 +849,6 @@ void patch_signal(void)
 	PATCH_PUSH_RET_POLY(0x007D2B00, signal::add_callback, "?add_callback@signal@@QAEIP6AXPAVsignaller@@PBD@ZPAD_N@Z");
 
 	PATCH_PUSH_RET_POLY(0x007D29D0, signal::add_callback, "?add_callback@signal@@QAEIPAVinstance@script_object@@PAVvm_executable@@PAD_N@Z");
-
-	// @TODO - vtable check
 }
 
 void patch_signaller(void)
