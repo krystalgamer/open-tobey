@@ -352,6 +352,8 @@ void signal::kill_callback(unsigned int callback_id)
 }
 
 
+// @Ok
+// @PartialMatching - thread safety
 void signal::clear_callbacks()
 {
   callback_list::const_iterator i = callbacks.begin();
@@ -364,6 +366,9 @@ void signal::clear_callbacks()
       delete sc;
   }
   callbacks.resize(0);
+
+  // @Patch - add the clear
+  callbacks.clear();
 }
 
 
@@ -820,6 +825,7 @@ void patch_signal(void)
 	PATCH_PUSH_RET_POLY(0x007D2DF0, signal::clear_script_callbacks, "?clear_script_callback@signal@@QAEXABVstringx@@@Z");
 
 	PATCH_PUSH_RET(0x007D2BE0, signal::kill_callback);
+	PATCH_PUSH_RET(0x007D2C60, signal::clear_callbacks);
 
 	PATCH_PUSH_RET_POLY(0x007D29B0, signal::refresh, "?refresh@signal@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007D2B00, signal::add_callback, "?add_callback@signal@@QAEIP6AXPAVsignaller@@PBD@ZPAD_N@Z");
