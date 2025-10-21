@@ -122,14 +122,17 @@ signal::signal(signaller*sgrptr)
 
 
 
+// @Ok
+// @Matching
 signal::signal( const char* _name, signaller*sgrptr )
 :   flags( 0 ),
     name( _name ),
-    outputs( NULL ),
     callbacks()
 {
   flavor = SIGNAL;
   owner = sgrptr;
+  // @Patch - write outputs here
+  outputs = NULL;
 }
 
 
