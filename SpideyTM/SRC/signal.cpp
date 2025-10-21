@@ -295,6 +295,8 @@ void signal::refresh()
 
 
 
+// @Ok
+// @Matching
 // add a script callback for this signal
 unsigned int signal::add_callback( script_object::instance* _inst, vm_executable* _func, char* _parms, bool one_shot )
 {
@@ -783,6 +785,8 @@ void validate_signal(void)
 void patch_signal(void)
 {
 	PATCH_PUSH_RET_POLY(0x007D2B00, signal::add_callback, "?add_callback@signal@@QAEIP6AXPAVsignaller@@PBD@ZPAD_N@Z");
+
+	PATCH_PUSH_RET_POLY(0x007D29D0, signal::add_callback, "?add_callback@signal@@QAEIPAVinstance@script_object@@PAVvm_executable@@PAD_N@Z");
 }
 
 void patch_signaller(void)
@@ -819,7 +823,6 @@ void patch_script_callback(void)
 
 void patch_code_callback(void)
 {
-
 	PATCH_PUSH_RET_POLY(0x007D1E30, code_callback::code_callback, "??0code_callback@@QAE@P6AXPAVsignaller@@PBD@Z1@Z");
 	PATCH_PUSH_RET_POLY(0x007D1F10, code_callback::spawn, "?spawn@code_callback@@UAEXPAVsignaller@@@Z");
 
