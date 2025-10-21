@@ -56,9 +56,7 @@ void validate_error_context(void)
 #include "my_patch.h"
 void patch_error_context(void)
 {
-	// @TODO - not mandatory but cool
-	//PATCH_PUSH_RET(0x0082F1A0, my_create_errorcontext_instance);
-	//PATCH_PUSH_RET_POLY(0x0082F2B0, error_context::~error_context, "??1error_context@@UAE@XZ");
+	PATCH_PUSH_RET(0x0082F1A0, my_create_errorcontext_instance);
 
 	PATCH_PUSH_RET(0x007D00C0, error_context::get_context);
 	PATCH_PUSH_RET(0x005143E0, offseted_push_context);
