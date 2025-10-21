@@ -70,6 +70,8 @@ void script_callback::spawn(signaller*sgrptr)
   }
 }
 
+// @Ok
+// @Matching
 INLINE const stringx &script_callback::get_func_name()
 {
   return(func->get_fullname());

@@ -12,6 +12,9 @@ void vm_executable::link(const script_manager& sm)
 #include "my_assertions.h"
 void validate_vm_executable(void)
 {
+	VALIDATE(vm_executable, owner, 0x0);
+	VALIDATE(vm_executable, name, 0x4);
+
 	VALIDATE(vm_executable, fullname, 0xC);
 
 	VALIDATE(vm_executable, parms_stacksize, 0x20);

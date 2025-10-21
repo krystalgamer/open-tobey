@@ -52,6 +52,8 @@ class vm_executable
     script_object* get_owner() const         { return owner; }
 
     const stringx& get_name() const          { return name; }
+	// @Ok
+	// @Matching
     const stringx& get_fullname() const      { return fullname; }
     const parms_list& get_parameters() const { return parameters; }
     bool is_static() const                   { return static_func; }
