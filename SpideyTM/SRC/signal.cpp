@@ -123,7 +123,7 @@ signal::signal(signaller*sgrptr)
 
 
 // @Ok
-// @Matching
+// @PartialMatching - thread safety and counter
 signal::signal( const char* _name, signaller*sgrptr )
 :   flags( 0 ),
     name( _name ),
@@ -287,6 +287,8 @@ void signal::raise_input( signal* input, signaller*sgrptr )
 
 // This virtual function performs an internal reset (once per frame, initiated by the
 
+// @Ok
+// @Matching
 // signal_manager; see below) of ephemeral changes accumulated while raising signals
 // in the course of a game frame.
 void signal::refresh()
@@ -796,9 +798,16 @@ void validate_signal(void)
 
 void patch_signal(void)
 {
+	// @TODO
+	// constructor 2 args
+	//PATCH_PUSH_RET_POLY(0x007D2180, signal::signal, "??0signal@@QAE@PBDPAVsignaller@@@Z");
+
+	PATCH_PUSH_RET_POLY(0x007D29B0, signal::refresh, "?refresh@signal@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007D2B00, signal::add_callback, "?add_callback@signal@@QAEIP6AXPAVsignaller@@PBD@ZPAD_N@Z");
 
 	PATCH_PUSH_RET_POLY(0x007D29D0, signal::add_callback, "?add_callback@signal@@QAEIPAVinstance@script_object@@PAVvm_executable@@PAD_N@Z");
+
+	// @TODO - vtable check
 }
 
 void patch_signaller(void)

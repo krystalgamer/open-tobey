@@ -193,7 +193,7 @@ class signal
     // This virtual function performs an internal reset (once per frame, initiated by the
     // signal_manager; see below) of ephemeral changes accumulated while raising signals
     // in the course of a game frame.
-    virtual void refresh();
+    EXPORT virtual void refresh();
 
   private:
     signaller *owner;
