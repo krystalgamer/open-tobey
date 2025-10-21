@@ -149,35 +149,35 @@ class signal
 
   // Methods
   public:
-    signal(signaller*sgrptr=0);
-    signal( const char* _name, signaller*sgrptr=0 );
-    virtual ~signal();
+    EXPORT signal(signaller*sgrptr=0);
+    EXPORT signal( const char* _name, signaller*sgrptr=0 );
+    EXPORT virtual ~signal();
 
-    flavor_t get_flavor() const { return flavor; }
+    EXPORT flavor_t get_flavor() const { return flavor; }
 
-    void set_flag( flags_t f ) { flags |= f; }
-    void clear_flag( flags_t f ) { flags &= ~f; }
-    bool is_flagged( flags_t f ) const { return (flags & f); }
+    EXPORT void set_flag( flags_t f ) { flags |= f; }
+    EXPORT void clear_flag( flags_t f ) { flags &= ~f; }
+    EXPORT bool is_flagged( flags_t f ) const { return (flags & f); }
 
     // tell the signal_manager that this signal needs to be refreshed this frame
-    void set_needs_refresh();
+    EXPORT void set_needs_refresh();
 
     // add an output link
-    void link( signal* s );
+    EXPORT void link( signal* s );
     // remove an output link
-    void unlink( signal* s );
+    EXPORT void unlink( signal* s );
 
-    void clear_links();
+    EXPORT void clear_links();
 
     // find an output gated_signal matching the given parameters
-    signal* find_AND( const signal* b ) const;
-    signal* find_OR( const signal* b ) const;
+    EXPORT signal* find_AND( const signal* b ) const;
+    EXPORT signal* find_OR( const signal* b ) const;
 
     // raise this signal!
-    void raise();
+    EXPORT void raise();
 
     // was I raised?
-    bool raised() { return(is_flagged(RAISED)); }
+    EXPORT bool raised() { return(is_flagged(RAISED)); }
 
     // add a script callback for this signal
     EXPORT unsigned int add_callback( script_object::instance* _inst, vm_executable* _func, char* _parms, bool one_shot=false );

@@ -776,8 +776,17 @@ void validate_code_callback(void)
 
 void validate_signal(void)
 {
+	VALIDATE_SIZE(signal, 0x1C);
+
+	VALIDATE(signal, flavor, 0x4);
+	VALIDATE(signal, flags, 0x8);
+
+	VALIDATE(signal, name, 0xC);
+
 	VALIDATE(signal, outputs, 0x10);
 	VALIDATE(signal, callbacks, 0x14);
+
+	VALIDATE(signal, owner, 0x18);
 }
 
 #include "my_patch.h"
