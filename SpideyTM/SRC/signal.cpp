@@ -421,6 +421,8 @@ void signal::clear_script_callback(const stringx &name)
 
 
 
+// @Ok
+// @PartialMatching - thread safety
 // spawn script callbacks, if any
 void signal::do_callbacks()
 {
@@ -801,6 +803,8 @@ void patch_signal(void)
 	// @TODO
 	// constructor 2 args
 	//PATCH_PUSH_RET_POLY(0x007D2180, signal::signal, "??0signal@@QAE@PBDPAVsignaller@@@Z");
+
+	PATCH_PUSH_RET(0x007D2ED0, signal::do_callbacks);
 
 	PATCH_PUSH_RET_POLY(0x007D29B0, signal::refresh, "?refresh@signal@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007D2B00, signal::add_callback, "?add_callback@signal@@QAEIP6AXPAVsignaller@@PBD@ZPAD_N@Z");

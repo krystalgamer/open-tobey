@@ -202,7 +202,7 @@ class signal
     virtual void raise_input( signal* input, signaller*sgrptr=0 );
 
     // spawn script callbacks, if any
-    void do_callbacks();
+    EXPORT void do_callbacks();
   };
 
 
