@@ -139,7 +139,8 @@ signal::signal( const char* _name, signaller*sgrptr )
 }
 
 
-// @TODO - review
+// @Ok
+// @PartialMatching - thread safety
 signal::~signal()
 {
   if ( outputs != NULL )
@@ -368,7 +369,7 @@ void signal::kill_callback(unsigned int callback_id)
 
 // @Ok
 // @PartialMatching - thread safety
-void signal::clear_callbacks()
+INLINE void signal::clear_callbacks()
 {
   callback_list::const_iterator i = callbacks.begin();
   callback_list::const_iterator i_end = callbacks.end();
