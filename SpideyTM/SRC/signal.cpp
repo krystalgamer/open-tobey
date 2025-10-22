@@ -750,18 +750,27 @@ INLINE void signal_manager::needs_refresh( signal* s )
 
 
 
+// @Ok
+// @NotMatching - it seems resize is slightly different it zeroes more stuff
+// don't really care
+//
 // this function is called once per game frame to reset any signals that need it
 // (see app::tick)
 void signal_manager::do_refresh()
 {
-  signal_list::const_iterator i = refresh_list.begin();
-  signal_list::const_iterator i_end = refresh_list.end();
-  for ( ; i!=i_end; ++i ) {
+	signal_list::const_iterator i = refresh_list.begin();
+	signal_list::const_iterator i_end = refresh_list.end();
+	for ( ; i!=i_end; ++i )
+	{
 		signal* s = (*i);
 		assert( s );
-    s->refresh();
+		s->refresh();
 	}
-  refresh_list.resize(0);
+
+	// @Patch - added clear before resize
+	refresh_list.clear();
+
+	refresh_list.resize(0);
 }
 
 // PEH BETA LOCK
@@ -877,6 +886,8 @@ void patch_gated_signal(void)
 void patch_signal_manager(void)
 {
 	PATCH_PUSH_RET(0x007D4710, signal_manager::needs_refresh);
+	PATCH_PUSH_RET(0x007D4850, signal_manager::do_refresh);
+
 }
 
 void patch_signal(void)
