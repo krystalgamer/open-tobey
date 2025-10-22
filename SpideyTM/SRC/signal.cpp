@@ -852,7 +852,8 @@ void validate_gated_signal(void)
 	VALIDATE(gated_signal, input_a, 0x20);
 	VALIDATE(gated_signal, input_b, 0x24);
 
-	// @TODO - validate vtable
+	VALIDATE_VTABLE(gated_signal, refresh, 1);
+	VALIDATE_VTABLE(gated_signal, raise_input, 3);
 }
 
 #include "my_patch.h"
