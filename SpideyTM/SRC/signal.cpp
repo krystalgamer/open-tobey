@@ -199,6 +199,8 @@ void signal::clear_links()
 }
 
 
+// @Ok
+// @Matching
 // find an output gated_signal matching the given parameters
 signal* signal::find_AND( const signal* b ) const
 {
@@ -221,6 +223,8 @@ signal* signal::find_AND( const signal* b ) const
   return NULL;
 }
 
+// @Ok
+// @Matching
 signal* signal::find_OR( const signal* b ) const
 {
   if ( outputs )
@@ -885,6 +889,7 @@ void patch_signal(void)
 	PATCH_PUSH_RET(0x007D25B0, signal::clear_links);
 
 	PATCH_PUSH_RET(0x007D2650, signal::find_AND);
+	PATCH_PUSH_RET(0x007D26A0, signal::find_OR);
 }
 
 void patch_signaller(void)
