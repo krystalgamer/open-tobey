@@ -773,11 +773,17 @@ void signal_manager::do_refresh()
 	refresh_list.resize(0);
 }
 
+// @Ok
+// @NotMatching - same as do_refresh
 // PEH BETA LOCK
 void signal_manager::purge()
 {
+	// @Patch
+  refresh_list.clear();
+
   refresh_list.resize(0);
-  signal_id_map.clear();
+  // @Patch - remove
+  //signal_id_map.clear();
 }
 
 #include "my_assertions.h"
@@ -888,6 +894,8 @@ void patch_signal_manager(void)
 	PATCH_PUSH_RET(0x007D4710, signal_manager::needs_refresh);
 	PATCH_PUSH_RET(0x007D4850, signal_manager::do_refresh);
 
+
+	PATCH_PUSH_RET(0x007D4940, signal_manager::purge);
 }
 
 void patch_signal(void)
