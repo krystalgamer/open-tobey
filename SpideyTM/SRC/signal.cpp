@@ -112,15 +112,18 @@ void code_callback::spawn(signaller*sgrptr)
 ///////////////////////////////////////////////////////////////////////////////
 // CLASS signal
 
-signal::signal(signaller*sgrptr)
+// @Ok
+// @PartialMatching - thread safety
+INLINE signal::signal(signaller*sgrptr)
 :   flags( 0 ),
     name( NULL ),
-
-    outputs( NULL ),
     callbacks()
 {
   flavor = SIGNAL;
   owner = sgrptr;
+
+  // @Patch - moved down here
+  outputs = NULL;
 }
 
 
@@ -484,6 +487,8 @@ void signal::do_callbacks()
 ///////////////////////////////////////////////////////////////////////////////
 // CLASS gated_signal
 
+// @Ok
+// @Matching
 gated_signal::gated_signal( type_t _type, signal* _input_a, signal* _input_b )
   :   signal(),
       type( _type ),
@@ -862,6 +867,8 @@ void patch_gated_signal(void)
 {
 	PATCH_PUSH_RET_POLY(0x007D3330, gated_signal::raise_input, "?raise_input@gated_signal@@EAEXPAVsignal@@@Z");
 	PATCH_PUSH_RET_POLY(0x007D34F0, gated_signal::refresh, "?refresh@gated_signal@@UAEXXZ");
+
+	PATCH_PUSH_RET_POLY(0x007D2F60, gated_signal::gated_signal, "??0gated_signal@@QAE@W4type_t@0@PAVsignal@@1@Z");
 }
 
 void patch_signal_manager(void)
