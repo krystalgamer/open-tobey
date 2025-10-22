@@ -430,22 +430,22 @@ class signaller
   // Methods
   public:
     // return signaller-local index value for signal
-    unsigned short get_id( const stringx& name ) const;
+    EXPORT unsigned short get_id( const stringx& name ) const;
     // insert a NEW signal name and associated signaller-local index
-    void insert( const stringx& name, unsigned short id );
+    EXPORT void insert( const stringx& name, unsigned short id );
 
     // create NEW signal consisting of logical AND of given signals
-    signal* signal_AND( signal* a, signal* b ) const;
+    EXPORT signal* signal_AND( signal* a, signal* b );
     // create NEW signal consisting of logical OR of given signals
-    signal* signal_OR( signal* a, signal* b ) const;
+    EXPORT signal* signal_OR( signal* a, signal* b );
 
     // this function is called when a signal object is affected such that it
     // will need to be reset at the end of the game frame (see app:tick)
-    void needs_refresh( signal* s );
+    EXPORT void needs_refresh( signal* s );
     // this function is called once per game frame to reset any signals that need it
-    void do_refresh();
+    EXPORT void do_refresh();
 
-    void purge(); // PEH BETA LOCK
+    EXPORT void purge(); // PEH BETA LOCK
   };
 
 

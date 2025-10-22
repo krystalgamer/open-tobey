@@ -206,7 +206,7 @@ void signal::clear_links()
 // @Ok
 // @Matching
 // find an output gated_signal matching the given parameters
-signal* signal::find_AND( const signal* b ) const
+INLINE signal* signal::find_AND( const signal* b ) const
 {
   if ( outputs )
   {
@@ -229,7 +229,7 @@ signal* signal::find_AND( const signal* b ) const
 
 // @Ok
 // @Matching
-signal* signal::find_OR( const signal* b ) const
+INLINE signal* signal::find_OR( const signal* b ) const
 {
   if ( outputs )
 
@@ -489,7 +489,7 @@ void signal::do_callbacks()
 
 // @Ok
 // @Matching
-gated_signal::gated_signal( type_t _type, signal* _input_a, signal* _input_b )
+INLINE gated_signal::gated_signal( type_t _type, signal* _input_a, signal* _input_b )
   :   signal(),
       type( _type ),
       flags( 0 ),
@@ -702,7 +702,7 @@ void signal_manager::insert( const stringx& name, unsigned short id )
 
 
 // create NEW signal consisting of logical AND of given signals
-signal* signal_manager::signal_AND( signal* a, signal* b ) const
+signal* signal_manager::signal_AND( signal* a, signal* b )
 {
   // see if given signal already exists
   signal* sig = a->find_AND( b );
@@ -710,6 +710,9 @@ signal* signal_manager::signal_AND( signal* a, signal* b ) const
   {
     // if not, create it
     sig = NEW gated_signal( gated_signal::AND, a, b );
+
+	needs_refresh(NULL);
+
     a->link( sig );
     b->link( sig );
   }
@@ -718,7 +721,7 @@ signal* signal_manager::signal_AND( signal* a, signal* b ) const
 
 
 // create NEW signal consisting of logical OR of given signals
-signal* signal_manager::signal_OR( signal* a, signal* b ) const
+signal* signal_manager::signal_OR( signal* a, signal* b )
 
 {
   // see if given signal already exists
@@ -873,6 +876,7 @@ void patch_gated_signal(void)
 
 void patch_signal_manager(void)
 {
+	PATCH_PUSH_RET(0x007D4710, signal_manager::needs_refresh);
 }
 
 void patch_signal(void)
