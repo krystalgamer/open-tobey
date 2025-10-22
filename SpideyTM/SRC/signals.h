@@ -215,6 +215,8 @@ class signal
 
 class gated_signal : public signal
   {
+	friend void patch_gated_signal(void);
+	friend void validate_gated_signal(void);
   // Types
   public:
     enum type_t

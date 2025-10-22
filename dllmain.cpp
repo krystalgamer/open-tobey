@@ -49,6 +49,7 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_signal();
 	validate_signal_manager();
+	validate_gated_signal();
 
 
 	return FAIL_VALIDATION;
@@ -95,6 +96,7 @@ void game_patches()
 	patch_signal();
 
 	patch_signal_manager();
+	patch_gated_signal();
 }
 
 #pragma pack(push,1)

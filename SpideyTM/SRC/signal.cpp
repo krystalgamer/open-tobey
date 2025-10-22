@@ -835,7 +835,22 @@ void validate_signal_manager(void)
 	VALIDATE(signal_manager, refresh_list, 0x10);
 }
 
+void validate_gated_signal(void)
+{
+	VALIDATE_SIZE(gated_signal, 0x28);
+
+	VALIDATE(gated_signal, type, 0x1C);
+	VALIDATE(gated_signal, flags, 0x1E);
+
+	VALIDATE(gated_signal, input_a, 0x20);
+	VALIDATE(gated_signal, input_b, 0x24);
+}
+
 #include "my_patch.h"
+
+void patch_gated_signal(void)
+{
+}
 
 void patch_signal_manager(void)
 {
