@@ -169,6 +169,8 @@ void signal::link( signal* s )
 
 
 
+// @Ok
+// @PartialMatching - thread safety
 // remove an output link
 void signal::unlink( signal* s )
 {
@@ -855,6 +857,7 @@ void patch_signal(void)
 	PATCH_PUSH_RET_POLY(0x007D29D0, signal::add_callback, "?add_callback@signal@@QAEIPAVinstance@script_object@@PAVvm_executable@@PAD_N@Z");
 
 	PATCH_PUSH_RET(0x007D23D0, signal::link);
+	PATCH_PUSH_RET(0x007D24F0, signal::unlink);
 }
 
 void patch_signaller(void)
