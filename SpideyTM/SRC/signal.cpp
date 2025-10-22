@@ -515,7 +515,9 @@ void gated_signal::raise_input( signal* input )
 
 
 // return true if parameters match this gated_signal
-bool gated_signal::match( type_t _type, const signal* input ) const
+// @Ok
+// @Matching
+INLINE bool gated_signal::match( type_t _type, const signal* input ) const
 {
   return (_type==type && (input==input_b || input==input_a));
 }
@@ -866,6 +868,8 @@ void patch_signal(void)
 	PATCH_PUSH_RET(0x007D23D0, signal::link);
 	PATCH_PUSH_RET(0x007D24F0, signal::unlink);
 	PATCH_PUSH_RET(0x007D25B0, signal::clear_links);
+
+	PATCH_PUSH_RET(0x007D2650, signal::find_AND);
 }
 
 void patch_signaller(void)

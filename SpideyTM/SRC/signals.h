@@ -157,6 +157,8 @@ class signal
     EXPORT signal( const char* _name, signaller*sgrptr=0 );
     EXPORT virtual ~signal();
 
+	// @Ok
+	// @Matching
     EXPORT flavor_t get_flavor() const { return flavor; }
 
     EXPORT void set_flag( flags_t f ) { flags |= f; }
