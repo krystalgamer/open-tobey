@@ -495,6 +495,8 @@ gated_signal::gated_signal( type_t _type, signal* _input_a, signal* _input_b )
 }
 
 
+// @Ok
+// @Matching
 // virtual function processes the raising of an input
 void gated_signal::raise_input( signal* input )
 {
@@ -849,12 +851,15 @@ void validate_gated_signal(void)
 
 	VALIDATE(gated_signal, input_a, 0x20);
 	VALIDATE(gated_signal, input_b, 0x24);
+
+	// @TODO - validate vtable
 }
 
 #include "my_patch.h"
 
 void patch_gated_signal(void)
 {
+	PATCH_PUSH_RET_POLY(0x007D3330, gated_signal::raise_input, "?raise_input@gated_signal@@EAEXPAVsignal@@@Z");
 }
 
 void patch_signal_manager(void)

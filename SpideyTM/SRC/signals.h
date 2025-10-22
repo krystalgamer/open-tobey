@@ -239,23 +239,23 @@ class gated_signal : public signal
 
   // Methods
   public:
-    gated_signal( type_t _type, signal* _input_a, signal* _input_b );
+    EXPORT gated_signal( type_t _type, signal* _input_a, signal* _input_b );
 
-    void set_flag( flags_t f ) { flags |= f; }
-    void clear_flag( flags_t f ) { flags &= ~f; }
-    bool is_flagged( flags_t f ) const { return (flags & f); }
+    EXPORT void set_flag( flags_t f ) { flags |= f; }
+    EXPORT void clear_flag( flags_t f ) { flags &= ~f; }
+    EXPORT bool is_flagged( flags_t f ) const { return (flags & f); }
 
     // return true if parameters match this gated_signal
-    bool match( type_t _type, const signal* input ) const;
+    EXPORT bool match( type_t _type, const signal* input ) const;
 
     // This virtual function performs an internal reset (once per frame, initiated by the
     // signal_manager; see below) of ephemeral changes accumulated while raising signals
     // in the course of a game frame.
-    virtual void refresh();
+    EXPORT virtual void refresh();
 
   private:
     // raise given input and return true if gate condition is satisfied
-    virtual void raise_input( signal* input );
+    EXPORT virtual void raise_input( signal* input );
   };
 
 
