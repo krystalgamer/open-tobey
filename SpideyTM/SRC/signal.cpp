@@ -308,7 +308,7 @@ void signal::raise_input( signal* input, signaller*sgrptr )
 // @Matching
 // signal_manager; see below) of ephemeral changes accumulated while raising signals
 // in the course of a game frame.
-void signal::refresh()
+INLINE void signal::refresh()
 {
   // RAISED protects a signal from being raised more than once per frame;
   // NEEDS_REFRESH protects a signal from being duplicated on the signal_manager's refresh list
@@ -860,6 +860,7 @@ void validate_gated_signal(void)
 void patch_gated_signal(void)
 {
 	PATCH_PUSH_RET_POLY(0x007D3330, gated_signal::raise_input, "?raise_input@gated_signal@@EAEXPAVsignal@@@Z");
+	PATCH_PUSH_RET_POLY(0x007D34F0, gated_signal::refresh, "?refresh@gated_signal@@UAEXXZ");
 }
 
 void patch_signal_manager(void)
