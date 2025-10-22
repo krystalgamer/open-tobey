@@ -877,9 +877,7 @@ void patch_signal_manager(void)
 
 void patch_signal(void)
 {
-	// @TODO
-	// constructor 2 args
-	//PATCH_PUSH_RET_POLY(0x007D2180, signal::signal, "??0signal@@QAE@PBDPAVsignaller@@@Z");
+	PATCH_PUSH_RET_POLY(0x007D2180, signal::signal, "??0signal@@QAE@PBDPAVsignaller@@@Z");
 
 	PATCH_PUSH_RET(0x007D2ED0, signal::do_callbacks);
 
