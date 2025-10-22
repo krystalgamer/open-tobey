@@ -182,10 +182,17 @@ void signal::unlink( signal* s )
   }
 }
 
+
+// @Ok
+// @NotMatching - it seems to clear during delete, but this is fine
+// from what I understand the default implementation of this STL was holding
+// into memory longer than it needed, imho not that important
 void signal::clear_links()
 {
   if ( outputs != NULL )
   {
+	  // @Patch - clear before delete
+	outputs->clear();
     delete outputs;
     outputs = NULL;
   }
@@ -858,6 +865,7 @@ void patch_signal(void)
 
 	PATCH_PUSH_RET(0x007D23D0, signal::link);
 	PATCH_PUSH_RET(0x007D24F0, signal::unlink);
+	PATCH_PUSH_RET(0x007D25B0, signal::clear_links);
 }
 
 void patch_signaller(void)
