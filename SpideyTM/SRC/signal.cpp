@@ -749,6 +749,21 @@ INLINE void signal_manager::needs_refresh( signal* s )
 }
 
 
+// @Ok
+// @NotMatching - different resize impl
+void signal_manager::delete_gated_signals()
+{
+	gated_signal_list::const_iterator i = gated_refresh_list.begin();
+	gated_signal_list::const_iterator i_end = gated_refresh_list.end();
+
+	for (; i != i_end; ++i)
+	{
+		delete *i;
+	}
+
+	gated_refresh_list.clear();
+	gated_refresh_list.resize(0);
+}
 
 // @Ok
 // @NotMatching - it seems resize is slightly different it zeroes more stuff
@@ -863,6 +878,7 @@ void validate_signal_manager(void)
 	VALIDATE_SIZE(signal_manager, 0x28);
 
 	VALIDATE(signal_manager, refresh_list, 0x10);
+	VALIDATE(signal_manager, gated_refresh_list, 0x1C);
 }
 
 void validate_gated_signal(void)
@@ -895,6 +911,7 @@ void patch_signal_manager(void)
 	PATCH_PUSH_RET(0x007D4850, signal_manager::do_refresh);
 
 
+	PATCH_PUSH_RET(0x007D4620, signal_manager::delete_gated_signals);
 	PATCH_PUSH_RET(0x007D4940, signal_manager::purge);
 }
 

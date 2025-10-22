@@ -111,7 +111,6 @@ class code_callback : public signal_callback
     void (*func)(signaller*,const char*);
   };
 
-// @TODO
 class signal
   {
 	  friend void patch_signal(void);
@@ -419,13 +418,14 @@ class signaller
   public:
 	  typedef std::map< stringx, unsigned short > signal_id_map_t;
 	  typedef std::vector< signal* > signal_list;
+	  typedef std::vector< gated_signal* > gated_signal_list;
 
   // Data
   private:
     signal_id_map_t signal_id_map;
     signal_list refresh_list;
-
-	PADDING(0x28-0x1C);
+	// @Patch - guess the name
+    gated_signal_list gated_refresh_list;
 
   // Methods
   public:
@@ -442,6 +442,10 @@ class signaller
     // this function is called when a signal object is affected such that it
     // will need to be reset at the end of the game frame (see app:tick)
     EXPORT void needs_refresh( signal* s );
+
+	// @Patch - added
+    EXPORT void delete_gated_signals();
+
     // this function is called once per game frame to reset any signals that need it
     EXPORT void do_refresh();
 
