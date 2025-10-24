@@ -564,36 +564,12 @@ signaller::signaller()
 
 signaller::~signaller()
 {
-
-  if ( signals != NULL )
-  {
-    signal_list::iterator i = signals->begin();
-    signal_list::iterator i_end = signals->end();
-    for ( ; i!=i_end; ++i )
-
-    {
-      signal* s = *i;
-      if ( s != NULL )
-        delete s;
-    }
-
-    delete signals;
-    signals = NULL;
-
-  }
+	this->clear_signals();
 }
-
-// @TODO
-void signaller::signal_error(unsigned int, const stringx& parm)
-{
-	error(parm);
-}
-
 
 // @Ok
 // @Matching
-// @Patch - replace the free logic
-void signaller::clear_callbacks()
+INLINE void signaller::clear_signals()
 {
   if ( signals != NULL )
   {
@@ -611,6 +587,26 @@ void signaller::clear_callbacks()
 	signals = NULL;
 
   }
+}
+
+INLINE void signaller::clear_callbacks(void)
+{
+	if ( signals != NULL )
+	{
+		signal_list::iterator i = signals->begin();
+		signal_list::iterator i_end = signals->end();
+		for ( ; i!=i_end; ++i )
+		{
+			signal* s = *i;
+			if ( s != NULL )
+			{
+				delete s;
+			}
+		}
+
+		delete signals;
+		signals = NULL;
+	}
 }
 
 // @Ok
@@ -672,6 +668,28 @@ void signaller::clear_script_callback(const stringx &name)
   }
 
 }
+
+// @OK
+// @Matching
+void signaller::signal_error(unsigned int a2, const stringx& parm)
+{
+	stringx result(parm);
+
+	if (a2 >= this->signals->size())
+	{
+		result += stringx(
+				stringx::fmt,
+				"\nSignal %d out of range (%d max)\n\n\nPossible signals for id %d:\n\n%s",
+				a2,
+				this->signals->size(),
+				a2,
+				signal_manager::inst()->get_name(a2).c_str());
+	}
+
+	error(result);
+}
+
+
 
 
 
@@ -1023,9 +1041,11 @@ void patch_signaller(void)
 
 	PATCH_PUSH_RET_POLY(0x007D3510, signaller::signaller, "??0signaller@@QAE@XZ");
 
-	PATCH_PUSH_RET(0x007D3680, signaller::clear_callbacks);
+	PATCH_PUSH_RET(0x007D3680, signaller::clear_signals);
 	PATCH_PUSH_RET_POLY(0x007D3B10, signaller::clear_script_callback, "?clear_script_callback@signaller@@QAEXABVstringx@@@Z");
 	PATCH_PUSH_RET(0x007D38B0, signaller::clear_script_callbacks);
+
+	PATCH_PUSH_RET(0x007D3B60, signaller::signal_error);
 }
 
 void patch_signal_callback(void)

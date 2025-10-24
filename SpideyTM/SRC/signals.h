@@ -284,7 +284,7 @@ class signaller
   // Methods
   public:
     EXPORT signaller();
-    virtual ~signaller();
+    EXPORT virtual ~signaller();
 
     EXPORT void set_flag( flags_t f ) { flags |= f; }
     EXPORT void clear_flag( flags_t f ) { flags &= ~f; }
@@ -294,6 +294,7 @@ class signaller
     EXPORT virtual bool is_a_trigger() const { return(false); }
 //    virtual bool is_dread_net() const { return(false); }
 
+	// @Patch - created
     EXPORT virtual void signal_error(unsigned int, const stringx&);
 
     EXPORT void disable() { set_flag(DISABLED); }
@@ -355,6 +356,9 @@ class signaller
         return (unsigned short)-1;    // return invalid id in order for caller to print complete error msg (with entity name)
       }
 
+
+	// @Patch - added
+	EXPORT void clear_signals(void);
 
     EXPORT void clear_callbacks();
     EXPORT void clear_script_callbacks();
