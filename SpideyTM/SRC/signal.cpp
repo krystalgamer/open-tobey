@@ -675,10 +675,14 @@ void signaller::clear_script_callback(const stringx &name)
 
 
 
+// @Ok
+// @AlmostMatching - thread safety
 signal_manager::signal_manager()
   :   signal_id_map(),
       refresh_list()
 {
+	refresh_list.reserve(128);
+	gated_refresh_list.reserve(128);
 }
 
 
@@ -962,6 +966,11 @@ void patch_signal_manager(void)
 	PATCH_PUSH_RET(0x007D3F80, signal_manager::get_id);
 
 	PATCH_PUSH_RET(0x007D4070, signal_manager::get_name);
+
+	PATCH_PUSH_RET(0x007D43B0, signal_manager::signal_AND);
+	PATCH_PUSH_RET(0x007D44E0, signal_manager::signal_OR);
+
+	PATCH_PUSH_RET_POLY(0x007D3C40, signal_manager::signal_manager, "??0signal_manager@@AAE@XZ");
 }
 
 void patch_signal(void)
