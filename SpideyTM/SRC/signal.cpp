@@ -392,7 +392,7 @@ INLINE void signal::clear_callbacks()
 
 // @Ok
 // @PartialMatch - thread safety
-void signal::clear_script_callbacks()
+INLINE void signal::clear_script_callbacks()
 {
   callback_list::iterator i = callbacks.begin();
 
@@ -413,7 +413,7 @@ void signal::clear_script_callbacks()
 
 // @Ok
 // @PartialMatching - thread safety
-void signal::clear_code_callbacks()
+INLINE void signal::clear_code_callbacks()
 {
   callback_list::iterator i = callbacks.begin();
 
@@ -613,6 +613,8 @@ void signaller::clear_callbacks()
   }
 }
 
+// @Ok
+// @PartialMatching - thread safety
 void signaller::clear_script_callbacks()
 {
   if ( signals != NULL )
@@ -652,9 +654,10 @@ void signaller::clear_code_callbacks()
   }
 }
 
+// @Ok
+// @Matching
 void signaller::clear_script_callback(const stringx &name)
 {
-
   if ( signals != NULL )
   {
     signal_list::iterator i = signals->begin();
@@ -1021,6 +1024,8 @@ void patch_signaller(void)
 	PATCH_PUSH_RET_POLY(0x007D3510, signaller::signaller, "??0signaller@@QAE@XZ");
 
 	PATCH_PUSH_RET(0x007D3680, signaller::clear_callbacks);
+	PATCH_PUSH_RET_POLY(0x007D3B10, signaller::clear_script_callback, "?clear_script_callback@signaller@@QAEXABVstringx@@@Z");
+	PATCH_PUSH_RET(0x007D38B0, signaller::clear_script_callbacks);
 }
 
 void patch_signal_callback(void)
