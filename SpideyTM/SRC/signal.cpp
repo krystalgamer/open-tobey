@@ -758,6 +758,8 @@ signal* signal_manager::signal_AND( signal* a, signal* b )
 }
 
 
+// @Ok
+// @AlmostMatching - original was spilling into arguments for some reason
 // create NEW signal consisting of logical OR of given signals
 signal* signal_manager::signal_OR( signal* a, signal* b )
 
@@ -768,6 +770,10 @@ signal* signal_manager::signal_OR( signal* a, signal* b )
   {
     // if not, create it
     sig = NEW gated_signal( gated_signal::OR, a, b );
+
+	// @Patch
+	needs_refresh(sig);
+
     a->link( sig );
     b->link( sig );
   }
