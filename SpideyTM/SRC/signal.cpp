@@ -553,6 +553,8 @@ void gated_signal::refresh()
 ///////////////////////////////////////////////////////////////////////////////
 // CLASS signaller
 
+// @Ok
+// @Matching
 signaller::signaller()
   :   flags( 0 ),
       signals( NULL )
@@ -589,24 +591,23 @@ INLINE void signaller::clear_signals()
   }
 }
 
+// @Ok
+// @PartialMatching - thread safefty and alloc
 INLINE void signaller::clear_callbacks(void)
 {
-	if ( signals != NULL )
-	{
-		signal_list::iterator i = signals->begin();
-		signal_list::iterator i_end = signals->end();
-		for ( ; i!=i_end; ++i )
-		{
-			signal* s = *i;
-			if ( s != NULL )
-			{
-				delete s;
-			}
-		}
-
-		delete signals;
-		signals = NULL;
-	}
+  if ( signals != NULL )
+  {
+    signal_list::iterator i = signals->begin();
+    signal_list::iterator i_end = signals->end();
+    for ( ; i!=i_end; ++i )
+    {
+      if(*i)
+      {
+		  (*i)->clear_callbacks();
+		  (*i)->clear_links();
+      }
+    }
+  }
 }
 
 // @Ok
@@ -1007,7 +1008,7 @@ void patch_signal(void)
 
 	PATCH_PUSH_RET(0x007D2D70, signal::clear_code_callbacks);
 	PATCH_PUSH_RET_POLY(0x007D2CF0, signal::clear_script_callbacks, "?clear_script_callbacks@signal@@QAEXXZ");
-	PATCH_PUSH_RET_POLY(0x007D2DF0, signal::clear_script_callbacks, "?clear_script_callback@signal@@QAEXABVstringx@@@Z");
+	PATCH_PUSH_RET_POLY(0x007D2DF0, signal::clear_script_callback, "?clear_script_callback@signal@@QAEXABVstringx@@@Z");
 
 	PATCH_PUSH_RET_POLY(0x007D28F0, signal::raise_input, "?raise_input@signal@@EAEXPAV1@PAVsignaller@@@Z");
 	PATCH_PUSH_RET(0x007D27B0, signal::set_needs_refresh);
@@ -1042,6 +1043,8 @@ void patch_signaller(void)
 	PATCH_PUSH_RET_POLY(0x007D3510, signaller::signaller, "??0signaller@@QAE@XZ");
 
 	PATCH_PUSH_RET(0x007D3680, signaller::clear_signals);
+	PATCH_PUSH_RET(0x007D3700, signaller::clear_callbacks);
+
 	PATCH_PUSH_RET_POLY(0x007D3B10, signaller::clear_script_callback, "?clear_script_callback@signaller@@QAEXABVstringx@@@Z");
 	PATCH_PUSH_RET(0x007D38B0, signaller::clear_script_callbacks);
 
