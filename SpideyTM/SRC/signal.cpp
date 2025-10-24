@@ -191,7 +191,7 @@ void signal::unlink( signal* s )
 // @NotMatching - it seems to clear during delete, but this is fine
 // from what I understand the default implementation of this STL was holding
 // into memory longer than it needed, imho not that important
-void signal::clear_links()
+INLINE void signal::clear_links()
 {
   if ( outputs != NULL )
   {
@@ -590,22 +590,26 @@ void signaller::signal_error(unsigned int, const stringx& parm)
 }
 
 
+// @Ok
+// @Matching
+// @Patch - replace the free logic
 void signaller::clear_callbacks()
 {
-
   if ( signals != NULL )
   {
     signal_list::iterator i = signals->begin();
     signal_list::iterator i_end = signals->end();
     for ( ; i!=i_end; ++i )
-
     {
       if(*i)
       {
-        (*i)->clear_callbacks();
-        (*i)->clear_links();
+		  delete *i;
       }
     }
+
+	delete signals;
+	signals = NULL;
+
   }
 }
 
@@ -1015,6 +1019,8 @@ void patch_signaller(void)
 	PATCH_PUSH_RET_POLY(0x004A09D0, signaller::raise_signal, "?raise_signal@signaller@@UAEXI@Z");
 
 	PATCH_PUSH_RET_POLY(0x007D3510, signaller::signaller, "??0signaller@@QAE@XZ");
+
+	PATCH_PUSH_RET(0x007D3680, signaller::clear_callbacks);
 }
 
 void patch_signal_callback(void)
