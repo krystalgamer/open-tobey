@@ -564,8 +564,11 @@ signaller::signaller()
 }
 
 
+// @Ok
+// @PartialMatching - thread safety and alloc
 signaller::~signaller()
 {
+	this->clear_callbacks();
 	this->clear_signals();
 }
 
