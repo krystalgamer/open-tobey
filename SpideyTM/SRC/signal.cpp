@@ -736,6 +736,8 @@ void signal_manager::insert( const stringx& name, unsigned short id )
 }
 
 
+// @Ok
+// @AlmostMatching - original was spilling into arguments for some reason
 // create NEW signal consisting of logical AND of given signals
 signal* signal_manager::signal_AND( signal* a, signal* b )
 {
@@ -746,7 +748,8 @@ signal* signal_manager::signal_AND( signal* a, signal* b )
     // if not, create it
     sig = NEW gated_signal( gated_signal::AND, a, b );
 
-	needs_refresh(NULL);
+	// @Patch
+	needs_refresh(sig);
 
     a->link( sig );
     b->link( sig );
