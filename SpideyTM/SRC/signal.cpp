@@ -692,12 +692,14 @@ unsigned short signal_manager::get_id( const stringx& name ) const
 }
 
 
+// @Ok
+// @AlmostMatching - not as much inlined the pair stuff
 // insert a NEW signal name and associated signaller-local index
 void signal_manager::insert( const stringx& name, unsigned short id )
 {
 	std::pair< signal_id_map_t::iterator, bool > ib;
-  ib = signal_id_map.insert( signal_id_map_t::value_type( name, id ) );
-  assert( ib.second );
+	ib = signal_id_map.insert( signal_id_map_t::value_type( name, id ) );
+	assert( ib.second );
 }
 
 
@@ -913,6 +915,8 @@ void patch_signal_manager(void)
 
 	PATCH_PUSH_RET(0x007D4620, signal_manager::delete_gated_signals);
 	PATCH_PUSH_RET(0x007D4940, signal_manager::purge);
+
+	PATCH_PUSH_RET(0x007D4270, signal_manager::insert);
 }
 
 void patch_signal(void)
