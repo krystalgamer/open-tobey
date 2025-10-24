@@ -693,6 +693,37 @@ unsigned short signal_manager::get_id( const stringx& name ) const
   return (*i).second;
 }
 
+// @Ok
+// @NotMatching - debug function it concatenates a bunch of strings, not important imo
+stringx signal_manager::get_name(unsigned short id) const
+{
+  signal_id_map_t::const_iterator i = signal_id_map.begin();
+  signal_id_map_t::const_iterator i_end = signal_id_map.end();
+
+  stringx result;
+  for (; i != i_end; ++i)
+  {
+	  if (id == (*i).second)
+	  {
+		  stringx empty = stringx("");
+		  if((*i).first == empty)
+		  {
+			  result += empty;
+		  }
+		  else
+		  {
+			  result += ("\n" + (*i).first);
+		  }
+	  }
+	 
+  }
+
+  if (result == stringx(""))
+	  return stringx("SIGNAL_NOT_FOUND");
+
+  return result;
+}
+
 
 // @Ok
 // @AlmostMatching - not as much inlined the pair stuff
@@ -920,6 +951,8 @@ void patch_signal_manager(void)
 
 	PATCH_PUSH_RET(0x007D4270, signal_manager::insert);
 	PATCH_PUSH_RET(0x007D3F80, signal_manager::get_id);
+
+	PATCH_PUSH_RET(0x007D4070, signal_manager::get_name);
 }
 
 void patch_signal(void)

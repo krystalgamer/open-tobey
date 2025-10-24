@@ -410,9 +410,9 @@ class signaller
 
   // Constructors (not public in a singleton)
   private:
-    signal_manager();
-    signal_manager( const signal_manager& );
-    signal_manager& operator=( const signal_manager& );
+    EXPORT signal_manager();
+    EXPORT signal_manager( const signal_manager& );
+    EXPORT signal_manager& operator=( const signal_manager& );
 
   // Types
   public:
@@ -431,6 +431,10 @@ class signaller
   public:
     // return signaller-local index value for signal
     EXPORT unsigned short get_id( const stringx& name ) const;
+
+	// @Patch - introduced
+    EXPORT stringx get_name(unsigned short id) const;
+
     // insert a NEW signal name and associated signaller-local index
     EXPORT void insert( const stringx& name, unsigned short id );
 
