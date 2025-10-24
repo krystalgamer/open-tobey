@@ -356,10 +356,10 @@ class signaller
       }
 
 
-    void clear_callbacks();
-    void clear_script_callbacks();
-    void clear_code_callbacks();
-    void clear_script_callback(const stringx &name);
+    EXPORT void clear_callbacks();
+    EXPORT void clear_script_callbacks();
+    EXPORT void clear_code_callbacks();
+    EXPORT void clear_script_callback(const stringx &name);
 
 /*
     bool signal_was_raised(signal_list::size_t sig_id)

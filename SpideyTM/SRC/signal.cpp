@@ -557,6 +557,8 @@ signaller::signaller()
   :   flags( 0 ),
       signals( NULL )
 {
+	this->field_C[0] = 0;
+	this->field_C[1] = 0;
 }
 
 
@@ -766,7 +768,6 @@ signal* signal_manager::signal_AND( signal* a, signal* b )
 // @AlmostMatching - original was spilling into arguments for some reason
 // create NEW signal consisting of logical OR of given signals
 signal* signal_manager::signal_OR( signal* a, signal* b )
-
 {
   // see if given signal already exists
   signal* sig = a->find_OR( b );
@@ -1012,6 +1013,8 @@ void patch_signaller(void)
 	PATCH_PUSH_RET_POLY(0x004E4890, signaller::get_signal_name, "?get_signal_name@signaller@@MBEPBDG@Z");
 
 	PATCH_PUSH_RET_POLY(0x004A09D0, signaller::raise_signal, "?raise_signal@signaller@@UAEXI@Z");
+
+	PATCH_PUSH_RET_POLY(0x007D3510, signaller::signaller, "??0signaller@@QAE@XZ");
 }
 
 void patch_signal_callback(void)
