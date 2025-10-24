@@ -682,6 +682,8 @@ signal_manager::signal_manager()
 }
 
 
+// @Ok
+// @Matching
 // return signaller-local index value for signal
 unsigned short signal_manager::get_id( const stringx& name ) const
 {
@@ -917,6 +919,7 @@ void patch_signal_manager(void)
 	PATCH_PUSH_RET(0x007D4940, signal_manager::purge);
 
 	PATCH_PUSH_RET(0x007D4270, signal_manager::insert);
+	PATCH_PUSH_RET(0x007D3F80, signal_manager::get_id);
 }
 
 void patch_signal(void)
