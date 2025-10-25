@@ -469,6 +469,8 @@ void script_manager::clear()
   _destroy();
 }
 
+// @Ok
+// @Matching
 script_object* script_manager::find_object( const stringx& name ) const
 {
   name_sobj_map::const_iterator i = script_objects_by_name.find( name );
@@ -717,7 +719,19 @@ void validate_script_object(void)
 	VALIDATE(script_object, instances, 0x2C);
 }
 
+void validate_script_manager(void)
+{
+	VALIDATE_SIZE(script_manager, 0x20);
+
+	VALIDATE(script_manager, script_objects_by_name, 0x4);
+}
+
 #include "my_patch.h"
+
+void patch_script_manager(void)
+{
+	PATCH_PUSH_RET(0x007E06A0, script_manager::find_object);
+}
 
 void patch_script_object(void)
 {

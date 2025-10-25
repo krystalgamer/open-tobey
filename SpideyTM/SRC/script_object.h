@@ -240,6 +240,8 @@ const chunk_flavor CHUNK_STANDARD             ("standard");
 // member references to the corresponding run-time addresses.
 class script_manager
   {
+	friend void patch_script_manager(void);
+	friend void validate_script_manager(void);
   // Types
   public:
 	  class sobj_less : public std::binary_function<const script_object*,const script_object*,bool>
