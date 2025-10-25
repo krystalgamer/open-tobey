@@ -24,6 +24,8 @@ vm_executable::vm_executable( script_object* _owner )
 }
 
 
+// @NotOk
+// @Note: strange memcpy non inlined
 vm_executable::vm_executable(const vm_executable& b)
 :   owner( b.owner ),
     name( b.name ),
@@ -38,7 +40,6 @@ vm_executable::vm_executable(const vm_executable& b)
   buffer = NEW unsigned short[buffer_len];
   memcpy(buffer,b.buffer,buffer_len*2);
   }
-
 
 
 vm_executable::~vm_executable()
@@ -67,6 +68,8 @@ void vm_executable::_clear()
   linked = false;
   }
 
+// @Ok
+// @Matching
 void vm_executable::_build_fullname()
   {
   fullname = name;
@@ -143,4 +146,5 @@ void validate_vm_executable(void)
 void patch_vm_executable(void)
 {
 	PATCH_PUSH_RET_POLY(0x007E3EB0, vm_executable::vm_executable, "??0vm_executable@@QAE@PAVscript_object@@@Z");
+	PATCH_PUSH_RET(0x007E3EB0, vm_executable::_build_fullname);
 }
