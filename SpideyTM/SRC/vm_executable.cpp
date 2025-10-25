@@ -117,16 +117,25 @@ void vm_executable::link(const script_manager& sm)
 #include "my_assertions.h"
 void validate_vm_executable(void)
 {
+	VALIDATE_SIZE(vm_executable, 0x3C);
+
 	VALIDATE(vm_executable, owner, 0x0);
 	VALIDATE(vm_executable, name, 0x4);
 
 	VALIDATE(vm_executable, fullname, 0xC);
 
+	VALIDATE(vm_executable, parameters, 0x14);
+
 	VALIDATE(vm_executable, parms_stacksize, 0x20);
 
 	VALIDATE(vm_executable, static_func, 0x24);
+	VALIDATE(vm_executable, linked, 0x25);
 
 	VALIDATE(vm_executable, buffer, 0x28);
+
+	VALIDATE(vm_executable, buffer_len, 0x2C);
+
+	VALIDATE(vm_executable, strings, 0x30);
 }
 
 #include "my_patch.h"
