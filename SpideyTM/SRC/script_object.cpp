@@ -1,9 +1,11 @@
 #include "script_object.h"
 #include "vm_thread.h"
 
+#include "errorcontext.h"
+
 #define VM_STACKSIZE 0x180
 
-script_object::instance::instance(const stringx& n,int sz)
+INLINE script_object::instance::instance(const stringx& n,int sz)
 : name( n ),
 
   data( sz ),
@@ -365,6 +367,7 @@ script_object::add_instance( const stringx& inst_name,
                              char* constructor_parms_buffer )
 {
 
+	error_context::inst()->push_context(inst_name);
 	instance* inst = NEW instance( inst_name, data_blocksize );
 
 	add( inst );
@@ -384,6 +387,8 @@ script_object::add_instance( const stringx& inst_name,
 	}
 
 	con_thread->get_data_stack().push( constructor_parms_buffer, parmsize );
+
+	error_context::inst()->pop_context();
 
 	return inst;
 }
@@ -406,7 +411,7 @@ vm_thread* script_object::add_thread( instance* inst, int fidx )
 
 // @Ok
 // @Matching
-bool script_object::has_threads() const
+INLINE bool script_object::has_threads() const
 {
 	instance_list::const_iterator i = instances.begin();
 	instance_list::const_iterator i_end = instances.end();
@@ -545,7 +550,7 @@ void script_manager::link()
 
 // execute all threads on all script object instances
 void script_manager::run(time_value_t t, bool ignore_suspended )
-
+	// @TODO - depends on script_object shit
 {
 #ifndef PROJECT_KELLYSLATER
 
@@ -733,7 +738,7 @@ void validate_script_manager(void)
 void patch_script_manager(void)
 {
 	PATCH_PUSH_RET(0x007E06A0, script_manager::find_object);
-	PATCH_PUSH_RET(0x00E0E30, script_manager::link);
+	PATCH_PUSH_RET(0x007E0E30, script_manager::link);
 }
 
 void patch_script_object(void)

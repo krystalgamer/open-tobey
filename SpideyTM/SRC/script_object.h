@@ -67,8 +67,8 @@ class script_object
 
       // Methods
       public:
-        const stringx& get_name() const { return name; }
-        char* get_buffer() const { return data.get_buffer(); }
+        EXPORT const stringx& get_name() const { return name; }
+        EXPORT char* get_buffer() const { return data.get_buffer(); }
 
         // thread management
         //const thread_list& get_threads() const { return threads; }
@@ -151,24 +151,24 @@ class script_object
 
   // Constructors
   public:
-    script_object();
+    EXPORT script_object();
     //script_object(const script_object& b);
-    script_object(const classreg& cl,bool debuginfo);  // compiler support
-    ~script_object();
+    EXPORT script_object(const classreg& cl,bool debuginfo);  // compiler support
+    EXPORT ~script_object();
 
   // Methods
   public:
-void check_all_instances(); // debugging code, remove me please!!! -GT
+EXPORT void check_all_instances(); // debugging code, remove me please!!! -GT
 
-    const stringx& get_name() const { return name; }
-    bool is_global_object() const { return global_object; }
-    char* get_static_data_buffer() const { return static_data.get_buffer(); }
-    int get_static_data_size() const { return static_data.size(); }
-    const vm_executable& get_func(int i) const { return *funcs[i]; }
-    int find_func(const stringx& func_fullname) const;
+    EXPORT const stringx& get_name() const { return name; }
+    EXPORT bool is_global_object() const { return global_object; }
+    EXPORT char* get_static_data_buffer() const { return static_data.get_buffer(); }
+    EXPORT int get_static_data_size() const { return static_data.size(); }
+    EXPORT const vm_executable& get_func(int i) const { return *funcs[i]; }
+    EXPORT int find_func(const stringx& func_fullname) const;
 
     // return index of function corresponding to given PC (-1 if not found)
-    int find_func_by_address( const unsigned short* PC ) const;
+    EXPORT int find_func_by_address( const unsigned short* PC ) const;
 
     // Link all SDR, SFR, and LFR references in the script functions to the
     // appropriate run-time addresses found via the given script manager.
@@ -201,13 +201,13 @@ void check_all_instances(); // debugging code, remove me please!!! -GT
     EXPORT void dump_threads( host_system_file_handle outfile ) const;
 
 #if _CONSOLE_ENABLE
-    void dump_threads_to_console() const;
+    EXPORT void dump_threads_to_console() const;
 #endif
 
   // Internal Methods
   protected:
-    void _destroy();
-    void _clear();
+    EXPORT void _destroy();
+    EXPORT void _clear();
 
 
     EXPORT void add(script_object::instance* inst);

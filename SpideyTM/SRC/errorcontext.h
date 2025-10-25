@@ -49,11 +49,7 @@ class error_context : public singleton
 			context_stack.resize(0);
 		}
 
-		EXPORT void push_context( const stringx & context ) 
-		{ 
-			assert( context_stack.size() < ECTX_STACK_SIZE );
-			context_stack.push_back(context); 
-		}
+		EXPORT void push_context( const stringx & context );
 
 		EXPORT inline void pop_context() { context_stack.pop_back(); }
 

@@ -41,38 +41,38 @@ class vm_executable
 
   // Constructors
   public:
-    vm_executable( script_object* _owner );
-    vm_executable(const vm_executable& b);
-    ~vm_executable();
+    EXPORT vm_executable( script_object* _owner );
+    EXPORT vm_executable(const vm_executable& b);
+    EXPORT ~vm_executable();
 
 
   // Methods
   public:
 
-    script_object* get_owner() const         { return owner; }
+    EXPORT script_object* get_owner() const         { return owner; }
 
-    const stringx& get_name() const          { return name; }
+    EXPORT const stringx& get_name() const          { return name; }
 	// @Ok
 	// @Matching
-    const stringx& get_fullname() const      { return fullname; }
-    const parms_list& get_parameters() const { return parameters; }
-    bool is_static() const                   { return static_func; }
-    bool is_linked() const                   { return linked; }
-    int get_parms_stacksize() const          { return parms_stacksize; }
-    const unsigned short* get_start() const  { return buffer; }
-    int get_size() const                     { return buffer_len; }
+    EXPORT const stringx& get_fullname() const      { return fullname; }
+    EXPORT const parms_list& get_parameters() const { return parameters; }
+    EXPORT bool is_static() const                   { return static_func; }
+    EXPORT bool is_linked() const                   { return linked; }
+    EXPORT int get_parms_stacksize() const          { return parms_stacksize; }
+    EXPORT const unsigned short* get_start() const  { return buffer; }
+    EXPORT int get_size() const                     { return buffer_len; }
 
 
   // Internal Methods
   protected:
-    void _destroy();
-    void _clear();
-    void _build_fullname();
-    unsigned short _string_id(const stringx& s);
+    EXPORT void _destroy();
+    EXPORT void _clear();
+    EXPORT void _build_fullname();
+    EXPORT unsigned short _string_id(const stringx& s);
 
     // Link all SDR, SFR, and LFR references in the executable code to the
     // appropriate run-time addresses found via the given script manager.
-    void link(const script_manager& sm);
+    EXPORT void link(const script_manager& sm);
 
   // Friends
 #if !defined(NO_SERIAL_IN)

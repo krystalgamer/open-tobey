@@ -100,6 +100,8 @@ void game_patches()
 	patch_signal_manager();
 	patch_gated_signal();
 	patch_script_manager();
+
+	patch_vm_executable();
 }
 
 #pragma pack(push,1)

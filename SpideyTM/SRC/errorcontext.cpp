@@ -32,6 +32,14 @@ ectx::~ectx()
   error_context::inst()->pop_context(); 
 }
 
+// @Ok
+// @Matching
+void error_context::push_context( const stringx & context ) 
+{ 
+	assert( context_stack.size() < ECTX_STACK_SIZE );
+	context_stack.push_back(context); 
+}
+
 // @Note: the original calls are offseted because they're inlined, this fixes the pointer
 void __fastcall offseted_push_context(error_context* this_ptr, int, const stringx& context)
 {

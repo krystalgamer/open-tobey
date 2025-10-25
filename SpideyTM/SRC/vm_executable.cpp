@@ -1,5 +1,110 @@
 #include "vm_executable.h"
 
+#include "oserrmsg.h"
+
+
+// CLASS vm_executable
+
+// Constructors
+
+// @Ok
+// @Matching
+vm_executable::vm_executable( script_object* _owner )
+:   owner( _owner ),
+    name(),
+    fullname(),
+    parameters(),
+    parms_stacksize( 0 ),
+    static_func( false ),
+    linked( false ),
+    buffer( NULL ),
+    buffer_len( 0 ),
+    strings()
+{
+}
+
+
+vm_executable::vm_executable(const vm_executable& b)
+:   owner( b.owner ),
+    name( b.name ),
+    fullname( b.fullname ),
+    parameters( b.parameters ),
+    parms_stacksize( b.parms_stacksize ),
+    static_func( b.static_func ),
+    linked( b.linked ),
+    buffer_len( b.buffer_len ),
+    strings( b.strings )
+  {
+  buffer = NEW unsigned short[buffer_len];
+  memcpy(buffer,b.buffer,buffer_len*2);
+  }
+
+
+
+vm_executable::~vm_executable()
+  {
+
+  _destroy();
+  }
+
+
+
+// Internal Methods
+
+
+void vm_executable::_destroy()
+  {
+  if (buffer)
+    delete[] buffer;
+  }
+
+void vm_executable::_clear()
+  {
+
+  parameters.resize(0);
+  strings.resize(0);
+  _destroy();
+  linked = false;
+  }
+
+void vm_executable::_build_fullname()
+  {
+  fullname = name;
+  fullname += "(";
+  for (parms_list::const_iterator pli=parameters.begin(); pli!=parameters.end(); pli++)
+    {
+    if (pli != parameters.begin())
+      fullname += ",";
+
+    fullname += (*pli)->get_name();
+    }
+  fullname += ")";
+
+  }
+
+unsigned short vm_executable::_string_id(const stringx& s)
+  {
+	  // @TODO
+	  /*
+  int idx = 0;
+  std::vector<stringx const *>::iterator i=strings.begin();
+  for (; i!=strings.end() && **i!=s; i++,idx++) continue;
+  if (i == strings.end())
+    {
+    // string not already registered;
+    // register NEW string
+    stringx const * sptr;
+    sptr = g_world_ptr->get_script_manager()->add_string(s);
+    strings.push_back(sptr);
+    }
+  // return stringx index
+
+  return idx;
+  */
+	  return 69;
+  }
+
+
 typedef void (__fastcall *vm_executable_link_ptr)(vm_executable*, int, const script_manager&);
 
 // @TODO
@@ -28,4 +133,5 @@ void validate_vm_executable(void)
 
 void patch_vm_executable(void)
 {
+	PATCH_PUSH_RET_POLY(0x007E3EB0, vm_executable::vm_executable, "??0vm_executable@@QAE@PAVscript_object@@@Z");
 }
