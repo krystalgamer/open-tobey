@@ -264,19 +264,19 @@ class script_manager
 
   // Constructors
   public:
-    script_manager();
-    ~script_manager();
+    EXPORT script_manager();
+    EXPORT ~script_manager();
 
   // Methods
   public:
-void check_all_objects( ); // debugging code, please remove me!  --GT
-    void clear();
-    script_object* find_object(const stringx& name) const;
+	EXPORT void check_all_objects( ); // debugging code, please remove me!  --GT
+    EXPORT void clear();
+    EXPORT script_object* find_object(const stringx& name) const;
 
     // return pointer to executable that corresponds to given PC (NULL if not found)
-    const vm_executable* find_function_by_address( const unsigned short* PC ) const;
+    EXPORT const vm_executable* find_function_by_address( const unsigned short* PC ) const;
 
-    void load(const char* filename);
+    EXPORT void load(const char* filename);
 
     // Link all SDR, SFR, and LFR references found in the managed script object
     // member functions to the appropriate run-time addresses.
@@ -301,13 +301,13 @@ void check_all_objects( ); // debugging code, please remove me!  --GT
     void dump_threads_to_console() const;
 #endif
 
-    stringx const * add_string(stringx const & st);
+    EXPORT stringx const * add_string(stringx const & st);
 
   // Internal Methods
   protected:
-    void _destroy();
-    void _clear();
-    void _add(script_object* so);
+    EXPORT void _destroy();
+    EXPORT void _clear();
+    EXPORT void _add(script_object* so);
   };
 
 

@@ -77,13 +77,6 @@ vm_thread* script_object::instance::add_thread( script_callback* cb, const vm_ex
 	return nt;
 }
 
-// @TODO
-// return pointer to executable that corresponds to given PC (NULL if not found)
-const vm_executable* script_manager::find_function_by_address( const unsigned short* PC ) const
-{
-  return NULL;
-}
-
 // @Ok
 // @NotMatching - list thread safety
 void script_object::instance::kill_thread(const vm_executable* ex, const vm_thread* thr)
@@ -449,6 +442,254 @@ void script_object::run( bool ignore_suspended )
 		inst->run( ignore_suspended );
 	}
 }
+
+
+// CLASS script_manager
+
+// Constructors
+
+script_manager::script_manager()
+: script_objects(),
+  script_objects_by_name()
+{
+  time_inc = 0.0f;
+}
+
+script_manager::~script_manager()
+{
+  _destroy();
+}
+
+
+
+// Methods
+
+void script_manager::clear()
+{
+  _destroy();
+}
+
+script_object* script_manager::find_object( const stringx& name ) const
+{
+  name_sobj_map::const_iterator i = script_objects_by_name.find( name );
+  if ( i == script_objects_by_name.end() )
+    return NULL;
+  else
+    return (*i).second;
+}
+
+
+// return pointer to executable that corresponds to given PC (NULL if not found)
+const vm_executable* script_manager::find_function_by_address( const unsigned short* PC ) const
+{
+	// @TODO
+	/*
+  sobj_list::const_iterator i = script_objects.begin();
+  sobj_list::const_iterator i_end = script_objects.end();
+  for ( ; i!=i_end; ++i )
+  {
+    script_object* so = *i;
+    int f = so->find_func_by_address( PC );
+    if ( f != -1 )
+      return &so->get_func( f );
+  }
+  */
+  return NULL;
+}
+
+
+#ifndef NO_SERIAL_IN
+void script_manager::load(const char* filename)
+  {
+	  // @TODO
+	  /*
+  chunk_file io;
+
+  chunk_flavor cf;
+  io.open(filename);
+  serial_in( io, &cf );
+  if ( cf != chunk_flavor("scrobjs") )
+    error( stringx(filename) + ": bad format; file must be updated" );
+  for (serial_in(io,&cf); cf!=CHUNK_END; serial_in(io,&cf))
+    {
+    if (cf == CHUNK_SCRIPT_OBJECT)
+      {
+      script_object* so = NEW script_object;
+
+if(so==0)
+warning(stringx(filename)+" NULL");
+
+      // begin script object chunk
+      serial_in( io, &so->name );
+      serial_in( io, so );
+      _add( so );
+      }
+    else
+      error( stringx(filename) + ": bad format; file must be updated" );
+    }
+	*/
+  }
+#endif
+
+void script_manager::link()
+{
+  sobj_list::const_iterator i = script_objects.begin();
+  sobj_list::const_iterator i_end = script_objects.end();
+  for ( ; i!=i_end; ++i )
+    (*i)->link( *this );
+}
+
+// execute all threads on all script object instances
+void script_manager::run(time_value_t t, bool ignore_suspended )
+
+{
+#ifndef PROJECT_KELLYSLATER
+
+  time_inc = t;
+
+
+#if defined(TARGET_PC) && !defined(BUILD_BOOTABLE)
+  if(g_script_debugger_running)
+    g_sl_debugger.set_new_frame(script_objects.size());
+#endif
+
+
+  sobj_list::const_iterator i = script_objects.begin();
+  sobj_list::const_iterator i_end = script_objects.end();
+
+  for ( ; i!=i_end; ++i )
+  {
+    script_object* so = *i;
+    if ( so->get_num_instances() )
+    {
+      so->run( ignore_suspended );
+
+    }
+  }
+
+#endif
+}
+
+// check all script objects, debugging code, please remove me if I'm still here
+void script_manager::check_all_objects( )
+{
+	// @TODO
+	/*
+  sobj_list::const_iterator i = script_objects.begin();
+  sobj_list::const_iterator i_end = script_objects.end();
+  for ( ; i!=i_end; ++i )
+  {
+    script_object* so = *i;
+
+//    if ( so->get_num_instances() )
+    if (so != NULL)
+    {
+      so->check_all_instances();
+    }
+  }
+  */
+}
+
+
+bool script_manager::has_threads() const
+{
+  sobj_list::const_iterator i = script_objects.begin();
+  sobj_list::const_iterator i_end = script_objects.end();
+  for ( ; i!=i_end; ++i )
+  {
+    script_object* so = *i;
+    if ( so->has_threads() )
+      return true;
+  }
+  return false;
+}
+
+
+// for debugging purposes; dump information on all threads to a file
+void script_manager::dump_threads() const
+{
+	// @TODO
+	/*
+  host_system_file_handle outfile = host_fopen( "\\steel\\dump\\scriptdump.txt", HOST_WRITE );
+  host_fprintf( outfile, "instance thread time ops\n" );
+  sobj_list::const_iterator i = script_objects.begin();
+
+  sobj_list::const_iterator i_end = script_objects.end();
+  for ( ; i!=i_end; ++i )
+  {
+    script_object* so = *i;
+    so->dump_threads( outfile );
+  }
+  host_fclose( outfile );
+  */
+}
+
+#if _CONSOLE_ENABLE
+void script_manager::dump_threads_to_console() const
+
+{
+  console_log("" );
+  console_log("instance   thread   time   ops" );
+
+  sobj_list::const_iterator i = script_objects.begin();
+  sobj_list::const_iterator i_end = script_objects.end();
+  for ( ; i!=i_end; ++i )
+  {
+    script_object* so = *i;
+    so->dump_threads_to_console();
+  }
+}
+#endif
+
+stringx const* script_manager::add_string( const stringx& s)
+{
+  return &(*(string_set.insert(s).first));
+}
+
+// Internal Methods
+
+void script_manager::_destroy()
+{
+	// @TODO
+	/*
+  sobj_list::const_iterator i = script_objects.begin();
+  sobj_list::const_iterator i_end = script_objects.end();
+  for ( ; i!=i_end; ++i )
+
+  {
+    // destroy fake script_library_class entry for this script object
+    slc_manager::inst()->destroy( (*i)->name );
+    delete *i;
+  }
+
+  script_objects.resize(0);
+  script_objects_by_name.clear();
+  string_set.clear();
+  */
+}
+
+void script_manager::_add( script_object* so )
+{
+	//@TODO
+	/*
+  // add to name (searchable) map
+  typedef script_object* soptr_t;
+
+  soptr_t& mapped_so = script_objects_by_name[ so->get_name() ];
+  assert( mapped_so == NULL );
+  mapped_so = so;
+  // add to simple list
+  if ( so->is_global_object() )
+    script_objects.push_front( so );  // global script object must run first!
+  else
+    script_objects.push_back( so );
+  // add fake script_library_class entry to support script object linkage
+  script_library_class* new_slc = NEW slc_script_object_t( *this, so->name.c_str() );
+  // do a fake call on the NEW entry to make GNUC happy
+  new_slc->get_size();
+  */
+}
+
 
 
 #include "my_assertions.h"
