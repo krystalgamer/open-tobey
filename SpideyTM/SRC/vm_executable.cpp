@@ -94,6 +94,7 @@ void vm_executable::_build_fullname()
 		fullname += (*pli)->get_name();
 	}
 	fullname += ")";
+	printf("fullname %s\n", fullname.c_str());
 }
 
 unsigned short vm_executable::_string_id(const stringx& s)
@@ -160,7 +161,7 @@ void patch_vm_executable(void)
 	PATCH_PUSH_RET_POLY(0x007E4060, vm_executable::~vm_executable, "??1vm_executable@@QAE@XZ");
 
 
-	//PATCH_PUSH_RET(0x007E3EB0, vm_executable::_build_fullname);
+	PATCH_PUSH_RET(0x007E4370, vm_executable::_build_fullname);
 
 	PATCH_PUSH_RET(0x007E41F0, vm_executable::_destroy);
 	PATCH_PUSH_RET(0x007E4210, vm_executable::clear);
