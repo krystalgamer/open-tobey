@@ -315,7 +315,7 @@ bool script_object::instance::thread_exists(vm_thread* thread, unsigned int thre
 
 // @Ok
 // @Matching
-void script_object::link(const script_manager& sm)
+INLINE void script_object::link(const script_manager& sm)
 {
 	std::vector<vm_executable*>::iterator xi;
 	for ( xi=funcs.begin(); xi!=funcs.end(); ++xi )
@@ -533,6 +533,8 @@ warning(stringx(filename)+" NULL");
   }
 #endif
 
+// @Ok
+// @Matching
 void script_manager::link()
 {
   sobj_list::const_iterator i = script_objects.begin();
@@ -731,6 +733,7 @@ void validate_script_manager(void)
 void patch_script_manager(void)
 {
 	PATCH_PUSH_RET(0x007E06A0, script_manager::find_object);
+	PATCH_PUSH_RET(0x00E0E30, script_manager::link);
 }
 
 void patch_script_object(void)
