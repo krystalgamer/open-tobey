@@ -66,7 +66,7 @@ class vm_executable
   // Internal Methods
   protected:
     EXPORT void _destroy();
-    EXPORT void _clear();
+    EXPORT void clear();
     EXPORT void _build_fullname();
     EXPORT unsigned short _string_id(const stringx& s);
 

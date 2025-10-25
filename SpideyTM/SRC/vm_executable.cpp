@@ -45,8 +45,12 @@ vm_executable::vm_executable(const vm_executable& b)
   }
 
 
+// @Ok
+// @NotMatching - stl stuff
 vm_executable::~vm_executable()
 {
+	// @Patch - clear instead of destroy
+	this->clear();
 }
 
 
@@ -64,7 +68,7 @@ INLINE void vm_executable::_destroy()
 
 // @Ok
 // @PartialMatching - resize doesn't nullify most fields
-INLINE void vm_executable::_clear()
+INLINE void vm_executable::clear()
 {
 	parameters.clear();
 	parameters.resize(0);
@@ -79,19 +83,18 @@ INLINE void vm_executable::_clear()
 // @Ok
 // @Matching
 void vm_executable::_build_fullname()
-  {
-  fullname = name;
-  fullname += "(";
-  for (parms_list::const_iterator pli=parameters.begin(); pli!=parameters.end(); pli++)
-    {
-    if (pli != parameters.begin())
-      fullname += ",";
+{
+	fullname = name;
+	fullname += "(";
+	for (parms_list::const_iterator pli=parameters.begin(); pli!=parameters.end(); pli++)
+	{
+		if (pli != parameters.begin())
+			fullname += ",";
 
-    fullname += (*pli)->get_name();
-    }
-  fullname += ")";
-
-  }
+		fullname += (*pli)->get_name();
+	}
+	fullname += ")";
+}
 
 unsigned short vm_executable::_string_id(const stringx& s)
   {
@@ -154,8 +157,11 @@ void validate_vm_executable(void)
 void patch_vm_executable(void)
 {
 	PATCH_PUSH_RET_POLY(0x007E3EB0, vm_executable::vm_executable, "??0vm_executable@@QAE@PAVscript_object@@@Z");
-	PATCH_PUSH_RET(0x007E3EB0, vm_executable::_build_fullname);
+	PATCH_PUSH_RET_POLY(0x007E4060, vm_executable::~vm_executable, "??1vm_executable@@QAE@XZ");
+
+
+	//PATCH_PUSH_RET(0x007E3EB0, vm_executable::_build_fullname);
 
 	PATCH_PUSH_RET(0x007E41F0, vm_executable::_destroy);
-	PATCH_PUSH_RET(0x007E4210, vm_executable::_clear);
+	PATCH_PUSH_RET(0x007E4210, vm_executable::clear);
 }
