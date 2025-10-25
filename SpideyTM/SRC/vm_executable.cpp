@@ -94,7 +94,6 @@ void vm_executable::_build_fullname()
 		fullname += (*pli)->get_name();
 	}
 	fullname += ")";
-	printf("fullname %s\n", fullname.c_str());
 }
 
 unsigned short vm_executable::_string_id(const stringx& s)
