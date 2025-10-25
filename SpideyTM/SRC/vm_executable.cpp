@@ -62,9 +62,10 @@ INLINE void vm_executable::_destroy()
 	this->buffer = NULL;
 }
 
+// @Ok
+// @PartialMatching - resize doesn't nullify most fields
 INLINE void vm_executable::_clear()
 {
-
 	parameters.clear();
 	parameters.resize(0);
 
@@ -156,4 +157,5 @@ void patch_vm_executable(void)
 	PATCH_PUSH_RET(0x007E3EB0, vm_executable::_build_fullname);
 
 	PATCH_PUSH_RET(0x007E41F0, vm_executable::_destroy);
+	PATCH_PUSH_RET(0x007E4210, vm_executable::_clear);
 }
