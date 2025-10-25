@@ -37,36 +37,43 @@ vm_executable::vm_executable(const vm_executable& b)
     buffer_len( b.buffer_len ),
     strings( b.strings )
   {
+	  // @Note: don't use scary
+	  /*
   buffer = NEW unsigned short[buffer_len];
   memcpy(buffer,b.buffer,buffer_len*2);
+  */
   }
 
 
 vm_executable::~vm_executable()
-  {
-
-  _destroy();
-  }
+{
+}
 
 
 
 // Internal Methods
 
 
-void vm_executable::_destroy()
-  {
-  if (buffer)
-    delete[] buffer;
-  }
+// @Ok
+// @Matching
+INLINE void vm_executable::_destroy()
+{
+	// @Patch - just set to null
+	this->buffer = NULL;
+}
 
-void vm_executable::_clear()
-  {
+INLINE void vm_executable::_clear()
+{
 
-  parameters.resize(0);
-  strings.resize(0);
-  _destroy();
-  linked = false;
-  }
+	parameters.clear();
+	parameters.resize(0);
+
+	strings.clear();
+	strings.resize(0);
+
+	_destroy();
+	linked = false;
+}
 
 // @Ok
 // @Matching
@@ -147,4 +154,6 @@ void patch_vm_executable(void)
 {
 	PATCH_PUSH_RET_POLY(0x007E3EB0, vm_executable::vm_executable, "??0vm_executable@@QAE@PAVscript_object@@@Z");
 	PATCH_PUSH_RET(0x007E3EB0, vm_executable::_build_fullname);
+
+	PATCH_PUSH_RET(0x007E41F0, vm_executable::_destroy);
 }
