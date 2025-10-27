@@ -210,12 +210,16 @@ void slc_manager::destroy( const stringx& n )
   }
 }
 
+// @Ok
+// @Matching
 void slc_manager::purge()
 {
-  class_list::iterator cli;
-  for( cli = classes.begin(); cli != classes.end(); ++cli )
-    (*cli)->purge();
-
+	script_strings_deconstruct();
+	class_list::iterator cli;
+	for( cli = classes.begin(); cli != classes.end(); ++cli )
+	{
+		(*cli)->purge();
+	}
 }
 
 
@@ -368,4 +372,6 @@ void validate_slc_manager(void)
 void patch_slc_manager(void)
 {
 	PATCH_PUSH_RET_POLY(0x007DB050, slc_manager::slc_manager, "??0slc_manager@@IAE@XZ");
+
+	PATCH_PUSH_RET(0x007DBAC0, slc_manager::purge);
 }
