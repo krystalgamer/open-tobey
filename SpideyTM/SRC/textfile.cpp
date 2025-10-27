@@ -723,4 +723,6 @@ void patch_text_file(void)
 {
 	PATCH_PUSH_RET_POLY(0x007A49C0, text_file::text_file, "??0text_file@@QAE@XZ");
 	PATCH_PUSH_RET_POLY(0x007A4A00, text_file::~text_file, "??1text_file@@QAE@XZ");
+
+	PATCH_PUSH_RET(0x00007A4B20, text_file::close);
 }
