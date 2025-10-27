@@ -80,8 +80,14 @@ class text_file
     EXPORT int readuntilnotdigit(char *buf,int buflen);
     EXPORT int skipuntildigit();
     EXPORT void keypushback(int c);
-	// @Patch - remove
-    //EXPORT bool is_open() const { return use_stash ? the_stash.is_open() : io.is_open(); }
+	// @TODO - understand
+    EXPORT bool is_open() const
+	{
+		typedef unsigned char (__fastcall *unk_func_ptr)(file_manager*, int, file_id_t);
+		unk_func_ptr unk_func = (unk_func_ptr)0x007F1E40;
+
+		return unk_func(file_manager::inst(), 0, this->field_0);
+	}
 
     EXPORT static bool text_file_exists(const stringx& name);
 
