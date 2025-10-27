@@ -67,6 +67,7 @@ CLEAN :
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\pstring.obj"
 	-@erase "$(INTDIR)\region.obj"
+	-@erase "$(INTDIR)\script_lib.obj"
 	-@erase "$(INTDIR)\script_library_class.obj"
 	-@erase "$(INTDIR)\script_object.obj"
 	-@erase "$(INTDIR)\semaphores.obj"
@@ -152,7 +153,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\maketree.obj" \
 	"$(INTDIR)\trees.obj" \
 	"$(INTDIR)\uncompr.obj" \
-	"$(INTDIR)\script_library_class.obj"
+	"$(INTDIR)\script_library_class.obj" \
+	"$(INTDIR)\script_lib.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -197,6 +199,7 @@ CLEAN :
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\pstring.obj"
 	-@erase "$(INTDIR)\region.obj"
+	-@erase "$(INTDIR)\script_lib.obj"
 	-@erase "$(INTDIR)\script_library_class.obj"
 	-@erase "$(INTDIR)\script_object.obj"
 	-@erase "$(INTDIR)\semaphores.obj"
@@ -284,7 +287,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\maketree.obj" \
 	"$(INTDIR)\trees.obj" \
 	"$(INTDIR)\uncompr.obj" \
-	"$(INTDIR)\script_library_class.obj"
+	"$(INTDIR)\script_library_class.obj" \
+	"$(INTDIR)\script_lib.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -504,6 +508,12 @@ SOURCE=.\SpideyTM\SRC\pstring.cpp
 SOURCE=.\SpideyTM\SRC\region.cpp
 
 "$(INTDIR)\region.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\script_lib.cpp
+
+"$(INTDIR)\script_lib.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

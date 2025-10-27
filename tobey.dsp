@@ -211,6 +211,10 @@ SOURCE=.\SpideyTM\SRC\region.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\script_lib.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\script_library_class.cpp
 # End Source File
 # Begin Source File

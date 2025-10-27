@@ -134,13 +134,16 @@ slc_manager::slc_manager()
 {
 }
 
+// @Ok
+// @PartialMatching - stl
 slc_manager::~slc_manager()
 {
-#ifdef KSCULL
-  script_strings_deconstruct();
-#endif
-  for (class_list::iterator i=classes.begin(); i!=classes.end(); ++i)
-    delete *i;
+	// @Patch - remove KSCULL
+	script_strings_deconstruct();
+	for (class_list::iterator i=classes.begin(); i!=classes.end(); ++i)
+	{
+		delete *i;
+	}
 }
 
 
