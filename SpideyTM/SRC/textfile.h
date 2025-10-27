@@ -108,7 +108,7 @@ class text_file
     char *  buf;
     int     bufpos;
     int     bufamt;
-	int field_10;
+	int pushbackdata;
 
 	/*
     bool    use_stash;

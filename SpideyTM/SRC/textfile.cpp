@@ -57,7 +57,7 @@ text_file::text_file()
 	bufpos=0;
 	bufamt=0;
 
-	field_10 = -1;
+	pushbackdata = -1;
 	field_0 = -1;
 }
 
@@ -512,26 +512,29 @@ void text_file::write(const stringx & s)
   {
   io.write((void*)s.c_str(),s.length());
   }
+#endif
 
 //--------------------------------------------------------------
+// @Ok
+// @Matching
 char text_file::peek_char()
-  {
-  char ch;
+{
+	char ch;
 
-  if( pushbackdata >= 0 )
-    {
-    ch = pushbackdata;
-    }
-  else
-
-    {
-    ch = buf[bufpos];
-    }
-  return ch;
-  }
+	if(pushbackdata >= 0)
+	{
+		ch = pushbackdata;
+	}
+	else
+	{
+		ch = buf[bufpos];
+	}
+	return ch;
+}
 
 
 //--------------------------------------------------------------
+#if 0
 char text_file::read_char()
   {
   char ch;
@@ -715,7 +718,7 @@ void validate_text_file(void)
 	VALIDATE(text_file, buf, 0x4);
 	VALIDATE(text_file, bufpos, 0x8);
 	VALIDATE(text_file, bufamt, 0xC);
-	VALIDATE(text_file, field_10, 0x10);
+	VALIDATE(text_file, pushbackdata, 0x10);
 }
 
 #include "my_patch.h"
@@ -728,4 +731,5 @@ void patch_text_file(void)
 	PATCH_PUSH_RET(0x007A4B20, text_file::close);
 
 	PATCH_PUSH_RET(0x007A5BD0, text_file::refill_buf);
+	PATCH_PUSH_RET(0x007A5CB0, text_file::peek_char);
 }
