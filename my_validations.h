@@ -15,6 +15,7 @@ void validate_os_developer_options(void);
 void validate_signaller(void);
 void validate_pstring(void);
 void validate_error_context(void);
+void validate_file_manager(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -29,4 +30,5 @@ void patch_pstring(void);
 void patch_script_object_instance(void);
 void patch_error_context(void);
 void patch_ectx(void);
+void patch_file_manager(void);
 #endif

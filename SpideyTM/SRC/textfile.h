@@ -9,6 +9,8 @@
 #include "osfile.h"
 #include "mustash.h"
 
+#include "file_manager.h"
+
 
 class text_file
 {
@@ -95,7 +97,7 @@ class text_file
     stash   the_stash;
     int     my_stash;
 	*/
-	int field_0;
+	file_id_t field_0;
     char *  buf;
     int     bufpos;
     int     bufamt;

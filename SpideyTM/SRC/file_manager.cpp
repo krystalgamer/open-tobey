@@ -59,7 +59,8 @@
 
 file_id_t file_manager::file_id_counter = 0;
 
-DEFINE_SINGLETON(file_manager)
+// @Patch - remove
+// DEFINE_SINGLETON(file_manager)
 
 /////////////////////////////////////////////////////////////////////////////////////
 // C O N S T R U C T O R / D E S T R U C T O R
@@ -179,9 +180,13 @@ file_id_t file_manager::acquire_file( const char *file_name, const char *file_pa
 /////////////////////////////////////////////////////////////////////////////////////
 // R E L E A S E   F I L E
 //
-bool file_manager::release_file( file_id_t file_id )
+void file_manager::release_file( file_id_t file_id )
 {
-  return false;
+	// @TODO
+	typedef void (__fastcall *file_manager_release_file_ptr)(file_manager*, int, file_id_t);
+	file_manager_release_file_ptr file_manager_release_file = (file_manager_release_file_ptr)0x007EEF20;
+
+	file_manager_release_file(this, 0, file_id);
 }
 
 int file_manager::read_file( file_id_t file_id, unsigned char *buf, unsigned int size )
@@ -818,42 +823,14 @@ void new_line(char *line)
 }
 
 
-#ifdef TEST_FILE_MANAGER
+#include "my_assertions.h"
 
-/////////////////////////////////////////////////////////////////////////////////////
-// M A I N
-
-//
-int main( int argc, char *argv[] )
+void validate_file_manager(void)
 {
-  file_manager fm;
-
-  fm.set_host_prefix("host0:");
-  fm.set_root_dir("c:\\ks\\bin\\data");
-  fm.set_search_paths("ks_paths.txt");
-
-  fm.init_level_context("test_levels\\newyork\\newyork2");
-
-  // fill the file_cache up with dummy files
-  file_info_node *foo = NEW file_info_node;
-  {
-    filespec spec("\\spidey.snd");
-    foo->set_name_ext_path(spec);
-  }
-  fm.file_cache.add(foo);
-  foo = NEW file_info_node;
-  {
-    filespec spec("\\ps2 textures\\alpha.tm2");
-    foo->set_name_ext_path(spec);
-  }
-  fm.file_cache.add(foo);
-
-  // at the end of level load do this:
-  fm.lock_file_system();
-
-  // at level unload, do this:
-  fm.clear_level_context();
-
-  return 0;
 }
-#endif
+
+#include "my_patch.h"
+
+void patch_file_manager(void)
+{
+}

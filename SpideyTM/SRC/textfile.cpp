@@ -106,16 +106,17 @@ void text_file::open( const stringx & name, int mode )
 
   the_stash.set_current_stash(oldStash);
 }
+#endif
 
 //--------------------------------------------------------------
-void text_file::close()
+// @Ok
+// @Matching
+INLINE void text_file::close()
 {
-  if (use_stash)
-    the_stash.close();
-  else
-    io.close();
+	file_manager::inst()->release_file(this->field_0);
 }
 
+#if 0
 bool text_file::text_file_exists(const stringx& name)
 {
   filespec spec(name);

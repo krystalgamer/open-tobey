@@ -6,6 +6,9 @@
 // @Patch
 #include "osfile.h"
 
+#include "filespec.h"
+#include "singleton.h"
+
 
 class file_info_node;
 class path_info_node;
@@ -17,12 +20,20 @@ typedef unsigned int file_id_t;
 
 class file_manager : public singleton
 {
+	friend void patch_file_manager(void);
+	friend void validate_file_manager(void);
   public:
     file_manager();
     ~file_manager();
 
 
-    DECLARE_SINGLETON( file_manager )
+	// @Patch - remove
+    //DECLARE_SINGLETON( file_manager )
+
+	static inline file_manager* inst(void)
+	{
+		return *reinterpret_cast<file_manager**>(0x00B771FC);
+	}
 
     // File Cache
     // Stash Index Tree (multiple-stash support)
@@ -41,7 +52,7 @@ class file_manager : public singleton
     file_id_t acquire_file( const filespec &spec );
 
     file_id_t acquire_file( const char *file_name, const char *file_path = NULL );
-    bool release_file( file_id_t file_id );
+    void release_file( file_id_t file_id );
 
     int read_file( file_id_t file_id, unsigned char *buf, unsigned int size );
 
