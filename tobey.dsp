@@ -107,6 +107,10 @@ SOURCE=.\SpideyTM\SRC\errorcontext.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\filespec.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\global.cpp
 # End Source File
 # Begin Source File
@@ -152,6 +156,10 @@ SOURCE=.\SpideyTM\SRC\so_data_block.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\stringx.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\textfile.cpp
 # End Source File
 # Begin Source File
 
@@ -756,6 +764,10 @@ SOURCE=.\SpideyTM\SRC\opcodes.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\osalloc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\osdevopts.h
 # End Source File
 # Begin Source File
 

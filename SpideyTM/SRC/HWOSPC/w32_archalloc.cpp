@@ -76,6 +76,20 @@ void arch_free(void *ptr)
 	free(ptr);
 }
 
+// @Ok
+// @Matching
+void *os_malloc32(int size)
+{
+	return malloc(size);
+}
+
+// @Ok
+// @Matching
+void os_free32(void* p)
+{
+	free(p);
+}
+
 #include "..\my_patch.h"
 
 void patch_alloc(void)

@@ -53,6 +53,7 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_script_manager();
 
+	validate_text_file();
 
 	return FAIL_VALIDATION;
 }
@@ -102,6 +103,8 @@ void game_patches()
 	patch_script_manager();
 
 	patch_vm_executable();
+
+	patch_text_file();
 }
 
 #pragma pack(push,1)
