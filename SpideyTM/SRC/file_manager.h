@@ -32,6 +32,7 @@ class file_manager : public singleton
 
 	static inline file_manager* inst(void)
 	{
+		// @Harcoded
 		return *reinterpret_cast<file_manager**>(0x00B771FC);
 	}
 

@@ -147,11 +147,20 @@ extern script_library_class* slc_global;
 // functions that scripts call to access the application at runtime.
 class slc_manager : public singleton //! auto_singleton
 {
+	friend void validate_slc_manager(void);
+	friend void patch_slc_manager(void);
   // singleton support:
   // Use slc_manager::inst()->function_name(parameters);
 public:
 //!  DECLARE_AUTO_SINGLETON(slc_manager);
-  DECLARE_SINGLETON(slc_manager);
+	// @Patch - remove
+  //DECLARE_SINGLETON(slc_manager);
+
+	static inline slc_manager* inst(void)
+	{
+		// @Hardcoded
+		return *reinterpret_cast<slc_manager**>(0x00B75924);
+	}
 
   // Types
 
@@ -172,22 +181,22 @@ protected:
 
 // Constructors (not public in a singleton)
 protected:
-  slc_manager();
+  EXPORT slc_manager();
 
-  slc_manager(const slc_manager& b);
-  slc_manager& operator=(const slc_manager& b);
+  EXPORT slc_manager(const slc_manager& b);
+  EXPORT slc_manager& operator=(const slc_manager& b);
 public:
-  ~slc_manager();
+  EXPORT ~slc_manager();
 
 // Methods
 public:
-  void add(script_library_class* slc);
-  void link_hierarchy();  // call this after static initialization, to establish parent links
-  script_library_class* find(const char* n) const;
-  script_library_class* find(const stringx& n) const { return find(n.c_str()); }
-  void destroy( const stringx& n );
+  EXPORT void add(script_library_class* slc);
+  EXPORT void link_hierarchy();  // call this after static initialization, to establish parent links
+  EXPORT script_library_class* find(const char* n) const;
+  EXPORT script_library_class* find(const stringx& n) const { return find(n.c_str()); }
+  EXPORT void destroy( const stringx& n );
 
-  void purge();
+  EXPORT void purge();
 };
 
 
