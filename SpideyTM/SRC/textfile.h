@@ -104,6 +104,7 @@ class text_file
     int     my_stash;
 	*/
 	file_id_t field_0;
+	// @Patch - unsigned char*
     char *  buf;
     int     bufpos;
     int     bufamt;

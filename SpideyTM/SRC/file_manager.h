@@ -54,7 +54,7 @@ class file_manager : public singleton
     file_id_t acquire_file( const char *file_name, const char *file_path = NULL );
     void release_file( file_id_t file_id );
 
-    int read_file( file_id_t file_id, unsigned char *buf, unsigned int size );
+    int read_file(file_id_t file_id, unsigned char *buf, unsigned int size );
 
     // write-able files are currently just logs, which can be turned off en-masse
     file_id_t acquire_log();

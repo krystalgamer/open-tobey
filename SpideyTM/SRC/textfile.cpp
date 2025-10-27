@@ -53,7 +53,7 @@ MSIPLSTD::_MSLstring::_MSLstring(const string& value)
 // @Matching
 text_file::text_file()
 {
-	buf=(char*)os_malloc32(BUFFER_SIZE);
+	buf=static_cast<char*>(os_malloc32(BUFFER_SIZE));
 	bufpos=0;
 	bufamt=0;
 
@@ -471,21 +471,22 @@ void text_file::eat_whitespace()
       read_char();
   }
 }
+#endif
 
 //--------------------------------------------------------------
+// @Ok
+// @Matching
 void text_file::refill_buf()
 {
-  int theOldStash = the_stash.get_current_stash();
-  the_stash.set_current_stash(my_stash);
-  if (use_stash)
-    bufamt=the_stash.read(buf,BUFFER_SIZE);
-  else
-    bufamt=io.read(buf,BUFFER_SIZE);
-  bufpos=0;
-
-  the_stash.set_current_stash(theOldStash);
+	// @Patch - rewrote to use file_manager
+	bufamt = file_manager::inst()->read_file(
+			this->field_0,
+			reinterpret_cast<unsigned char*>(this->buf),
+			BUFFER_SIZE);
+	bufpos= 0;
 }
 
+#if 0
 //--------------------------------------------------------------
 void text_file::write(int i)
 {
@@ -724,5 +725,7 @@ void patch_text_file(void)
 	PATCH_PUSH_RET_POLY(0x007A49C0, text_file::text_file, "??0text_file@@QAE@XZ");
 	PATCH_PUSH_RET_POLY(0x007A4A00, text_file::~text_file, "??1text_file@@QAE@XZ");
 
-	PATCH_PUSH_RET(0x00007A4B20, text_file::close);
+	PATCH_PUSH_RET(0x007A4B20, text_file::close);
+
+	PATCH_PUSH_RET(0x007A5BD0, text_file::refill_buf);
 }

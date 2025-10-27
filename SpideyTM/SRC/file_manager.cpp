@@ -191,7 +191,11 @@ void file_manager::release_file( file_id_t file_id )
 
 int file_manager::read_file( file_id_t file_id, unsigned char *buf, unsigned int size )
 {
-  return 0;
+	// @TODO
+	typedef int (__fastcall *file_manager_read_file_ptr)(file_manager*, int, file_id_t, unsigned char*, unsigned int);
+	file_manager_read_file_ptr file_manager_read_file = (file_manager_read_file_ptr)0x00007F1D80;
+
+	return file_manager_read_file(this, 0, file_id, buf, size);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
