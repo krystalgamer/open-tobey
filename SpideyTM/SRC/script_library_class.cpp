@@ -367,6 +367,13 @@ void validate_slc_manager(void)
 	VALIDATE(slc_manager, classes, 0x4);
 }
 
+void validate_script_library_class(void)
+{
+	VALIDATE_SIZE(script_library_class, 0x24);
+
+	VALIDATE_VTABLE(script_library_class, purge, 0x3);
+}
+
 #include "my_patch.h"
 
 void patch_slc_manager(void)
@@ -374,4 +381,8 @@ void patch_slc_manager(void)
 	PATCH_PUSH_RET_POLY(0x007DB050, slc_manager::slc_manager, "??0slc_manager@@IAE@XZ");
 
 	PATCH_PUSH_RET(0x007DBAC0, slc_manager::purge);
+}
+
+void patch_script_library_class(void)
+{
 }

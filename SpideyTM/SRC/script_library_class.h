@@ -18,6 +18,8 @@ class chunk_file;
 
 class script_library_class
 {
+	friend void patch_script_library_class(void);
+	friend void validate_script_library_class(void);
 // Types
 public:
   // SUBCLASS script_library_class::function
@@ -168,7 +170,7 @@ public:
 	class class_less : public std::binary_function<const script_library_class*,const script_library_class*,bool>
   {
   public:
-    bool operator()(const script_library_class* a,const script_library_class* b) const
+    EXPORT bool operator()(const script_library_class* a,const script_library_class* b) const
     {
       return (a->get_name() < b->get_name());
     }
