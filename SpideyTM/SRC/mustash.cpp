@@ -7,6 +7,7 @@
 // With precompiled headers enabled, all text up to and including
 // the following line are ignored by the compiler (dc 01/18/02)
 
+
 #include "global.h"
 #include "users.h"
 #include "osdevopts.h"
@@ -30,6 +31,9 @@
 #include "ngl.h" // nglPrintf.  Hey guys, check that return type
 #endif /* TARGET_XBOX JIV DEBUG */
 
+// @Patch - include it
+#include "ngl.h" 
+
 //  Some file io sutff.
 
 #include "osfile.h"
@@ -40,6 +44,15 @@
 
 #define STASH_MAGIC_NUMBER 0x5AFE
 #define STASH_CURRENT_REVISION 4
+
+// @TODO - mem_*
+#ifndef mem_pop_current_heap
+#define mem_pop_current_heap()
+#endif
+
+#ifndef mem_push_current_heap
+#define mem_push_current_heap(x)
+#endif
 
 
 const int BIG_ASS_BUFFER_SIZE = (11000000);
@@ -191,7 +204,9 @@ bool stash::open_stash(char *_stash_filename, stash_id stashid )
 
 //low_level_console_print("%s - index", substash[stashid].stash_filename); llc_memory_log();
   unsigned buf_size = substash[stashid].header.index_entry_size * substash[stashid].header.index_entries;
-  unsigned char *buf = (unsigned char *)memalign(16, buf_size);
+  // @TODO - memalign
+  //unsigned char *buf = (unsigned char *)memalign(16, buf_size);
+  unsigned char *buf;
   if (buf == NULL)
 
   {
@@ -228,7 +243,8 @@ bool stash::open_stash(char *_stash_filename, stash_id stashid )
     if (substash[stashid].index_tree.find(new_guy))
 	{
 		stringx diagnosis(stringx::fmt, "new_guy = %s", new_guy->get_name());
-		assertmsg(false, diagnosis.c_str());
+		// @ TODO
+		//assertmsg(false, diagnosis.c_str());
 	}
     //assert(new_guy->flag.is_stored == (new_guy->flag.file_type == stash_index_entry::STASH_INDEX_ENTRY_RAW ? false : true));
 		#if 0
@@ -490,6 +506,8 @@ void stash::LoadStashAsync(char *stashName, stash_id stashid, KSHeapIDs heap, vo
   int threadId;
 #else
 
+  // @TODO - wtf
+  HANDLE dathread;
 
 #endif
 
@@ -740,7 +758,8 @@ void stash::LoadStashAsyncHelper(threadArgs *args)
     if (substash[stashid].index_tree.find(new_guy))
 	{
 		stringx diagnosis(stringx::fmt, "new_guy = %s", new_guy->get_name());
-		assertmsg(false, diagnosis.c_str());
+		// @TODO - assertmsg
+		//assertmsg(false, diagnosis.c_str());
 	}
     //assert(new_guy->flag.is_stored == (new_guy->file_type == stash_index_entry::STASH_INDEX_ENTRY_RAW ? false : true));
 		#if 0
@@ -951,6 +970,8 @@ void stash::WaitForStashLoad()
 
 void stash::AbortAsyncRead(stash_id stashid)
 {
+	// @TODO - semaphore
+	/*
   substash[stashid].abort_stash_read = true;
 
   // If the sema is locked
@@ -970,6 +991,7 @@ void stash::AbortAsyncRead(stash_id stashid)
     RELEASESEMA(LoadNewStashSema);
   }
   substash[stashid].abort_stash_read = false;
+  */
 
 }
 
@@ -1122,7 +1144,8 @@ int stash::pre_open_stash_for_async( char *_stash_filename, stash_id stashid )
 	{
 
 		stringx diagnosis(stringx::fmt, "new_guy = %s", new_guy->get_name());
-		assertmsg(false, diagnosis.c_str());
+		// @TODO - assesrtmsg
+		//assertmsg(false, diagnosis.c_str());
 	}
     //assert(new_guy->flag.is_stored == (new_guy->flag.file_type == stash_index_entry::STASH_INDEX_ENTRY_RAW ? false : true));
 		#if 0
@@ -1560,6 +1583,8 @@ void multistash::acquire_stash_bufferspace(int size)
 		size = 32;
 #endif
 	
+	// @TODO - memalign
+	/*
 #ifdef TARGET_XBOX
   big_ass_buffer = (unsigned char *)memalign(4096, size);
 #else
@@ -1568,6 +1593,7 @@ void multistash::acquire_stash_bufferspace(int size)
 #ifdef DEBUG
 	memset(big_ass_buffer, 0x77, size);
 #endif
+*/
 	big_ass_buffer_max = size;
 }
 

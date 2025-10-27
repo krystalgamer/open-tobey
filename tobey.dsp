@@ -89,6 +89,70 @@ LINK32=link.exe
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# Begin Group "zlib No. 1"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\adler32.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\compress.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\crc32.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\deflate.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\gzio.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\infblock.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\infcodes.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\inffast.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\inflate.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\inftrees.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\infutil.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\maketree.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\trees.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\uncompr.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\zutil.c
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\app.cpp
@@ -208,6 +272,10 @@ SOURCE=.\SpideyTM\SRC\wds.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\HWOSPC\x86_math.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zip_filter.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -487,6 +555,54 @@ SOURCE=.\SpideyTM\SRC\sgistl\type_traits.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\sgistl\vector.h
+# End Source File
+# End Group
+# Begin Group "zlib"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\deflate.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\infblock.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\infcodes.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\inffast.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\inffixed.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\inftrees.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\infutil.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\trees.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\zconf.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\zlib.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zlib\zutil.h
 # End Source File
 # End Group
 # Begin Source File

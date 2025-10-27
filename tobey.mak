@@ -41,14 +41,26 @@ ALL : "$(OUTDIR)\tobey.dll"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\adler32.obj"
 	-@erase "$(INTDIR)\app.obj"
+	-@erase "$(INTDIR)\compress.obj"
+	-@erase "$(INTDIR)\crc32.obj"
 	-@erase "$(INTDIR)\debugutil.obj"
+	-@erase "$(INTDIR)\deflate.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
 	-@erase "$(INTDIR)\errorcontext.obj"
 	-@erase "$(INTDIR)\file_manager.obj"
 	-@erase "$(INTDIR)\filespec.obj"
 	-@erase "$(INTDIR)\global.obj"
+	-@erase "$(INTDIR)\gzio.obj"
+	-@erase "$(INTDIR)\infblock.obj"
+	-@erase "$(INTDIR)\infcodes.obj"
+	-@erase "$(INTDIR)\inffast.obj"
+	-@erase "$(INTDIR)\inflate.obj"
+	-@erase "$(INTDIR)\inftrees.obj"
+	-@erase "$(INTDIR)\infutil.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
+	-@erase "$(INTDIR)\maketree.obj"
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
@@ -62,6 +74,8 @@ CLEAN :
 	-@erase "$(INTDIR)\so_data_block.obj"
 	-@erase "$(INTDIR)\stringx.obj"
 	-@erase "$(INTDIR)\textfile.obj"
+	-@erase "$(INTDIR)\trees.obj"
+	-@erase "$(INTDIR)\uncompr.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
 	-@erase "$(INTDIR)\vm_executable.obj"
@@ -73,6 +87,8 @@ CLEAN :
 	-@erase "$(INTDIR)\w32_file.obj"
 	-@erase "$(INTDIR)\wds.obj"
 	-@erase "$(INTDIR)\x86_math.obj"
+	-@erase "$(INTDIR)\zip_filter.obj"
+	-@erase "$(INTDIR)\zutil.obj"
 	-@erase "$(OUTDIR)\tobey.dll"
 	-@erase "$(OUTDIR)\tobey.exp"
 	-@erase "$(OUTDIR)\tobey.lib"
@@ -118,7 +134,23 @@ LINK32_OBJS= \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\file_manager.obj" \
 	"$(INTDIR)\mustash.obj" \
-	"$(INTDIR)\semaphores.obj"
+	"$(INTDIR)\semaphores.obj" \
+	"$(INTDIR)\zip_filter.obj" \
+	"$(INTDIR)\zutil.obj" \
+	"$(INTDIR)\adler32.obj" \
+	"$(INTDIR)\compress.obj" \
+	"$(INTDIR)\crc32.obj" \
+	"$(INTDIR)\deflate.obj" \
+	"$(INTDIR)\gzio.obj" \
+	"$(INTDIR)\infblock.obj" \
+	"$(INTDIR)\infcodes.obj" \
+	"$(INTDIR)\inffast.obj" \
+	"$(INTDIR)\inflate.obj" \
+	"$(INTDIR)\inftrees.obj" \
+	"$(INTDIR)\infutil.obj" \
+	"$(INTDIR)\maketree.obj" \
+	"$(INTDIR)\trees.obj" \
+	"$(INTDIR)\uncompr.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -137,14 +169,26 @@ ALL : "$(OUTDIR)\tobey.dll"
 
 
 CLEAN :
+	-@erase "$(INTDIR)\adler32.obj"
 	-@erase "$(INTDIR)\app.obj"
+	-@erase "$(INTDIR)\compress.obj"
+	-@erase "$(INTDIR)\crc32.obj"
 	-@erase "$(INTDIR)\debugutil.obj"
+	-@erase "$(INTDIR)\deflate.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
 	-@erase "$(INTDIR)\errorcontext.obj"
 	-@erase "$(INTDIR)\file_manager.obj"
 	-@erase "$(INTDIR)\filespec.obj"
 	-@erase "$(INTDIR)\global.obj"
+	-@erase "$(INTDIR)\gzio.obj"
+	-@erase "$(INTDIR)\infblock.obj"
+	-@erase "$(INTDIR)\infcodes.obj"
+	-@erase "$(INTDIR)\inffast.obj"
+	-@erase "$(INTDIR)\inflate.obj"
+	-@erase "$(INTDIR)\inftrees.obj"
+	-@erase "$(INTDIR)\infutil.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
+	-@erase "$(INTDIR)\maketree.obj"
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
@@ -158,6 +202,8 @@ CLEAN :
 	-@erase "$(INTDIR)\so_data_block.obj"
 	-@erase "$(INTDIR)\stringx.obj"
 	-@erase "$(INTDIR)\textfile.obj"
+	-@erase "$(INTDIR)\trees.obj"
+	-@erase "$(INTDIR)\uncompr.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
 	-@erase "$(INTDIR)\vm_executable.obj"
@@ -169,6 +215,8 @@ CLEAN :
 	-@erase "$(INTDIR)\w32_file.obj"
 	-@erase "$(INTDIR)\wds.obj"
 	-@erase "$(INTDIR)\x86_math.obj"
+	-@erase "$(INTDIR)\zip_filter.obj"
+	-@erase "$(INTDIR)\zutil.obj"
 	-@erase "$(OUTDIR)\tobey.dll"
 	-@erase "$(OUTDIR)\tobey.exp"
 	-@erase "$(OUTDIR)\tobey.ilk"
@@ -216,7 +264,23 @@ LINK32_OBJS= \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\file_manager.obj" \
 	"$(INTDIR)\mustash.obj" \
-	"$(INTDIR)\semaphores.obj"
+	"$(INTDIR)\semaphores.obj" \
+	"$(INTDIR)\zip_filter.obj" \
+	"$(INTDIR)\zutil.obj" \
+	"$(INTDIR)\adler32.obj" \
+	"$(INTDIR)\compress.obj" \
+	"$(INTDIR)\crc32.obj" \
+	"$(INTDIR)\deflate.obj" \
+	"$(INTDIR)\gzio.obj" \
+	"$(INTDIR)\infblock.obj" \
+	"$(INTDIR)\infcodes.obj" \
+	"$(INTDIR)\inffast.obj" \
+	"$(INTDIR)\inflate.obj" \
+	"$(INTDIR)\inftrees.obj" \
+	"$(INTDIR)\infutil.obj" \
+	"$(INTDIR)\maketree.obj" \
+	"$(INTDIR)\trees.obj" \
+	"$(INTDIR)\uncompr.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -266,6 +330,96 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "tobey - Win32 Release" || "$(CFG)" == "tobey - Win32 Debug"
+SOURCE=.\SpideyTM\SRC\zlib\adler32.c
+
+"$(INTDIR)\adler32.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\compress.c
+
+"$(INTDIR)\compress.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\crc32.c
+
+"$(INTDIR)\crc32.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\deflate.c
+
+"$(INTDIR)\deflate.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\gzio.c
+
+"$(INTDIR)\gzio.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\infblock.c
+
+"$(INTDIR)\infblock.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\infcodes.c
+
+"$(INTDIR)\infcodes.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\inffast.c
+
+"$(INTDIR)\inffast.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\inflate.c
+
+"$(INTDIR)\inflate.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\inftrees.c
+
+"$(INTDIR)\inftrees.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\infutil.c
+
+"$(INTDIR)\infutil.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\maketree.c
+
+"$(INTDIR)\maketree.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\trees.c
+
+"$(INTDIR)\trees.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\uncompr.c
+
+"$(INTDIR)\uncompr.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zlib\zutil.c
+
+"$(INTDIR)\zutil.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\app.cpp
 
 "$(INTDIR)\app.obj" : $(SOURCE) "$(INTDIR)"
@@ -442,6 +596,12 @@ SOURCE=.\SpideyTM\SRC\wds.cpp
 SOURCE=.\SpideyTM\SRC\HWOSPC\x86_math.cpp
 
 "$(INTDIR)\x86_math.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\zip_filter.cpp
+
+"$(INTDIR)\zip_filter.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

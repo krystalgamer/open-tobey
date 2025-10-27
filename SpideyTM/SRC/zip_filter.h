@@ -7,7 +7,8 @@
 class os_file;
 class stringx;
 
-#if defined(TARGET_PS2) || defined(TARGET_XBOX)
+// @Patch - add PC
+#if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_PC)
 #define ENABLE_ZIPFILTER
 #endif
 
