@@ -14,7 +14,9 @@
 #include "algebra.h"
 
 // @Patch
+#ifndef max
 #define max(a,b) (a > b ? a : b)
+#endif
 
 // Toby was here.
 

@@ -8,6 +8,10 @@
 #endif
 #endif
 
+// @TODO
+// @Patch - why do I have to do this
+#define max(a,b) ((a) > (b) ? (a) : (b))
+
 /*
 
 

@@ -45,14 +45,18 @@ CLEAN :
 	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
 	-@erase "$(INTDIR)\errorcontext.obj"
+	-@erase "$(INTDIR)\file_manager.obj"
+	-@erase "$(INTDIR)\filespec.obj"
 	-@erase "$(INTDIR)\global.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
+	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\pstring.obj"
 	-@erase "$(INTDIR)\region.obj"
 	-@erase "$(INTDIR)\script_object.obj"
+	-@erase "$(INTDIR)\semaphores.obj"
 	-@erase "$(INTDIR)\signal.obj"
 	-@erase "$(INTDIR)\singleton.obj"
 	-@erase "$(INTDIR)\so_data_block.obj"
@@ -89,6 +93,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
 	"$(INTDIR)\errorcontext.obj" \
+	"$(INTDIR)\filespec.obj" \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\ini_parser.obj" \
 	"$(INTDIR)\my_assertions.obj" \
@@ -101,6 +106,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\singleton.obj" \
 	"$(INTDIR)\so_data_block.obj" \
 	"$(INTDIR)\stringx.obj" \
+	"$(INTDIR)\textfile.obj" \
 	"$(INTDIR)\vm_executable.obj" \
 	"$(INTDIR)\vm_stack.obj" \
 	"$(INTDIR)\vm_symbol.obj" \
@@ -110,7 +116,9 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\textfile.obj"
+	"$(INTDIR)\file_manager.obj" \
+	"$(INTDIR)\mustash.obj" \
+	"$(INTDIR)\semaphores.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -133,14 +141,18 @@ CLEAN :
 	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
 	-@erase "$(INTDIR)\errorcontext.obj"
+	-@erase "$(INTDIR)\file_manager.obj"
+	-@erase "$(INTDIR)\filespec.obj"
 	-@erase "$(INTDIR)\global.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
+	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\pstring.obj"
 	-@erase "$(INTDIR)\region.obj"
 	-@erase "$(INTDIR)\script_object.obj"
+	-@erase "$(INTDIR)\semaphores.obj"
 	-@erase "$(INTDIR)\signal.obj"
 	-@erase "$(INTDIR)\singleton.obj"
 	-@erase "$(INTDIR)\so_data_block.obj"
@@ -179,6 +191,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
 	"$(INTDIR)\errorcontext.obj" \
+	"$(INTDIR)\filespec.obj" \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\ini_parser.obj" \
 	"$(INTDIR)\my_assertions.obj" \
@@ -191,6 +204,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\singleton.obj" \
 	"$(INTDIR)\so_data_block.obj" \
 	"$(INTDIR)\stringx.obj" \
+	"$(INTDIR)\textfile.obj" \
 	"$(INTDIR)\vm_executable.obj" \
 	"$(INTDIR)\vm_stack.obj" \
 	"$(INTDIR)\vm_symbol.obj" \
@@ -200,7 +214,9 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\textfile.obj"
+	"$(INTDIR)\file_manager.obj" \
+	"$(INTDIR)\mustash.obj" \
+	"$(INTDIR)\semaphores.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -273,6 +289,18 @@ SOURCE=.\SpideyTM\SRC\errorcontext.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\file_manager.cpp
+
+"$(INTDIR)\file_manager.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\filespec.cpp
+
+"$(INTDIR)\filespec.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\global.cpp
 
 "$(INTDIR)\global.obj" : $(SOURCE) "$(INTDIR)"
@@ -282,6 +310,12 @@ SOURCE=.\SpideyTM\SRC\global.cpp
 SOURCE=.\SpideyTM\SRC\ini_parser.cpp
 
 "$(INTDIR)\ini_parser.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\mustash.cpp
+
+"$(INTDIR)\mustash.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
@@ -318,6 +352,12 @@ SOURCE=.\SpideyTM\SRC\region.cpp
 SOURCE=.\SpideyTM\SRC\script_object.cpp
 
 "$(INTDIR)\script_object.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\semaphores.cpp
+
+"$(INTDIR)\semaphores.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

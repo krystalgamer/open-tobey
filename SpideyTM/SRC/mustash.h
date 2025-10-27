@@ -64,6 +64,8 @@
 
 #endif
 
+// @Patch
+#include "osfile.h"
 
 class stash_index_entry;
 

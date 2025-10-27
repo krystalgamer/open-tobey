@@ -107,6 +107,10 @@ SOURCE=.\SpideyTM\SRC\errorcontext.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\file_manager.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\filespec.cpp
 # End Source File
 # Begin Source File
@@ -116,6 +120,10 @@ SOURCE=.\SpideyTM\SRC\global.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\ini_parser.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\mustash.cpp
 # End Source File
 # Begin Source File
 
@@ -140,6 +148,10 @@ SOURCE=.\SpideyTM\SRC\region.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\script_object.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\semaphores.cpp
 # End Source File
 # Begin Source File
 
@@ -515,6 +527,14 @@ SOURCE=.\SpideyTM\SRC\avltree.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\beam.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\beam_signals.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\bone.h
 # End Source File
 # Begin Source File
@@ -579,6 +599,18 @@ SOURCE=.\SpideyTM\SRC\debug.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\devoptflags.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\devoptints.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\devoptstrs.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\entflavor.h
 # End Source File
 # Begin Source File
@@ -595,7 +627,15 @@ SOURCE=.\SpideyTM\SRC\entity_interface.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\entity_maker.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\entity_signals.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\entityflags.h
 # End Source File
 # Begin Source File
 
@@ -620,6 +660,14 @@ SOURCE=.\SpideyTM\SRC\fast_vector.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\file.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\file_finder.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\file_manager.h
 # End Source File
 # Begin Source File
 
@@ -687,6 +735,14 @@ SOURCE=.\SpideyTM\SRC\instance.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\item.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\item_signals.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\ksheaps.h
 # End Source File
 # Begin Source File
@@ -707,7 +763,15 @@ SOURCE=.\SpideyTM\SRC\map_e.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\marker.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\material.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\matfac.h
 # End Source File
 # Begin Source File
 
@@ -783,6 +847,10 @@ SOURCE=.\SpideyTM\SRC\ostimer.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\particle.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\path.h
 # End Source File
 # Begin Source File
@@ -824,6 +892,10 @@ SOURCE=.\SpideyTM\SRC\po_anim.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\portal.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\profiler.h
 # End Source File
 # Begin Source File
 
@@ -883,6 +955,10 @@ SOURCE=.\SpideyTM\SRC\script_object.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\semaphores.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\signal_anim.h
 # End Source File
 # Begin Source File
@@ -895,6 +971,10 @@ SOURCE=.\SpideyTM\SRC\singleton.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\sky.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\sl_debugger.h
 # End Source File
 # Begin Source File
@@ -904,6 +984,10 @@ SOURCE=.\SpideyTM\SRC\so_data_block.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\sphere.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\stash_support.h
 # End Source File
 # Begin Source File
 
@@ -1003,7 +1087,19 @@ SOURCE=.\SpideyTM\SRC\wedge.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\widget.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\widget_entity.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\HWOSPC\x86_math.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\zip_filter.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
