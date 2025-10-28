@@ -170,6 +170,8 @@ void slc_manager::add(script_library_class* slc)
 }
 
 
+// @Ok
+// @Matching
 // call this after static initialization, to establish parent links
 void slc_manager::link_hierarchy()
 {
@@ -414,7 +416,8 @@ void patch_slc_manager(void)
 
 	PATCH_PUSH_RET_POLY(0x007DB6C0, slc_manager::find, "?find@slc_manager@@QBEPAVscript_library_class@@PBD@Z");
 
-	PATCH_PUSH_RET(0x007DB6C0, slc_manager::destroy);
+	PATCH_PUSH_RET(0x007DB8F0, slc_manager::destroy);
+	PATCH_PUSH_RET(0x007DB470, slc_manager::link_hierarchy);
 }
 
 void patch_script_library_class(void)
