@@ -59,6 +59,8 @@ extern "C" EXPORT int run_assertions(void)
 	validate_slc_manager();
 	validate_script_library_class();
 
+	validate_filespec();
+
 	return FAIL_VALIDATION;
 }
 
@@ -112,6 +114,8 @@ void game_patches()
 	patch_file_manager();
 	patch_slc_manager();
 	patch_script_library_class();
+
+	patch_filespec();
 }
 
 #pragma pack(push,1)
