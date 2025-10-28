@@ -156,9 +156,11 @@ slc_manager::~slc_manager()
 
 // Methods
 
+// @Ok
+// @NotMatching - weird how insert seems diff
 void slc_manager::add(script_library_class* slc)
-
 {
+	puts("IM ADDING BABY");
 #ifdef DEBUG
   pair<class_list::iterator,bool> iret = classes.insert( slc );
   assert( iret.second );
@@ -418,6 +420,7 @@ void patch_slc_manager(void)
 
 	PATCH_PUSH_RET(0x007DB8F0, slc_manager::destroy);
 	PATCH_PUSH_RET(0x007DB470, slc_manager::link_hierarchy);
+	PATCH_PUSH_RET(0x007DB390, slc_manager::add);
 }
 
 void patch_script_library_class(void)
