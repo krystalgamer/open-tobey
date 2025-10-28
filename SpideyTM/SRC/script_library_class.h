@@ -147,8 +147,9 @@ public:
 };
 
 
-extern script_library_class* slc_global;
-
+//extern script_library_class* slc_global;
+// @TODO - remove when all patched
+#define GET_SLC_GLOBAL (*reinterpret_cast<script_library_class**>(0x00B75964))
 
 ///////////////////////////////////////////////////////////////////////////////
 // SINGLETON CLASS slc_manager:

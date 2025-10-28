@@ -102,13 +102,15 @@ script_library_class::function::function(script_library_class* slc,const char* n
   slc->add(this);
 }
 
+// @Ok
+// @Matching
 script_library_class::function::function(const char* n)
 {
   name = strdupcpp(n);
   // add myself to the global script library class
   //if(!slc_global) slc_global = NEW script_library_class("_global_slc",0);
-  assert(slc_global);
-  slc_global->add(this);
+  //assert(slc_global);
+  GET_SLC_GLOBAL->add(this);
 }
 
 // constructor provided for script_library_class::find()
@@ -389,6 +391,7 @@ void validate_script_library_class_function(void)
 
 void patch_script_library_class_function(void)
 {
+	//PATCH_PUSH_RET_POLY(0x007DAE20, script_library_class::function, "??0function@script_library_class@@QAE@PBD@Z");
 }
 
 void patch_slc_manager(void)
