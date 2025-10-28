@@ -45,10 +45,10 @@ script_library_class::script_library_class(const char* n,int sz,const char* p)
 
 // constructor provided for searching (see slc_manager::find())
 
-// @TODO
+// @Ok
+// @Matching
 INLINE script_library_class::script_library_class()
   : name(),
-
     size(0),
     parent_name(NULL),
     parent(NULL),
@@ -378,6 +378,13 @@ void validate_script_library_class(void)
 {
 	VALIDATE_SIZE(script_library_class, 0x24);
 
+	VALIDATE(script_library_class, name, 0x4);
+	VALIDATE(script_library_class, size, 0xC);
+	VALIDATE(script_library_class, parent_name, 0x10);
+	VALIDATE(script_library_class, parent, 0x14);
+
+	VALIDATE(script_library_class, funcs, 0x18);
+
 	VALIDATE_VTABLE(script_library_class, find_instance, 0x1);
 	VALIDATE_VTABLE(script_library_class, read_value, 0x2);
 	VALIDATE_VTABLE(script_library_class, purge, 0x3);
@@ -403,6 +410,8 @@ void patch_slc_manager(void)
 	PATCH_PUSH_RET_POLY(0x007DB050, slc_manager::slc_manager, "??0slc_manager@@IAE@XZ");
 
 	PATCH_PUSH_RET(0x007DBAC0, slc_manager::purge);
+
+	PATCH_PUSH_RET_POLY(0x007DB6C0, slc_manager::find, "?find@slc_manager@@QBEPAVscript_library_class@@PBD@Z");
 }
 
 void patch_script_library_class(void)
