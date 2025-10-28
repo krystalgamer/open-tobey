@@ -56,6 +56,8 @@ public:
 	public:
 		EXPORT const char* get_name() const { return name; }
 
+		// @Ok
+		// @Matching
 		// Pure virtual function supplies library function execution.
 		// Takes vm_stack for obtaining script input parameters; returns true
 		// when library function execution is completed and script return value

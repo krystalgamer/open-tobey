@@ -394,7 +394,8 @@ void validate_script_library_class_function(void)
 
 void patch_script_library_class_function(void)
 {
-	//PATCH_PUSH_RET_POLY(0x007DAE20, script_library_class::function, "??0function@script_library_class@@QAE@PBD@Z");
+	PATCH_PUSH_RET_POLY(0x007DAE20, script_library_class::function, "??0function@script_library_class@@QAE@PBD@Z");
+	PATCH_PUSH_RET_POLY(0x007DABE0, script_library_class::function::operator(), "??Rfunction@script_library_class@@UAE_NAAVvm_stack@@W4entry_t@01@@Z");
 }
 
 void patch_slc_manager(void)
