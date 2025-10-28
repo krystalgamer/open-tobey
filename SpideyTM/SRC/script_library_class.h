@@ -131,6 +131,8 @@ public:
   // stream to the given buffer.
   EXPORT virtual void read_value(chunk_file& fs,char* buf) {}
 
+  // @Ok
+  // @Matching
   EXPORT virtual void purge() {}  // for descendents with managed stuff, such as slc_str_t
   // actually, slc_str_t is the only thing that uses this.  
 

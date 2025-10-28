@@ -387,4 +387,5 @@ void patch_slc_manager(void)
 
 void patch_script_library_class(void)
 {
+	PATCH_PUSH_RET_POLY(0x0052C070, script_library_class::purge, "?purge@script_library_class@@UAEXXZ");
 }
