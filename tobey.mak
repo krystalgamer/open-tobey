@@ -48,6 +48,7 @@ CLEAN :
 	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\deflate.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
+	-@erase "$(INTDIR)\entity.obj"
 	-@erase "$(INTDIR)\errorcontext.obj"
 	-@erase "$(INTDIR)\file_manager.obj"
 	-@erase "$(INTDIR)\filespec.obj"
@@ -107,38 +108,6 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"$(OUTDIR)\tobey.pdb" /machine:I386 /out:"$(OUTDIR)\tobey.dll" /implib:"$(OUTDIR)\tobey.lib" 
 LINK32_OBJS= \
-	"$(INTDIR)\app.obj" \
-	"$(INTDIR)\debugutil.obj" \
-	"$(INTDIR)\dllmain.obj" \
-	"$(INTDIR)\errorcontext.obj" \
-	"$(INTDIR)\filespec.obj" \
-	"$(INTDIR)\global.obj" \
-	"$(INTDIR)\ini_parser.obj" \
-	"$(INTDIR)\my_assertions.obj" \
-	"$(INTDIR)\ngl_pc.obj" \
-	"$(INTDIR)\pc_timer.obj" \
-	"$(INTDIR)\pstring.obj" \
-	"$(INTDIR)\region.obj" \
-	"$(INTDIR)\script_object.obj" \
-	"$(INTDIR)\signal.obj" \
-	"$(INTDIR)\singleton.obj" \
-	"$(INTDIR)\so_data_block.obj" \
-	"$(INTDIR)\stringx.obj" \
-	"$(INTDIR)\textfile.obj" \
-	"$(INTDIR)\vm_executable.obj" \
-	"$(INTDIR)\vm_stack.obj" \
-	"$(INTDIR)\vm_symbol.obj" \
-	"$(INTDIR)\vm_thread.obj" \
-	"$(INTDIR)\w32_archalloc.obj" \
-	"$(INTDIR)\w32_errmsg.obj" \
-	"$(INTDIR)\w32_file.obj" \
-	"$(INTDIR)\wds.obj" \
-	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\file_manager.obj" \
-	"$(INTDIR)\mustash.obj" \
-	"$(INTDIR)\semaphores.obj" \
-	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\zutil.obj" \
 	"$(INTDIR)\adler32.obj" \
 	"$(INTDIR)\compress.obj" \
 	"$(INTDIR)\crc32.obj" \
@@ -153,8 +122,41 @@ LINK32_OBJS= \
 	"$(INTDIR)\maketree.obj" \
 	"$(INTDIR)\trees.obj" \
 	"$(INTDIR)\uncompr.obj" \
+	"$(INTDIR)\zutil.obj" \
+	"$(INTDIR)\app.obj" \
+	"$(INTDIR)\debugutil.obj" \
+	"$(INTDIR)\dllmain.obj" \
+	"$(INTDIR)\errorcontext.obj" \
+	"$(INTDIR)\file_manager.obj" \
+	"$(INTDIR)\filespec.obj" \
+	"$(INTDIR)\global.obj" \
+	"$(INTDIR)\ini_parser.obj" \
+	"$(INTDIR)\mustash.obj" \
+	"$(INTDIR)\my_assertions.obj" \
+	"$(INTDIR)\ngl_pc.obj" \
+	"$(INTDIR)\pc_timer.obj" \
+	"$(INTDIR)\pstring.obj" \
+	"$(INTDIR)\region.obj" \
+	"$(INTDIR)\script_lib.obj" \
 	"$(INTDIR)\script_library_class.obj" \
-	"$(INTDIR)\script_lib.obj"
+	"$(INTDIR)\script_object.obj" \
+	"$(INTDIR)\semaphores.obj" \
+	"$(INTDIR)\signal.obj" \
+	"$(INTDIR)\singleton.obj" \
+	"$(INTDIR)\so_data_block.obj" \
+	"$(INTDIR)\stringx.obj" \
+	"$(INTDIR)\textfile.obj" \
+	"$(INTDIR)\vm_executable.obj" \
+	"$(INTDIR)\vm_stack.obj" \
+	"$(INTDIR)\vm_symbol.obj" \
+	"$(INTDIR)\vm_thread.obj" \
+	"$(INTDIR)\w32_archalloc.obj" \
+	"$(INTDIR)\w32_errmsg.obj" \
+	"$(INTDIR)\w32_file.obj" \
+	"$(INTDIR)\wds.obj" \
+	"$(INTDIR)\x86_math.obj" \
+	"$(INTDIR)\zip_filter.obj" \
+	"$(INTDIR)\entity.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -180,6 +182,7 @@ CLEAN :
 	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\deflate.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
+	-@erase "$(INTDIR)\entity.obj"
 	-@erase "$(INTDIR)\errorcontext.obj"
 	-@erase "$(INTDIR)\file_manager.obj"
 	-@erase "$(INTDIR)\filespec.obj"
@@ -241,38 +244,6 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\tobey.pdb" /debug /machine:I386 /out:"$(OUTDIR)\tobey.dll" /implib:"$(OUTDIR)\tobey.lib" /pdbtype:sept 
 LINK32_OBJS= \
-	"$(INTDIR)\app.obj" \
-	"$(INTDIR)\debugutil.obj" \
-	"$(INTDIR)\dllmain.obj" \
-	"$(INTDIR)\errorcontext.obj" \
-	"$(INTDIR)\filespec.obj" \
-	"$(INTDIR)\global.obj" \
-	"$(INTDIR)\ini_parser.obj" \
-	"$(INTDIR)\my_assertions.obj" \
-	"$(INTDIR)\ngl_pc.obj" \
-	"$(INTDIR)\pc_timer.obj" \
-	"$(INTDIR)\pstring.obj" \
-	"$(INTDIR)\region.obj" \
-	"$(INTDIR)\script_object.obj" \
-	"$(INTDIR)\signal.obj" \
-	"$(INTDIR)\singleton.obj" \
-	"$(INTDIR)\so_data_block.obj" \
-	"$(INTDIR)\stringx.obj" \
-	"$(INTDIR)\textfile.obj" \
-	"$(INTDIR)\vm_executable.obj" \
-	"$(INTDIR)\vm_stack.obj" \
-	"$(INTDIR)\vm_symbol.obj" \
-	"$(INTDIR)\vm_thread.obj" \
-	"$(INTDIR)\w32_archalloc.obj" \
-	"$(INTDIR)\w32_errmsg.obj" \
-	"$(INTDIR)\w32_file.obj" \
-	"$(INTDIR)\wds.obj" \
-	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\file_manager.obj" \
-	"$(INTDIR)\mustash.obj" \
-	"$(INTDIR)\semaphores.obj" \
-	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\zutil.obj" \
 	"$(INTDIR)\adler32.obj" \
 	"$(INTDIR)\compress.obj" \
 	"$(INTDIR)\crc32.obj" \
@@ -287,8 +258,41 @@ LINK32_OBJS= \
 	"$(INTDIR)\maketree.obj" \
 	"$(INTDIR)\trees.obj" \
 	"$(INTDIR)\uncompr.obj" \
+	"$(INTDIR)\zutil.obj" \
+	"$(INTDIR)\app.obj" \
+	"$(INTDIR)\debugutil.obj" \
+	"$(INTDIR)\dllmain.obj" \
+	"$(INTDIR)\errorcontext.obj" \
+	"$(INTDIR)\file_manager.obj" \
+	"$(INTDIR)\filespec.obj" \
+	"$(INTDIR)\global.obj" \
+	"$(INTDIR)\ini_parser.obj" \
+	"$(INTDIR)\mustash.obj" \
+	"$(INTDIR)\my_assertions.obj" \
+	"$(INTDIR)\ngl_pc.obj" \
+	"$(INTDIR)\pc_timer.obj" \
+	"$(INTDIR)\pstring.obj" \
+	"$(INTDIR)\region.obj" \
+	"$(INTDIR)\script_lib.obj" \
 	"$(INTDIR)\script_library_class.obj" \
-	"$(INTDIR)\script_lib.obj"
+	"$(INTDIR)\script_object.obj" \
+	"$(INTDIR)\semaphores.obj" \
+	"$(INTDIR)\signal.obj" \
+	"$(INTDIR)\singleton.obj" \
+	"$(INTDIR)\so_data_block.obj" \
+	"$(INTDIR)\stringx.obj" \
+	"$(INTDIR)\textfile.obj" \
+	"$(INTDIR)\vm_executable.obj" \
+	"$(INTDIR)\vm_stack.obj" \
+	"$(INTDIR)\vm_symbol.obj" \
+	"$(INTDIR)\vm_thread.obj" \
+	"$(INTDIR)\w32_archalloc.obj" \
+	"$(INTDIR)\w32_errmsg.obj" \
+	"$(INTDIR)\w32_file.obj" \
+	"$(INTDIR)\wds.obj" \
+	"$(INTDIR)\x86_math.obj" \
+	"$(INTDIR)\zip_filter.obj" \
+	"$(INTDIR)\entity.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -443,6 +447,12 @@ SOURCE=.\SpideyTM\SRC\debugutil.cpp
 SOURCE=.\dllmain.cpp
 
 "$(INTDIR)\dllmain.obj" : $(SOURCE) "$(INTDIR)"
+
+
+SOURCE=.\SpideyTM\SRC\entity.cpp
+
+"$(INTDIR)\entity.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
 SOURCE=.\SpideyTM\SRC\errorcontext.cpp

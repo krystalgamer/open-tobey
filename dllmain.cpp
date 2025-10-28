@@ -116,6 +116,8 @@ void game_patches()
 	patch_script_library_class();
 
 	patch_filespec();
+	patch_str();
+	patch_script_library_class_function();
 }
 
 #pragma pack(push,1)

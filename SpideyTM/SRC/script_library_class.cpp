@@ -12,11 +12,7 @@
 // @Patch - remove
 //DEFINE_SINGLETON(slc_manager)
 
-// @TODO
-char* strdupcpp(const char* str)
-{
-	return "";
-}
+char* strdupcpp(const char* str);
 
 extern void script_strings_deconstruct();
 
@@ -32,6 +28,7 @@ script_library_class* slc_global = NULL;
 // @TODO - focus on slc_manager first
 int sizeof_funcs = sizeof(script_library_class::function_list);
 
+// @TODO
 script_library_class::script_library_class(const char* n,int sz,const char* p)
   : name(n),
     size(sz),
@@ -46,6 +43,7 @@ script_library_class::script_library_class(const char* n,int sz,const char* p)
 
 // constructor provided for searching (see slc_manager::find())
 
+// @TODO
 script_library_class::script_library_class()
   : name(),
 

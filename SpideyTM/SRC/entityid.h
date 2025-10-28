@@ -22,7 +22,7 @@ class charstarwrap
 
 
 
-char* strdupcpp(const char* str);
+EXPORT char* strdupcpp(const char* str);
 
 typedef std::map<charstarwrap,unsigned int
 , std::less<charstarwrap>

@@ -167,6 +167,10 @@ SOURCE=.\dllmain.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\entity.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\errorcontext.cpp
 # End Source File
 # Begin Source File

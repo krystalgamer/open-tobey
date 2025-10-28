@@ -31,4 +31,5 @@ void patch_script_object_instance(void);
 void patch_error_context(void);
 void patch_ectx(void);
 void patch_file_manager(void);
+void patch_str(void);
 #endif

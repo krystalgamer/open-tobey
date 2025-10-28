@@ -2194,5 +2194,7 @@ public:
 
 void init_random_ifl_frame_boost_table();
 
+void patch_str(void);
+
 
 #endif // ENTITY_H
