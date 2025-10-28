@@ -79,7 +79,7 @@ public:
   class function_cptr_less : public std::binary_function<const function*,const function*,bool>
   {
   public:
-    bool operator()(const function* a,const function* b) const
+    EXPORT bool operator()(const function* a,const function* b) const
     {
       return ( strcmp( a->get_name(), b->get_name() )<0 );
     }

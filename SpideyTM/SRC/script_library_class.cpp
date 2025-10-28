@@ -46,7 +46,7 @@ script_library_class::script_library_class(const char* n,int sz,const char* p)
 // constructor provided for searching (see slc_manager::find())
 
 // @TODO
-script_library_class::script_library_class()
+INLINE script_library_class::script_library_class()
   : name(),
 
     size(0),
@@ -60,7 +60,7 @@ script_library_class::script_library_class()
 
 // @Ok
 // @PartialMatching - stl
-script_library_class::~script_library_class()
+INLINE script_library_class::~script_library_class()
 {
 	for (function_list::iterator i=funcs.begin(); i!=funcs.end(); ++i)
 	{
@@ -186,6 +186,8 @@ void slc_manager::link_hierarchy()
   }
 }
 
+// @Ok
+// @PartialMatching - STL thread safety but only in the destructor
 script_library_class* slc_manager::find(const char* n) const
 {
   // set up search argument
@@ -195,7 +197,6 @@ script_library_class* slc_manager::find(const char* n) const
   slc.name = n;
   class_list::const_iterator cli = classes.find(&slc);
   if (cli == classes.end())
-
     return NULL;
   return *cli;
 }
@@ -203,7 +204,6 @@ script_library_class* slc_manager::find(const char* n) const
 
 // destroy library class with given name (if any)
 void slc_manager::destroy( const stringx& n )
-
 {
   script_library_class slc;
   slc.name = n;
