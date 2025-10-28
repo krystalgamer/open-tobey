@@ -26,51 +26,50 @@ public:
   // Base class for all script library functions, which provide the interface
   // from the scripting language to the runtime application.
   class function
-
   {
-  // Types
-  public:
-    enum entry_t
-    {
-      FIRST_ENTRY,
-      RECALL_ENTRY
-    };
+	// Types
+	public:
+	enum entry_t
+	{
+	  FIRST_ENTRY,
+	  RECALL_ENTRY
+	};
 
-  // Data
-  protected:
-    char* name;
+	// Data
+	protected:
+	char* name;
 
 
-  // Constructors
-  public:
-    function(script_library_class* slc,const char* n);
-    function(const char* n);
-  protected:
-    function(int dummy);
+	// Constructors
+	public:
+		EXPORT function(script_library_class* slc,const char* n);
+		EXPORT function(const char* n);
+	protected:
+		EXPORT function(int dummy);
 
-    function(const stringx& n);  // provided for script_library_class::find()
-    virtual ~function();
+	EXPORT function(const stringx& n);  // provided for script_library_class::find()
+	EXPORT virtual ~function();
 
-  // Methods
-  public:
-    const char* get_name() const { return name; }
+	// Methods
+	public:
+		EXPORT const char* get_name() const { return name; }
 
-    // Pure virtual function supplies library function execution.
-    // Takes vm_stack for obtaining script input parameters; returns true
-    // when library function execution is completed and script return value
-    // (if any) has been moved onto stack in place of script input
-    // parameters.
-    // NOTE:  This function will be called repeatedly (once per application
-    // frame) on a given thread until it returns true.  For each false
-    // return, the vm_thread caller will restore the program counter and
-    // stack pointer to their original values so that the calling
-    // instruction can be executed again the following frame.  Thus, the
-    // library function must not alter the contents of the vm_stack until it
-    // has decided to return true.
-    virtual bool operator()(vm_stack& stack,entry_t entry){return true;}
+		// Pure virtual function supplies library function execution.
+		// Takes vm_stack for obtaining script input parameters; returns true
+		// when library function execution is completed and script return value
+		// (if any) has been moved onto stack in place of script input
+		// parameters.
+		// NOTE:  This function will be called repeatedly (once per application
+		// frame) on a given thread until it returns true.  For each false
+		// return, the vm_thread caller will restore the program counter and
+		// stack pointer to their original values so that the calling
+		// instruction can be executed again the following frame.  Thus, the
+		// library function must not alter the contents of the vm_stack until it
+		// has decided to return true.
+		EXPORT virtual bool operator()(vm_stack& stack,entry_t entry){return true;}
 
-  // Friends
-    friend class script_library_class;
+		// Friends
+		friend class script_library_class;
   };
 
   class function_cptr_less : public std::binary_function<const function*,const function*,bool>
@@ -93,51 +92,52 @@ protected:
 
 // Constructors
 public:
-  script_library_class(const char* n,int sz,const char* p=NULL);
-  virtual ~script_library_class();
+  EXPORT script_library_class(const char* n,int sz,const char* p=NULL);
+  EXPORT virtual ~script_library_class();
 protected:
-  script_library_class();  // provided for searching (see slc_manager::find())
+  EXPORT script_library_class();  // provided for searching (see slc_manager::find())
 private:
-  script_library_class(const script_library_class& src) {}
+  EXPORT script_library_class(const script_library_class& src) {}
 
 
 // Methods
 public:
-  const stringx& get_name() const { return name; }
-  int get_size() const { return size; }
-  const script_library_class* get_parent() const { return parent; }
+  EXPORT const stringx& get_name() const { return name; }
+  EXPORT int get_size() const { return size; }
+  EXPORT const script_library_class* get_parent() const { return parent; }
 
   // return true if b or one of its ancestors points to me;
   // note that this notion of equivalence relies on pointer equivalence,
   // which is the intended paradigm for script library classes
-  bool is_equal_or_descendent(const script_library_class* b) const
+  EXPORT bool is_equal_or_descendent(const script_library_class* b) const
   {
     for(; b && b!=this; b=b->get_parent()) continue;
     return (b? true : false);
   }
 
 
-  void add(const function* f)  { funcs.insert(f); }
-  const function* find(const char* n) const;
+  EXPORT void add(const function* f)  { funcs.insert(f); }
+  EXPORT const function* find(const char* n) const;
 
-  const function* find(const stringx& n) const  { return find(n.c_str()); }
+  EXPORT const function* find(const stringx& n) const  { return find(n.c_str()); }
 
   // Virtual function performs lookup for class value references (OP_ARG_CLV)
   // during the run-time link process (see vm_executable::_link()).
   // This operation is only valid for library classes whose vm_stack data
   // size is equal to 4 bytes.
-  virtual unsigned find_instance(const stringx& n) const  { return 0; }
+  EXPORT virtual unsigned find_instance(const stringx& n) const  { return 0; }
 
   // Virtual function provides method to read library class value data from a
   // stream to the given buffer.
-  virtual void read_value(chunk_file& fs,char* buf) {}
+  EXPORT virtual void read_value(chunk_file& fs,char* buf) {}
 
-  virtual void purge() {}  // for descendents with managed stuff, such as slc_str_t
+  EXPORT virtual void purge() {}  // for descendents with managed stuff, such as slc_str_t
   // actually, slc_str_t is the only thing that uses this.  
 
 // Friends
   friend class slc_manager;
 };
+
 
 extern script_library_class* slc_global;
 

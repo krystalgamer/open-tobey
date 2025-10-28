@@ -371,6 +371,8 @@ void validate_script_library_class(void)
 {
 	VALIDATE_SIZE(script_library_class, 0x24);
 
+	VALIDATE_VTABLE(script_library_class, find_instance, 0x1);
+	VALIDATE_VTABLE(script_library_class, read_value, 0x2);
 	VALIDATE_VTABLE(script_library_class, purge, 0x3);
 }
 
