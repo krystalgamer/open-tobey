@@ -61,6 +61,8 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_filespec();
 
+	validate_script_library_class_function();
+
 	return FAIL_VALIDATION;
 }
 

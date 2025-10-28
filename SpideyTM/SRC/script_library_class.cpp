@@ -378,7 +378,18 @@ void validate_script_library_class(void)
 	VALIDATE_VTABLE(script_library_class, purge, 0x3);
 }
 
+void validate_script_library_class_function(void)
+{
+	VALIDATE_SIZE(script_library_class::function, 0x8);
+
+	VALIDATE(script_library_class::function, name, 0x4);
+}
+
 #include "my_patch.h"
+
+void patch_script_library_class_function(void)
+{
+}
 
 void patch_slc_manager(void)
 {

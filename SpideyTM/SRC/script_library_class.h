@@ -27,6 +27,8 @@ public:
   // from the scripting language to the runtime application.
   class function
   {
+		friend void patch_script_library_class_function(void);
+		friend void validate_script_library_class_function(void);
 	// Types
 	public:
 	enum entry_t
