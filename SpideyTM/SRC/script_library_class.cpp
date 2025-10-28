@@ -201,7 +201,8 @@ script_library_class* slc_manager::find(const char* n) const
   return *cli;
 }
 
-
+// @Ok
+// @PartialMatching - stl
 // destroy library class with given name (if any)
 void slc_manager::destroy( const stringx& n )
 {
@@ -412,6 +413,8 @@ void patch_slc_manager(void)
 	PATCH_PUSH_RET(0x007DBAC0, slc_manager::purge);
 
 	PATCH_PUSH_RET_POLY(0x007DB6C0, slc_manager::find, "?find@slc_manager@@QBEPAVscript_library_class@@PBD@Z");
+
+	PATCH_PUSH_RET(0x007DB6C0, slc_manager::destroy);
 }
 
 void patch_script_library_class(void)
