@@ -20,7 +20,9 @@ extern void script_strings_deconstruct();
 // CLASS script_library_class
 
 // global script library class provides home for global library functions
-script_library_class* slc_global = NULL;
+
+
+//script_library_class* slc_global = NULL;
 
 
 // Constructors
@@ -120,8 +122,9 @@ script_library_class::function::function(const stringx& n)
   name = strdupcpp(n.c_str());
 }
 
+// @Ok
+// @Matching
 script_library_class::function::~function()
-
 {
   delete[] name;
 }
