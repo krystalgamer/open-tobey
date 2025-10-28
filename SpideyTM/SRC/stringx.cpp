@@ -1042,6 +1042,8 @@ void patch_string_buf()
 	PATCH_PUSH_RET(0x007D95C0, string_buf::set_to_cstr);
 	PATCH_PUSH_RET(0x007D8BB0, string_buf::copy_data_from);
 	PATCH_PUSH_RET(0x007D6010 , string_buf::clear);
+
+	PATCH_PUSH_RET_POLY(0x0049D250 , string_buf::compare, "?compare@string_buf@@QBEHABV1@@Z");
 }
 
 void patch_stringx()

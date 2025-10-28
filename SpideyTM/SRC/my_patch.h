@@ -20,7 +20,9 @@ int* get_thunk_address(void* first,...);
 #define PATCH_PUSH_RET_POLY(addr, dest, func_mangled) {\
 	unsigned char *tmp = (unsigned char*)(addr);\
 	tmp[0] = 0x68;\
-	*(int**)&tmp[1] = (int*)GetProcAddress(bink_dll, func_mangled);\
+	int *varAddr = (int*)GetProcAddress(bink_dll, func_mangled);\
+	if (!varAddr) { OutputDebugStringA("DEAD FOR " #func_mangled); exit(69); }\
+	*(int**)&tmp[1] = varAddr;\
 	tmp[5] = 0xC3;\
 	puts("Hooking " #dest " at " #addr);\
 }

@@ -194,7 +194,7 @@ public:
 
 //#pragma todo("Optimize to use bigint comparisons. Watch for endianness issues.")
 
-  inline int compare(const string_buf &buf) const
+  EXPORT inline int compare(const string_buf &buf) const
   {
     assert(buf.data != NULL);
     assert(data != NULL);

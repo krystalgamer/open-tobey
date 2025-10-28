@@ -160,7 +160,6 @@ slc_manager::~slc_manager()
 // @NotMatching - weird how insert seems diff
 void slc_manager::add(script_library_class* slc)
 {
-	puts("IM ADDING BABY");
 #ifdef DEBUG
   pair<class_list::iterator,bool> iret = classes.insert( slc );
   assert( iret.second );
