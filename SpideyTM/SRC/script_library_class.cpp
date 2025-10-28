@@ -58,10 +58,14 @@ script_library_class::script_library_class()
 }
 
 
+// @Ok
+// @PartialMatching - stl
 script_library_class::~script_library_class()
 {
-  for (function_list::iterator i=funcs.begin(); i!=funcs.end(); ++i)
-    delete *i;
+	for (function_list::iterator i=funcs.begin(); i!=funcs.end(); ++i)
+	{
+		delete *i;
+	}
 }
 
 
