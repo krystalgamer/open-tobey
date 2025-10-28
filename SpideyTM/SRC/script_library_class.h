@@ -121,6 +121,8 @@ public:
 
   EXPORT const function* find(const stringx& n) const  { return find(n.c_str()); }
 
+  // @Ok
+  // @Matching
   // Virtual function performs lookup for class value references (OP_ARG_CLV)
   // during the run-time link process (see vm_executable::_link()).
   // This operation is only valid for library classes whose vm_stack data
