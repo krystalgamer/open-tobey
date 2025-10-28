@@ -3,13 +3,6 @@
 
 #include "filespec.h"
 
-
-
-filespec::filespec(const stringx& s)
-{
-	extract(s);
-}
-
 // @Ok
 // @Matching
 // @Patch - replace empty_string with call to constructor
