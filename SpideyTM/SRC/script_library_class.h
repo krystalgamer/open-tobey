@@ -127,6 +127,8 @@ public:
   // size is equal to 4 bytes.
   EXPORT virtual unsigned find_instance(const stringx& n) const  { return 0; }
 
+  // @Ok
+  // @Matching
   // Virtual function provides method to read library class value data from a
   // stream to the given buffer.
   EXPORT virtual void read_value(chunk_file& fs,char* buf) {}
