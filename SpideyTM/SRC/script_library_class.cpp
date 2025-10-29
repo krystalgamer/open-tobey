@@ -239,6 +239,8 @@ void slc_manager::purge()
 // that they may be referenced and linked at runtime.
 // fill in for script language built-in type NUM
 
+// @Ok
+// @AlmostMatching - push order different inside the if block
 slc_script_object_t::slc_script_object_t(const script_manager& sm,const char* n)
   : script_library_class(n,4,NULL),
     sman(sm)
@@ -405,6 +407,7 @@ void validate_script_library_class_function(void)
 
 void validate_slc_script_object_t(void)
 {
+	VALIDATE(slc_script_object_t, sman, 0x24);
 	VALIDATE(slc_script_object_t, sobj, 0x28);
 }
 
@@ -414,6 +417,8 @@ void patch_slc_script_object_t(void)
 {
 	PATCH_PUSH_RET_POLY(0x007DBEB0, slc_script_object_t::find_instance, "?find_instance@slc_script_object_t@@UBEIABVstringx@@@Z");
 	PATCH_PUSH_RET_POLY(0x007DBE40, slc_script_object_t::read_value, "?read_value@slc_script_object_t@@UAEXAAVchunk_file@@PAD@Z");
+
+	PATCH_PUSH_RET_POLY(0x007DBB40, slc_script_object_t::slc_script_object_t, "??0slc_script_object_t@@QAE@ABVscript_manager@@PBD@Z");
 }
 
 void patch_script_library_class_function(void)
