@@ -407,8 +407,15 @@ void validate_script_library_class_function(void)
 
 void validate_slc_script_object_t(void)
 {
-	VALIDATE(slc_script_object_t, sman, 0x24);
+	VALIDATE_SIZE(slc_script_object_t, 0x2C);
+
+	// @Note - can't validate it causes null de-ref
+	//VALIDATE(slc_script_object_t, sman, 0x24); 
 	VALIDATE(slc_script_object_t, sobj, 0x28);
+
+	VALIDATE_VTABLE(slc_script_object_t, find_instance, 0x1);
+	VALIDATE_VTABLE(slc_script_object_t, read_value, 0x2);
+	VALIDATE_VTABLE(slc_script_object_t, purge, 0x3);
 }
 
 #include "my_patch.h"
