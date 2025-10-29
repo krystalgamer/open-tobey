@@ -219,6 +219,8 @@ public:
 // that they may be referenced and linked at runtime.
 class slc_script_object_t : public script_library_class
 {
+	friend void validate_slc_script_object_t(void);
+	friend void patch_slc_script_object_t(void);
 
 // Data
 protected:
@@ -228,14 +230,14 @@ protected:
 public:
   // constructor required
 
-  slc_script_object_t(const script_manager& sm,const char* n);
+  EXPORT slc_script_object_t(const script_manager& sm,const char* n);
 
 #if !defined(NO_SERIAL_IN)
   // read a script object value (by id) from a stream
-  virtual void read_value(chunk_file& fs,char* buf);
+  EXPORT virtual void read_value(chunk_file& fs,char* buf);
 #endif
   // find named instance of script object
-  virtual unsigned find_instance(const stringx& n) const;
+  EXPORT virtual unsigned find_instance(const stringx& n) const;
 };
 
 
@@ -246,10 +248,10 @@ class slc_num_t : public script_library_class
 
 public:
   // constructor required
-  slc_num_t(const char* n,int sz,const char* p=NULL);
+  EXPORT slc_num_t(const char* n,int sz,const char* p=NULL);
 #if !defined(NO_SERIAL_IN)
   // read a num value from a stream
-  void read_value(chunk_file& fs,char* buf);
+  EXPORT void read_value(chunk_file& fs,char* buf);
 #endif
 };
 
@@ -264,14 +266,14 @@ private:
 	std::vector<stringx*> strings;
 public:
   // constructor required
-  slc_str_t(const char* n,int sz,const char* p=NULL);
+  EXPORT slc_str_t(const char* n,int sz,const char* p=NULL);
   // destructor needed to delete managed strings
-  ~slc_str_t();
+  EXPORT ~slc_str_t();
 #if !defined(NO_SERIAL_IN)
   // read a str value from a stream
-  void read_value(chunk_file& fs,char* buf);
+  EXPORT void read_value(chunk_file& fs,char* buf);
 #endif
-  void purge();
+  EXPORT void purge();
 };
 
 
@@ -279,7 +281,7 @@ extern slc_str_t* slc_str;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Error message function for script library classes
-void verify_parms_integrity( script_library_class::function* the_function,
+EXPORT void verify_parms_integrity( script_library_class::function* the_function,
                              vm_stack* the_stack,
                              unsigned int* parms,
 

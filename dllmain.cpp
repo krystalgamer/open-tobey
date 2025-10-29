@@ -61,7 +61,7 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_filespec();
 
-	validate_script_library_class_function();
+	validate_slc_script_object_t();
 
 	return FAIL_VALIDATION;
 }
@@ -120,6 +120,8 @@ void game_patches()
 	patch_filespec();
 	patch_str();
 	patch_script_library_class_function();
+
+	patch_slc_script_object_t();
 }
 
 #pragma pack(push,1)

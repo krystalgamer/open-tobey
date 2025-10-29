@@ -54,7 +54,6 @@ INLINE script_library_class::script_library_class()
     parent(NULL),
     funcs()
 {
-
 }
 
 
@@ -348,7 +347,6 @@ void verify_parms_integrity( script_library_class::function* the_function,
                              vm_stack* the_stack,
                              unsigned int* parms,
                              int parms_size )
-
 {
   int i;
 
@@ -401,7 +399,16 @@ void validate_script_library_class_function(void)
 	VALIDATE(script_library_class::function, name, 0x4);
 }
 
+void validate_slc_script_object_t(void)
+{
+}
+
 #include "my_patch.h"
+
+void patch_slc_script_object_t(void)
+{
+	PATCH_PUSH_RET_POLY(0x007DBEB0, slc_script_object_t::find_instance, "?find_instance@slc_script_object_t@@UBEIABVstringx@@@Z");
+}
 
 void patch_script_library_class_function(void)
 {
