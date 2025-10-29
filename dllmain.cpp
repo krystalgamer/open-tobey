@@ -124,9 +124,8 @@ void game_patches()
 	patch_script_library_class_function();
 
 	patch_slc_script_object_t();
-
 	patch_slc_num_t();
-	validate_slc_num_t();
+	patch_slc_str_t();
 }
 
 #pragma pack(push,1)
