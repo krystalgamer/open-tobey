@@ -324,6 +324,8 @@ slc_str_t::slc_str_t(const char* n,int sz,const char* p)
 }
 
 // destructor needed to delete managed strings
+// @Ok
+// @Matching
 slc_str_t::~slc_str_t()
 {
 	purge();
