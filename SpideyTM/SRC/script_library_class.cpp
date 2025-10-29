@@ -332,6 +332,8 @@ slc_str_t::~slc_str_t()
 }
 
 #ifndef NO_SERIAL_IN
+// @Ok
+// @PartialMatching - stl
 // read a str value from a stream
 void slc_str_t::read_value(chunk_file& fs,char* buf)
 {
@@ -353,6 +355,8 @@ void slc_str_t::read_value(chunk_file& fs,char* buf)
 #endif
 
 
+// @Ok
+// @PartialMatching - stl
 INLINE void slc_str_t::purge()
 {
 	// @Patch - strings is a pointer
@@ -363,9 +367,8 @@ INLINE void slc_str_t::purge()
 			delete *i;
 		}
 
-		// @Patch - added resize too
-		this->strings->resize(0);
-
+		// @Patch
+		delete this->strings;
 		this->strings = NULL;
 	}
 }
@@ -460,6 +463,9 @@ void validate_slc_str_t(void)
 void patch_slc_str_t(void)
 {
 	PATCH_PUSH_RET_POLY(0x007DC2C0, slc_str_t::slc_str_t, "??0slc_str_t@@QAE@PBDH0@Z");
+
+	PATCH_PUSH_RET_POLY(0x007DC820, slc_str_t::read_value, "?read_value@slc_str_t@@UAEXAAVchunk_file@@PAD@Z");
+	PATCH_PUSH_RET_POLY(0x007DC9D0, slc_str_t::purge, "?purge@slc_str_t@@UAEXXZ");
 }
 
 void patch_slc_num_t(void)
