@@ -43,6 +43,7 @@ ALL : "$(OUTDIR)\tobey.dll"
 CLEAN :
 	-@erase "$(INTDIR)\adler32.obj"
 	-@erase "$(INTDIR)\app.obj"
+	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\compress.obj"
 	-@erase "$(INTDIR)\crc32.obj"
 	-@erase "$(INTDIR)\debugutil.obj"
@@ -126,6 +127,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\app.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
+	"$(INTDIR)\entity.obj" \
 	"$(INTDIR)\errorcontext.obj" \
 	"$(INTDIR)\file_manager.obj" \
 	"$(INTDIR)\filespec.obj" \
@@ -156,7 +158,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\entity.obj"
+	"$(INTDIR)\chunkfile.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -177,6 +179,7 @@ ALL : "$(OUTDIR)\tobey.dll"
 CLEAN :
 	-@erase "$(INTDIR)\adler32.obj"
 	-@erase "$(INTDIR)\app.obj"
+	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\compress.obj"
 	-@erase "$(INTDIR)\crc32.obj"
 	-@erase "$(INTDIR)\debugutil.obj"
@@ -262,6 +265,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\app.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
+	"$(INTDIR)\entity.obj" \
 	"$(INTDIR)\errorcontext.obj" \
 	"$(INTDIR)\file_manager.obj" \
 	"$(INTDIR)\filespec.obj" \
@@ -292,7 +296,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\entity.obj"
+	"$(INTDIR)\chunkfile.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -435,6 +439,12 @@ SOURCE=.\SpideyTM\SRC\zlib\zutil.c
 SOURCE=.\SpideyTM\SRC\app.cpp
 
 "$(INTDIR)\app.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\chunkfile.cpp
+
+"$(INTDIR)\chunkfile.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

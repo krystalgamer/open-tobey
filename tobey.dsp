@@ -159,6 +159,10 @@ SOURCE=.\SpideyTM\SRC\app.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\chunkfile.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\debugutil.cpp
 # End Source File
 # Begin Source File

@@ -254,24 +254,27 @@ slc_script_object_t::slc_script_object_t(const script_manager& sm,const char* n)
 #ifndef NO_SERIAL_IN
 // read a script object value (by id) from a stream
 typedef script_object::instance* vm_script_object_t;  // vm_stack data representation
+
+// @Ok
+// @Matching
 void slc_script_object_t::read_value(chunk_file& fs,char* buf)
 {
   // read id
   stringx id;
-  // @TODO
-  //serial_in(fs,&id);
+  serial_in(fs,&id);
   // find script object instance and write value to buffer
   *(vm_script_object_t*)buf = (vm_script_object_t)find_instance(id);
 }
 #endif
 
+// @Ok
+// @Matching
 // find named instance of script object
 unsigned slc_script_object_t::find_instance(const stringx& n) const
 {
   script_object::instance* soinst = sobj->find_instance(n);
   if (!soinst)
   {
-
     stringx err;
     err="script object instance "+n+" not found";
     error(err.c_str());
@@ -401,6 +404,7 @@ void validate_script_library_class_function(void)
 
 void validate_slc_script_object_t(void)
 {
+	VALIDATE(slc_script_object_t, sobj, 0x28);
 }
 
 #include "my_patch.h"
@@ -408,6 +412,7 @@ void validate_slc_script_object_t(void)
 void patch_slc_script_object_t(void)
 {
 	PATCH_PUSH_RET_POLY(0x007DBEB0, slc_script_object_t::find_instance, "?find_instance@slc_script_object_t@@UBEIABVstringx@@@Z");
+	PATCH_PUSH_RET_POLY(0x007DBE40, slc_script_object_t::read_value, "?read_value@slc_script_object_t@@UAEXAAVchunk_file@@PAD@Z");
 }
 
 void patch_script_library_class_function(void)
