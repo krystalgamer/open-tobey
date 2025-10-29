@@ -287,8 +287,11 @@ unsigned slc_script_object_t::find_instance(const stringx& n) const
 
 
 // CLASS slc_num_t supports script language built-in type NUM
+// @TODO - this might be used be careful
 slc_num_t* slc_num = NULL;
 
+// @Ok
+// @Matching
 slc_num_t::slc_num_t(const char* n,int sz,const char* p)
   : script_library_class(n,sz,p)
 {
@@ -299,7 +302,7 @@ slc_num_t::slc_num_t(const char* n,int sz,const char* p)
 void slc_num_t::read_value(chunk_file& fs,char* buf)
 {
 	// @TODO
-  //serial_in(fs,(vm_num_t*)buf);
+  serial_in(fs,(vm_num_t*)buf);
 }
 #endif
 
@@ -418,7 +421,16 @@ void validate_slc_script_object_t(void)
 	VALIDATE_VTABLE(slc_script_object_t, purge, 0x3);
 }
 
+void validate_slc_num_t(void)
+{
+}
+
 #include "my_patch.h"
+
+void patch_slc_num_t(void)
+{
+	PATCH_PUSH_RET_POLY(0x007DBF70, slc_num_t::slc_num_t, "??0slc_num_t@@QAE@PBDH0@Z");
+}
 
 void patch_slc_script_object_t(void)
 {

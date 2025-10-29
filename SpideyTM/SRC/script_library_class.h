@@ -245,6 +245,8 @@ public:
 // CLASS slc_num_t supports script language built-in type NUM
 class slc_num_t : public script_library_class
 {
+	friend void patch_slc_num_t(void);
+	friend void validate_slc_num_t(void);
 
 public:
   // constructor required

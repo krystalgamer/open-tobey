@@ -251,8 +251,8 @@ void serial_in(chunk_file& io, bool* d)
 }
 
 void serial_in(chunk_file& io, float* d)
-
 {
+	// @TODO
   CF_SERIAL_IN(io,d);
   CF_BINARY_OUT(*d);
 }
