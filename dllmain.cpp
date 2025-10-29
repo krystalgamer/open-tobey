@@ -63,6 +63,7 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_slc_script_object_t();
 	validate_slc_num_t();
+	validate_slc_str_t();
 
 	return FAIL_VALIDATION;
 }
@@ -125,6 +126,7 @@ void game_patches()
 	patch_slc_script_object_t();
 
 	patch_slc_num_t();
+	validate_slc_num_t();
 }
 
 #pragma pack(push,1)

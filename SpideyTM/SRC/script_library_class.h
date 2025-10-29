@@ -264,8 +264,11 @@ extern slc_num_t* slc_num;
 // CLASS slc_str_t supports script language built-in type STR
 class slc_str_t : public script_library_class
 {
+	friend void validate_slc_str_t(void);
+	friend void patch_slc_str_t(void);
 private:
-	std::vector<stringx*> strings;
+	// @Patch - is a pointer
+	std::vector<stringx*> *strings;
 public:
   // constructor required
   EXPORT slc_str_t(const char* n,int sz,const char* p=NULL);

@@ -303,7 +303,6 @@ slc_num_t::slc_num_t(const char* n,int sz,const char* p)
 // read a num value from a stream
 void slc_num_t::read_value(chunk_file& fs,char* buf)
 {
-	// @TODO
   serial_in(fs,(vm_num_t*)buf);
 }
 #endif
@@ -312,41 +311,61 @@ void slc_num_t::read_value(chunk_file& fs,char* buf)
 
 // CLASS slc_str_t supports script language built-in type STR
 
+// @TODO - maybe important
 slc_str_t* slc_str = NULL;
 
 
+// @Ok
+// @NotMatching - slightly different code gen but no biggie
 slc_str_t::slc_str_t(const char* n,int sz,const char* p)
-  : script_library_class(n,sz,p)
+  : script_library_class(n,sz,p),
+	strings(NULL)
 {
 }
 
 // destructor needed to delete managed strings
 slc_str_t::~slc_str_t()
 {
-  purge();
+	purge();
 }
 
 #ifndef NO_SERIAL_IN
 // read a str value from a stream
 void slc_str_t::read_value(chunk_file& fs,char* buf)
 {
-  // read NEW stringx and add to managed strings list
-  stringx* s = NEW stringx;
-  	// @TODO
-  //serial_in(fs,s);
-  strings.push_back(s);
-  // copy stringx pointer into buffer
-  *(vm_str_t*)buf = s;
+	// read NEW stringx and add to managed strings list
+	stringx* s = NEW stringx;
+	serial_in(fs,s);
+
+	// @Patch - strings is a pointer
+	if (!this->strings)
+	{
+		this->strings = NEW std::vector<stringx*>;
+	}
+
+
+	strings->push_back(s);
+	// copy stringx pointer into buffer
+	*(vm_str_t*)buf = s;
 }
 #endif
 
 
-void slc_str_t::purge()
+INLINE void slc_str_t::purge()
 {
+	// @Patch - strings is a pointer
+	if (this->strings)
+	{
+		for (std::vector<stringx*>::iterator i=strings->begin(); i!=strings->end(); ++i)
+		{
+			delete *i;
+		}
 
-  for (std::vector<stringx*>::iterator i=strings.begin(); i!=strings.end(); ++i)
-    delete *i;
-  strings = std::vector<stringx*>();
+		// @Patch - added resize too
+		this->strings->resize(0);
+
+		this->strings = NULL;
+	}
 }
 
 
@@ -427,7 +446,19 @@ void validate_slc_num_t(void)
 {
 }
 
+void validate_slc_str_t(void)
+{
+	VALIDATE_SIZE(slc_str_t, 0x28);
+
+	VALIDATE(slc_str_t, strings, 0x24);
+}
+
 #include "my_patch.h"
+
+void patch_slc_str_t(void)
+{
+	PATCH_PUSH_RET_POLY(0x007DC2C0, slc_str_t::slc_str_t, "??0slc_str_t@@QAE@PBDH0@Z");
+}
 
 void patch_slc_num_t(void)
 {
