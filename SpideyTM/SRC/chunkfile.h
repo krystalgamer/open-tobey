@@ -21,6 +21,9 @@
 #include "filespec.h"
 #include "mustash.h"
 
+// @Patch
+#include "my_export.h"
+
 class chunk_file
 {
   public:
@@ -116,15 +119,16 @@ public:
 
   basic serial_in's
 -------------------------------------------------------------------------------------------------------*/
+// @TODO - add export to first, broken somehow
 void serial_in(chunk_file& io,chunk_flavor* d);
-void serial_in(chunk_file& io, int* d);
-void serial_in(chunk_file& io, unsigned short* d);
+EXPORT void serial_in(chunk_file& io, int* d);
+EXPORT void serial_in(chunk_file& io, unsigned short* d);
 
-void serial_in(chunk_file& io, unsigned int* d);
-void serial_in(chunk_file& io, bool* d);
-void serial_in(chunk_file& io, float* d);
-void serial_in(chunk_file& io, double* d);
-void serial_in(chunk_file& io, stringx* d);
+EXPORT void serial_in(chunk_file& io, unsigned int* d);
+EXPORT void serial_in(chunk_file& io, bool* d);
+EXPORT void serial_in(chunk_file& io, float* d);
+EXPORT void serial_in(chunk_file& io, double* d);
+EXPORT void serial_in(chunk_file& io, stringx* d);
 #endif
 
 

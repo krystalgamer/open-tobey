@@ -298,6 +298,8 @@ slc_num_t::slc_num_t(const char* n,int sz,const char* p)
 }
 
 #ifndef NO_SERIAL_IN
+// @Ok
+// @Matching
 // read a num value from a stream
 void slc_num_t::read_value(chunk_file& fs,char* buf)
 {
@@ -430,6 +432,11 @@ void validate_slc_num_t(void)
 void patch_slc_num_t(void)
 {
 	PATCH_PUSH_RET_POLY(0x007DBF70, slc_num_t::slc_num_t, "??0slc_num_t@@QAE@PBDH0@Z");
+	PATCH_PUSH_RET_POLY(0x007DC290, slc_num_t::read_value, "?read_value@slc_num_t@@UAEXAAVchunk_file@@PAD@Z");
+
+	VALIDATE_VTABLE(slc_num_t, find_instance, 0x1);
+	VALIDATE_VTABLE(slc_num_t, read_value, 0x2);
+	VALIDATE_VTABLE(slc_num_t, purge, 0x3);
 }
 
 void patch_slc_script_object_t(void)

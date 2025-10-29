@@ -253,8 +253,9 @@ void serial_in(chunk_file& io, bool* d)
 void serial_in(chunk_file& io, float* d)
 {
 	// @TODO
-  CF_SERIAL_IN(io,d);
-  CF_BINARY_OUT(*d);
+	typedef void (*serial_in_ptr)(chunk_file&, float*);
+	serial_in_ptr serial_in_func = (serial_in_ptr)0x0079AEB0;
+	serial_in_func(io, d);
 }
 
 #if defined(TARGET_XBOX)
