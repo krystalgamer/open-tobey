@@ -30,8 +30,9 @@ extern void script_strings_deconstruct();
 // @TODO - focus on slc_manager first
 int sizeof_funcs = sizeof(script_library_class::function_list);
 
-// @TODO
-script_library_class::script_library_class(const char* n,int sz,const char* p)
+// @Ok
+// @Matching
+INLINE script_library_class::script_library_class(const char* n,int sz,const char* p)
   : name(n),
     size(sz),
     parent_name(p),
@@ -156,8 +157,8 @@ slc_manager::~slc_manager()
 // Methods
 
 // @Ok
-// @NotMatching - weird how insert seems diff
-void slc_manager::add(script_library_class* slc)
+// @Matching - it randomly changed
+INLINE void slc_manager::add(script_library_class* slc)
 {
 #ifdef DEBUG
   pair<class_list::iterator,bool> iret = classes.insert( slc );
