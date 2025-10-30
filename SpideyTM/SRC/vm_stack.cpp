@@ -22,6 +22,9 @@ vm_stack::vm_stack(int sa, vm_thread * _my_thread)
 	SP = buffer;
 }
 
+// @Ok
+// @Matching - only can see it inlined and it's weird..
+// prefeer not to inline it though
 vm_stack::~vm_stack()
 {
 	delete[] buffer;

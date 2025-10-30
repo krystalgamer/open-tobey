@@ -29,16 +29,12 @@ unsigned int vm_thread::id_counter = 0;
 // @Ok
 // @PartialMatching - stl on the reserve call
 vm_thread::vm_thread()
-
   : inst(NULL),
     ex(NULL),
     flags( vm_thread::SUSPENDABLE ),
     dstack(),
-
     PC(NULL),
-
     PC_stack(),
-
     entry(script_library_class::function::FIRST_ENTRY)
 {
   PC_stack.reserve(8);
@@ -118,6 +114,8 @@ vm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa,sc
   thread_id = ++GET_ID_COUNTER;
 }
 
+// @Ok
+// @NotMatching - weird code gen from both regarding freeing memory
 vm_thread::~vm_thread()
 {
   // if this thread was spawned via an event callback, re-enable the callback here
@@ -400,4 +398,6 @@ void patch_vm_thread(void)
 	PATCH_PUSH_RET_POLY(0x007E7270, vm_thread::vm_thread, "??0vm_thread@@QAE@XZ");
 	PATCH_PUSH_RET_POLY(0x007E73D0, vm_thread::vm_thread, "??0vm_thread@@QAE@PAVinstance@script_object@@PBVvm_executable@@H@Z");
 	PATCH_PUSH_RET_POLY(0x007E7540, vm_thread::vm_thread, "??0vm_thread@@QAE@PAVinstance@script_object@@PBVvm_executable@@HPAVscript_callback@@@Z");
+
+	PATCH_PUSH_RET_POLY(0x007E7660, vm_thread::~vm_thread, "??1vm_thread@@QAE@XZ");
 }
