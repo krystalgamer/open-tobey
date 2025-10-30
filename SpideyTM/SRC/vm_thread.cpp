@@ -32,11 +32,9 @@ vm_thread::vm_thread()
 
     PC(NULL),
 
-    PC_stack()
+    PC_stack(),
 
-	//@Patch
-	//,
-    //entry(script_library_class::function::FIRST_ENTRY)
+    entry(script_library_class::function::FIRST_ENTRY)
 {
   PC_stack.reserve(8);
   local_region = NULL;

@@ -149,8 +149,9 @@ class vm_stack
 
   // Friends
   friend class vm_thread;
+	friend void validate_vm_stack(void);
+	friend void patch_vm_stack(void);
   };
 
-void validate_vm_stack(void);
 
 #endif  // _VM_STACK_H
