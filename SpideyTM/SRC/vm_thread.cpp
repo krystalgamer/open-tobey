@@ -157,28 +157,24 @@ bool vm_thread::run()
 
 bool vm_thread::call_script_library_function( const argument_t& arg, const unsigned short* oldPC )
 {
-	// @Patch
-	/*
-  char* oldSP = dstack.get_SP();
-  if ( !((*arg.lfr)(dstack,entry)) )
-  {
-    // library function has not generated a return value yet;
-    // next cycle will call library function again
-    PC = oldPC;
-    dstack.set_SP( oldSP );
-    // flag signifies re-call of library function
-    entry = script_library_class::function::RECALL_ENTRY;
-    // interrupt thread (will resume next frame)
-    return false;
-  }
+	char* oldSP = dstack.get_SP();
+	if ( !((*arg.lfr)(dstack,entry)) )
+	{
+		// library function has not generated a return value yet;
+		// next cycle will call library function again
+		PC = oldPC;
+		dstack.set_SP( oldSP );
+		// flag signifies re-call of library function
+		entry = script_library_class::function::RECALL_ENTRY;
+		// interrupt thread (will resume next frame)
+		return false;
+	}
 
-  else
-  {
-
-    entry = script_library_class::function::FIRST_ENTRY;  // reset for next library call
-    return true;
-  }
-  */
+	else
+	{
+		entry = script_library_class::function::FIRST_ENTRY;  // reset for next library call
+		return true;
+	}
 	return false;
 }
 
@@ -391,4 +387,6 @@ void patch_vm_thread(void)
 	PATCH_PUSH_RET(0x007E9340, vm_thread::create_static_event_callback);
 
 	PATCH_PUSH_RET(0x007E9270, vm_thread::create_event_callback);
+
+	PATCH_PUSH_RET(0x007E90B0, vm_thread::set_flag);
 }
