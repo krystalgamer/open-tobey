@@ -27,6 +27,9 @@ class script_callback;
 
 class vm_thread
   {
+
+		friend void validate_vm_thread(void);
+		friend void patch_vm_thread(void);
   // Types
   protected:
     union argument_t

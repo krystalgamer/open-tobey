@@ -258,6 +258,8 @@ void vm_thread::create_event_callback( const argument_t& arg, bool one_shot )
 }
 
 
+// @Ok
+// @Matching
 void vm_thread::create_static_event_callback( const argument_t& arg, bool one_shot )
 {
   // pop function parameters
@@ -274,9 +276,9 @@ void vm_thread::create_static_event_callback( const argument_t& arg, bool one_sh
 
 // Internal Methods
 
-// program counter stack
 // @Ok
 // @Matching
+// program counter stack
 void vm_thread::pop_PC()
 {
   if ( !PC_stack.empty() )
@@ -387,4 +389,5 @@ void patch_vm_thread(void)
 	PATCH_PUSH_RET(0x007E9710, vm_thread::set_camera_priority);
 
 	PATCH_PUSH_RET(0x007E9390, vm_thread::pop_PC);
+	PATCH_PUSH_RET(0x007E9340, vm_thread::create_static_event_callback);
 }
