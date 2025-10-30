@@ -240,6 +240,8 @@ void vm_thread::spawn_parallel_thread( const argument_t& arg )
 
 
 
+// @Ok
+// @Matching
 void vm_thread::create_event_callback( const argument_t& arg, bool one_shot )
 {
   // pop local script object instance pointer (instance to which NEW thread will be added)
@@ -322,11 +324,8 @@ void vm_thread::slf_error( const stringx& err )
 {
   // obtain pointer to vm_executable that corresponds to current PC
 
-  const vm_executable* cur_ex = g_world_ptr->get_script_manager()->find_function_by_address( PC );
-  if ( cur_ex )
-    error( inst->get_name() + ": " + cur_ex->get_owner()->get_name() + "::" + cur_ex->get_fullname() + ":\n" + err );
-  else
-    error( inst->get_name() + ": (UNKNOWN FUNCTION!):\n" + err );
+	// @TODO
+	PANIC;
 }
 
 
@@ -390,4 +389,6 @@ void patch_vm_thread(void)
 
 	PATCH_PUSH_RET(0x007E9390, vm_thread::pop_PC);
 	PATCH_PUSH_RET(0x007E9340, vm_thread::create_static_event_callback);
+
+	PATCH_PUSH_RET(0x007E9270, vm_thread::create_event_callback);
 }
