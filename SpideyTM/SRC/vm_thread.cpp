@@ -62,6 +62,8 @@ vm_thread::vm_thread()
 // runs.  But it seems to be working okay.  (dc 05/21/02)
 #endif
 
+// @Ok
+// @PartialMatching - stl on the reserve call
 vm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa)
   : inst(i),
     ex(x),
@@ -396,4 +398,5 @@ void patch_vm_thread(void)
 
 
 	PATCH_PUSH_RET_POLY(0x007E7270, vm_thread::vm_thread, "??0vm_thread@@QAE@XZ");
+	PATCH_PUSH_RET_POLY(0x007E73D0, vm_thread::vm_thread, "??0vm_thread@@QAE@PAVinstance@script_object@@PBVvm_executable@@H@Z");
 }
