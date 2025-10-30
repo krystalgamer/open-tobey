@@ -51,6 +51,30 @@ bool vm_stack::push(const char* src, int n)
   return true;
 }
 
+// Internal Methods
+
+// @Ok
+// @Matching
+void vm_stack::init(int sa)
+{
+	assert(!(sa&3));
+	if (buffer)
+	{
+		delete[] buffer;
+	}
+	salloc = sa;
+	buffer = NEW char[sa];
+	// @Patch - add unitialized bit
+	if (sa > 0)
+	{
+		int stop = sa >> 2;
+		assert (sa == stop*4);
+		for (int i=0;i<stop;i++) ((unsigned int *)buffer)[i] = UNINITIALIZED_SCRIPT_PARM;
+	}
+
+	SP = buffer;
+}
+
 
 
 #include "my_assertions.h"
@@ -76,4 +100,5 @@ void patch_vm_stack(void)
 	PATCH_PUSH_RET_POLY(0x007E5AC0, vm_stack::vm_stack, "??0vm_stack@@QAE@HPAVvm_thread@@@Z");
 
 	PATCH_PUSH_RET(0x007E5B70, vm_stack::pop_num);
+	PATCH_PUSH_RET(0x007E5BD0, vm_stack::init);
 }
