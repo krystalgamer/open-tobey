@@ -44,7 +44,10 @@ class signal_callback
   // @Matching
   EXPORT virtual void spawn(signaller*sgrptr=0) = 0;
 
+  // @Ok
+  // @Matching
   EXPORT void disable() { disabled = true; }
+
   EXPORT void enable() { disabled = false; }
   // @Ok
   // @Matching
