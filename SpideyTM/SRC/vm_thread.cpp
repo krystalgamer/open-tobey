@@ -347,7 +347,7 @@ void vm_thread::set_camera_priority(rational_t pr)
 #include "my_assertions.h"
 static void compile_time_assertions()
 {
-	//StaticAssert<sizeof(vm_thread) == 0x48>::sass();
+	StaticAssert<sizeof(vm_thread) == 0x48>::sass();
 }
 
 void validate_vm_thread(void)
@@ -380,8 +380,7 @@ void patch_vm_thread(void)
 	PATCH_PUSH_RET(0x007E76F0, vm_thread::set_suspended);
 	PATCH_PUSH_RET(0x007E7720, vm_thread::set_suspendable);
 
-	// @TODO - when region code is done
-	//PATCH_PUSH_RET(0x007E93D0, vm_thread::remove_from_local_region);
+	PATCH_PUSH_RET(0x007E93D0, vm_thread::remove_from_local_region);
 
 	PATCH_PUSH_RET(0x007E93F0, vm_thread::remove_from_local_character);
 
