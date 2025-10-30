@@ -21,8 +21,14 @@
 
 // Constructors
 
+// @TODO - replace this when all usages are using the proper
 unsigned int vm_thread::id_counter = 0;
+//#define GET_ID_COUNTER (*reinterpret_cast<unsigned int*>(0x00B768B0))
 
+#define GET_ID_COUNTER vm_thread::id_counter
+
+// @Ok
+// @PartialMatching - stl on the reserve call
 vm_thread::vm_thread()
 
   : inst(NULL),
@@ -46,7 +52,7 @@ vm_thread::vm_thread()
   my_callback = NULL;
   camera_priority = 0;
 
-  thread_id = ++id_counter;
+  thread_id = ++GET_ID_COUNTER;
 }
 
 #ifdef TARGET_XBOX
@@ -62,10 +68,8 @@ vm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa)
     flags( vm_thread::SUSPENDABLE ),
     dstack(sa,this),
     PC(ex->get_start()),
-    PC_stack()
-    //@Patch
-	//,
-    //entry(script_library_class::function::FIRST_ENTRY)
+    PC_stack(),
+    entry(script_library_class::function::FIRST_ENTRY)
 
 {
   PC_stack.reserve(8);
@@ -79,7 +83,7 @@ vm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa)
   my_callback = NULL;
   camera_priority = 0;
 
-  thread_id = ++id_counter;
+  thread_id = ++GET_ID_COUNTER;
 }
 
 // create a thread spawned via the given event callback
@@ -90,10 +94,8 @@ vm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa,sc
     flags( vm_thread::SUSPENDABLE ),
     dstack(sa,this),
     PC(ex->get_start()),
-    PC_stack()
-    //@Patch
-	//,
-    //entry(script_library_class::function::FIRST_ENTRY)
+    PC_stack(),
+    entry(script_library_class::function::FIRST_ENTRY)
 {
   PC_stack.reserve(8);
   local_region = NULL;
@@ -111,7 +113,7 @@ vm_thread::vm_thread(script_object::instance* i,const vm_executable* x,int sa,sc
   camera_priority = 0;
 
 
-  thread_id = ++id_counter;
+  thread_id = ++GET_ID_COUNTER;
 }
 
 vm_thread::~vm_thread()
@@ -361,6 +363,10 @@ void validate_vm_thread(void)
 
 	VALIDATE(vm_thread, PC, 0x1C);
 
+	VALIDATE(vm_thread, PC_stack, 0x20);
+
+	VALIDATE(vm_thread, entry, 0x2C);
+
 	VALIDATE(vm_thread, my_callback, 0x30);
 	VALIDATE(vm_thread, local_region, 0x34);
 	VALIDATE(vm_thread, camera_priority, 0x38);
@@ -387,4 +393,7 @@ void patch_vm_thread(void)
 	PATCH_PUSH_RET(0x007E9270, vm_thread::create_event_callback);
 
 	PATCH_PUSH_RET(0x007E90B0, vm_thread::set_flag);
+
+
+	PATCH_PUSH_RET_POLY(0x007E7270, vm_thread::vm_thread, "??0vm_thread@@QAE@XZ");
 }
