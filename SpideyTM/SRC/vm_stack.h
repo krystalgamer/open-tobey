@@ -32,12 +32,12 @@ class vm_stack
     vm_thread * my_thread;
 
   protected:
-    void init(int sa);
-    void set_SP(char* _sp) { SP = _sp; }
+    EXPORT void init(int sa);
+    EXPORT void set_SP(char* _sp) { SP = _sp; }
 
 	// @Ok
 	// @Matching
-    void move_SP(int n)
+    EXPORT void move_SP(int n)
       {
       assert(!(n&3));
       assert(!((unsigned)SP&3));
@@ -47,45 +47,45 @@ class vm_stack
       assert( size()>=0 && size()<=capacity() );
       }
 
-    vm_num_t& top_num() { return *(vm_num_t*)(SP-sizeof(vm_num_t)); }
-    vm_str_t& top_str() { return *(vm_str_t*)(SP-sizeof(vm_str_t)); }
-    vm_signal_t& top_signal() { return *(vm_signal_t*)(SP-sizeof(vm_signal_t)); }
+    EXPORT vm_num_t& top_num() { return *(vm_num_t*)(SP-sizeof(vm_num_t)); }
+    EXPORT vm_str_t& top_str() { return *(vm_str_t*)(SP-sizeof(vm_str_t)); }
+    EXPORT vm_signal_t& top_signal() { return *(vm_signal_t*)(SP-sizeof(vm_signal_t)); }
 
   // Constructors
   public:
 
-    vm_stack() : salloc(0),buffer(NULL),SP(NULL), my_thread(NULL) {}
-    vm_stack(int sa, vm_thread * _my_thread);
-    ~vm_stack();
+    EXPORT vm_stack() : salloc(0),buffer(NULL),SP(NULL), my_thread(NULL) {}
+    EXPORT vm_stack(int sa, vm_thread * _my_thread);
+    EXPORT ~vm_stack();
 
   // Methods
   public:
-    char* get_SP() const  { return SP; }
-    int size() const      { return SP-buffer; }
-    int capacity() const  { return salloc; }
-    vm_thread * get_thread() const {return my_thread;}
+    EXPORT char* get_SP() const  { return SP; }
+    EXPORT int size() const      { return SP-buffer; }
+    EXPORT int capacity() const  { return salloc; }
+    EXPORT vm_thread * get_thread() const {return my_thread;}
 
-    void pop(int n)
+    EXPORT void pop(int n)
       {
       move_SP( -n );
       }
 
 
-    vm_num_t pop_num();
+    EXPORT vm_num_t pop_num();
 
-    vm_str_t pop_str()
+    EXPORT vm_str_t pop_str()
       {
       pop(sizeof(vm_str_t));
       return *(vm_str_t*)SP;
       }
 
-    vm_signal_t pop_signal()
+    EXPORT vm_signal_t pop_signal()
       {
       pop( sizeof(vm_signal_t) );
       return *(vm_signal_t*)SP;
       }
 
-    void* pop_addr()
+    EXPORT void* pop_addr()
       {
       pop(sizeof(void*));
 
@@ -93,7 +93,7 @@ class vm_stack
       }
 
     EXPORT bool push( const char* src, int n );
-    bool push(vm_num_t v)
+    EXPORT bool push(vm_num_t v)
       {
       *(vm_num_t*)SP = v;
       move_SP( sizeof(vm_num_t) );
@@ -107,7 +107,7 @@ class vm_stack
       return true;
       }
 
-    bool push(vm_str_t v)
+    EXPORT bool push(vm_str_t v)
       {
 
       *(vm_str_t*)SP = v;
@@ -122,7 +122,7 @@ class vm_stack
       return true;
       }
 
-    bool push( vm_signal_t v )
+    EXPORT bool push( vm_signal_t v )
 
       {
       *(vm_signal_t*)SP = v;
@@ -135,7 +135,7 @@ class vm_stack
       return true;
       }
 
-    bool push(unsigned v)
+    EXPORT bool push(unsigned v)
       {
       *(int*)SP = v;
       move_SP( sizeof(int) );

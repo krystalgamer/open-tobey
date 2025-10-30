@@ -10,6 +10,7 @@ vm_stack::vm_stack(int sa, vm_thread * _my_thread)
 	salloc = sa;
 	buffer = NEW char[sa];
 
+	// @Patch - add unitialized bit
 	if (sa > 0)
 	{
 		int stop = sa >> 2;
@@ -24,6 +25,14 @@ vm_stack::vm_stack(int sa, vm_thread * _my_thread)
 vm_stack::~vm_stack()
 {
 	delete[] buffer;
+}
+
+// @Ok
+// @Matching
+vm_num_t vm_stack::pop_num()
+{
+	pop(sizeof(vm_num_t));
+	return *(vm_num_t*)SP;
 }
 
 
@@ -43,11 +52,6 @@ bool vm_stack::push(const char* src, int n)
 }
 
 
-// @TODO
-vm_num_t vm_stack::pop_num()
-{
-	return 0;
-}
 
 #include "my_assertions.h"
 static void compile_time_assertions()
@@ -70,4 +74,6 @@ void patch_vm_stack(void)
 	PATCH_PUSH_RET_POLY(0x007E5B90, vm_stack::push, "?push@vm_stack@@QAE_NPBDH@Z");
 
 	PATCH_PUSH_RET_POLY(0x007E5AC0, vm_stack::vm_stack, "??0vm_stack@@QAE@HPAVvm_thread@@@Z");
+
+	PATCH_PUSH_RET(0x007E5B70, vm_stack::pop_num);
 }
