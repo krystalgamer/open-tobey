@@ -275,6 +275,8 @@ void vm_thread::create_static_event_callback( const argument_t& arg, bool one_sh
 // Internal Methods
 
 // program counter stack
+// @Ok
+// @Matching
 void vm_thread::pop_PC()
 {
   if ( !PC_stack.empty() )
@@ -383,4 +385,6 @@ void patch_vm_thread(void)
 	PATCH_PUSH_RET(0x007E93F0, vm_thread::remove_from_local_character);
 
 	PATCH_PUSH_RET(0x007E9710, vm_thread::set_camera_priority);
+
+	PATCH_PUSH_RET(0x007E9390, vm_thread::pop_PC);
 }

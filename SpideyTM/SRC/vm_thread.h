@@ -36,9 +36,7 @@ class vm_thread
       short word;
       char* sdr;
 
-	  // @TODO
-      //script_library_class::function* lfr;
-      void* lfr;
+      script_library_class::function* lfr;
 
       vm_executable* sfr;
       unsigned binary;
@@ -69,9 +67,7 @@ class vm_thread
 	std::vector<const unsigned short*> PC_stack;
     // used when calling library functions
 
-	PADDING(4);
-	// @Patch
-    //script_library_class::function::entry_t entry;
+    script_library_class::function::entry_t entry;
     // if thread was spawned by an event callback, this points to the callback definition
     script_callback* my_callback;
 
@@ -90,12 +86,12 @@ class vm_thread
   // Constructors
   public:
 
-    vm_thread();
-    vm_thread(script_object::instance* i,const vm_executable* x,int sa);
-    vm_thread(script_object::instance* i,const vm_executable* x,int sa,script_callback* cb);
-    ~vm_thread();
-    region * get_local_region() const {return local_region;}
-    void set_local_region(region * reg) {local_region = reg; /*! local_character = NULL; !*/}
+    EXPORT vm_thread();
+    EXPORT vm_thread(script_object::instance* i,const vm_executable* x,int sa);
+    EXPORT vm_thread(script_object::instance* i,const vm_executable* x,int sa,script_callback* cb);
+    EXPORT ~vm_thread();
+    EXPORT region * get_local_region() const {return local_region;}
+    EXPORT void set_local_region(region * reg) {local_region = reg; /*! local_character = NULL; !*/}
     EXPORT void remove_from_local_region();
 
 //!    character * get_local_character() const {return local_character;}
@@ -104,16 +100,16 @@ class vm_thread
 
   // Methods
   public:
-    script_object::instance* get_instance() const { return inst; }
+    EXPORT script_object::instance* get_instance() const { return inst; }
 
-    const vm_executable* get_executable() const { return ex; }
+    EXPORT const vm_executable* get_executable() const { return ex; }
 
     EXPORT vm_stack& get_data_stack() { return dstack; }
 
 	// @Ok
 	// @Matching
     EXPORT void set_flag( flags_t f, bool v ) { flags = v? (flags|f) : (flags&~f); }
-    bool is_flagged( flags_t f ) const { return flags & f; }
+    EXPORT bool is_flagged( flags_t f ) const { return flags & f; }
 
     EXPORT void set_suspended( bool v );
 	// @Ok
@@ -124,16 +120,16 @@ class vm_thread
     EXPORT bool is_suspendable() const { return is_flagged( SUSPENDABLE ); }
 
     EXPORT void set_camera_priority( rational_t pr );
-    rational_t get_camera_priority() { return(camera_priority); }
+    EXPORT rational_t get_camera_priority() { return(camera_priority); }
 
     // Execute this thread until interrupted or terminated.
     // Return true if the thread should be killed.
-    bool run();
+    EXPORT bool run();
 
-    void spawn_subthread(vm_executable const * new_ex);
+    EXPORT void spawn_subthread(vm_executable const * new_ex);
 
-    void slf_error( const stringx& err );
-    void slf_warning( const stringx& err );
+    EXPORT void slf_error( const stringx& err );
+    EXPORT void slf_warning( const stringx& err );
 
     //unsigned int get_thread_id() const     { return(thread_id); }
 
@@ -147,18 +143,23 @@ class vm_thread
   // Internal Methods
   protected:
     // data stack
-    void dstack_init(int sa) { dstack.init(sa); }
+    EXPORT void dstack_init(int sa)
+	{
+		// @TODO
+		PANIC;
+		//dstack.init(sa);
+	}
     // program counter stack
 
-    void push_PC() { PC_stack.push_back(PC); }
+    EXPORT void push_PC() { PC_stack.push_back(PC); }
 
-    void pop_PC();
+    EXPORT void pop_PC();
 
-    bool call_script_library_function( const argument_t& arg, const unsigned short* oldPC );
-    void spawn_sub_thread( const argument_t& arg );
-    void spawn_parallel_thread( const argument_t& arg );
-    void create_event_callback( const argument_t& arg, bool one_shot );
-    void create_static_event_callback( const argument_t& arg, bool one_shot );
+    EXPORT bool call_script_library_function( const argument_t& arg, const unsigned short* oldPC );
+    EXPORT void spawn_sub_thread( const argument_t& arg );
+    EXPORT void spawn_parallel_thread( const argument_t& arg );
+    EXPORT void create_event_callback( const argument_t& arg, bool one_shot );
+    EXPORT void create_static_event_callback( const argument_t& arg, bool one_shot );
 
 
   // Friends

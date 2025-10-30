@@ -74,15 +74,8 @@ INLINE script_library_class::~script_library_class()
 
 const script_library_class::function* script_library_class::find(const char* n) const
 {
-
-  function bob(0);
-  // @TODO
-  //bob.name = strdupcpp(n);
-  function_list::const_iterator fli = funcs.find(&bob);
-  if (fli == funcs.end())
-    return NULL;
-  return *fli;
-
+	// @TODO
+	PANIC;
 }
 
 
