@@ -59,6 +59,8 @@ class vm_executable
     EXPORT bool is_static() const                   { return static_func; }
     EXPORT bool is_linked() const                   { return linked; }
     EXPORT int get_parms_stacksize() const          { return parms_stacksize; }
+	// @Ok
+	// @Matching
     EXPORT const unsigned short* get_start() const  { return buffer; }
     EXPORT int get_size() const                     { return buffer_len; }
 
