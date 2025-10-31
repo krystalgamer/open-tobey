@@ -4,6 +4,9 @@
 #include "..\singleton.h"
 #include "..\ostimer.h"
 
+#include <mmsystem.h>
+#pragma comment (lib, "winmm")
+
 DEFINE_SINGLETON(master_clock)
 
 // use timeGetTime because QueryPerformanceCounter has problems on some machines
@@ -73,64 +76,28 @@ float hires_clock_t::get_frequency( void )
 
 }
 
+// @TODO - replace with proper
+#define GET_TIME_UNK (*reinterpret_cast<bool*>(0x0189D708))
+bool timeUnk;
 
 hires_clock_t::hires_clock_t()
 {
-  mFreq = 0.0f;
+	if (!GET_TIME_UNK)
+	{
+		timeBeginPeriod(1u);
+	}
 
-  if (g_master_clock_is_up == true)
-
-    reset();
-  else
-    last_reset_ticks = 0;
-
-
-  mFreq = get_frequency();
+	this->time = timeGetTime();
 }
 
 time_value_t hires_clock_t::elapsed() const
 {
-  uint64 ticks = master_clock::inst()->elapsed() - last_reset_ticks;
-
-  return ((float)ticks) * mFreq;
+	PANIC;
 }
 
 time_value_t hires_clock_t::elapsed_and_reset(void)
 {
-  const time_value_t small_time = 0.00001f;
-  const time_value_t big_time = 1.0000f;  
-
-#ifdef FRAMERATE_LOCK
-  wait_for_lock();
-#endif
-
-  uint64 cur_ticks = master_clock::inst()->elapsed();
-
-
-  assert( cur_ticks );
-
-  if((cur_ticks - last_reset_ticks) == 0)
-  {
-    return small_time;
-  }
-
-
-  assert( cur_ticks - last_reset_ticks );
-
-  float el = (cur_ticks - last_reset_ticks) * mFreq;
-
-  last_reset_ticks = cur_ticks;
-
-  if( el >= big_time )
-  {
-    el = big_time;
-  }
-  else if ( el <= small_time )
-  {
-    el = small_time;
-  }
-
-  return el;
+	PANIC;
 }
 
 #ifdef FRAMERATE_LOCK
@@ -146,3 +113,18 @@ void hires_clock_t::wait_for_lock() const
   } while (cur_ticks - last_reset_ticks < lock_ticks);
 }
 #endif
+
+
+#include "../my_assertions.h"
+
+void validate_hires_clock_t(void)
+{
+	VALIDATE_SIZE(hires_clock_t, 0x4);
+}
+
+#include "../my_patch.h"
+
+void patch_hires_clock_t(void)
+{
+	PATCH_PUSH_RET_POLY(0x008310B0, hires_clock_t::hires_clock_t, "??0hires_clock_t@@QAE@XZ");
+}

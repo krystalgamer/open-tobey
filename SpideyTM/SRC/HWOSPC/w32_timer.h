@@ -79,10 +79,12 @@ public:
 extern bool g_master_clock_is_up;
 
 class hires_clock_t 
-
 {
-  float mFreq;
-  uint64 last_reset_ticks;
+
+	friend void validate_hires_clock_t(void);
+	friend void patch_hires_clock_t(void);
+
+	DWORD time;
 #ifdef FRAMERATE_LOCK
   static uint64 lock_ticks;
 #endif
@@ -90,15 +92,15 @@ class hires_clock_t
   float get_frequency( void );
 public:
 
-  hires_clock_t();
+  EXPORT hires_clock_t();
 
-  void reset() 
+  EXPORT void reset() 
   {
-    last_reset_ticks = master_clock::inst()->elapsed();
+    //last_reset_ticks = master_clock::inst()->elapsed();
   }
 
-  time_value_t elapsed_and_reset();
-  time_value_t elapsed() const;
+  EXPORT time_value_t elapsed_and_reset();
+  EXPORT time_value_t elapsed() const;
 #ifdef FRAMERATE_LOCK
   void wait_for_lock() const;
 #endif
