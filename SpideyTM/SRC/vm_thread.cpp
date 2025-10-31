@@ -330,14 +330,12 @@ void vm_thread::slf_error( const stringx& err )
 
 
 
+// @TODO - same as slf_error meh
 void vm_thread::slf_warning( const stringx& err )
 {
-  // obtain pointer to vm_executable that corresponds to current PC
-  const vm_executable* cur_ex = g_world_ptr->get_script_manager()->find_function_by_address( PC );
-  if ( cur_ex )
-    warning( inst->get_name() + ": " + cur_ex->get_owner()->get_name() + "::" + cur_ex->get_fullname() + ":\n" + err );
-  else
-    warning( inst->get_name() + ": (UNKNOWN FUNCTION!):\n" + err );
+	typedef void (__fastcall *vm_thread_slf_warning_ptr)(vm_thread*, int, const stringx&);
+	vm_thread_slf_warning_ptr vm_thread_slf_warning = (vm_thread_slf_warning_ptr)0x007E95A0;
+	vm_thread_slf_warning(this, 0, err);
 }
 
 
