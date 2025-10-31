@@ -179,6 +179,8 @@ bool vm_thread::call_script_library_function( const argument_t& arg, const unsig
 }
 
 
+// @Ok
+// @Matching
 void vm_thread::spawn_sub_thread( const argument_t& arg )
 {
   // create NEW thread with initial stack data copied from current stack,
@@ -406,4 +408,5 @@ void patch_vm_thread(void)
 	PATCH_PUSH_RET_POLY(0x007E7660, vm_thread::~vm_thread, "??1vm_thread@@QAE@XZ");
 
 	PATCH_PUSH_RET(0x007E90F0, vm_thread::spawn_parallel_thread);
+	PATCH_PUSH_RET(0x007E8FD0, vm_thread::spawn_sub_thread);
 }
