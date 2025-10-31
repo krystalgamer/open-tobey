@@ -80,6 +80,8 @@ float hires_clock_t::get_frequency( void )
 #define GET_TIME_UNK (*reinterpret_cast<bool*>(0x0189D708))
 bool timeUnk;
 
+// @Ok
+// @Matching
 hires_clock_t::hires_clock_t()
 {
 	if (!GET_TIME_UNK)
@@ -95,9 +97,12 @@ time_value_t hires_clock_t::elapsed() const
 	PANIC;
 }
 
-time_value_t hires_clock_t::elapsed_and_reset(void)
+
+// @Ok
+// @Matching
+time_value_t hires_clock_t::elapsed() const
 {
-	PANIC;
+	return (timeGetTime() - this->time) * 0.001;
 }
 
 #ifdef FRAMERATE_LOCK
@@ -127,4 +132,5 @@ void validate_hires_clock_t(void)
 void patch_hires_clock_t(void)
 {
 	PATCH_PUSH_RET_POLY(0x008310B0, hires_clock_t::hires_clock_t, "??0hires_clock_t@@QAE@XZ");
+	PATCH_PUSH_RET(0x00831140, hires_clock_t::elapsed);
 }
