@@ -136,7 +136,7 @@ INLINE void vm_thread::set_suspended(bool v)
 
 // @Ok
 // @Matching
-void vm_thread::set_suspendable( bool v )
+INLINE void vm_thread::set_suspendable( bool v )
 {
   set_flag( SUSPENDABLE, v);
   if ( !v )
@@ -203,6 +203,9 @@ void vm_thread::spawn_sub_thread( const argument_t& arg )
 }
 
 
+// @Ok
+// @Matching
+// @Neat: the set_suspendable doesn't inline the set_flag (MSVC crazyness)
 void vm_thread::spawn_parallel_thread( const argument_t& arg )
 {
   // create NEW thread with initial stack data copied from current stack,
@@ -341,7 +344,7 @@ void vm_thread::slf_warning( const stringx& err )
 
 // @Ok
 // @Matching
-void vm_thread::set_camera_priority(rational_t pr)
+INLINE void vm_thread::set_camera_priority(rational_t pr)
 {
   camera_priority = pr;
 }
@@ -401,4 +404,6 @@ void patch_vm_thread(void)
 	PATCH_PUSH_RET_POLY(0x007E7540, vm_thread::vm_thread, "??0vm_thread@@QAE@PAVinstance@script_object@@PBVvm_executable@@HPAVscript_callback@@@Z");
 
 	PATCH_PUSH_RET_POLY(0x007E7660, vm_thread::~vm_thread, "??1vm_thread@@QAE@XZ");
+
+	PATCH_PUSH_RET(0x007E90F0, vm_thread::spawn_parallel_thread);
 }
