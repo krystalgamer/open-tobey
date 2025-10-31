@@ -316,11 +316,15 @@ STUBBED(vm_thread_remove_from_local_character, "vm_thread::remove_from_local_cha
 }
 
 
+// @TODO - don't care for now it seems to call into game stuff to beware
 void vm_thread::slf_error( const stringx& err )
 {
-  // obtain pointer to vm_executable that corresponds to current PC
+	typedef void (__fastcall *vm_thread_slf_error_ptr)(vm_thread*, int, const stringx&);
 
-	// @TODO
+	vm_thread_slf_error_ptr vm_thread_slf_error = (vm_thread_slf_error_ptr)0x007E9430;
+	vm_thread_slf_error(this, 0, err);
+
+	// should never reach here but it causes it to be a noreturn which I want
 	PANIC;
 }
 
