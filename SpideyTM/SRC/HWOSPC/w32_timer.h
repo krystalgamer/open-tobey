@@ -94,10 +94,7 @@ public:
 
   EXPORT hires_clock_t();
 
-  EXPORT void reset() 
-  {
-    //last_reset_ticks = master_clock::inst()->elapsed();
-  }
+  EXPORT void reset();
 
   EXPORT time_value_t elapsed_and_reset();
   EXPORT time_value_t elapsed() const;

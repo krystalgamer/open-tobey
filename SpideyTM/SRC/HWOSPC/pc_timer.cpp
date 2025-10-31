@@ -94,6 +94,13 @@ hires_clock_t::hires_clock_t()
 
 // @Ok
 // @Matching
+void hires_clock_t::reset()
+{
+	this->time = timeGetTime();
+}
+
+// @Ok
+// @Matching
 time_value_t hires_clock_t::elapsed_and_reset(void)
 {
 	DWORD cur = timeGetTime();
@@ -141,4 +148,6 @@ void patch_hires_clock_t(void)
 	PATCH_PUSH_RET_POLY(0x008310B0, hires_clock_t::hires_clock_t, "??0hires_clock_t@@QAE@XZ");
 	PATCH_PUSH_RET(0x00831140, hires_clock_t::elapsed);
 	PATCH_PUSH_RET(0x00831100, hires_clock_t::elapsed_and_reset);
+
+	PATCH_PUSH_RET(0x008310E0, hires_clock_t::reset);
 }
