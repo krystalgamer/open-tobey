@@ -143,7 +143,11 @@ INLINE void vm_thread::set_suspendable( bool v )
     set_suspended( false );
 }
 
-// @TODO
+// @Ok
+// @PseudoMatching - checked the pseudo and the varialbes are in the same spot
+// there's some crazyness with running being reset on each execution but it seems to be
+// related to MSVC randomness
+// @Neat
 // Execute this thread until interrupted or terminated.
 // Return true if the thread should be killed.
 bool vm_thread::run()
