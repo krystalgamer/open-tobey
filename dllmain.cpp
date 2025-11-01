@@ -16,6 +16,55 @@
 
 HMODULE bink_dll;
 
+// @Ok
+// @Matching
+extern "C" __declspec(naked) void _ftol()
+{
+	__asm
+	{
+		fld     st(0)
+		fistp   [esp-8]
+		fild    [esp-8]
+		mov     edx, dword ptr [esp-4]
+
+		mov     eax, dword ptr [esp-8]
+		test    eax, eax
+
+		jz short loc_82F8B6
+
+		loc_82F886:
+		fsubp   st(1), st
+
+		test    edx, edx
+		jns     short loc_82F8A4
+		fstp    dword ptr [esp-8]
+		mov     ecx, dword ptr [esp-8]
+
+		xor     ecx, 80000000h
+		add     ecx, 7FFFFFFFh
+		adc     eax, 0
+		retn
+
+		loc_82F8A4:
+
+		fstp    dword ptr [esp-8]
+		mov     ecx, dword ptr [esp-8]
+		add     ecx, 7FFFFFFFh
+
+		sbb     eax, 0
+		retn
+
+
+		loc_82F8B6:
+
+		test    edx, 7FFFFFFFh
+		jnz     short loc_82F886
+		fstp    st
+		fstp    st
+		retn
+	}
+}
+
 extern "C" EXPORT int run_assertions(void)
 {
 	validate_stringx();
