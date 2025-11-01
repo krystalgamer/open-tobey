@@ -148,10 +148,6 @@ INLINE void vm_thread::set_suspendable( bool v )
 // Return true if the thread should be killed.
 bool vm_thread::run()
 {
-	typedef bool (__fastcall *vm_thread_run_ptr)(vm_thread*);
-	vm_thread_run_ptr vm_thread_run = (vm_thread_run_ptr)0x007E7750;
-	return vm_thread_run(this);
-
 #if defined(TARGET_PC) && !defined(BUILD_BOOTABLE)
   if(g_script_debugger_running)
   {
@@ -183,6 +179,8 @@ assert(PC_stack.end() >= PC_stack.begin());
   opcode_t op;
   opcode_arg_t argtype;
   argument_t arg;
+  // @Patch - anything to zero it
+  arg.sfr = 0;
 
 //	debug_print(  "enter vm_thread::run" );
 
@@ -193,8 +191,9 @@ assert(PC_stack.end() >= PC_stack.begin());
 
   bool running = true;
   bool kill_me = false;
-  while (running)
 
+
+  while (running)
   {
     #if THREAD_PROFILING
     ++prof_opcount;
@@ -545,9 +544,19 @@ assert(PC_stack.end() >= PC_stack.begin());
         break;
       case OP_ARG_SFR:    // function member reference (4 bytes)
         // kill other thread(s)
+		{
+			// @Patch
+			vm_thread *v52 = NULL;
+			if (this->ex == arg.sfr)
+			{
+				running = false;
+				kill_me = true;
+				v52 = this;
+			}
 
-		// @Patch - add second argument
-        inst->kill_thread(arg.sfr, this);
+			// @Patch - add second argument
+			inst->kill_thread(arg.sfr, v52);
+		}
         break;
       default:
         break;
@@ -1153,13 +1162,38 @@ assert(PC_stack.end() >= PC_stack.begin());
         // spawn a sub-thread on this script object instance
         create_static_event_callback( arg, true );
       }
+	  break;
+
+  // @Patch
+	case OP_KL2:
+	  {
+		script_object::instance* local_inst = (script_object::instance*)dstack.pop_addr();
+		if ( local_inst==NULL || (uint32)local_inst==UNINITIALIZED_SCRIPT_PARM )
+		{
+			slf_error( "Use of OP_KL2 by " + arg.sfr->get_fullname() + ": invalid local script object instance pointer" );
+		}
+
+		if (IsBadReadPtr(local_inst, sizeof(script_object::instance)))
+		{
+			slf_error("reference to bad or uninitialized script object instance value");
+		}
+
+		vm_thread* v57 = NULL;
+		if (this->inst == local_inst && this->ex == arg.sfr)
+		{
+			running = false;
+			kill_me = true;
+			v57 = this;
+		}
+
+		local_inst->kill_thread(arg.sfr, v57);
+	  }
 
       break;
 
     default:
       assert(0);
     }
-
   }
 
 //	debug_print(  "leave vm_thread::run" );
@@ -1174,7 +1208,9 @@ assert(PC_stack.end() >= PC_stack.begin());
   return kill_me;
 }
 
-bool vm_thread::call_script_library_function( const argument_t& arg, const unsigned short* oldPC )
+// @Ok
+// @InlineMatching
+INLINE bool vm_thread::call_script_library_function( const argument_t& arg, const unsigned short* oldPC )
 {
 	char* oldSP = dstack.get_SP();
 	if ( !((*arg.lfr)(dstack,entry)) )
@@ -1188,7 +1224,6 @@ bool vm_thread::call_script_library_function( const argument_t& arg, const unsig
 		// interrupt thread (will resume next frame)
 		return false;
 	}
-
 	else
 	{
 		entry = script_library_class::function::FIRST_ENTRY;  // reset for next library call
@@ -1282,7 +1317,7 @@ void vm_thread::create_event_callback( const argument_t& arg, bool one_shot )
 
 // @Ok
 // @Matching
-void vm_thread::create_static_event_callback( const argument_t& arg, bool one_shot )
+INLINE void vm_thread::create_static_event_callback( const argument_t& arg, bool one_shot )
 {
   // pop function parameters
 
@@ -1301,7 +1336,7 @@ void vm_thread::create_static_event_callback( const argument_t& arg, bool one_sh
 // @Ok
 // @Matching
 // program counter stack
-void vm_thread::pop_PC()
+INLINE void vm_thread::pop_PC()
 {
   if ( !PC_stack.empty() )
   {
@@ -1428,4 +1463,6 @@ void patch_vm_thread(void)
 
 	PATCH_PUSH_RET(0x007E90F0, vm_thread::spawn_parallel_thread);
 	PATCH_PUSH_RET(0x007E8FD0, vm_thread::spawn_sub_thread);
+
+	PATCH_PUSH_RET(0x00007E7750, vm_thread::run);
 }

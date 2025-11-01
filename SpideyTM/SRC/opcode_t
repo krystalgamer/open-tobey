@@ -52,3 +52,5 @@ ENUMMAC(OP_ECB,"ECB")  // create event callback
 ENUMMAC(OP_SCB,"SCB")  // create static event callback (no object instance pointer)
 ENUMMAC(OP_ECO,"ECO")  // create one-shot event callback
 ENUMMAC(OP_SCO,"SCO")  // create static one-shot event callback (no object instance pointer)
+
+ENUMMAC(OP_KL2,"KL2")  // create static one-shot event callback (no object instance pointer)
