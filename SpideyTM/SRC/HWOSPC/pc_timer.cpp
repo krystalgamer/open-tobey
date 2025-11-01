@@ -119,6 +119,13 @@ time_value_t hires_clock_t::elapsed() const
 	return (timeGetTime() - this->time) * 0.001;
 }
 
+// @Ok
+// @Matching
+void hires_clock_t::wait_for(float t)
+{
+	Sleep(t);
+}
+
 #ifdef FRAMERATE_LOCK
 // Wait until at least lock_ticks have expired since last reset
 void hires_clock_t::wait_for_lock() const 
@@ -150,4 +157,6 @@ void patch_hires_clock_t(void)
 	PATCH_PUSH_RET(0x00831100, hires_clock_t::elapsed_and_reset);
 
 	PATCH_PUSH_RET(0x008310E0, hires_clock_t::reset);
+
+	PATCH_PUSH_RET(0x00831180, hires_clock_t::wait_for);
 }

@@ -98,6 +98,9 @@ public:
 
   EXPORT time_value_t elapsed_and_reset();
   EXPORT time_value_t elapsed() const;
+
+  // @Patch - guess the name
+  EXPORT static void wait_for(float);
 #ifdef FRAMERATE_LOCK
   void wait_for_lock() const;
 #endif
