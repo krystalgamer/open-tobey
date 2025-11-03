@@ -564,6 +564,9 @@ script_manager::script_manager()
   field_2C = 0;
 }
 
+
+// @Ok
+// @PartialMatching - stl goofyness
 script_manager::~script_manager()
 {
 	this->clear();
