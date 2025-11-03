@@ -443,11 +443,18 @@ void script_object::run( bool ignore_suspended )
 
 // Constructors
 
+// @Ok
+// @PartialMatching - stl goofyness
 script_manager::script_manager()
 : script_objects(),
   script_objects_by_name()
 {
   time_inc = 0.0f;
+
+  field_20 = 0;
+  field_24 = 0;
+  field_28 = 0;
+  field_2C = 0;
 }
 
 script_manager::~script_manager()
@@ -722,9 +729,19 @@ void validate_script_object(void)
 
 void validate_script_manager(void)
 {
-	VALIDATE_SIZE(script_manager, 0x20);
+	// @TODO - validate this size is fine
+	VALIDATE_SIZE(script_manager, 0x30);
 
+	VALIDATE(script_manager, script_objects, 0x0);
 	VALIDATE(script_manager, script_objects_by_name, 0x4);
+	VALIDATE(script_manager, string_set, 0x10);
+
+	VALIDATE(script_manager, time_inc, 0x1C);
+
+	VALIDATE(script_manager, field_20, 0x20);
+	VALIDATE(script_manager, field_24, 0x24);
+	VALIDATE(script_manager, field_28, 0x28);
+	VALIDATE(script_manager, field_2C, 0x2C);
 }
 
 #include "my_patch.h"
@@ -733,6 +750,8 @@ void patch_script_manager(void)
 {
 	PATCH_PUSH_RET(0x007E06A0, script_manager::find_object);
 	PATCH_PUSH_RET(0x007E0E30, script_manager::link);
+
+	PATCH_PUSH_RET_POLY(0x007E0260, script_manager::script_manager, "??0script_manager@@QAE@XZ");
 }
 
 void patch_script_object(void)

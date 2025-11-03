@@ -264,6 +264,11 @@ class script_manager
     string_set_t string_set;
     time_value_t time_inc;
 
+    int field_20;
+    int field_24;
+    int field_28;
+    int field_2C;
+
   // Constructors
   public:
     EXPORT script_manager();
