@@ -572,6 +572,8 @@ script_manager::~script_manager()
 
 // Methods
 
+// @Ok
+// @Matching
 INLINE void script_manager::clear()
 {
 	if (this->field_28)
@@ -771,6 +773,8 @@ stringx const* script_manager::add_string( const stringx& s)
 
 // Internal Methods
 
+// @Ok
+// @PartialMatching - stl goofyness
 INLINE void script_manager::destroy()
 {
   sobj_list::const_iterator i = script_objects.begin();
@@ -863,6 +867,8 @@ void patch_script_manager(void)
 	PATCH_PUSH_RET(0x007E0E30, script_manager::link);
 
 	PATCH_PUSH_RET_POLY(0x007E0260, script_manager::script_manager, "??0script_manager@@QAE@XZ");
+
+	PATCH_PUSH_RET(0x007E04E0, script_manager::clear);
 }
 
 void patch_script_object(void)
