@@ -15,7 +15,7 @@ INLINE script_object::instance::instance(const stringx& n,int sz)
 
 // @Ok
 // @PartialMatching - stl
-script_object::instance::~instance()
+INLINE script_object::instance::~instance()
 {
   for ( thread_list::iterator i=threads.begin(); i!=threads.end(); ++i )
     delete *i;
@@ -336,7 +336,7 @@ script_object::script_object()
 
 // @Ok
 // @PartialMatching - stl goofyness
-script_object::~script_object()
+INLINE script_object::~script_object()
 {
 	destroy();
 }
@@ -346,8 +346,6 @@ script_object::~script_object()
 
 int script_object::find_func( const stringx& func_fullname ) const
 {
-	// @TODO
-	PANIC;
   int i = 0;
   std::vector<vm_executable*>::const_iterator fi = funcs.begin();
   std::vector<vm_executable*>::const_iterator fi_end = funcs.end();
@@ -414,6 +412,8 @@ script_object::instance* script_object::find_instance( const stringx& name ) con
 
 // Internal Methods
 
+// @Ok
+// @PartialMatching - stl
 INLINE void script_object::destroy()
 {
 	instance_list::iterator ii;
@@ -784,6 +784,7 @@ INLINE void script_manager::destroy()
   }
 
   script_objects.resize(0);
+
   script_objects_by_name.clear();
   string_set.clear();
 }
@@ -876,6 +877,10 @@ void patch_script_object(void)
 	PATCH_PUSH_RET_POLY(0x007DF720, script_object::add_instance, "?add_instance@script_object@@QAEPAVinstance@1@ABVstringx@@PAD@Z");
 
 	PATCH_PUSH_RET_POLY(0x007DEAC0, script_object::script_object, "??0script_object@@QAE@XZ");
+
+	PATCH_PUSH_RET(0x007DEDC0, script_object::find_func);
+
+	PATCH_PUSH_RET(0x007DFA80, script_object::destroy);
 }
 
 void patch_script_object_instance(void)
