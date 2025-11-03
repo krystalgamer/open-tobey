@@ -34,11 +34,6 @@ INLINE vm_thread* script_object::instance::add_thread(const vm_executable* ex)
 // @Matching
 vm_thread* script_object::instance::add_thread( const vm_executable* ex, const char* parms )
 {
-	// @TODO - remove when vm_thread done
-	typedef vm_thread* (__fastcall *script_object_instance_add_thread_ptr)(script_object::instance*, int, const vm_executable*, const char*);
-	script_object_instance_add_thread_ptr script_object_instance_add_thread = (script_object_instance_add_thread_ptr)0x007DE420;
-	return script_object_instance_add_thread(this, 0, ex, parms);
-
 	vm_thread* nt = add_thread( ex );
 	assert(nt != NULL);
 
@@ -56,11 +51,6 @@ vm_thread* script_object::instance::add_thread( const vm_executable* ex, const c
 // spawn a NEW thread via the given event callback
 vm_thread* script_object::instance::add_thread( script_callback* cb, const vm_executable* ex, const char* parms )
 {
-	// @TODO - remove when vm_thread done
-	typedef vm_thread* (__fastcall *script_object_instance_add_thread_ptr)(script_object::instance*, int, script_callback*, const vm_executable*, const char*);
-	script_object_instance_add_thread_ptr script_object_instance_add_thread = (script_object_instance_add_thread_ptr)0x007DE540;
-	return script_object_instance_add_thread(this, 0, cb, ex, parms);
-
 	vm_thread* nt = NEW vm_thread( this, ex, VM_STACKSIZE, cb );
 	assert(nt != NULL);
 	threads.push_back( nt );
@@ -501,6 +491,7 @@ const vm_executable* script_manager::find_function_by_address( const unsigned sh
       return &so->get_func( f );
   }
   */
+	PANIC;
   return NULL;
 }
 
@@ -509,6 +500,7 @@ const vm_executable* script_manager::find_function_by_address( const unsigned sh
 void script_manager::load(const char* filename)
   {
 	  // @TODO
+	  PANIC;
 	  /*
   chunk_file io;
 
@@ -550,7 +542,6 @@ void script_manager::link()
 
 // execute all threads on all script object instances
 void script_manager::run(time_value_t t, bool ignore_suspended )
-	// @TODO - depends on script_object shit
 {
 #ifndef PROJECT_KELLYSLATER
 
@@ -597,11 +588,13 @@ void script_manager::check_all_objects( )
     }
   }
   */
+	PANIC;
 }
 
 
 bool script_manager::has_threads() const
 {
+	PANIC;
   sobj_list::const_iterator i = script_objects.begin();
   sobj_list::const_iterator i_end = script_objects.end();
   for ( ; i!=i_end; ++i )
@@ -617,6 +610,7 @@ bool script_manager::has_threads() const
 // for debugging purposes; dump information on all threads to a file
 void script_manager::dump_threads() const
 {
+	PANIC;
 	// @TODO
 	/*
   host_system_file_handle outfile = host_fopen( "\\steel\\dump\\scriptdump.txt", HOST_WRITE );
@@ -748,10 +742,9 @@ void patch_script_object(void)
 
 	PATCH_PUSH_RET(0x007DF140, script_object::find_instance);
 
-	// @TODO - can only do when vm_thread destructor is done
-	//PATCH_PUSH_RET(0x007DF9A0, script_object::run);
-	//PATCH_PUSH_RET_POLY(0x007DF880, script_object::add_thread, "?add_thread@script_object@@QAEPAVvm_thread@@PAVinstance@1@H@Z");
-	//PATCH_PUSH_RET_POLY(0x007DF720, script_object::add_instance, "?add_instance@script_object@@QAEPAVinstance@1@ABVstringx@@PAD@Z");
+	PATCH_PUSH_RET(0x007DF9A0, script_object::run);
+	PATCH_PUSH_RET_POLY(0x007DF880, script_object::add_thread, "?add_thread@script_object@@QAEPAVvm_thread@@PAVinstance@1@H@Z");
+	PATCH_PUSH_RET_POLY(0x007DF720, script_object::add_instance, "?add_instance@script_object@@QAEPAVinstance@1@ABVstringx@@PAD@Z");
 }
 
 void patch_script_object_instance(void)
@@ -762,13 +755,12 @@ void patch_script_object_instance(void)
 	PATCH_PUSH_RET(0x007DE940, script_object::instance::clear_callback_references);
 	PATCH_PUSH_RET(0x007DE980, script_object::instance::dump_threads);
 
-	// @TODO when more of this is done - vm_thread
-	//PATCH_PUSH_RET_POLY(0x007DE340, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@@Z");
-	//PATCH_PUSH_RET_POLY(0x007DE420, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@PBD@Z");
-	//PATCH_PUSH_RET_POLY(0x007DE540, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PAVscript_callback@@PBVvm_executable@@PBD@Z");
-	//PATCH_PUSH_RET(0x007DE800, script_object::instance::run_single_thread);
-	//PATCH_PUSH_RET(0x007DE6A0, script_object::instance::kill_thread);
-	//PATCH_PUSH_RET(0x007DE740, script_object::instance::run);
+	PATCH_PUSH_RET_POLY(0x007DE340, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@@Z");
+	PATCH_PUSH_RET_POLY(0x007DE420, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PBVvm_executable@@PBD@Z");
+	PATCH_PUSH_RET_POLY(0x007DE540, script_object::instance::add_thread, "?add_thread@instance@script_object@@QAEPAVvm_thread@@PAVscript_callback@@PBVvm_executable@@PBD@Z");
+	PATCH_PUSH_RET(0x007DE800, script_object::instance::run_single_thread);
+	PATCH_PUSH_RET(0x007DE6A0, script_object::instance::kill_thread);
+	PATCH_PUSH_RET(0x007DE740, script_object::instance::run);
 
 	PATCH_PUSH_RET_POLY(0x007DE9F0, script_object::instance::thread_exists, "?thread_exists@instance@script_object@@QBE_NPAVvm_thread@@@Z");
 	PATCH_PUSH_RET_POLY(0x007DEA30, script_object::instance::thread_exists, "?thread_exists@instance@script_object@@QBE_NI@Z");
