@@ -330,10 +330,8 @@ script_object::script_object()
 
     funcs(),
     instances()
-  {
-	// @TODO
-	PANIC;
-  }
+{
+}
 
 
 // @Ok
@@ -876,6 +874,8 @@ void patch_script_object(void)
 	PATCH_PUSH_RET(0x007DF9A0, script_object::run);
 	PATCH_PUSH_RET_POLY(0x007DF880, script_object::add_thread, "?add_thread@script_object@@QAEPAVvm_thread@@PAVinstance@1@H@Z");
 	PATCH_PUSH_RET_POLY(0x007DF720, script_object::add_instance, "?add_instance@script_object@@QAEPAVinstance@1@ABVstringx@@PAD@Z");
+
+	PATCH_PUSH_RET_POLY(0x007DEAC0, script_object::script_object, "??0script_object@@QAE@XZ");
 }
 
 void patch_script_object_instance(void)
