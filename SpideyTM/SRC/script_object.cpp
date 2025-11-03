@@ -336,6 +336,8 @@ script_object::script_object()
   }
 
 
+// @Ok
+// @PartialMatching - stl goofyness
 script_object::~script_object()
 {
 	destroy();
@@ -416,15 +418,17 @@ script_object::instance* script_object::find_instance( const stringx& name ) con
 
 INLINE void script_object::destroy()
 {
-	// @TODO
-	PANIC;
-  instance_list::iterator ii;
-  for ( ii=instances.begin(); ii!=instances.end(); ++ii )
+	instance_list::iterator ii;
+	for ( ii=instances.begin(); ii!=instances.end(); ++ii )
+	{
+		delete *ii;
+	}
 
-    delete *ii;
-  std::vector<vm_executable*>::iterator vi;
-  for ( vi=funcs.begin(); vi!=funcs.end(); ++vi )
-    delete *vi;
+	std::vector<vm_executable*>::iterator vi;
+	for ( vi=funcs.begin(); vi!=funcs.end(); ++vi )
+	{
+		delete *vi;
+	}
 }
 
 void script_object::_clear()
