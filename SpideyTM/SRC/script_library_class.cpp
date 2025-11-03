@@ -75,10 +75,17 @@ INLINE script_library_class::~script_library_class()
 // @TODO
 const script_library_class::function* script_library_class::find(const char* n) const
 {
-	// @TODO
-	typedef script_library_class::function* (__fastcall *find_ptr)(const script_library_class*, int, const char*);
-	find_ptr find_real = (find_ptr)0x007DAB20;
-	return find_real(this, 0, n);
+	function bob(0);
+
+	bob.name = strdupcpp(n);
+	function_list::const_iterator fli = funcs.find(&bob);
+
+	if (fli == funcs.end())
+	{
+		return NULL;
+	}
+
+	return *fli;
 }
 
 
@@ -87,7 +94,7 @@ const script_library_class::function* script_library_class::find(const char* n) 
 
 // Constructors
 
-script_library_class::function::function(int dummy)
+INLINE script_library_class::function::function(int dummy)
   : name("")
 {
 }
@@ -506,4 +513,6 @@ void patch_script_library_class(void)
 	PATCH_PUSH_RET_POLY(0x0052C030, script_library_class::find_instance, "?find_instance@script_library_class@@UBEIABVstringx@@@Z");
 	PATCH_PUSH_RET_POLY(0x0052C050, script_library_class::read_value, "?read_value@script_library_class@@UAEXAAVchunk_file@@PAD@Z");
 	PATCH_PUSH_RET_POLY(0x0052C070, script_library_class::purge, "?purge@script_library_class@@UAEXXZ");
+
+	PATCH_PUSH_RET_POLY(0x007DAB20, script_library_class::find, "?find@script_library_class@@QBEPBVfunction@1@PBD@Z");
 }
