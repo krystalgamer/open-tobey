@@ -1,7 +1,15 @@
+#include "global.h"
 #include "vm_executable.h"
 
-#include "oserrmsg.h"
+#include "vm_executable.h"
+#include "opcodes.h"
+#include "script_object.h"
+#include "script_library_class.h"
+//!#include "character.h"
+#include "wds.h"
+#include "signals.h"
 
+#include "oserrmsg.h"
 
 // CLASS vm_executable
 
@@ -119,13 +127,193 @@ unsigned short vm_executable::_string_id(const stringx& s)
   }
 
 
-typedef void (__fastcall *vm_executable_link_ptr)(vm_executable*, int, const script_manager&);
+// @TODO - replace this when all usages are patched
+bool preserved_old_stored_buf;
+#define GET_PRESERVED_OLD_STORED_BUF (*reinterpret_cast<bool*>(0x00944BBC));
+//#define GET_PRESERVED_OLD_STORED_BUF preserved_old_stored_buf
 
-// @TODO
+// @Ok
+// @Matching
 void vm_executable::link(const script_manager& sm)
 {
-	vm_executable_link_ptr vm_executable_link = (vm_executable_link_ptr)0x007E45C0;
-	vm_executable_link(this, 0, sm);
+	// @Patch - added this early return
+	if (preserved_old_stored_buf)
+	{
+		this->linked = 1;
+		return;
+	}
+
+	  if ( !linked )  // cannot perform link more than once!
+    {
+    linked = true;
+    unsigned short opword;
+    opcode_t op;
+    opcode_arg_t argtype;
+    unsigned short dsize;
+    for (unsigned short* PC=buffer; PC<buffer+buffer_len; )
+      {
+      // decode operation word (opcode,argtype,dsize flag)
+      opword = *PC++;
+
+      op = opcode_t(opword >> 8);
+      argtype = opcode_arg_t(opword & OP_ARGTYPE_MASK);
+      dsize = 4;
+      if (opword & OP_DSIZE_FLAG)
+        {
+        // next word is dsize
+        dsize = *PC++;
+        }
+      // link SDR, LFR, SFR, and CLV references to appropriate addresses
+      switch (argtype)
+
+        {
+        case OP_ARG_NULL:   // no argument
+          break;
+        case OP_ARG_NUM:    // constant numeric value (4 bytes)
+
+        case OP_ARG_NUMR:   // constant numeric value used in reverse position (4 bytes; only applies to non-commutative operations)
+          PC += 2;
+          break;
+
+        case OP_ARG_STR:    // constant string value (4 bytes)
+          {
+          // first word is string_id, second is unused until after link
+
+          unsigned short id = *PC++;
+          PC++;
+          // run-time value of argument is pointer to string
+          unsigned addr = int(strings[id]);
+          // value must be stored as consecutive words
+          *(PC-2) = addr >> 16;
+          *(PC-1) = addr & 0x0000FFFF;
+          }
+          break;
+
+        case OP_ARG_WORD:   // constant integer value (2 bytes)
+
+        case OP_ARG_PCR:    // PC-relative address (2 bytes)
+        case OP_ARG_SPR:    // SP-relative address (2 bytes)
+        case OP_ARG_POPO:   // stack contents (pop) plus offset (2 bytes)
+
+          PC++;
+          break;
+        case OP_ARG_SDR:    // static data member reference (4 bytes)
+          {
+          // first word is script object string_id
+          unsigned short id = *PC++;
+          script_object* so = sm.find_object(*strings[id]);
+          assert(so);
+          // second word is static data offset
+          unsigned short offset = *PC++;
+          // run-time address of reference is address of script_object static
+          // data block plus given offset
+          assert( offset < so->get_static_data_size() );
+          unsigned addr = int(so->get_static_data_buffer() + offset);
+
+          // value must be stored as consecutive words
+          *(PC-2) = addr >> 16;
+          *(PC-1) = addr & 0x0000FFFF;
+          }
+          break;
+        case OP_ARG_SFR:    // function member reference (4 bytes)
+          {
+
+          // first word is script object string_id
+          unsigned short id = *PC++;
+          script_object* so = sm.find_object(*strings[id]);
+          assert(so);
+
+          // second word is script function index
+          unsigned short idx = *PC++;
+          // run-time address of reference is address of given member function
+          vm_executable& ex = (vm_executable&)so->get_func( idx );
+          // make sure the referenced function gets linked (necessary because
+          // we now support partial linking of script executable modules)
+          ex.link( sm );
+          unsigned addr = int(&ex);
+          // value must be stored as consecutive words
+          *(PC-2) = addr >> 16;
+          *(PC-1) = addr & 0x0000FFFF;
+          }
+          break;
+        case OP_ARG_LFR:    // script library function reference (4 bytes)
+
+          {
+          // first word is library class string_id
+          unsigned short id = *PC++;
+
+		  // @Patch - dunno why this is here
+		   if (id == 0x317)
+		   {
+			   __asm
+			   {
+				   int 3;
+			   }
+		   }
+          const script_library_class* slc = slc_manager::inst()->find(*strings[id]);
+          if (!slc)
+            {
+            stringx err;
+            err="library class "+*strings[id]+" not found";
+            error(err.c_str());
+            }
+          // second word is library function string_id
+
+          id = *PC++;
+          // run-time address of reference is address of given library function
+          unsigned addr = int(slc->find(*strings[id]));
+          if (!addr)
+            {
+            stringx err;
+            err=stringx("library function ")+slc->get_name()+"::"+*strings[id]+" not found";
+            error(err.c_str());
+            }
+          // value must be stored as consecutive words
+
+          *(PC-2) = addr >> 16;
+          *(PC-1) = addr & 0x0000FFFF;
+          }
+          break;
+        case OP_ARG_CLV:    // class value reference (4 bytes)
+          {
+          // first word is library class string_id
+          unsigned short id = *PC++;
+          const script_library_class* slc = slc_manager::inst()->find(*strings[id]);
+
+          if (!slc)
+            {
+            stringx err;
+            err="library class "+*strings[id]+" not found";
+            error(err.c_str());
+            }
+          // second word is class value string_id
+          id = *PC++;
+          // run-time address of reference is class instance (must be 4 bytes)
+          assert(slc->get_size()==4);
+          //((stringx *)strings[id])->to_upper();  // this is a string for entities, so it needed to be this all along...
+          unsigned addr = slc->find_instance(*strings[id]);
+          // value must be stored as consecutive words
+          *(PC-2) = addr >> 16;
+          *(PC-1) = addr & 0x0000FFFF;
+          }
+          break;
+        case OP_ARG_SIG:    // global signal value (2 bytes)
+        case OP_ARG_PSIG:   // member signal value (2 bytes)
+          {
+          // word is string_id of signal name
+          unsigned short id = *PC++;
+          // run-time value of argument is a non-unique 2-byte signal index local to the signaller
+		  // @Patch - make copy instead of ref
+          const stringx signame = stringx(*strings[id]);
+          id = signal_manager::inst()->get_id( signame );
+          *(PC-1) = id;
+          }
+          break;
+        default:
+          assert(0);
+        }
+      }
+    }
 }
 
 #include "my_assertions.h"
@@ -164,4 +352,5 @@ void patch_vm_executable(void)
 
 	PATCH_PUSH_RET(0x007E41F0, vm_executable::_destroy);
 	PATCH_PUSH_RET(0x007E4210, vm_executable::clear);
+	PATCH_PUSH_RET(0x007E45C0, vm_executable::link);
 }

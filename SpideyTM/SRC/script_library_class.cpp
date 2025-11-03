@@ -72,10 +72,13 @@ INLINE script_library_class::~script_library_class()
 
 // Methods
 
+// @TODO
 const script_library_class::function* script_library_class::find(const char* n) const
 {
 	// @TODO
-	PANIC;
+	typedef script_library_class::function* (__fastcall *find_ptr)(const script_library_class*, int, const char*);
+	find_ptr find_real = (find_ptr)0x007DAB20;
+	return find_real(this, 0, n);
 }
 
 
