@@ -60,7 +60,7 @@ class script_object
       // Constructors
       public:
         EXPORT instance(const stringx& n,int sz);
-        ~instance();
+        EXPORT ~instance();
       protected:
 
         instance();
@@ -206,7 +206,7 @@ EXPORT void check_all_instances(); // debugging code, remove me please!!! -GT
 
   // Internal Methods
   protected:
-    EXPORT void _destroy();
+    EXPORT void destroy();
     EXPORT void _clear();
 
 
@@ -277,7 +277,6 @@ class script_manager
   // Methods
   public:
 	EXPORT void check_all_objects( ); // debugging code, please remove me!  --GT
-    EXPORT void clear();
     EXPORT script_object* find_object(const stringx& name) const;
 
     // return pointer to executable that corresponds to given PC (NULL if not found)
@@ -312,8 +311,8 @@ class script_manager
 
   // Internal Methods
   protected:
-    EXPORT void _destroy();
-    EXPORT void _clear();
+    EXPORT void destroy();
+    EXPORT void clear();
     EXPORT void _add(script_object* so);
   };
 

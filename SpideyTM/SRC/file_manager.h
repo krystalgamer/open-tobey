@@ -26,6 +26,8 @@ class file_manager : public singleton
     file_manager();
     ~file_manager();
 
+	// @Patch - weird nullsub
+	EXPORT void nullsub_for_script_manager(int);
 
 	// @Patch - remove
     //DECLARE_SINGLETON( file_manager )

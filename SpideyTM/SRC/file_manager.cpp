@@ -59,6 +59,10 @@
 
 file_id_t file_manager::file_id_counter = 0;
 
+void file_manager::nullsub_for_script_manager(int)
+{
+}
+
 // @Patch - remove
 // DEFINE_SINGLETON(file_manager)
 

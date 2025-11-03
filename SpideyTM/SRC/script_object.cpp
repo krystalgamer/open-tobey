@@ -7,11 +7,19 @@
 
 INLINE script_object::instance::instance(const stringx& n,int sz)
 : name( n ),
-
   data( sz ),
   threads(),
   suspended( false )
 {
+}
+
+// @Ok
+// @PartialMatching - stl
+script_object::instance::~instance()
+{
+  for ( thread_list::iterator i=threads.begin(); i!=threads.end(); ++i )
+    delete *i;
+  threads.resize(0);
 }
 
 // @Ok
@@ -304,6 +312,76 @@ bool script_object::instance::thread_exists(vm_thread* thread, unsigned int thre
 	return(false);
 }
 
+// CLASS script_object
+
+// Constructors
+
+script_object::script_object()
+
+:   name(),
+    global_object(false),
+
+#ifndef _RELEASE
+    static_symbols(),
+    symbols(),
+#endif
+    static_data(),
+    data_blocksize(0),
+
+    funcs(),
+    instances()
+  {
+	// @TODO
+	PANIC;
+  }
+
+
+script_object::~script_object()
+{
+	destroy();
+}
+
+
+// Methods
+
+int script_object::find_func( const stringx& func_fullname ) const
+{
+	// @TODO
+	PANIC;
+  int i = 0;
+  std::vector<vm_executable*>::const_iterator fi = funcs.begin();
+  std::vector<vm_executable*>::const_iterator fi_end = funcs.end();
+
+  for ( ; fi!=fi_end; ++fi,++i )
+  {
+    if ( (*fi)->get_fullname() == func_fullname )
+
+      return i;
+  }
+  return -1;
+
+  }
+
+// return index of function corresponding to given PC (-1 if not found)
+
+
+int script_object::find_func_by_address( const unsigned short* PC ) const
+{
+	// @TODO
+	PANIC;
+  int i = 0;
+  std::vector<vm_executable*>::const_iterator fi = funcs.begin();
+  std::vector<vm_executable*>::const_iterator fi_end = funcs.end();
+  for ( ; fi!=fi_end; ++fi,++i )
+  {
+
+    vm_executable* ex = *fi;
+    if ( (uint32)PC>=(uint32)ex->get_start() && (uint32)PC<(uint32)(ex->get_start()+ex->get_size()) )
+      return i;
+  }
+  return -1;
+}
+
 
 // @Ok
 // @Matching
@@ -332,6 +410,33 @@ script_object::instance* script_object::find_instance( const stringx& name ) con
 		}
 	}
 	return NULL;
+}
+
+// Internal Methods
+
+INLINE void script_object::destroy()
+{
+	// @TODO
+	PANIC;
+  instance_list::iterator ii;
+  for ( ii=instances.begin(); ii!=instances.end(); ++ii )
+
+    delete *ii;
+  std::vector<vm_executable*>::iterator vi;
+  for ( vi=funcs.begin(); vi!=funcs.end(); ++vi )
+    delete *vi;
+}
+
+void script_object::_clear()
+{
+	// @TODO
+	PANIC;
+  destroy();
+  static_symbols.resize(0);
+
+  symbols.resize(0);
+  static_data.clear();
+  funcs.resize(0);
 }
 
 
@@ -459,16 +564,22 @@ script_manager::script_manager()
 
 script_manager::~script_manager()
 {
-  _destroy();
+	this->clear();
 }
-
 
 
 // Methods
 
-void script_manager::clear()
+INLINE void script_manager::clear()
 {
-  _destroy();
+	if (this->field_28)
+	{
+		file_manager::inst()->nullsub_for_script_manager(this->field_28);
+		this->field_28 = 0;
+		this->field_2C = 0;
+	}
+
+  destroy();
 }
 
 // @Ok
@@ -658,10 +769,8 @@ stringx const* script_manager::add_string( const stringx& s)
 
 // Internal Methods
 
-void script_manager::_destroy()
+INLINE void script_manager::destroy()
 {
-	// @TODO
-	/*
   sobj_list::const_iterator i = script_objects.begin();
   sobj_list::const_iterator i_end = script_objects.end();
   for ( ; i!=i_end; ++i )
@@ -675,7 +784,6 @@ void script_manager::_destroy()
   script_objects.resize(0);
   script_objects_by_name.clear();
   string_set.clear();
-  */
 }
 
 void script_manager::_add( script_object* so )
