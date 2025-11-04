@@ -760,6 +760,8 @@ void region::remove_local_thread(vm_thread * thr)
 
 
 
+// @Ok
+// @Matching
 void region::set_active( bool v )
 {
   if (!is_locked()) flags = v ? (flags|ACTIVE) : (flags&~ACTIVE);
@@ -822,4 +824,5 @@ void validate_region(void)
 void patch_region(void)
 {
 	PATCH_PUSH_RET(0x0050F8B0, region::remove_local_thread);
+	PATCH_PUSH_RET(0x0050F920, region::set_active);
 }
