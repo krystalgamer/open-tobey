@@ -735,6 +735,8 @@ void region::remove( ai_polypath_cell* c )
 
 
 
+// @Ok
+// @Matching
 void region::add_local_thread(vm_thread * thr)
 {
   region * reg;
@@ -752,7 +754,7 @@ void region::add_local_thread(vm_thread * thr)
 // @Ok
 // @AlmostMatching - the STL remove makes it slightly different
 // ecx is reassigned 
-void region::remove_local_thread(vm_thread * thr)
+INLINE void region::remove_local_thread(vm_thread * thr)
 {
 	local_thread_list.remove(thr);
 	thr->set_suspended(false);
@@ -831,4 +833,6 @@ void patch_region(void)
 	PATCH_PUSH_RET(0x0050F8B0, region::remove_local_thread);
 	PATCH_PUSH_RET(0x0050F920, region::set_active);
 	PATCH_PUSH_RET(0x0050F9A0, region::set_region_ambient_sound);
+
+	PATCH_PUSH_RET(0x0050F7D0, region::add_local_thread);
 }
