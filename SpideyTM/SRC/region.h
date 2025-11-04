@@ -87,7 +87,8 @@ class ai_polypath_cell;
 
 
 //#pragma todo("Test this to see if it is a bonus or detriment (JDB 04-04-01)")
-#define USE_POSS_RENDER_LIST 1
+// @Patch - undef
+//#define USE_POSS_RENDER_LIST 1
 
 
 class region
@@ -133,12 +134,15 @@ public:
     return ps2_meshes[idx];
   }
 #else
+  // @Patch - for now
+  /*
   EXPORT int get_num_visreps() const { return visreps.size(); }
   EXPORT visual_rep* get_visrep(int idx) const
   {
     assert(idx<(int)visreps.size());
     return visreps[idx];
   }
+  */
 #endif
 
 
@@ -171,7 +175,8 @@ public:
 
   EXPORT void update_poss_collide( entity* e );
 
-  EXPORT const entity_list& get_camera_collision_entities() const { return cam_coll_ents; }
+  // @Patch - for now
+  //EXPORT const entity_list& get_camera_collision_entities() const { return cam_coll_ents; }
 
   EXPORT const light_list& get_lights() const { return lights; }
   EXPORT bool has_affect_terrain_lights() const { return num_affect_terrain_lights > 0; }
@@ -255,14 +260,16 @@ private:
   ps2_mesh_list ps2_meshes;
 #else
   typedef std::vector<visual_rep*> VisRepList;
-  VisRepList visreps;
+  // @Patch -for now
+  //VisRepList visreps;
 #endif
 
 
 // USED AS A TEMPORARY DURING CONSTRUCTION
 // THEN QUICKLY DESTROYED
 // ick. --Sean
-  cg_mesh * my_cg_mesh;
+// @Patch - comment above
+  //cg_mesh * my_cg_mesh;
 
   stringx name;
   color ambient;
@@ -271,6 +278,15 @@ private:
 
   entity_list cam_coll_ents;  // shadow list of entities marked for camera collision
   entity_list possible_active_ents;  // shadow list of entities That can be considered for activation
+
+  PADDING(4);
+
+  // @Patch - shifted around
+  light_list lights;     // list of light_sources attached to region
+									 
+  // @Patch - shifted around
+  trigger_list triggers; // list of triggers attached to region
+
 
 #if USE_POSS_RENDER_LIST
   entity_list possible_render_ents;  // shadow list of entities That can be considered for rendering
@@ -281,18 +297,19 @@ private:
   entity_list possible_collide_ents;  // shadow list of entities That can be considered for collision
 
 
-  light_list lights;     // list of light_sources attached to region
-  trigger_list triggers; // list of triggers attached to region
   pathcell_list pathcells;
 
   hull view_frustum;
 
-  PADDING(0xD0-0xC8);
+  PADDING(0xD0-0xB0);
 
   // @Patch - shifted around
   unsigned short flags;
 
-  PADDING(0xDC-0xD0-2);
+  PADDING(6);
+
+  // @Patch - shifted around
+  short num_affect_terrain_lights;
 
   // @Patch - shifted around
   stringx region_ambient_sound_name;
@@ -309,7 +326,6 @@ private:
   static unsigned int visit_key;
   unsigned int visited;
 
-  short num_affect_terrain_lights;
 
   rational_t region_ambient_sound_volume;
 

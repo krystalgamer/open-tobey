@@ -113,7 +113,9 @@ region::region( const stringx& region_name )
     ambient( 1.0f, 1.0f, 1.0f, 1.0f ),
     region_ambient_sound_volume( 1.0f )
 {
-  my_cg_mesh = NULL;
+
+	// @Patch - remove
+  // my_cg_mesh = NULL;
   flags = 0;
   set_active(false);
 
@@ -121,10 +123,13 @@ region::region( const stringx& region_name )
 
 
   // stl prealloc-ish
+  // @Patch - lol
+  /*
   possible_render_ents.resize(64);
   possible_render_ents.resize(0);
   possible_active_ents.resize(64);
   possible_active_ents.resize(0);
+  */
 }
 
 
@@ -597,29 +602,15 @@ void region::update_poss_collide( entity* e )
 
 void region::add_cam_coll_ent( entity* e )
 {
-  entity_list::iterator ei_begin = cam_coll_ents.begin();
-  entity_list::iterator ei_end = cam_coll_ents.end();
-  entity_list::iterator ei = std::find( ei_begin, ei_end, (entity*)NULL );
-  if ( ei != ei_end )
-    *ei = e;
-  else
-  {
-    cam_coll_ents.push_back( e );
-  }
+	// @TODO
+	PANIC;
 }
+
 
 void region::remove_cam_coll_ent( entity* e )
 {
-  entity_list::iterator ei_begin = cam_coll_ents.begin();
-  entity_list::iterator ei_end = cam_coll_ents.end();
-  entity_list::iterator ei = std::find( ei_begin, ei_end, e );
-
-
-  if( ei != ei_end )
-  {
-    *ei = NULL;
-  }
-
+	// @TODO
+	PANIC;
 }
 
 
@@ -684,6 +675,8 @@ void region::add( trigger* e )
   }
 }
 
+// @Ok
+// @Matching
 void region::remove( trigger* e )
 {
 
@@ -822,12 +815,16 @@ void validate_region(void)
 {
 	VALIDATE(region, local_thread_list, 0x0);
 
+	VALIDATE(region, lights, 0x70);
+	VALIDATE(region, triggers, 0x7C);
+
 	VALIDATE(region, crawls, 0x88);
 
 	VALIDATE(region, flags, 0xD0);
 
-	VALIDATE(region, region_ambient_sound_name, 0xDC);
+	VALIDATE(region, num_affect_terrain_lights, 0xD8);
 
+	VALIDATE(region, region_ambient_sound_name, 0xDC);
 }
 
 #include "my_patch.h"
@@ -841,4 +838,8 @@ void patch_region(void)
 	PATCH_PUSH_RET(0x0050F7D0, region::add_local_thread);
 
 	PATCH_PUSH_RET_POLY(0x0050F4C0, region::add(crawl_box*), "?add@region@@QAEXPAVcrawl_box@@@Z");
+
+	PATCH_PUSH_RET_POLY(0x0050F480, region::remove(trigger*), "?remove@region@@QAEXPAVtrigger@@@Z");
+
+	PATCH_PUSH_RET_POLY(0x0050F280, region::remove(light_source*), "?remove@region@@QAEXPAVlight_source@@@Z");
 }
