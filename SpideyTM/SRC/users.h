@@ -4,5 +4,6 @@
 #define MEMTRACK
 #endif
 #ifdef BUILD_BOOTABLE
-#define PROFILING_ON
+// @TODO - uncomment if needed
+//#define PROFILING_ON
 #endif

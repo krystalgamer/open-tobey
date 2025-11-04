@@ -39,8 +39,8 @@ struct cface_replacement
 
   const vector3d& get_corner_point( int which ) const
   {
-    assert( pP && (rF>=0) );
-    return pP->get_xvert_unxform( pP->get_wedge_ref( rF, which ) );
+	  // @TODO
+	  PANIC;
   }
 
   const vector3d& get_center() const { return center; }
@@ -109,32 +109,32 @@ public:
     LIGHTING = 0x0004
   };
 
-  region();
-  region(const stringx& region_name);
-  ~region();
+  EXPORT region();
+  EXPORT region(const stringx& region_name);
+  EXPORT ~region();
 
 
-  void optimize();
+  EXPORT void optimize();
 
-  int get_low_index(rational_t val) const;
-  int get_high_index(rational_t val) const;
-  const std::vector<cface_replacement>& get_sorted() const { return sorted; }
+  EXPORT int get_low_index(rational_t val) const;
+  EXPORT int get_high_index(rational_t val) const;
+  EXPORT const std::vector<cface_replacement>& get_sorted() const { return sorted; }
 
-  int get_low_water_index( rational_t val ) const;
-  int get_high_water_index( rational_t val ) const;
-  const std::vector<cface_replacement>& get_sorted_water() const { return sorted_water; }
+  EXPORT int get_low_water_index( rational_t val ) const;
+  EXPORT int get_high_water_index( rational_t val ) const;
+  EXPORT const std::vector<cface_replacement>& get_sorted_water() const { return sorted_water; }
 
 #if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC)
-  int get_num_meshes() const { return ps2_meshes.size(); }
+  EXPORT int get_num_meshes() const { return ps2_meshes.size(); }
 
-  nglMesh* get_mesh(int idx) const
+  EXPORT nglMesh* get_mesh(int idx) const
   {
     assert(idx<(int)ps2_meshes.size());
     return ps2_meshes[idx];
   }
 #else
-  int get_num_visreps() const { return visreps.size(); }
-  visual_rep* get_visrep(int idx) const
+  EXPORT int get_num_visreps() const { return visreps.size(); }
+  EXPORT visual_rep* get_visrep(int idx) const
   {
     assert(idx<(int)visreps.size());
     return visreps[idx];
@@ -142,105 +142,101 @@ public:
 #endif
 
 
-  const stringx& get_name() const { return name; }
+  EXPORT const stringx& get_name() const { return name; }
 
-  const color& get_ambient() const { return ambient; }
-  void set_ambient( const color& c ) { ambient = c; }
-  void set_ambient( uint8 r, uint8 g, uint8 b ) { ambient = color(r,g,b,1); }
+  EXPORT const color& get_ambient() const { return ambient; }
+  EXPORT void set_ambient( const color& c ) { ambient = c; }
+  EXPORT void set_ambient( uint8 r, uint8 g, uint8 b ) { ambient = color(r,g,b,1); }
 
   // lists of entities attached to region, by type
-  const entity_list& get_entities() const { return entities; }
-  const entity_list& get_possible_active_entities() const { return possible_active_ents; }
+  EXPORT const entity_list& get_entities() const { return entities; }
+  EXPORT const entity_list& get_possible_active_entities() const { return possible_active_ents; }
 
 #if USE_POSS_RENDER_LIST
-  const entity_list& get_possible_render_entities() const { return possible_render_ents; }
+  EXPORT const entity_list& get_possible_render_entities() const { return possible_render_ents; }
 #else
-  const entity_list& get_possible_render_entities() const { return entities; }
+  EXPORT const entity_list& get_possible_render_entities() const { return entities; }
 
 #endif
 
-  const entity_list& get_possible_collide_entities() const { return possible_collide_ents; }
-  void add( entity* e );
-  void remove( entity* e );
-  void update_poss_active( entity* e );
+  EXPORT const entity_list& get_possible_collide_entities() const { return possible_collide_ents; }
+  EXPORT void add( entity* e );
+  EXPORT void remove( entity* e );
+  EXPORT void update_poss_active( entity* e );
 #if USE_POSS_RENDER_LIST
-  void update_poss_render( entity* e );
+  EXPORT void update_poss_render( entity* e );
 #else
-  inline void update_poss_render( entity* e ) {}
+  EXPORT inline void update_poss_render( entity* e ) {}
 #endif
 
-  void update_poss_collide( entity* e );
+  EXPORT void update_poss_collide( entity* e );
 
-  const entity_list& get_camera_collision_entities() const { return cam_coll_ents; }
+  EXPORT const entity_list& get_camera_collision_entities() const { return cam_coll_ents; }
 
-  const light_list& get_lights() const { return lights; }
-  bool has_affect_terrain_lights() const { return num_affect_terrain_lights > 0; }
-  void add( light_source* e );
-  void remove( light_source* e );
+  EXPORT const light_list& get_lights() const { return lights; }
+  EXPORT bool has_affect_terrain_lights() const { return num_affect_terrain_lights > 0; }
+  EXPORT void add( light_source* e );
+  EXPORT void remove( light_source* e );
 
-  trigger_list& get_triggers() { return triggers; }
-  void add( trigger* e );
-  void remove( trigger* e );
+  EXPORT trigger_list& get_triggers() { return triggers; }
+  EXPORT void add( trigger* e );
+  EXPORT void remove( trigger* e );
 
-  crawl_list& get_crawls( void ) { return crawls; }
-  void add( crawl_box* cb );
+  EXPORT crawl_list& get_crawls( void ) { return crawls; }
+  EXPORT void add( crawl_box* cb );
 
-  void remove( crawl_box* cb );
+  EXPORT void remove( crawl_box* cb );
 
-  const pathcell_list& get_pathcells( void ) { return pathcells; }
-  void add( ai_polypath_cell* cell );
-  void remove( ai_polypath_cell* cell );
+  EXPORT const pathcell_list& get_pathcells( void ) { return pathcells; }
+  EXPORT void add( ai_polypath_cell* cell );
+  EXPORT void remove( ai_polypath_cell* cell );
 
 public:
 
   // convenience for any algorithm that wants to avoid re-visiting regions
-  static void prepare_for_visiting() { ++visit_key; }
-  void visit() { visited = visit_key; }
-  void unvisit() { visited = visit_key-1; }
-  bool already_visited() const { return (visited == visit_key); }
+  EXPORT static void prepare_for_visiting() { ++visit_key; }
+  EXPORT void visit() { visited = visit_key; }
+  EXPORT void unvisit() { visited = visit_key-1; }
+  EXPORT bool already_visited() const { return (visited == visit_key); }
 
   // Marks a region when it has been seen, and needs to be processed.
-  bool is_active() const { return (flags&ACTIVE); }
-  void set_active( bool v );
+  EXPORT bool is_active() const { return (flags&ACTIVE); }
+  EXPORT void set_active( bool v );
 
   // when locked is true, a region's active status cannot be changed
-  bool is_locked() const { return (flags&LOCKED); }
-  void set_locked( bool v ) { flags = v? (flags|LOCKED) : (flags&~LOCKED); }
+  EXPORT bool is_locked() const { return (flags&LOCKED); }
+  EXPORT void set_locked( bool v ) { flags = v? (flags|LOCKED) : (flags&~LOCKED); }
 
 
   // View frustum that goes through this region this frame (limited by the entry portal)
   // This frustum only applies if is_active() is true.  Nonactive regions do not have frusta.
-  const hull& frustum() const { return view_frustum; }
+  EXPORT const hull& frustum() const { return view_frustum; }
         hull& frustum()       { return view_frustum; }
 
   // create various sorted lists, listed below
-  void sort_entities();
-  void x_sort_entities_by_bounding_box_info();
+  EXPORT void sort_entities();
+  EXPORT void x_sort_entities_by_bounding_box_info();
 
   // sort entities in this region based on bounding box info
 
-  const entity_list& get_x_sorted_entities() const { return x_sorted_entities; }
-  int get_low_xsorted_entity( rational_t x ) const;
-  int get_high_xsorted_entity( rational_t x ) const;
+  EXPORT const entity_list& get_x_sorted_entities() const { return x_sorted_entities; }
+  EXPORT int get_low_xsorted_entity( rational_t x ) const;
+  EXPORT int get_high_xsorted_entity( rational_t x ) const;
 
-  void add_local_thread(vm_thread * thr);
-  void remove_local_thread(vm_thread * thr);
+  EXPORT void add_local_thread(vm_thread * thr);
+  EXPORT void remove_local_thread(vm_thread * thr);
 
-  void set_region_ambient_sound( stringx &sndname );
-  void set_region_ambient_sound_volume( rational_t vol ){ region_ambient_sound_volume = vol; }
-  stringx &get_region_ambient_sound_name(){ return region_ambient_sound_name; }
-  rational_t get_region_ambient_sound_volume(){ return region_ambient_sound_volume; }
+  EXPORT void set_region_ambient_sound( stringx &sndname );
+  EXPORT void set_region_ambient_sound_volume( rational_t vol ){ region_ambient_sound_volume = vol; }
+  EXPORT stringx &get_region_ambient_sound_name(){ return region_ambient_sound_name; }
+  EXPORT rational_t get_region_ambient_sound_volume(){ return region_ambient_sound_volume; }
 
 private:
-  void build_sorted();
-  void add_cam_coll_ent( entity* e );
-  void remove_cam_coll_ent( entity* e );
+  EXPORT void build_sorted();
+  EXPORT void add_cam_coll_ent( entity* e );
+  EXPORT void remove_cam_coll_ent( entity* e );
 
   // only one of these is valid
-  std::vector<cface_replacement> sorted;
-
-  std::vector<int> sorted_lookup_low;
-  std::vector<int> sorted_lookup_high;
 
   std::list<vm_thread *> local_thread_list;
   rational_t solid_min;
@@ -304,8 +300,17 @@ private:
   stringx region_ambient_sound_name;
   rational_t region_ambient_sound_volume;
 
+  // @Patch - moved lower because they don't seem to be spidey related
+  std::vector<cface_replacement> sorted;
+
+  std::vector<int> sorted_lookup_low;
+  std::vector<int> sorted_lookup_high;
+
   friend void serial_in( chunk_file& fs, region* r, terrain* ter );
   friend class terrain;
+
+	friend void patch_region(void);
+	friend void validate_region(void);
 };
 typedef std::vector<region *> region_list;
 
