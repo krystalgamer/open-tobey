@@ -637,6 +637,8 @@ void region::add( light_source* e )
   }
 }
 
+// @Ok
+// @Matching
 void region::remove( light_source* e )
 {
   light_list::iterator ei_end = lights.end();

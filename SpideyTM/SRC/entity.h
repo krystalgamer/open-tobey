@@ -482,8 +482,12 @@ class entity : public bone
   float scroll_v;
 
   /*** Interfaces ***/
-   ENTITY_INTERFACE(ai)
+  // @Patch - remove
+   // ENTITY_INTERFACE(ai)
 
+
+	   // @Patch -comment because this is too big
+  /*
    ENTITY_INTERFACE(animation)
 // BIGCULL    ENTITY_INTERFACE(damage)
    ENTITY_INTERFACE(hard_attrib)
@@ -504,6 +508,7 @@ class entity : public bone
 #ifdef ECULL
    ENTITY_INTERFACE(box_trigger)
 #endif
+   */
 
   /*** Interface support ***/
   public:
@@ -2019,26 +2024,9 @@ public:
 
   inline bool match_search_flags(int flags)
   {
-    return(
-            (
-              (flags & _FIND_ENT_ANY) ||
-// BIGCULL               (flags & _FIND_ENT_DAMAGE_IFC) && has_damage_ifc() ||
-              (flags & _FIND_ENT_PHYSICAL_IFC) && has_physical_ifc() ||
-              (flags & _FIND_ENT_AI_IFC) && has_ai_ifc()
-
-            )
-           &&
-            (
-              (!(flags & _FIND_ENT_VISIBLE) || is_visible()) &&
-              (!(flags & _FIND_ENT_INVISIBLE) || !is_visible()) &&
-              (!(flags & _FIND_ENT_ALIVE) || is_alive()) &&
-              (!(flags & _FIND_ENT_DEAD) || !is_alive()) &&
-              (!(flags & _FIND_ENT_ACTIVE) || is_active()) &&
-              (!(flags & _FIND_ENT_INACTIVE) || !is_active()) &&
-              (!(flags & _FIND_ENT_ACTIVE_RGN) || is_in_active_region()) &&
-              (!(flags & _FIND_ENT_INACTIVE_RGN) || !is_in_active_region())
-            )
-          );
+	  // @TODO
+	  PANIC;
+	  return true;
   }
 
   static int find_entities(int flags, const vector3d &pos, rational_t radius, region_node *reg = NULL, bool only_active_portals = true);

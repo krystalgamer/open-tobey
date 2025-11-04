@@ -31,6 +31,9 @@ enum light_flavor_t
 class light_properties 
 {
 public:
+	friend void validate_light_properties(void);
+	friend void patch_light_properties(void);
+
   light_properties();
 
   light_properties( light_flavor_t _flavor,
@@ -106,7 +109,9 @@ protected:
   friend void serial_in( chunk_file& cf, light_properties* lp );
 };
 
-class light_source : public entity
+// @TODO - removed entity for now
+//class light_source : public entity
+class light_source
 {
 
 public:
@@ -195,7 +200,11 @@ public:
 
 // Data
 private:
+  PADDING(0xF0);
   light_properties* properties;
+
+  friend void validate_light_source(void);
+  friend void patch_light_source(void);
 };
   
 

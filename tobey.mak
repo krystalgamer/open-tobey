@@ -62,6 +62,7 @@ CLEAN :
 	-@erase "$(INTDIR)\inftrees.obj"
 	-@erase "$(INTDIR)\infutil.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
+	-@erase "$(INTDIR)\light.obj"
 	-@erase "$(INTDIR)\maketree.obj"
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
@@ -125,6 +126,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\uncompr.obj" \
 	"$(INTDIR)\zutil.obj" \
 	"$(INTDIR)\app.obj" \
+	"$(INTDIR)\chunkfile.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
 	"$(INTDIR)\entity.obj" \
@@ -158,7 +160,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\chunkfile.obj"
+	"$(INTDIR)\light.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -198,6 +200,7 @@ CLEAN :
 	-@erase "$(INTDIR)\inftrees.obj"
 	-@erase "$(INTDIR)\infutil.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
+	-@erase "$(INTDIR)\light.obj"
 	-@erase "$(INTDIR)\maketree.obj"
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
@@ -263,6 +266,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\uncompr.obj" \
 	"$(INTDIR)\zutil.obj" \
 	"$(INTDIR)\app.obj" \
+	"$(INTDIR)\chunkfile.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
 	"$(INTDIR)\entity.obj" \
@@ -296,7 +300,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\chunkfile.obj"
+	"$(INTDIR)\light.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -492,6 +496,12 @@ SOURCE=.\SpideyTM\SRC\global.cpp
 SOURCE=.\SpideyTM\SRC\ini_parser.cpp
 
 "$(INTDIR)\ini_parser.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\light.cpp
+
+"$(INTDIR)\light.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

@@ -195,6 +195,10 @@ SOURCE=.\SpideyTM\SRC\ini_parser.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\light.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\mustash.cpp
 # End Source File
 # Begin Source File

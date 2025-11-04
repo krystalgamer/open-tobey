@@ -116,6 +116,8 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_hires_clock_t();
 	validate_region();
+	validate_light_source();
+	validate_light_properties();
 
 	return FAIL_VALIDATION;
 }
@@ -181,6 +183,9 @@ void game_patches()
 
 	patch_hires_clock_t();
 	patch_region();
+
+	patch_light_source();
+	patch_light_properties();
 }
 
 #pragma pack(push,1)
