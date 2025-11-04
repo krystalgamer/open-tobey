@@ -275,23 +275,26 @@ private:
 #if USE_POSS_RENDER_LIST
   entity_list possible_render_ents;  // shadow list of entities That can be considered for rendering
 #endif
+  // @Patch - shifted around
+  crawl_list crawls;
 
   entity_list possible_collide_ents;  // shadow list of entities That can be considered for collision
 
 
   light_list lights;     // list of light_sources attached to region
   trigger_list triggers; // list of triggers attached to region
-  crawl_list crawls;
   pathcell_list pathcells;
 
   hull view_frustum;
 
   PADDING(0xD0-0xC8);
 
+  // @Patch - shifted around
   unsigned short flags;
 
   PADDING(0xDC-0xD0-2);
 
+  // @Patch - shifted around
   stringx region_ambient_sound_name;
 
 

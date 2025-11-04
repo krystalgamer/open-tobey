@@ -693,11 +693,12 @@ void region::remove( trigger* e )
     *ei = NULL;
 }
 
+// @Ok
+// @PartialMatching - stl goofyness
 void region::add( crawl_box* cb )
 {
   // wds owns these for purposes of memory management
   crawls.push_back( cb );
-
 }
 
 
@@ -821,9 +822,12 @@ void validate_region(void)
 {
 	VALIDATE(region, local_thread_list, 0x0);
 
+	VALIDATE(region, crawls, 0x88);
+
 	VALIDATE(region, flags, 0xD0);
 
 	VALIDATE(region, region_ambient_sound_name, 0xDC);
+
 }
 
 #include "my_patch.h"
@@ -835,4 +839,6 @@ void patch_region(void)
 	PATCH_PUSH_RET(0x0050F9A0, region::set_region_ambient_sound);
 
 	PATCH_PUSH_RET(0x0050F7D0, region::add_local_thread);
+
+	PATCH_PUSH_RET_POLY(0x0050F4C0, region::add(crawl_box*), "?add@region@@QAEXPAVcrawl_box@@@Z");
 }
