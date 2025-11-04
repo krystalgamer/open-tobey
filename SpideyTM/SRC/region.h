@@ -290,6 +290,10 @@ private:
 
   unsigned short flags;
 
+  PADDING(0xDC-0xD0-2);
+
+  stringx region_ambient_sound_name;
+
 
   // lists of entities sorted in X axis based on bounding box info
   entity_list x_sorted_entities;
@@ -304,7 +308,6 @@ private:
 
   short num_affect_terrain_lights;
 
-  stringx region_ambient_sound_name;
   rational_t region_ambient_sound_volume;
 
   // @Patch - moved lower because they don't seem to be spidey related

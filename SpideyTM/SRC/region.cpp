@@ -776,12 +776,15 @@ void region::set_active( bool v )
 }
 
 
+// @Ok
+// @Matching
 void region::set_region_ambient_sound( stringx &sndname )
 {
   if( region_ambient_sound_name.length() )
   {
     // kill old sound
   }
+
   region_ambient_sound_name = sndname;
 }
 
@@ -817,6 +820,8 @@ void validate_region(void)
 	VALIDATE(region, local_thread_list, 0x0);
 
 	VALIDATE(region, flags, 0xD0);
+
+	VALIDATE(region, region_ambient_sound_name, 0xDC);
 }
 
 #include "my_patch.h"
@@ -825,4 +830,5 @@ void patch_region(void)
 {
 	PATCH_PUSH_RET(0x0050F8B0, region::remove_local_thread);
 	PATCH_PUSH_RET(0x0050F920, region::set_active);
+	PATCH_PUSH_RET(0x0050F9A0, region::set_region_ambient_sound);
 }
