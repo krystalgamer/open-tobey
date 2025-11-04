@@ -813,6 +813,8 @@ void region::optimize()
 void validate_region(void)
 {
 	VALIDATE(region, local_thread_list, 0x0);
+
+	VALIDATE(region, flags, 0xD0);
 }
 
 #include "my_patch.h"

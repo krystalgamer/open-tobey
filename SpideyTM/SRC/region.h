@@ -203,8 +203,11 @@ public:
   EXPORT bool is_active() const { return (flags&ACTIVE); }
   EXPORT void set_active( bool v );
 
+  // @Ok
+  // @Matching
   // when locked is true, a region's active status cannot be changed
   EXPORT bool is_locked() const { return (flags&LOCKED); }
+
   EXPORT void set_locked( bool v ) { flags = v? (flags|LOCKED) : (flags&~LOCKED); }
 
 
@@ -275,12 +278,17 @@ private:
 
   entity_list possible_collide_ents;  // shadow list of entities That can be considered for collision
 
+
   light_list lights;     // list of light_sources attached to region
   trigger_list triggers; // list of triggers attached to region
   crawl_list crawls;
   pathcell_list pathcells;
 
   hull view_frustum;
+
+  PADDING(0xD0-0xC8);
+
+  unsigned short flags;
 
 
   // lists of entities sorted in X axis based on bounding box info
@@ -290,7 +298,6 @@ private:
   std::vector<unsigned char> x_sorted_ent_lookup_low;
   std::vector<unsigned char> x_sorted_ent_lookup_high;
 
-  unsigned short flags;
 
   static unsigned int visit_key;
   unsigned int visited;
