@@ -43,6 +43,8 @@ class link_interface : public bone_interface
     // the data, so I un-consted them.  jdf 4-11-01
     EXPORT bone * get_parent() const { return my_parent; }
     EXPORT bone * get_first_child() const { return my_child; }
+	// @Ok
+	// @Matching
     EXPORT bone * get_next_sibling() const { return my_brother; }
 
     EXPORT void update_abs_po_family();
