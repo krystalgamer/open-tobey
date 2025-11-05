@@ -21,6 +21,8 @@ class link_interface : public bone_interface
 	// @Ok
 	// @Matching
     EXPORT void set_first_child(bone *new_child) { my_child = new_child; }
+	// @Ok
+	// @Matching
     EXPORT void set_next_sibling(bone *new_sibling) { my_brother = new_sibling; }
 
     friend class bone;

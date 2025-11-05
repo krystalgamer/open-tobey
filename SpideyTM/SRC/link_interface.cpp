@@ -150,6 +150,8 @@ void link_interface::clear_parent()
     link_interface *parent_ifc = my_parent->link_ifc();
     assert(parent_ifc->get_first_child());
 
+	my_bone->dirty_family(false);
+
     // check if we are the first child of our parent.
     if (parent_ifc->get_first_child() == my_bone)
     {
@@ -435,6 +437,8 @@ void entity::po_changed()
 
 void validate_link_interface(void)
 {
+	VALIDATE(link_interface, my_bone, 0x4);
+
 	VALIDATE(link_interface, my_parent, 0x8);
 	VALIDATE(link_interface, my_child, 0xC);
 

@@ -273,6 +273,10 @@ class bone : public signaller
     }
 
 
+  public:
+	// @Patch - had to add
+	void dirty_family(bool);
+
   friend link_interface::~link_interface();
   friend void link_interface::set_parent(bone *new_parent);
   friend class skeleton_interface;
