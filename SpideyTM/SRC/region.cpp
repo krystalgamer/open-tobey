@@ -600,10 +600,22 @@ void region::update_poss_collide( entity* e )
 }
 
 
-void region::add_cam_coll_ent( entity* e )
+// @Ok
+// @Matching
+INLINE void region::add_cam_coll_ent( entity* e )
 {
-	// @TODO
-	PANIC;
+	entity_list::iterator ei_begin = cam_coll_ents.begin();
+	entity_list::iterator ei_end = cam_coll_ents.end();
+	entity_list::iterator ei = std::find( ei_begin, ei_end, (entity*)NULL );
+
+	if ( ei != ei_end )
+	{
+		*ei = e;
+	}
+	else
+	{
+		cam_coll_ents.push_back( e );
+	}
 }
 
 
@@ -870,4 +882,5 @@ void patch_region(void)
 	PATCH_PUSH_RET_POLY(0x0050F560, region::remove(crawl_box*), "?remove@region@@QAEXPAVcrawl_box@@@Z");
 
 	PATCH_PUSH_RET(0x0050F090, region::remove_cam_coll_ent);
+	PATCH_PUSH_RET(0x0050EF20, region::add_cam_coll_ent);
 }
