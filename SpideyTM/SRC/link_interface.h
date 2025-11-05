@@ -24,7 +24,7 @@ class link_interface : public bone_interface
     friend class bone;
 
   public:
-    link_interface(bone *_my_bone)
+    EXPORT link_interface(bone *_my_bone)
       : bone_interface(_my_bone)
     {
       my_parent = NULL;
@@ -33,25 +33,25 @@ class link_interface : public bone_interface
       link_manages_abs_po = true;
     }
 
-    ~link_interface();
+    EXPORT ~link_interface();
 
     // these used to be const, but I there are situations where you'd want to manipulate
     // the data, so I un-consted them.  jdf 4-11-01
-    bone * get_parent() const { return my_parent; }
-    bone * get_first_child() const { return my_child; }
-    bone * get_next_sibling() const { return my_brother; }
+    EXPORT bone * get_parent() const { return my_parent; }
+    EXPORT bone * get_first_child() const { return my_child; }
+    EXPORT bone * get_next_sibling() const { return my_brother; }
 
-    void update_abs_po_family();
-	void update_handed_abs_po_family();
-	void set_handed_axis_family(int axis);
+    EXPORT void update_abs_po_family();
+	EXPORT void update_handed_abs_po_family();
+	EXPORT void set_handed_axis_family(int axis);
 
-    void set_parent(bone *new_parent);
-    void clear_parent();
+    EXPORT void set_parent(bone *new_parent);
+    EXPORT void clear_parent();
 
-    void add_child(bone *good_kid);
-    void remove_child(bone *bad_kid);
+    EXPORT void add_child(bone *good_kid);
+    EXPORT void remove_child(bone *bad_kid);
 
-    void link_does_not_manage_abs_po()
+    EXPORT void link_does_not_manage_abs_po()
     {
       link_manages_abs_po = false;
     }

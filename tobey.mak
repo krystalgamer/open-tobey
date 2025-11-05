@@ -43,6 +43,7 @@ ALL : "$(OUTDIR)\tobey.dll"
 CLEAN :
 	-@erase "$(INTDIR)\adler32.obj"
 	-@erase "$(INTDIR)\app.obj"
+	-@erase "$(INTDIR)\bone.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\compress.obj"
 	-@erase "$(INTDIR)\crc32.obj"
@@ -63,6 +64,7 @@ CLEAN :
 	-@erase "$(INTDIR)\infutil.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
 	-@erase "$(INTDIR)\light.obj"
+	-@erase "$(INTDIR)\link_interface.obj"
 	-@erase "$(INTDIR)\maketree.obj"
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
@@ -135,6 +137,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\filespec.obj" \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\ini_parser.obj" \
+	"$(INTDIR)\light.obj" \
 	"$(INTDIR)\mustash.obj" \
 	"$(INTDIR)\my_assertions.obj" \
 	"$(INTDIR)\ngl_pc.obj" \
@@ -160,7 +163,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\light.obj"
+	"$(INTDIR)\bone.obj" \
+	"$(INTDIR)\link_interface.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -181,6 +185,7 @@ ALL : "$(OUTDIR)\tobey.dll"
 CLEAN :
 	-@erase "$(INTDIR)\adler32.obj"
 	-@erase "$(INTDIR)\app.obj"
+	-@erase "$(INTDIR)\bone.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\compress.obj"
 	-@erase "$(INTDIR)\crc32.obj"
@@ -201,6 +206,7 @@ CLEAN :
 	-@erase "$(INTDIR)\infutil.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
 	-@erase "$(INTDIR)\light.obj"
+	-@erase "$(INTDIR)\link_interface.obj"
 	-@erase "$(INTDIR)\maketree.obj"
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
@@ -275,6 +281,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\filespec.obj" \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\ini_parser.obj" \
+	"$(INTDIR)\light.obj" \
 	"$(INTDIR)\mustash.obj" \
 	"$(INTDIR)\my_assertions.obj" \
 	"$(INTDIR)\ngl_pc.obj" \
@@ -300,7 +307,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\light.obj"
+	"$(INTDIR)\bone.obj" \
+	"$(INTDIR)\link_interface.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -446,6 +454,12 @@ SOURCE=.\SpideyTM\SRC\app.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\bone.cpp
+
+"$(INTDIR)\bone.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\chunkfile.cpp
 
 "$(INTDIR)\chunkfile.obj" : $(SOURCE) "$(INTDIR)"
@@ -502,6 +516,12 @@ SOURCE=.\SpideyTM\SRC\ini_parser.cpp
 SOURCE=.\SpideyTM\SRC\light.cpp
 
 "$(INTDIR)\light.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\link_interface.cpp
+
+"$(INTDIR)\link_interface.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

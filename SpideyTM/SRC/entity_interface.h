@@ -40,16 +40,16 @@ class vector3d;
 class generic_interface
 {
   public:
-    virtual ~generic_interface() {}
+    EXPORT virtual ~generic_interface() {}
 
 
-    virtual bool get_ifc_num(const pstring &att, rational_t &val)     { return(false); }
-    virtual bool set_ifc_num(const pstring &att, rational_t val)      { return(false); }
-    virtual bool get_ifc_vec(const pstring &att, vector3d &val)       { return(false); }
-    virtual bool set_ifc_vec(const pstring &att, const vector3d &val) { return(false); }
+    EXPORT virtual bool get_ifc_num(const pstring &att, rational_t &val)     { return(false); }
+    EXPORT virtual bool set_ifc_num(const pstring &att, rational_t val)      { return(false); }
+    EXPORT virtual bool get_ifc_vec(const pstring &att, vector3d &val)       { return(false); }
+    EXPORT virtual bool set_ifc_vec(const pstring &att, const vector3d &val) { return(false); }
 
-    virtual bool get_ifc_str(const pstring &att, stringx &val)        { return(false); }
-    virtual bool set_ifc_str(const pstring &att, const stringx &val)  { return(false); }
+    EXPORT virtual bool get_ifc_str(const pstring &att, stringx &val)        { return(false); }
+    EXPORT virtual bool set_ifc_str(const pstring &att, const stringx &val)  { return(false); }
 };
 
 
@@ -73,10 +73,10 @@ protected:                                                                \
   itype *my_##itype;                                                      \
                                                                           \
 public:                                                                   \
-  itype##_interface(itype *x)   { my_##itype = x; assert(my_##itype); }   \
-  virtual ~itype##_interface()  { my_##itype = NULL; }                    \
+  EXPORT itype##_interface(itype *x)   { my_##itype = x; assert(my_##itype); }   \
+  EXPORT virtual ~itype##_interface()  { my_##itype = NULL; }                    \
                                                                           \
-  itype *get_my_##itype() const { return(my_##itype); }                   \
+  EXPORT itype *get_my_##itype() const { return(my_##itype); }                   \
 };                                                                        \
 
 GENERIC_INTERFACE_DEC(bone)
