@@ -19,6 +19,8 @@ void validate_file_manager(void);
 void validate_region(void);
 void validate_light_source(void);
 void validate_light_properties(void);
+void validate_link_interface(void);
+void validate_bone(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -38,4 +40,6 @@ void patch_str(void);
 void patch_region(void);
 void patch_light_source(void);
 void patch_light_properties(void);
+void patch_link_interface(void);
+void patch_bone(void);
 #endif

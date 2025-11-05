@@ -55,6 +55,9 @@ class link_interface : public bone_interface
     {
       link_manages_abs_po = false;
     }
+
+	friend void validate_link_interface(void);
+	friend void patch_link_interface(void);
 };
 
 

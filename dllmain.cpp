@@ -119,6 +119,9 @@ extern "C" EXPORT int run_assertions(void)
 	validate_light_source();
 	validate_light_properties();
 
+	validate_link_interface();
+	validate_bone();
+
 	return FAIL_VALIDATION;
 }
 
@@ -186,6 +189,9 @@ void game_patches()
 
 	patch_light_source();
 	patch_light_properties();
+
+	patch_link_interface();
+	patch_bone();
 }
 
 #pragma pack(push,1)

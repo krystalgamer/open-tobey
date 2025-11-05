@@ -18,13 +18,15 @@ class bone : public signaller
     po my_rel_po;
     po *my_abs_po;
 	po *my_handed_abs_po;
+
+  ENTITY_INTERFACE(link)
+
+  protected:
+	// @Patch - to make link interface match
     int bone_id;
     sector * my_sector;
 	int flip_axis;
 	bool is_part_of_skeleton;
-
-  ENTITY_INTERFACE(link)
-
   public:
     bone()
     {
@@ -274,6 +276,9 @@ class bone : public signaller
   friend link_interface::~link_interface();
   friend void link_interface::set_parent(bone *new_parent);
   friend class skeleton_interface;
+
+  friend void validate_bone(void);
+  friend void patch_bone(void);
 };
 
 #endif//BONE_CLASS_HEADER
