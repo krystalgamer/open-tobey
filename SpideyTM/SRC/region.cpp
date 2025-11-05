@@ -849,5 +849,6 @@ void patch_region(void)
 
 	PATCH_PUSH_RET_POLY(0x0050F280, region::remove(light_source*), "?remove@region@@QAEXPAVlight_source@@@Z");
 
-	PATCH_PUSH_RET_POLY(0x0050F5D0, region::add(ai_polypath*), "?add@region@@QAEXPAVai_polypath_cell@@@Z");
+	PATCH_PUSH_RET_POLY(0x0050F5D0, region::add(ai_polypath_cell*), "?add@region@@QAEXPAVai_polypath_cell@@@Z");
+	PATCH_PUSH_RET_POLY(0x0050F790, region::remove(ai_polypath_cell*), "?remove@region@@QAEXPAVai_polypath_cell@@@Z");
 }
