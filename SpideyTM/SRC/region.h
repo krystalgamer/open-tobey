@@ -294,10 +294,11 @@ private:
   // @Patch - shifted around
   crawl_list crawls;
 
+  // @Patch - shifted around
+  pathcell_list pathcells;
+
   entity_list possible_collide_ents;  // shadow list of entities That can be considered for collision
 
-
-  pathcell_list pathcells;
 
   hull view_frustum;
 

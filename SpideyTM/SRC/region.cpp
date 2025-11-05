@@ -702,6 +702,8 @@ void region::remove( crawl_box* cb )
   crawls.remove( cb );
 }
 
+// @Ok
+// @PartialMatching - stl stuff
 void region::add( ai_polypath_cell* c )
 {
   pathcell_list::iterator ci_begin=pathcells.begin(), ci_end=pathcells.end();
@@ -821,12 +823,14 @@ void validate_region(void)
 	VALIDATE(region, triggers, 0x7C);
 
 	VALIDATE(region, crawls, 0x88);
+	VALIDATE(region, pathcells, 0x8C);
 
 	VALIDATE(region, flags, 0xD0);
 
 	VALIDATE(region, num_affect_terrain_lights, 0xD8);
 
 	VALIDATE(region, region_ambient_sound_name, 0xDC);
+
 }
 
 #include "my_patch.h"
@@ -844,4 +848,6 @@ void patch_region(void)
 	PATCH_PUSH_RET_POLY(0x0050F480, region::remove(trigger*), "?remove@region@@QAEXPAVtrigger@@@Z");
 
 	PATCH_PUSH_RET_POLY(0x0050F280, region::remove(light_source*), "?remove@region@@QAEXPAVlight_source@@@Z");
+
+	PATCH_PUSH_RET_POLY(0x0050F5D0, region::add(ai_polypath*), "?add@region@@QAEXPAVai_polypath_cell@@@Z");
 }
