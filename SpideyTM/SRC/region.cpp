@@ -607,10 +607,19 @@ void region::add_cam_coll_ent( entity* e )
 }
 
 
-void region::remove_cam_coll_ent( entity* e )
+// @Ok
+// @Matching
+INLINE void region::remove_cam_coll_ent( entity* e )
 {
-	// @TODO
-	PANIC;
+	entity_list::iterator ei_begin = cam_coll_ents.begin();
+	entity_list::iterator ei_end = cam_coll_ents.end();
+	entity_list::iterator ei = std::find( ei_begin, ei_end, e );
+
+
+	if( ei != ei_end )
+	{
+		*ei = NULL;
+	}
 }
 
 
@@ -697,6 +706,8 @@ void region::add( crawl_box* cb )
 }
 
 
+// @Ok
+// @Matching
 void region::remove( crawl_box* cb )
 {
   crawls.remove( cb );
@@ -723,6 +734,8 @@ void region::add( ai_polypath_cell* c )
   }
 }
 
+// @Ok
+// @Matching
 void region::remove( ai_polypath_cell* c )
 {
   pathcell_list::iterator ci_end = pathcells.end();
@@ -819,6 +832,8 @@ void validate_region(void)
 {
 	VALIDATE(region, local_thread_list, 0x0);
 
+	VALIDATE(region, cam_coll_ents, 0x34);
+
 	VALIDATE(region, lights, 0x70);
 	VALIDATE(region, triggers, 0x7C);
 
@@ -853,4 +868,6 @@ void patch_region(void)
 	PATCH_PUSH_RET_POLY(0x0050F790, region::remove(ai_polypath_cell*), "?remove@region@@QAEXPAVai_polypath_cell@@@Z");
 
 	PATCH_PUSH_RET_POLY(0x0050F560, region::remove(crawl_box*), "?remove@region@@QAEXPAVcrawl_box@@@Z");
+
+	PATCH_PUSH_RET(0x0050F090, region::remove_cam_coll_ent);
 }

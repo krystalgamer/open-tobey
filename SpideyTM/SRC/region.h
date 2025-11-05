@@ -255,6 +255,11 @@ private:
   std::vector<int> sorted_water_lookup_high;
   rational_t water_min;
 
+  PADDING(4);
+
+  // @Patch - shifted around
+  entity_list cam_coll_ents;  // shadow list of entities marked for camera collision
+
 #if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC)
   typedef std::vector<nglMesh*> ps2_mesh_list;
   ps2_mesh_list ps2_meshes;
@@ -276,10 +281,7 @@ private:
 
   entity_list entities;  // list of entities in the region
 
-  entity_list cam_coll_ents;  // shadow list of entities marked for camera collision
   entity_list possible_active_ents;  // shadow list of entities That can be considered for activation
-
-  PADDING(4);
 
   // @Patch - shifted around
   light_list lights;     // list of light_sources attached to region
