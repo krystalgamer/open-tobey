@@ -220,7 +220,15 @@ SOURCE=.\NGL\PC\ngl_pc.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\HWOSPC\pc_algebra.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\HWOSPC\pc_timer.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\po.cpp
 # End Source File
 # Begin Source File
 

@@ -69,7 +69,9 @@ CLEAN :
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
+	-@erase "$(INTDIR)\pc_algebra.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
+	-@erase "$(INTDIR)\po.obj"
 	-@erase "$(INTDIR)\pstring.obj"
 	-@erase "$(INTDIR)\region.obj"
 	-@erase "$(INTDIR)\script_lib.obj"
@@ -164,7 +166,9 @@ LINK32_OBJS= \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
 	"$(INTDIR)\bone.obj" \
-	"$(INTDIR)\link_interface.obj"
+	"$(INTDIR)\link_interface.obj" \
+	"$(INTDIR)\po.obj" \
+	"$(INTDIR)\pc_algebra.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -211,7 +215,9 @@ CLEAN :
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
+	-@erase "$(INTDIR)\pc_algebra.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
+	-@erase "$(INTDIR)\po.obj"
 	-@erase "$(INTDIR)\pstring.obj"
 	-@erase "$(INTDIR)\region.obj"
 	-@erase "$(INTDIR)\script_lib.obj"
@@ -308,7 +314,9 @@ LINK32_OBJS= \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
 	"$(INTDIR)\bone.obj" \
-	"$(INTDIR)\link_interface.obj"
+	"$(INTDIR)\link_interface.obj" \
+	"$(INTDIR)\po.obj" \
+	"$(INTDIR)\pc_algebra.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -543,9 +551,21 @@ SOURCE=.\NGL\PC\ngl_pc.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\HWOSPC\pc_algebra.cpp
+
+"$(INTDIR)\pc_algebra.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\HWOSPC\pc_timer.cpp
 
 "$(INTDIR)\pc_timer.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\po.cpp
+
+"$(INTDIR)\po.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

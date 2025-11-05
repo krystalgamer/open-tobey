@@ -1,8 +1,8 @@
 #ifndef PC_ALGEBRA_H
 #define PC_ALGEBRA_H
 
-#include "hwmath.h"
-#include "chunkfile.h"
+#include "..\hwmath.h"
+#include "..\chunkfile.h"
 #include "..\pcglobals.h"
 
 class vector2d

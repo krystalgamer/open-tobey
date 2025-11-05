@@ -18,8 +18,8 @@ class link_interface : public bone_interface
     bone * my_brother;
     bool link_manages_abs_po; // if more flags show up here, make this into a flag-word or bitfield flags
 
-    void set_first_child(bone *new_child) { my_child = new_child; }
-    void set_next_sibling(bone *new_sibling) { my_brother = new_sibling; }
+    EXPORT void set_first_child(bone *new_child) { my_child = new_child; }
+    EXPORT void set_next_sibling(bone *new_sibling) { my_brother = new_sibling; }
 
     friend class bone;
 
