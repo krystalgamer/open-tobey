@@ -141,6 +141,8 @@ void link_interface::remove_child(bone *bad_kid)
   bad_kid->link_ifc()->clear_parent();
 }
 
+// @Ok
+// @Matching
 void link_interface::clear_parent()
 {
   // remove me from my parent's children list, and from the sibling list
@@ -150,6 +152,7 @@ void link_interface::clear_parent()
     link_interface *parent_ifc = my_parent->link_ifc();
     assert(parent_ifc->get_first_child());
 
+	// @Patch - add to add this call
 	my_bone->dirty_family(false);
 
     // check if we are the first child of our parent.
@@ -187,7 +190,6 @@ void link_interface::clear_parent()
 
     }
   }
-
 }
 
 // @Ok
@@ -453,4 +455,7 @@ void patch_link_interface(void)
 {
 	// @TODO wait until link_parent is matching
 	//PATCH_PUSH_RET(0x004BFAF0, link_interface::add_child);
+
+
+	PATCH_PUSH_RET(0x004BFA60, link_interface::clear_parent);
 }
