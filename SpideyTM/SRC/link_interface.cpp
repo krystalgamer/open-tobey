@@ -435,6 +435,10 @@ void entity::po_changed()
 
 void validate_link_interface(void)
 {
+	VALIDATE(link_interface, my_parent, 0x8);
+	VALIDATE(link_interface, my_child, 0xC);
+
+	VALIDATE(link_interface, my_brother, 0x10);
 }
 
 
