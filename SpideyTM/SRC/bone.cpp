@@ -3,6 +3,13 @@
 #include "my_assertions.h"
 
 
+void bone::update_abs_po(bool arg)
+{
+	// @TODO
+	typedef void (__fastcall *ptr)(bone*, int, bool);
+	ptr func = (ptr)0x00004E1730;
+	func(this,0, arg);
+}
 
 // @TODO
 void bone::dirty_family(bool parm)

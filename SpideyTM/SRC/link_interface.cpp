@@ -33,6 +33,8 @@ link_interface::~link_interface()
 
 
 
+// @Ok
+// @Matching
 // Only called by my parents, telling me to update my abs po information.
 void link_interface::update_abs_po_family()
 {
@@ -61,7 +63,7 @@ void link_interface::update_abs_po_family()
 
 #endif /* TARGET_XBOX JIV DEBUG */
     
-    my_child->update_abs_po();
+    my_child->update_abs_po(true);
 
 #if defined(TARGET_XBOX)
     if(my_child)
@@ -78,7 +80,7 @@ void link_interface::update_abs_po_family()
     assert(it->has_link_ifc());
     while(it->link_ifc()->my_brother != NULL)
     {
-      it->link_ifc()->my_brother->update_abs_po();
+      it->link_ifc()->my_brother->update_abs_po(true);
       it = it->link_ifc()->my_brother;
       assert(!it || it->has_link_ifc());
     }
@@ -131,17 +133,6 @@ void link_interface::set_handed_axis_family(int axis)
   }
 }
 
-void link_interface::remove_child(bone *bad_kid)
-{
-  assert(my_bone);
-  assert(bad_kid);
-  assert(bad_kid->has_link_ifc());
-  assert(bad_kid->link_ifc()->get_parent() == my_bone);
-
-  bad_kid->link_ifc()->clear_parent();
-}
-
-
 // @Ok
 // @Matching
 // @Neat - have to write it this way or else the epilogue would be sligtly wrong
@@ -152,6 +143,19 @@ bool link_interface::is_a_parent(bone *pBone)
 		&& (this->my_parent == pBone
 				|| this->my_parent->has_link_ifc() && (this->my_parent->link_ifc()->is_a_parent(pBone)));
 }
+
+// @Ok
+// @Matching
+void link_interface::remove_child(bone *bad_kid)
+{
+  assert(my_bone);
+  assert(bad_kid);
+  assert(bad_kid->has_link_ifc());
+  assert(bad_kid->link_ifc()->get_parent() == my_bone);
+
+  bad_kid->link_ifc()->clear_parent();
+}
+
 
 // @Ok
 // @Matching
@@ -472,4 +476,8 @@ void patch_link_interface(void)
 	PATCH_PUSH_RET(0x004BFA60, link_interface::clear_parent);
 
 	PATCH_PUSH_RET(0x004BFA00, link_interface::is_a_parent);
+
+	PATCH_PUSH_RET(0x004BFA40, link_interface::remove_child);
+
+	PATCH_PUSH_RET(0x004BF9B0, link_interface::update_abs_po_family);
 }

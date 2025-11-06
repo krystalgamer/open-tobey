@@ -84,19 +84,7 @@ class bone : public signaller
       return *my_handed_abs_po;
     }
 
-    void update_abs_po()
-    {
-      if (has_link_ifc()) {
-        if (link_ifc()->get_parent())
-        {
-          fast_po_mul(*my_abs_po, get_rel_po(), link_ifc()->get_parent()->get_abs_po());
-//          *my_abs_po = get_rel_po() * link_ifc()->get_parent()->get_abs_po();
-        }
-        else
-          *my_abs_po = get_rel_po();
-        link_ifc()->update_abs_po_family();
-      }
-    }
+    void update_abs_po(bool);
 
 	void update_handed_abs_po()
     {
@@ -196,7 +184,8 @@ class bone : public signaller
 #endif /* TARGET_XBOX JIV DEBUG */
 
       my_rel_po = the_po;
-      update_abs_po();
+	  // @Patch - arg
+      update_abs_po(true);
       po_changed();
 
 #if defined(TARGET_XBOX)
@@ -223,7 +212,8 @@ class bone : public signaller
     void set_rel_position(const vector3d &p)
     {
       my_rel_po.set_position(p);
-      update_abs_po();
+	  // @Patch - arg
+      update_abs_po(true);
       po_changed();
     }
     void set_rel_position_no_children(const vector3d &p)
@@ -253,7 +243,8 @@ class bone : public signaller
     void set_rel_orientation(const orientation& o)
     {
       my_rel_po.set_orientation(o);
-      update_abs_po();
+	  // @Patch - arg
+      update_abs_po(true);
       po_changed();
 
     }
