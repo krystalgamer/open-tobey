@@ -27,6 +27,15 @@ class bone : public signaller
     sector * my_sector;
 	int flip_axis;
 	bool is_part_of_skeleton;
+
+	// @Patch - added missing enum
+	// @Neat
+	enum bone_flags_t
+	{
+		BONE_UNK_ZERO,
+		BONE_UNK_ONE
+	};
+
   public:
     EXPORT bone()
     {
@@ -62,6 +71,11 @@ class bone : public signaller
 
   /*** has_children ***/
     EXPORT bool has_children() const { return (has_link_ifc() && link_ifc()->get_first_child()); }
+
+
+	// @Patch - added functions
+	EXPORT unsigned int get_bone_flag(bone_flags_t) const;
+	EXPORT unsigned int set_bone_flag(bone_flags_t) const;
 
   /*** po ***/
     EXPORT const po& get_rel_po() const { return my_rel_po; }

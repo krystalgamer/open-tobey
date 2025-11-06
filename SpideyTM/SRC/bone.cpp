@@ -224,4 +224,5 @@ void validate_bone(void)
 void patch_bone(void)
 {
 	PATCH_PUSH_RET(0x004E14F0, bone::create_link_ifc);
+	PATCH_PUSH_RET(0x004E1540, bone::destroy_link_ifc);
 }
