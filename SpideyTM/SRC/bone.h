@@ -17,12 +17,13 @@ class bone : public signaller
   protected:
     po my_rel_po;
     po *my_abs_po;
-	po *my_handed_abs_po;
 
+	unsigned int bone_flags;
   ENTITY_INTERFACE(link)
 
   protected:
 	// @Patch - to make link interface match
+	po *my_handed_abs_po;
     int bone_id;
     sector * my_sector;
 	int flip_axis;
@@ -32,8 +33,8 @@ class bone : public signaller
 	// @Neat
 	enum bone_flags_t
 	{
-		BONE_UNK_ZERO,
-		BONE_UNK_ONE
+		BONE_UNK_ZERO = 0,
+		BONE_UNK_ONE = 1,
 	};
 
   public:
@@ -74,8 +75,30 @@ class bone : public signaller
 
 
 	// @Patch - added functions
-	EXPORT unsigned int get_bone_flag(bone_flags_t) const;
-	EXPORT unsigned int set_bone_flag(bone_flags_t) const;
+	EXPORT bool get_bone_flag(bone_flags_t f) const
+	{
+		return f && this->bone_flags;
+	}
+
+	// @Patch - added functions
+	EXPORT void set_bone_flag(bone_flags_t f, bool b) const
+	{
+		// @Neat - wtf why is this as thing
+		bone *pBone = const_cast<bone*>(this);
+		if (b)
+			pBone->bone_flags |= f;
+		else
+			pBone->bone_flags &= ~f;
+	}
+
+	// @Patch - added functions
+	EXPORT void clear_bone_flag(bone_flags_t f) const
+	{
+		// @Neat - wtf why is this as thing
+		bone *pBone = const_cast<bone*>(this);
+
+		pBone->bone_flags = ~f;
+	}
 
   /*** po ***/
     EXPORT const po& get_rel_po() const { return my_rel_po; }
