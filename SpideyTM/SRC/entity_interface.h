@@ -14,8 +14,8 @@
       assert(my_##itype##_interface);                                     \
       return my_##itype##_interface;                                      \
     }                                                                     \
-    itype##_interface * create_##itype##_ifc();                           \
-    void destroy_##itype##_ifc();                                         \
+    EXPORT itype##_interface * create_##itype##_ifc();                           \
+    EXPORT void destroy_##itype##_ifc();                                         \
 
 
 #define ENTITY_INTERFACE_CPP(cls, itype)                                  \

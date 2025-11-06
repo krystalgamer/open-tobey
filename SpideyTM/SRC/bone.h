@@ -28,7 +28,7 @@ class bone : public signaller
 	int flip_axis;
 	bool is_part_of_skeleton;
   public:
-    bone()
+    EXPORT bone()
     {
       // for now
       bone_id = 0;
@@ -44,7 +44,7 @@ class bone : public signaller
 
       create_link_ifc();
     }
-    virtual ~bone() {
+    EXPORT virtual ~bone() {
       if (has_link_ifc())
         destroy_link_ifc();
 
@@ -54,39 +54,39 @@ class bone : public signaller
 	  my_handed_abs_po = NULL;
     }
 
-	virtual int get_bone_idx(void) { return -1; }
-	void set_part_of_skeleton(bool is_part) { is_part_of_skeleton = is_part; }
+	EXPORT virtual int get_bone_idx(void) { return -1; }
+	EXPORT void set_part_of_skeleton(bool is_part) { is_part_of_skeleton = is_part; }
 
   /*** has_parent ***/
-    bool has_parent() const { return (has_link_ifc() && link_ifc()->get_parent()); }
+    EXPORT bool has_parent() const { return (has_link_ifc() && link_ifc()->get_parent()); }
 
   /*** has_children ***/
-    bool has_children() const { return (has_link_ifc() && link_ifc()->get_first_child()); }
+    EXPORT bool has_children() const { return (has_link_ifc() && link_ifc()->get_first_child()); }
 
   /*** po ***/
-    const po& get_rel_po() const { return my_rel_po; }
+    EXPORT const po& get_rel_po() const { return my_rel_po; }
 
 
-    const po *get_rel_po_ptr() const { return &my_rel_po; }
+    EXPORT const po *get_rel_po_ptr() const { return &my_rel_po; }
 
-    const po& get_abs_po() const
+    EXPORT const po& get_abs_po() const
     {
       return *my_abs_po;
     }
 
-    po *get_abs_po_ptr()
+    EXPORT po *get_abs_po_ptr()
     {
       return my_abs_po;
     }
 
-	po& get_handed_abs_po() const
+	EXPORT po& get_handed_abs_po() const
     {
       return *my_handed_abs_po;
     }
 
-    void update_abs_po(bool);
+    EXPORT void update_abs_po(bool);
 
-	void update_handed_abs_po()
+	EXPORT void update_handed_abs_po()
     {
       if (has_link_ifc()) {
         if (link_ifc()->get_parent())
@@ -100,7 +100,7 @@ class bone : public signaller
       }
     }
 
-	void set_handed_axis(int axis)
+	EXPORT void set_handed_axis(int axis)
 	{
 		flip_axis = axis;
 		if (!is_part_of_skeleton && !my_handed_abs_po)
@@ -115,7 +115,7 @@ class bone : public signaller
 			link_ifc()->set_handed_axis_family(axis);
 	}
 
-	void UpdateHandedness(void)
+	EXPORT void UpdateHandedness(void)
 	{
 		po handed_po;
 		if (flip_axis == 0)
@@ -146,7 +146,7 @@ class bone : public signaller
 		}
 	}
 
-    void update_abs_po_no_children()
+    EXPORT void update_abs_po_no_children()
     {
       if (has_link_ifc())
       {
@@ -161,7 +161,7 @@ class bone : public signaller
     }
 
     // Used in very specific cases
-    void update_abs_po_reverse()
+    EXPORT void update_abs_po_reverse()
     {
       if (has_link_ifc())
       {
@@ -177,7 +177,7 @@ class bone : public signaller
       }
     }
 
-    void set_rel_po(const po & the_po)
+    EXPORT void set_rel_po(const po & the_po)
     {
 #if defined(TARGET_XBOX)
       assert( the_po.get_position().is_valid() );
@@ -194,7 +194,8 @@ class bone : public signaller
       assert( my_abs_po->get_position().is_valid() );
 #endif /* TARGET_XBOX JIV DEBUG */
     }
-    void set_rel_po_no_children(const po & the_po)
+
+    EXPORT void set_rel_po_no_children(const po & the_po)
     {
       assert(has_link_ifc());
       my_rel_po = the_po;
@@ -202,34 +203,34 @@ class bone : public signaller
     }
 
 
-    void reset_scale ();
-    virtual void po_changed(); // called whenever po changes
+    EXPORT void reset_scale ();
+    EXPORT virtual void po_changed(); // called whenever po changes
 
   /*** position ***/
 
-    const vector3d& get_rel_position() const { return my_rel_po.get_position(); }
+    EXPORT const vector3d& get_rel_position() const { return my_rel_po.get_position(); }
 
-    void set_rel_position(const vector3d &p)
+    EXPORT void set_rel_position(const vector3d &p)
     {
       my_rel_po.set_position(p);
 	  // @Patch - arg
       update_abs_po(true);
       po_changed();
     }
-    void set_rel_position_no_children(const vector3d &p)
+    EXPORT void set_rel_position_no_children(const vector3d &p)
     {
       assert(has_link_ifc());
       my_rel_po.set_position(p);
       po_changed();
     }
 
-    const vector3d& get_abs_position() const
+    EXPORT const vector3d& get_abs_position() const
     {
       return my_abs_po->get_position();
     }
 
 
-    const vector3d& get_handed_abs_position() const
+    EXPORT const vector3d& get_handed_abs_position() const
     {
 
 		  if ((flip_axis >= 0) && (flip_axis <= 2))
@@ -239,8 +240,8 @@ class bone : public signaller
     }
 
   /*** orientation ***/
-    const orientation get_rel_orientation() const { return my_rel_po.get_orientation(); }
-    void set_rel_orientation(const orientation& o)
+    EXPORT const orientation get_rel_orientation() const { return my_rel_po.get_orientation(); }
+    EXPORT void set_rel_orientation(const orientation& o)
     {
       my_rel_po.set_orientation(o);
 	  // @Patch - arg
@@ -248,7 +249,7 @@ class bone : public signaller
       po_changed();
 
     }
-    void set_rel_orientation_no_children(const orientation& o)
+    EXPORT void set_rel_orientation_no_children(const orientation& o)
     {
       assert(has_link_ifc());
 
@@ -257,7 +258,7 @@ class bone : public signaller
     }
 
 
-    const orientation get_abs_orientation() const
+    EXPORT const orientation get_abs_orientation() const
 
     {
       return my_abs_po->get_orientation();
@@ -266,7 +267,7 @@ class bone : public signaller
 
   public:
 	// @Patch - had to add
-	void dirty_family(bool);
+	EXPORT void dirty_family(bool);
 
   friend link_interface::~link_interface();
   friend void link_interface::set_parent(bone *new_parent);
