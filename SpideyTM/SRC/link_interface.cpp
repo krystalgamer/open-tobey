@@ -457,6 +457,8 @@ void entity::po_changed()
 
 void validate_link_interface(void)
 {
+	VALIDATE_SIZE(link_interface, 0x18);
+
 	VALIDATE(link_interface, my_bone, 0x4);
 
 	VALIDATE(link_interface, my_parent, 0x8);

@@ -28,6 +28,8 @@ class link_interface : public bone_interface
     friend class bone;
 
   public:
+	// @Ok
+	// @Matching
     EXPORT link_interface(bone *_my_bone)
       : bone_interface(_my_bone)
     {
