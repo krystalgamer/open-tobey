@@ -52,6 +52,10 @@ class link_interface : public bone_interface
 	EXPORT void set_handed_axis_family(int axis);
 
     EXPORT void set_parent(bone *new_parent);
+
+	// @Patch - added
+	EXPORT bool is_a_parent(bone*);
+
     EXPORT void clear_parent();
 
     EXPORT void add_child(bone *good_kid);

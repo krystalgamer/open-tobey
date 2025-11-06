@@ -141,6 +141,18 @@ void link_interface::remove_child(bone *bad_kid)
   bad_kid->link_ifc()->clear_parent();
 }
 
+
+// @Ok
+// @Matching
+// @Neat - have to write it this way or else the epilogue would be sligtly wrong
+// mov al, 1 - instead of the desired mov eax, 1
+bool link_interface::is_a_parent(bone *pBone)
+{
+	return (this->my_parent)
+		&& (this->my_parent == pBone
+				|| this->my_parent->has_link_ifc() && (this->my_parent->link_ifc()->is_a_parent(pBone)));
+}
+
 // @Ok
 // @Matching
 void link_interface::clear_parent()
@@ -458,4 +470,6 @@ void patch_link_interface(void)
 
 
 	PATCH_PUSH_RET(0x004BFA60, link_interface::clear_parent);
+
+	PATCH_PUSH_RET(0x004BFA00, link_interface::is_a_parent);
 }
