@@ -4,6 +4,8 @@
 #include "bone.h"
 
 
+// @Ok
+// @Matching
 link_interface::~link_interface()
 {
   assert(my_bone);
@@ -461,6 +463,8 @@ void validate_link_interface(void)
 	VALIDATE(link_interface, my_child, 0xC);
 
 	VALIDATE(link_interface, my_brother, 0x10);
+
+	VALIDATE(link_interface, link_manages_abs_po, 0x14);
 }
 
 

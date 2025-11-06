@@ -24,6 +24,9 @@ void bone::dirty_family(bool parm)
 void validate_bone(void)
 {
 	VALIDATE(bone, my_link_interface, 0x5C);
+
+	VALIDATE(bone, my_rel_po, 0x14);
+	VALIDATE(bone, my_abs_po, 0x54);
 }
 
 
