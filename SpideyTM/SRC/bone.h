@@ -33,7 +33,6 @@ class bone : public signaller
 	// @Neat
 	enum bone_flags_t
 	{
-		BONE_UNK_ZERO = 0,
 		BONE_UNK_ONE = 1,
 	};
 
@@ -74,12 +73,14 @@ class bone : public signaller
     EXPORT bool has_children() const { return (has_link_ifc() && link_ifc()->get_first_child()); }
 
 
+	// @Ok
 	// @Patch - added functions
 	EXPORT bool get_bone_flag(bone_flags_t f) const
 	{
 		return this->bone_flags & f;
 	}
 
+	// @Ok
 	// @Patch - added functions
 	EXPORT void set_bone_flag(bone_flags_t f, bool b) const
 	{
