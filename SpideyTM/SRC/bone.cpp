@@ -197,14 +197,26 @@ void bone::update_abs_po(bool arg)
 	func(this,0, arg);
 }
 
-// @TODO
+// @Ok
+// @Matching
 void bone::dirty_family(bool parm)
 {
-	// @TODO
-	typedef void (__fastcall *dirty_family_ptr)(bone*, int, bool);
-	dirty_family_ptr dirty_func = (dirty_family_ptr)0x004E1570;
+	this->set_bone_flag(bone::BONE_UNK_ONE, true);
 
-	dirty_func(this, 0, parm);
+	if (this->has_link_ifc())
+	{
+		for (
+				bone *cur = this->link_ifc()->get_first_child();
+				cur;
+				cur = cur->link_ifc()->get_next_sibling())
+		{
+			// @Net - parm == true produces different assembly
+			if (!cur->get_bone_flag(bone::BONE_UNK_ONE) || parm == true)
+			{
+				cur->dirty_family(false);
+			}
+		}
+	}
 }
 
 #include "my_assertions.h"
@@ -227,4 +239,6 @@ void patch_bone(void)
 {
 	PATCH_PUSH_RET(0x004E14F0, bone::create_link_ifc);
 	PATCH_PUSH_RET(0x004E1540, bone::destroy_link_ifc);
+
+	PATCH_PUSH_RET(0x004E1570, bone::dirty_family);
 }

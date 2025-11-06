@@ -77,7 +77,7 @@ class bone : public signaller
 	// @Patch - added functions
 	EXPORT bool get_bone_flag(bone_flags_t f) const
 	{
-		return f && this->bone_flags;
+		return this->bone_flags & f;
 	}
 
 	// @Patch - added functions
