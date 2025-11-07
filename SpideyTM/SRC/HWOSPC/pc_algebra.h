@@ -593,8 +593,16 @@ public:
 
   explicit inline vector4d(T d) { x = y = z = w = d; }  // Initialize all members to d (usually 0.0f)
 
-  // @Patch - moved to class
-  EXPORT inline vector4d& operator	= ( const vector4d& v ); // Assignment operator
+  // @Ok
+  // @Matching
+  EXPORT inline vector4d& operator	= ( const vector4d& v ) // Assignment operator
+  {
+	x = v.x;
+	y = v.y;
+	z = v.z;
+	w = v.w;
+	return *this;
+  }
 
   inline vector4d& operator += ( const vector4d& v )	  // vector addition
   { x += v.x; y += v.y; z += v.z; w += v.w; return *this; }

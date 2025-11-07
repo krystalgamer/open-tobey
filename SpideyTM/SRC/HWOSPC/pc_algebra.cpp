@@ -696,18 +696,6 @@ vector3d xform3d_0( const matrix4x4& m44, const vector3d& sv )
 
 }
 
-
-// @Ok
-// @Matching
-vector4d& vector4d::operator=(const vector4d& v)
-{
-	x = v.x;
-	y = v.y;
-	z = v.z;
-	w = v.w;
-	return *this;
-}
-
 #include "..\my_assertions.h"
 
 void validate_vector4d(void)

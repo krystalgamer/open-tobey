@@ -73,6 +73,8 @@ bool po::operator==( const po& b ) const
 
 #if !defined(TARGET_MKS) && !defined(TARGET_PS2)
 
+// @Ok
+// @Matching
 po po::operator*( const po & b ) const
 {
   po local( m.x.x*b.m.x.x + m.x.y*b.m.y.x + m.x.z*b.m.z.x,
