@@ -269,7 +269,10 @@ INLINE void bone::update_abs_po_reverse() const
 // @Matching
 const vector3d& bone::get_abs_position() const
 {
-	if (!this->get_bone_flag(bone::BONE_UNK_ONE))
+	// @Neat - i tried get_abs_po().get_position() but 
+	// it generates different assembly this is how i got it to
+	// match, kinda dumb tbh
+	if (this->get_bone_flag(bone::BONE_UNK_ONE))
 	{
 		this->update_abs_po_reverse();
 	}
@@ -301,8 +304,8 @@ void patch_bone(void)
 	PATCH_PUSH_RET(0x004E1570, bone::dirty_family);
 
 	PATCH_PUSH_RET(0x004E15C0, bone::update_abs_po_reverse);
+
 	PATCH_PUSH_RET(0x004E19B0, bone::get_abs_position);
 	PATCH_PUSH_RET(0x004E1730, bone::update_abs_po);
-
 	PATCH_PUSH_RET(0x004E1850, bone::get_abs_po);
 }
