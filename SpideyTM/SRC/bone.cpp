@@ -198,11 +198,6 @@ void bone::update_abs_po(bool arg)
 		bone *parent = link_ifc()->get_parent();
 		if (parent)
 		{
-			if (parent->get_bone_flag(bone::BONE_UNK_ONE))
-			{
-				parent->update_abs_po_reverse();
-			}
-
 			fast_po_mul(*my_abs_po, get_rel_po(), parent->get_abs_po());
 		}
 		else
@@ -244,7 +239,7 @@ void bone::dirty_family(bool parm)
 
 // @Ok
 // @Matching
-void bone::update_abs_po_reverse() const
+INLINE void bone::update_abs_po_reverse() const
 {
 	if (has_link_ifc())
 	{
@@ -258,15 +253,7 @@ void bone::update_abs_po_reverse() const
 					link_ifc()->my_parent->update_abs_po_reverse();
 				}
 
-				// @Patch - not sure why in the PC it's done twice
-				// @Neat
-				bone *parent = link_ifc()->get_parent();
-				if (parent->get_bone_flag(bone::BONE_UNK_ONE))
-				{
-					parent->update_abs_po_reverse();
-				}
-
-				fast_po_mul(*my_abs_po, get_rel_po(), parent->get_abs_po());
+				fast_po_mul(*my_abs_po, get_rel_po(), link_ifc()->get_parent()->get_abs_po());
 			}
 			else
 			{
@@ -316,4 +303,6 @@ void patch_bone(void)
 	PATCH_PUSH_RET(0x004E15C0, bone::update_abs_po_reverse);
 	PATCH_PUSH_RET(0x004E19B0, bone::get_abs_position);
 	PATCH_PUSH_RET(0x004E1730, bone::update_abs_po);
+
+	PATCH_PUSH_RET(0x004E1850, bone::get_abs_po);
 }
