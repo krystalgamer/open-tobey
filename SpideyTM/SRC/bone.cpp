@@ -255,7 +255,8 @@ INLINE void bone::update_abs_po_reverse() const
 	this->clear_bone_flag(bone::BONE_UNK_ONE);
 }
 
-// @TODO
+// @Ok
+// @Matching
 const vector3d& bone::get_abs_position() const
 {
 	if (!this->get_bone_flag(bone::BONE_UNK_ONE))
@@ -290,4 +291,5 @@ void patch_bone(void)
 	PATCH_PUSH_RET(0x004E1570, bone::dirty_family);
 
 	PATCH_PUSH_RET(0x004E15C0, bone::update_abs_po_reverse);
+	PATCH_PUSH_RET(0x004E19B0, bone::get_abs_position);
 }
