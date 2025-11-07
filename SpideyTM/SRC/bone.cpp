@@ -210,11 +210,29 @@ void bone::dirty_family(bool parm)
 				cur;
 				cur = cur->link_ifc()->get_next_sibling())
 		{
-			// @Net - parm == true produces different assembly
+			// @Neat - parm == true produces different assembly
 			if (!cur->get_bone_flag(bone::BONE_UNK_ONE) || parm == true)
 			{
 				cur->dirty_family(false);
 			}
+		}
+	}
+}
+
+void bone::update_abs_po_reverse() const
+{
+	if (has_link_ifc())
+	{
+		if (link_ifc()->my_parent)
+		{
+			link_ifc()->my_parent->update_abs_po_reverse();
+
+			fast_po_mul(*my_abs_po, get_rel_po(), link_ifc()->get_parent()->get_abs_po());
+			//          *my_abs_po = get_rel_po() * link_ifc()->my_parent->get_abs_po();
+		}
+		else
+		{
+			*my_abs_po = get_rel_po();
 		}
 	}
 }

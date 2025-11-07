@@ -580,7 +580,9 @@ public:
   T x,y,z,w;
 
   // constructors
-  inline vector4d() : x(0.0f), y(0.0f), z(0.0f), w(1.0f) {} // uninitialized default ctor
+  // @Patch - remove default
+  inline vector4d() /* : x(0.0f), y(0.0f), z(0.0f), w(1.0f) */ {} // uninitialized default ctor
+
   inline vector4d(const vector4d& v) { x = v.x; y = v.y; z = v.z; w = v.w; } // compiler would auto-generate this copy ctor
   inline vector4d(T _x, T _y, T _z, T _w) { x = _x; y = _y; z = _z; w = _w; }
   
@@ -777,11 +779,15 @@ public:
 
   // Constructors
 
-  inline matrix4x4() :
+  inline matrix4x4()
+	  // @Patch - remove init
+	  /*
+	   * :
     x(1.0f, 0.0f, 0.0f, 0.0f),
     y(0.0f, 1.0f, 0.0f, 0.0f),
     z(0.0f, 0.0f, 1.0f, 0.0f),
     w(0.0f, 0.0f, 0.0f, 1.0f)    
+	*/
     {} // uninitialized ctor
 
   inline matrix4x4(

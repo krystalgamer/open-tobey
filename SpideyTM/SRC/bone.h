@@ -98,7 +98,7 @@ class bone : public signaller
 		// @Neat - wtf why is this as thing
 		bone *pBone = const_cast<bone*>(this);
 
-		pBone->bone_flags = ~f;
+		pBone->bone_flags &= ~f;
 	}
 
   /*** po ***/
@@ -200,21 +200,7 @@ class bone : public signaller
 
 	// @Patch - add const
     // Used in very specific cases
-    EXPORT void update_abs_po_reverse() const
-    {
-      if (has_link_ifc())
-      {
-        if (link_ifc()->my_parent)
-        {
-          link_ifc()->my_parent->update_abs_po_reverse();
-
-          fast_po_mul(*my_abs_po, get_rel_po(), link_ifc()->get_parent()->get_abs_po());
-//          *my_abs_po = get_rel_po() * link_ifc()->my_parent->get_abs_po();
-        }
-        else
-          *my_abs_po = get_rel_po();
-      }
-    }
+    EXPORT void update_abs_po_reverse() const;
 
     EXPORT void set_rel_po(const po & the_po)
     {

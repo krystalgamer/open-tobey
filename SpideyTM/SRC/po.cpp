@@ -1087,4 +1087,5 @@ void validate_po(void)
 
 void patch_po(void)
 {
+	PATCH_PUSH_RET_POLY(0x007C9850, po::operator*, "??Dpo@@QBE?AV0@ABV0@@Z");
 }
