@@ -509,7 +509,7 @@ class po
       return local;
     }
 #else
-    po operator*( const po& b ) const;
+    EXPORT po operator*( const po& b ) const;
 #endif
 
 #if !defined(NO_SERIAL_OUT)
