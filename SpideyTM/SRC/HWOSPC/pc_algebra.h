@@ -318,6 +318,9 @@ inline void serial_in( chunk_file& io, vector2di* v )
 class vector3d
 {
 
+	friend void validate_vector3d(void);
+	friend void patch_vector3d(void);
+
 public:
   typedef rational_t T;
   T x,y,z;

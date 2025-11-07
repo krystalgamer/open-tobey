@@ -219,6 +219,17 @@ void bone::dirty_family(bool parm)
 	}
 }
 
+// @TODO
+const vector3d& bone::get_abs_position() const
+{
+	if (!this->get_bone_flag(bone::BONE_UNK_ONE))
+	{
+		this->update_abs_po_reverse();
+	}
+
+	return my_abs_po->get_position();
+}
+
 #include "my_assertions.h"
 
 void validate_bone(void)

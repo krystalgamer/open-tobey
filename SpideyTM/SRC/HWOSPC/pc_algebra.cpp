@@ -720,10 +720,23 @@ void validate_vector4d(void)
 	VALIDATE(vector4d, w, 0xC);
 }
 
+void validate_vector3d(void)
+{
+	VALIDATE_SIZE(vector3d, 0xC);
+
+	VALIDATE(vector4d, x, 0x0);
+	VALIDATE(vector4d, y, 0x4);
+	VALIDATE(vector4d, z, 0x8);
+}
+
 #include "..\my_patch.h"
 
 void patch_vector4d(void)
 {
 	PATCH_PUSH_RET_POLY(0x004423B0, vector4d::operator=, "??4vector4d@@QAEAAV0@ABV0@@Z");
 	PATCH_PUSH_RET_POLY(0x00442380, vector4d::operator=, "??4vector4d@@QAEAAV0@ABV0@@Z");
+}
+
+void patch_vector3d(void)
+{
 }

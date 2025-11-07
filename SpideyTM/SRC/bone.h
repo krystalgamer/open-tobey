@@ -198,8 +198,9 @@ class bone : public signaller
       }
     }
 
+	// @Patch - add const
     // Used in very specific cases
-    EXPORT void update_abs_po_reverse()
+    EXPORT void update_abs_po_reverse() const
     {
       if (has_link_ifc())
       {
@@ -262,10 +263,7 @@ class bone : public signaller
       po_changed();
     }
 
-    EXPORT const vector3d& get_abs_position() const
-    {
-      return my_abs_po->get_position();
-    }
+    EXPORT const vector3d& get_abs_position() const;
 
 
     EXPORT const vector3d& get_handed_abs_position() const
