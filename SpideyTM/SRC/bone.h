@@ -122,6 +122,7 @@ class bone : public signaller
       return *my_handed_abs_po;
     }
 
+	// @Patch - arg
     EXPORT void update_abs_po(bool);
 
 	EXPORT void update_handed_abs_po()

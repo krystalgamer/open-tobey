@@ -189,12 +189,35 @@ void bone::reset_scale ()
 }
 
 
-// @TODO
+// @Ok
+// @Matching
 void bone::update_abs_po(bool arg)
 {
-	typedef void (__fastcall *ptr)(bone*, int, bool);
-	ptr func = (ptr)0x00004E1730;
-	func(this,0, arg);
+	if (has_link_ifc())
+	{
+		bone *parent = link_ifc()->get_parent();
+		if (parent)
+		{
+			if (parent->get_bone_flag(bone::BONE_UNK_ONE))
+			{
+				parent->update_abs_po_reverse();
+			}
+
+			fast_po_mul(*my_abs_po, get_rel_po(), parent->get_abs_po());
+		}
+		else
+		{
+			// @Patch - add this check
+			if (this->my_abs_po != &this->my_rel_po)
+			{
+				*my_abs_po = get_rel_po();
+			}
+		}
+
+		link_ifc()->update_abs_po_family();
+	}
+
+	this->clear_bone_flag(bone::BONE_UNK_ONE);
 }
 
 // @Ok
@@ -221,7 +244,7 @@ void bone::dirty_family(bool parm)
 
 // @Ok
 // @Matching
-INLINE void bone::update_abs_po_reverse() const
+void bone::update_abs_po_reverse() const
 {
 	if (has_link_ifc())
 	{
@@ -292,4 +315,5 @@ void patch_bone(void)
 
 	PATCH_PUSH_RET(0x004E15C0, bone::update_abs_po_reverse);
 	PATCH_PUSH_RET(0x004E19B0, bone::get_abs_position);
+	PATCH_PUSH_RET(0x004E1730, bone::update_abs_po);
 }
