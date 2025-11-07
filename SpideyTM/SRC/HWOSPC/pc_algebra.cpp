@@ -724,5 +724,6 @@ void validate_vector4d(void)
 
 void patch_vector4d(void)
 {
-	PATCH_PUSH_RET_POLY(0x4423B0, vector4d::operator=, "??4vector4d@@QAEAAV0@ABV0@@Z");
+	PATCH_PUSH_RET_POLY(0x004423B0, vector4d::operator=, "??4vector4d@@QAEAAV0@ABV0@@Z");
+	PATCH_PUSH_RET_POLY(0x00442380, vector4d::operator=, "??4vector4d@@QAEAAV0@ABV0@@Z");
 }
