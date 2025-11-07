@@ -570,6 +570,9 @@ const vector3d ZEROVEC(0,0,0);
 class vector4d
 {
 public:
+	
+	friend void validate_vector4d(void);
+	friend void patch_vector4d(void);
   typedef rational_t T;
   T x,y,z,w;
 
@@ -585,8 +588,8 @@ public:
 
   explicit inline vector4d(T d) { x = y = z = w = d; }  // Initialize all members to d (usually 0.0f)
 
-  inline vector4d& operator	= ( const vector4d& v )	    // Assignment operator
-  { x = v.x; y = v.y; z = v.z; w = v.w; return *this; }
+  // @Patch - moved to class
+  EXPORT inline vector4d& operator	= ( const vector4d& v ); // Assignment operator
 
   inline vector4d& operator += ( const vector4d& v )	  // vector addition
   { x += v.x; y += v.y; z += v.z; w += v.w; return *this; }

@@ -695,3 +695,34 @@ vector3d xform3d_0( const matrix4x4& m44, const vector3d& sv )
   return result;
 
 }
+
+
+// @Ok
+// @Matching
+vector4d& vector4d::operator=(const vector4d& v)
+{
+	x = v.x;
+	y = v.y;
+	z = v.z;
+	w = v.w;
+	return *this;
+}
+
+#include "..\my_assertions.h"
+
+void validate_vector4d(void)
+{
+	VALIDATE_SIZE(vector4d, 0x10);
+
+	VALIDATE(vector4d, x, 0x0);
+	VALIDATE(vector4d, y, 0x4);
+	VALIDATE(vector4d, z, 0x8);
+	VALIDATE(vector4d, w, 0xC);
+}
+
+#include "..\my_patch.h"
+
+void patch_vector4d(void)
+{
+	PATCH_PUSH_RET_POLY(0x4423B0, vector4d::operator=, "??4vector4d@@QAEAAV0@ABV0@@Z");
+}
