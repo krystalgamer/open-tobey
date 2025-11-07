@@ -759,6 +759,9 @@ class matrix4x4
 {
 public:
 
+	friend void validate_matrix4x4(void);
+	friend void patch_matrix4x4(void);
+
   typedef rational_t T;
   typedef vector4d row;
   // row exists to allow things like my_matrix[3][2] to work. 

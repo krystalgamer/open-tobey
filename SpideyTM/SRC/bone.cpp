@@ -225,6 +225,8 @@ const vector3d& bone::get_abs_position() const
 	if (!this->get_bone_flag(bone::BONE_UNK_ONE))
 	{
 		this->update_abs_po_reverse();
+
+		this->clear_bone_flag(bone::BONE_UNK_ONE);
 	}
 
 	return my_abs_po->get_position();

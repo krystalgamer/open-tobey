@@ -729,6 +729,16 @@ void validate_vector3d(void)
 	VALIDATE(vector4d, z, 0x8);
 }
 
+void validate_matrix4x4(void)
+{
+	VALIDATE_SIZE(matrix4x4, 0x40);
+
+	VALIDATE(matrix4x4, x, 0x0);
+	VALIDATE(matrix4x4, y, 0x10);
+	VALIDATE(matrix4x4, z, 0x20);
+	VALIDATE(matrix4x4, w, 0x30);
+}
+
 #include "..\my_patch.h"
 
 void patch_vector4d(void)
@@ -738,5 +748,9 @@ void patch_vector4d(void)
 }
 
 void patch_vector3d(void)
+{
+}
+
+void patch_matrix4x4(void)
 {
 }
