@@ -1073,3 +1073,18 @@ bool po::is_valid( void ) const
 }
 
 #endif /* TARGET_XBOX JIV DEBUG */
+
+
+
+#include "my_assertions.h"
+
+void validate_po(void)
+{
+	VALIDATE(po, m[3], 0x30);
+}
+
+#include "my_patch.h"
+
+void patch_po(void)
+{
+}

@@ -125,6 +125,8 @@ extern "C" EXPORT int run_assertions(void)
 	validate_vector4d();
 	validate_vector3d();
 
+	validate_po();
+
 	return FAIL_VALIDATION;
 }
 
@@ -198,6 +200,8 @@ void game_patches()
 
 	patch_vector4d();
 	patch_vector3d();
+
+	patch_po();
 }
 
 #pragma pack(push,1)

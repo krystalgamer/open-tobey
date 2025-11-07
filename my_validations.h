@@ -23,6 +23,7 @@ void validate_link_interface(void);
 void validate_bone(void);
 void validate_vector4d(void);
 void validate_vector3d(void);
+void validate_po(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -46,4 +47,5 @@ void patch_link_interface(void);
 void patch_bone(void);
 void patch_vector4d(void);
 void patch_vector3d(void);
+void patch_po(void);
 #endif

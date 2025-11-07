@@ -62,8 +62,10 @@ private:
 #endif //DEBUG
 
 class po
-
 {
+	friend void patch_po(void);
+	friend void validate_po(void);
+
   private:
     matrix4x4 m;
 
@@ -213,9 +215,10 @@ class po
     // set a matrix that rotates around an arbitrary vector
     void set_rot( const vector3d& rot_dir);
 
+	// @Ok
+	// @Matching
     // extract the position vector
     inline const vector3d& get_position() const
-
     {
       return (const vector3d&)(m[3]);
     }
