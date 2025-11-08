@@ -220,6 +220,8 @@ entity_manager::entity_manager() : number_server( 0 )
   name_to_number.insert( name_to_number_map::value_type( strdupcpp("UNREG"), -1) );
 }
 
+// @Ok
+// @Matching
 entity_manager::~entity_manager()
 {
   name_to_number_map::iterator mi;
