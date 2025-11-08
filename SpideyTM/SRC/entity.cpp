@@ -346,6 +346,8 @@ void entity_manager::register_entity(entity* e)
   }
 }
 
+// @Ok
+// @PartialMatching - stl extra thread safety
 void entity_manager::deregister_entity(entity* e)
 {
   if( !(e->get_id() == ANONYMOUS) )
@@ -403,6 +405,7 @@ void patch_entity_id(void)
 void patch_entity_manager(void)
 {
 	PATCH_PUSH_RET(0x004F24C0, entity_manager::register_entity);
+	PATCH_PUSH_RET(0x004F2590, entity_manager::deregister_entity);
 }
 
 void patch_str(void)
