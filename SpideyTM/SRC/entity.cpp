@@ -16,6 +16,12 @@
 #include "widget_entity.h"
 #include "bound.h"
 #include "colmesh.h"
+#include "item.h"
+#include "entityflags.h"
+#include "collide.h"
+#include "lightmgr.h"
+#include "controller.h"
+#include "entity_interface.h"
 
 // @Ok
 // @Matching
@@ -1425,125 +1431,8 @@ extern float shadow_reflective_value;
 
 void entity::rendershadow( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct, rational_t scale )
 {
-#ifdef NGL
-  nglMesh* mesh=NULL;
-  if (flavor & RENDER_SHADOW_MODEL)
-	  mesh = get_shadow_mesh();
-  if (flavor & RENDER_LORES_MODEL)
-	  mesh = get_lores_mesh();
-	if ( mesh==NULL )
-  	mesh = get_mesh();
-  if ( !mesh )
-
-    return;
-
-  nglRenderParams params;
-	memset(&params,0,sizeof(params));
-  params.Flags = 0;
-
-
-	if ( usezbias )
-
-	{
-		params.Flags |= NGLP_ZBIAS;
-		params.ZBias = zbias;
-	}
-
-  if (MaterialMask)
-  {
-
-	  params.Flags |= NGLP_MATERIAL_MASK;
-	  params.MaterialMask = MaterialMask;
-  }
-
-  if (TextureFrame >= 0)
-  {
-	  params.Flags |= NGLP_TEXTURE_FRAME;
-
-	  params.TextureFrame = TextureFrame;
-  }
-#if 0
-  else
-  {
-    // workaround for some ifls not being updated correctly.
-    extern int KS_TextureAnimFrame;
-
-	  params.Flags |= NGLP_TEXTURE_FRAME;
-	  params.TextureFrame = KS_TextureAnimFrame;
-  }
-#endif
-
-  if (use_uv_scrolling)
-  {
-    params.Flags |= NGLP_TEXTURE_SCROLL;
-    params.ScrollU = scroll_u;
-    params.ScrollV = scroll_v;
-  }
-
-
-  // enable tint if neccessary.  duplicated in entity::render.
-  params.Flags |= NGLP_TINT;
-  params.TintColor[0] = shadow_reflective_value; //c.get_red() * i;
-  params.TintColor[1] = shadow_reflective_value; //c.get_green() * i;
-  params.TintColor[2] = shadow_reflective_value; //c.get_blue() * i;
-  params.TintColor[3] = entity_translucency_pct; //c.get_alpha() * i;
-
-//  vector3d s = get_render_scale();
-
-// Without NGLP_SCALE, transform will be normalized, which removes the flip for lefties.  (dc 05/31/02)
-//  if ( scale != 1.0f ) //s != vector3d( 1, 1, 1 ) )
-  {
-    params.Flags |= NGLP_SCALE;
-    params.Scale[0] = scale;
-    params.Scale[1] = scale;
-    params.Scale[2] = scale;
-    params.Scale[3] = 1.0f;
-	if (scale < 0)
-	{
-		params.Flags ^= NGLP_REVERSE_BACKFACECULL;	// entity is rendered flipped (dc 04/30/02)
-	}
-  }
-	params.Flags |= NGLP_NO_CULLING;
-	params.Flags |= NGLP_NO_LIGHTING;
-	#if !defined (TARGET_GC) && !defined(TARGET_XBOX)
-
-	params.Flags |= NGLP_WRITE_FB_ALPHA;
-	#endif
-
-
-  po render_po;
-  if ((flip_axis >= 0) && (flip_axis <= 2))
-
-  {
-	  render_po = get_handed_abs_po();
-	  params.Flags ^= NGLP_REVERSE_BACKFACECULL;	// entity is rendered flipped (dc 04/30/02)
-  }
-  else
-	  render_po = get_abs_po();
-
-
-  START_PROF_TIMER( proftimer_render_add_mesh );
-  nglListAddMesh( mesh, native_to_ngl( render_po ), &params );
-  STOP_PROF_TIMER( proftimer_render_add_mesh );
-#else
-  #ifdef DEBUG
-  if( g_use_debug_entity_name )
-  {
-    g_current_entity_name=get_name();
-    if (g_current_entity_name==g_debug_entity_name)
-
-    { // you can put a breakpoint here
-      debug_print("rendering %s, flavor 0x%x",g_debug_entity_name.c_str(),flavor);
-    }
-  }
-  #endif
-
-//nglPrintf("rendering %s, flavor 0x%x\n", get_name().c_str(), flavor);
-
-  light_manager* lm = get_light_set();
-  render_heart( detail, flavor, lm, 0, entity_translucency_pct );
-#endif
-
+	// @TODO
+	PANIC;
 }
 
 // permanent:
@@ -2555,6 +2444,951 @@ motion_blur_info::motion_blur_info( int max_trail_length )
 
 motion_blur_info::~motion_blur_info()
 { delete[] motion_trail_buffer; }
+
+
+void entity::exec_preload_function(const stringx &preload_func)
+{
+	// @TODO
+	PANIC;
+}
+
+
+void entity::apply_damage(int damage, const vector3d &pos, const vector3d &norm, int _damage_type, entity *attacker, int dmg_flags)
+{
+
+  assert(0);
+/*
+  if ( is_destroyable() )
+  {
+    if(attacker)
+    {
+      if(attacker->is_a_handheld_item())
+      {
+        dmg_info.attacker = ((handheld_item *)attacker)->get_owner();
+        dmg_info.attacker_itm = (item *)attacker;
+      }
+      else
+      {
+        dmg_info.attacker = attacker;
+        dmg_info.attacker_itm = NULL;
+      }
+    }
+    else
+
+    {
+      dmg_info.attacker = NULL;
+      dmg_info.attacker_itm = NULL;
+    }
+
+
+    // make sure members of a conglomerate cannot hurt itself... (for tanks and turrets)
+    if(is_a_conglomerate() && ((conglomerate *)this)->has_member(dmg_info.attacker))
+      return;
+
+    dmg_info.damage = damage;
+    dmg_info.dir = -norm;
+    dmg_info.loc = pos;
+    dmg_info.type = _damage_type;
+    dmg_info.push_wounded = true;
+    dmg_info.push_death = true;
+    dmg_info.flags = dmg_flags;
+
+    raise_signal( DAMAGED );
+
+    damage = (int)((((rational_t)damage) * damage_resist_modifier) + 0.5f);
+
+    #ifdef TARGET_PC
+      char    outbuf[100];
+      sprintf( outbuf, "%s takes %d damage", id.get_val().c_str(), damage );
+      app::inst()->get_game()->get_message_board()->post( stringx(outbuf), 2.0F );
+    #endif
+
+
+    if ( !is_invulnerable() && !destroy_info->apply_damage(damage, pos, norm) )
+
+    {
+      set_auto_targetable(false);
+      apply_destruction_fx();
+      target_timer = 0.0f;
+      raise_signal( DESTROYED );
+    }
+  }
+*/
+
+}
+
+
+
+void entity::apply_destruction_fx()
+{
+  if ( destroy_info )
+  {
+    destroy_info->apply_destruction_fx();
+
+    // disgorge any items I may be carrying
+    disgorge_items();
+  }
+  else
+    set_active( false );
+
+}
+
+
+bool entity::is_destroyable() const
+{
+
+  return destroy_info != NULL && (!destroy_info->has_hit_points() || destroy_info->get_hit_points()>0);
+}
+
+// add an item to this container;
+
+// returns true if no like item already in list; otherwise, adds to existing item's count
+bool entity::add_item( item* it )
+{
+	// @TODO
+	PANIC;
+	return false;
+}
+
+
+
+// returns NULL if index is out-of=range
+item* entity::get_item( unsigned int n ) const
+{
+  if ( is_container() && n<(unsigned)get_num_items() )
+    return coninfo->items[n];
+  else
+    return NULL;
+}
+
+
+// returns null pointer if no like item found
+item* entity::find_like_item( item* it ) const
+{
+  if ( is_container() )
+
+  {
+    item_list_t::const_iterator i = coninfo->items.begin();
+    item_list_t::const_iterator i_end = coninfo->items.end();
+    for ( ; i!=i_end; ++i )
+    {
+      item* lit = *i;
+      if ( lit && lit->is_same_item( *it ) )
+        return lit;
+    }
+  }
+  return NULL;
+}
+
+// returns null pointer if no like item found
+item* entity::find_item_by_name( const stringx &name ) const
+{
+  if ( is_container() )
+  {
+    item_list_t::const_iterator i = coninfo->items.begin();
+    item_list_t::const_iterator i_end = coninfo->items.end();
+    for ( ; i!=i_end; ++i )
+    {
+
+      item* lit = *i;
+      if ( lit && lit->get_name() == name )
+
+        return lit;
+    }
+  }
+  return NULL;
+}
+
+#if 0 // BIGCULL
+handheld_item* entity::find_item_by_id( const stringx &id ) const
+{
+  if ( is_container() )
+
+  {
+    item_list_t::const_iterator i = coninfo->items.begin();
+    item_list_t::const_iterator i_end = coninfo->items.end();
+    for ( ; i!=i_end; ++i )
+    {
+      item* lit = *i;
+      if ( lit && lit->is_a_handheld_item() && ((handheld_item *)lit)->get_item_id() == id )
+        return((handheld_item *)lit);
+    }
+  }
+  return NULL;
+}
+#endif // BIGCULL
+
+// returns -1 if item is not found in list
+int entity::get_item_index( item* it ) const
+{
+  if ( is_container() )
+  {
+
+    item_list_t::const_iterator i = coninfo->items.begin();
+    item_list_t::const_iterator i_end = coninfo->items.end();
+    int index = 0;
+    for ( ; i!=i_end; ++i,++index )
+    {
+      if ( *i == it )
+        return index;
+    }
+  }
+  return -1;
+}
+
+
+
+// returns the next item in the list after the given one (wraps around);
+// returns NULL if given item is not found
+item* entity::get_next_item( item* itm ) const
+{
+  int n = get_num_items();
+  if ( n )
+  {
+    int base_cur_item = get_item_index( itm );
+
+    if(base_cur_item == -1)
+      base_cur_item = 0;
+
+    int c = base_cur_item;
+    do
+    {
+
+      ++c;
+      if ( c >= n )
+
+        c = 0;
+    } while ( (!get_item(c) || get_item(c)->get_number()==0) && c!=base_cur_item );
+
+    item* newitm = get_item( c );
+    if ( newitm && newitm->get_number()>0 )
+
+      return newitm;
+  }
+  return NULL;
+}
+
+
+// returns the previous item in the list before the given one (wraps around);
+// returns NULL if given item is not found
+item* entity::get_prev_item( item* itm ) const
+{
+  int n = get_num_items();
+  if ( n )
+  {
+    int base_cur_item = get_item_index( itm );
+
+    if(base_cur_item == -1)
+      base_cur_item = 0;
+
+    int c = base_cur_item;
+    do
+    {
+      --c;
+      if ( c < 0 )
+        c = n - 1;
+    } while ( (!get_item(c) || get_item(c)->get_number()==0) && c!=base_cur_item );
+
+    item* newitm = get_item( c );
+    if ( newitm && newitm->get_number()>0 )
+      return newitm;
+  }
+  return NULL;
+}
+
+
+// disgorge any items I may be carrying
+void entity::disgorge_items(entity *target)
+{
+error("Disgorge_items not supported in KS.");
+#if 0  //BIGCULL
+  if ( is_container() )
+  {
+    item_list_t::const_iterator i = coninfo->items.begin();
+    item_list_t::const_iterator i_end = coninfo->items.end();
+    for ( ; i!=i_end; ++i )
+    {
+
+      item* it = *i;
+
+      if(it && (it->get_number() > 0 || (it->is_a_thrown_item() && ((thrown_item *)it)->is_a_radio_detonator())) && !it->is_brain_weapon())
+      {
+
+        if(target == NULL)
+        {
+
+          it->set_visible( true );
+          vector3d newpos( (((float)(random(100)))*.03f)-1.5f, .5f, (((float)(random(100)))*.03f)-1.5f );
+          newpos *= 0.25f;
+          newpos += get_abs_position();
+          po newpo = po_identity_matrix;
+          newpo.set_position( newpos );
+//!          it->set_parent( NULL );
+          it->set_rel_po( newpo );
+          it->set_pickup_timer(0.5f);
+          it->compute_sector( g_world_ptr->get_the_terrain() );
+          it->raise_signal( item::SCHWING );
+        }
+        else
+
+        {
+/*!          if(target->is_a_character())
+            it->give_to_character((character *)target);
+          else
+!*/
+            target->add_item(it);
+        }
+      }
+    }
+
+    coninfo->items.resize(0);
+  }
+#endif //BIGCULL
+}
+
+void entity::use_item(item *it)
+{
+  if(it != NULL)
+  {
+    last_item_used = it;
+
+    it->apply_effects( this );
+
+    raise_signal(entity::USE_ITEM);
+  }
+}
+
+void entity::copy_visrep(entity *ent)
+{
+	// @TODO
+	PANIC;
+}
+
+/*!
+void entity::activate_by_character(character *chr)
+{
+
+  action_character = chr;
+
+
+  raise_signal(ACTIVATED_BY_CHARACTER);
+}
+
+!*/
+
+
+
+bool entity::allow_targeting() const
+{
+  return 1;
+#if 0 // BIGCULL
+
+  if (!has_damage_ifc())
+    return false;
+
+  return (damage_ifc()->is_alive() && is_combat_target());
+#endif // BIGCULL
+}
+
+bool entity::test_combat_target( const vector3d& p0, const vector3d& p1,
+                                 vector3d* impact_pos, vector3d* impact_normal,
+                                 rational_t default_radius, bool rear_cull ) const
+{
+  return(collide_segment_entity(p0, p1, this, impact_pos, impact_normal, default_radius, rear_cull));
+}
+
+void entity::process_extra_scene_flags(unsigned int scn_flags)
+{
+  if(scn_flags & BEAMABLE_FLAG)
+  {
+    if(!is_beamable())
+
+      set_beamable(true);
+  }
+  else if(scn_flags & NO_BEAMABLE_FLAG)
+  {
+    if(is_beamable())
+
+      set_beamable(false);
+
+  }
+
+  if ( scn_flags & SCANABLE_FLAG )
+
+  {
+    if ( !is_scannable() )
+    {
+      if ( has_mesh() )
+      {
+        set_scannable( true );
+      }
+      else
+        warning( get_id().get_val() + ": entity must have mesh visrep to be set as SCANABLE" );
+    }
+
+  }
+  else if ( scn_flags & NO_SCANABLE_FLAG )
+
+  {
+    if ( is_scannable() )
+
+      set_scannable(false);
+  }
+
+
+  if ( get_colgeom() && get_colgeom()->get_type() == collision_geometry::MESH )
+  {
+    cg_mesh* m = static_cast<cg_mesh*>( get_colgeom() );
+
+
+    if(scn_flags & CAMERA_COLL_FLAG)
+    {
+      if(!m->is_camera_collision())
+        m->set_flag( cg_mesh::FLAG_CAMERA_COLLISION, true );
+
+    }
+    else if(scn_flags & NO_CAMERA_COLL_FLAG)
+    {
+
+      if(m->is_camera_collision())
+        m->set_flag( cg_mesh::FLAG_CAMERA_COLLISION, false );
+
+    }
+
+    if(scn_flags & ENTITY_COLL_FLAG)
+    {
+
+      if(!m->is_entity_collision())
+        m->set_flag( cg_mesh::FLAG_ENTITY_COLLISION, true );
+    }
+    else if(scn_flags & NO_ENTITY_COLL_FLAG)
+
+    {
+      if(m->is_entity_collision())
+        m->set_flag( cg_mesh::FLAG_ENTITY_COLLISION, false );
+    }
+  }
+
+  if(scn_flags & ACTIONABLE_FLAG)
+  {
+    if(!is_actionable())
+      set_actionable(true);
+  }
+  else if(scn_flags & NO_ACTIONABLE_FLAG)
+  {
+    if(is_actionable())
+      set_actionable(false);
+  }
+
+  if(scn_flags & ACTION_FACING_FLAG)
+  {
+    if(!action_uses_facing())
+      set_action_uses_facing(true);
+  }
+  else if(scn_flags & NO_ACTION_FACING_FLAG)
+  {
+    if(action_uses_facing())
+
+      set_action_uses_facing(false);
+  }
+
+  if(scn_flags & IS_DOOR_FLAG)
+  {
+    if(!is_door())
+      set_door(true);
+  }
+  else if(scn_flags & NO_IS_DOOR_FLAG)
+  {
+    if(is_door())
+      set_door(false);
+  }
+
+  if(is_door())
+  {
+    if(scn_flags & DOOR_OPEN_FLAG)
+    {
+      if(is_door_closed())
+        set_door_closed(false);
+    }
+    else if(scn_flags & DOOR_CLOSED_FLAG)
+    {
+      if(!is_door_closed())
+        set_door_closed(true);
+
+    }
+  }
+
+#if _ENABLE_WORLD_EDITOR
+  scene_flags = scn_flags & OVERIDE_MASK_FLAG;
+
+
+  if(is_beamable())
+    scene_flags |= BEAMABLE_FLAG;
+
+  if(is_scannable())
+
+    scene_flags |= SCANABLE_FLAG;
+
+
+  if ( get_colgeom() && get_colgeom()->get_type() == collision_geometry::MESH )
+
+  {
+    cg_mesh* m = static_cast<cg_mesh*>( get_colgeom() );
+
+    if(m->is_camera_collision())
+      scene_flags |= CAMERA_COLL_FLAG;
+
+    if(m->is_entity_collision())
+      scene_flags |= ENTITY_COLL_FLAG;
+  }
+
+
+  if(is_actionable())
+    scene_flags |= ACTIONABLE_FLAG;
+
+  if(action_uses_facing())
+    scene_flags |= ACTION_FACING_FLAG;
+
+  if(is_door())
+  {
+
+    scene_flags |= IS_DOOR_FLAG;
+
+    if(!is_door_closed())
+      scene_flags |= DOOR_OPEN_FLAG;
+  }
+#endif
+}
+
+bool entity::parse_instance( const stringx& pcf, chunk_file& fs )
+{
+	// @TODO
+	PANIC;
+	return true;
+}
+
+
+void entity::create_destroy_info()
+{
+  if(destroy_info == NULL)
+    destroy_info = NEW destroyable_info(this);
+}
+
+void entity::suspend()
+{
+	// @TODO
+	PANIC;
+}
+
+
+
+void entity::unsuspend()
+{
+	// @TODO
+	PANIC;
+}
+
+
+void entity::set_controller(entity_controller * c)
+{
+
+  assert(my_controller == NULL);
+
+  my_controller = c;
+
+
+  if ( c )
+    c->set_active( is_active()/* || c->is_a_brain()*/ );
+}
+
+
+/*
+brain * entity::get_brain()
+{
+//  assert (this!=g_world_ptr->get_hero_ptr() && my_controller->is_a_brain());
+  if(my_controller && my_controller->is_a_brain())
+    return (brain *)my_controller;
+
+  else
+    return(NULL);
+}
+*/
+void entity::set_control_active( bool a )
+
+{
+  if ( my_controller )
+    my_controller->set_active( a );
+}
+
+bool entity::is_alive() const
+{
+// BIGCULL return(!has_damage_ifc() || damage_ifc()->is_alive());
+return true;
+
+}
+
+
+bool entity::is_dying() const
+{
+  return(false);
+}
+
+bool entity::is_alive_or_dying() const
+{
+  return(is_alive() || is_dying());
+}
+
+bool entity::is_hero() const
+
+{
+	// @TODO
+	PANIC;
+	return true;
+}
+
+
+
+bool entity::possibly_active() const
+{
+	PANIC;
+	return false;
+}
+
+
+bool entity::possibly_aging() const
+{
+  return(my_visrep != NULL && ( ( my_visrep->get_anim_length() > 1)||( my_visrep->is_uv_animated() ) ));
+}
+
+
+void entity::set_active( bool a )
+{
+  if(entity::is_active() != a)
+  {
+    if ( a )
+      flags|=EFLAG_ACTIVE;
+    else
+
+      flags&=~EFLAG_ACTIVE;
+
+//    region_update_poss_active();
+
+    if ( my_controller )
+      set_control_active( a );
+  }
+}
+
+void entity::set_visible( bool a )
+
+{
+	if(entity::is_visible() != a)
+	{
+		if( a )
+		{
+			if (!is_ext_flagged(EFLAG_EXT_WAS_VISIBLE))	// we turned it off in the draw menu
+			{
+				flags|=EFLAG_GRAPHICS_VISIBLE;
+			}
+		}
+		else
+		{
+			flags&=~EFLAG_GRAPHICS_VISIBLE;
+		}
+
+		region_update_poss_render();
+	}
+}
+
+void entity::set_collisions_active( bool a, bool update_reg )
+
+{
+  if(entity::are_collisions_active() != a)
+  {
+    if(a)
+
+    {
+      flags|=EFLAG_PHYSICS_COLLISIONS_ACTIVE;
+    }
+    else
+    {
+      flags&=~EFLAG_PHYSICS_COLLISIONS_ACTIVE;
+
+    }
+
+    if(update_reg)
+      region_update_poss_collide();
+  }
+}
+
+void entity::region_update_poss_active()
+
+{
+#ifndef REGIONCULL
+  region_node_pset::iterator i; //,j;
+  for ( i=in_regions.begin(); i!=in_regions.end(); ++i)
+  {
+    region* r = (*i)->get_data();
+    if(r)
+      r->update_poss_active(this);
+  }
+
+#endif
+}
+
+void entity::region_update_poss_render()
+{
+#ifndef REGIONCULL
+  region_node_pset::iterator i; //,j;
+  for ( i=in_regions.begin(); i!=in_regions.end(); ++i)
+  {
+    region* r = (*i)->get_data();
+    if(r)
+      r->update_poss_render(this);
+  }
+#endif
+}
+
+void entity::region_update_poss_collide()
+{
+#ifndef REGIONCULL
+  region_node_pset::iterator i; //,j;
+  for ( i=in_regions.begin(); i!=in_regions.end(); ++i)
+  {
+    region* r = (*i)->get_data();
+    if(r)
+
+      r->update_poss_collide(this);
+  }
+#endif
+}
+
+
+void entity::preload()
+{
+  if(!was_preloaded())
+
+  {
+    set_preloaded(true);
+
+
+    if(destroy_info != NULL)
+      destroy_info->preload();
+
+//    if(get_brain() != NULL)
+//      get_brain()->preload();
+  }
+
+}
+
+
+void entity::set_min_detail(int md)
+{
+PANIC;
+}
+
+
+
+void entity::clear_all_raised_signals()
+{
+  signals_raised[0] = 0;
+
+  signals_raised[1] = 0;
+}
+
+void entity::clear_signal_raised(unsigned short sig_id)
+{
+  assert(sig_id > 0 && sig_id < N_SIGNALS && sig_id < 64);
+  signals_raised[(sig_id < 32 ? 1 : 0)] &= ~(0x80000000 >> (sig_id < 32 ? sig_id : (sig_id - 32)));
+}
+
+bool entity::signal_raised(unsigned short sig_id)
+{
+
+  assert(sig_id > 0 && sig_id < N_SIGNALS && sig_id < 64);
+  return((signals_raised[(sig_id < 32 ? 1 : 0)] & (0x80000000 >> (sig_id < 32 ? sig_id : (sig_id - 32)))) != 0);
+
+}
+
+
+static void entity_signal_callback_footstep(signaller* sig, const char*pccdata)
+{
+#ifdef ECULL
+  entity *whoami = (entity*)sig;
+  if(whoami->has_sound_ifc())
+  {
+
+    static pstring footstep("FOOTSTEP");
+    whoami->sound_ifc()->play_3d_sound_grp(footstep);
+  }
+
+#endif
+}
+
+static void entity_signal_callback_attack(signaller* sig, const char*pccdata)
+{
+#if 0 // BIGCULL
+  entity *whoami = (entity*)sig;
+
+  if ( whoami->is_hero() )
+  {
+    g_spiderman_controller_ptr->apply_attack(g_spiderman_controller_ptr->get_combo_move(), g_spiderman_controller_ptr->get_combo_damage(), g_spiderman_controller_ptr->get_combo_flags(), g_spiderman_controller_ptr->get_combo_wounded_anim());
+
+  }
+  else if(whoami->has_ai_ifc() && whoami->ai_ifc()->get_target())// || whoami->get_brain()->get_anim_attack_type() != DAMAGE_NONE)
+  {
+    // This has been moved into the AI (ai_actions.cpp, class: attack_ai_action), where it should be (JDB 4-10-01)....
+/*
+    entity *pc = whoami->ai_ifc()->get_target();//g_world_ptr->get_hero_ptr();
+    vector3d mypos = whoami->get_abs_position();
+    vector3d pcpos = pc->get_abs_position();
+    vector3d vec = mypos - pcpos;
+    vector3d invvec = pcpos - mypos;
+    rational_t len = vec.length();
+    int attack_type = DAMAGE_MELEE;//whoami->get_brain() ? whoami->get_brain()->get_anim_attack_type() : DAMAGE_DIRECT;
+
+    assert(pc->has_damage_ifc());
+
+//    int damage = whoami->get_brain() ? whoami->get_brain()->get_anim_damage() : 10;
+    int damage = 10;
+
+
+    // THE multiply THING IS A FUDGE FACTOR
+    // TO MAKE THE SPHERE MORE OF AN OBLATE SPHEROID
+    // SINCE I'M NOT SUCKING THE CAPSULE
+    rational_t rad = (whoami->get_radius()+pc->get_radius());
+    if( len*1.0f < rad )
+    {
+      rational_t ab = angle_between( invvec, whoami->get_abs_po().get_facing() );
+      // GUESSTIMATE FOR 90deg EXPRESSED IN RADS, GOUACHE AND MIXED MEDIA ON CANVAS
+      if( ab <= 1.570795f )
+      {
+        pc->damage_ifc()->apply_damage( whoami, damage, (eDamageType)attack_type, mypos, invvec );
+        if(whoami->has_sound_ifc())
+        {
+          pstring p("IMPACT");
+          whoami->sound_ifc()->play_3d_sound_grp( p );
+        }
+      }
+    }
+
+*/
+  }
+#endif // BIGCULL
+}
+
+void entity_signal_callback_raiser(signaller* sig, const char* sig_id)
+{
+  assert(sig->is_an_entity());
+  unsigned short id = (unsigned short)sig_id;
+  ((entity *)sig)->signals_raised[(id < 32 ? 1 : 0)] |= (0x80000000 >> (id < 32 ? id : (id - 32)));
+
+}
+
+
+void entity::add_signal_callbacks()
+{
+  signal_ptr( ATTACK )->add_callback( entity_signal_callback_attack, NULL );
+
+  signal_ptr( FOOTSTEP_L )->add_callback( entity_signal_callback_footstep, NULL );
+  signal_ptr( FOOTSTEP_R )->add_callback( entity_signal_callback_footstep, NULL );
+
+  for(unsigned short i=0; i<N_SIGNALS; ++i)
+
+    signal_ptr( i )->add_callback( entity_signal_callback_raiser, (char *)i );
+}
+
+
+bool entity::get_ifc_num(const pstring &att, rational_t &val)
+{
+	PANIC;
+	return true;
+}
+
+bool entity::set_ifc_num(const pstring &att, rational_t val)
+
+{
+	PANIC;
+	return false;
+}
+
+bool entity::get_ifc_vec(const pstring &att, vector3d &val)
+{
+	PANIC;
+	return true;
+}
+
+bool entity::set_ifc_vec(const pstring &att, const vector3d &val)
+{
+	PANIC;
+	return true;
+}
+
+bool entity::get_ifc_str(const pstring &att, stringx &val)
+{
+	PANIC;
+	return true;
+}
+
+bool entity::set_ifc_str(const pstring &att, const stringx &val)
+{
+	PANIC;
+	return true;
+}
+
+
+entity::entity_search_list entity::found_entities;
+
+int entity::find_entities(int flags, const vector3d &pos, rational_t radius, region_node *reg, bool only_active_portals)
+{
+PANIC;
+	return 0;
+}
+
+
+int entity::find_entities(int flags)
+{
+	PANIC;
+	return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+bool entity::has_mesh()
+{
+#if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC)
+  if( get_mesh() )
+    return true;
+  else
+    return false;
+#else
+  if( get_vrep() )
+    if( get_vrep()->get_type()==VISREP_PMESH )
+      return true;
+  return false;
+#endif
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+int entity::num_mesh_bones()
+{
+  if( has_mesh() )
+  {
+#if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC)
+    return get_mesh()->NBones;
+#else
+    return ((vr_pmesh*)get_vrep())->get_num_bones();
+#endif
+  }
+
+  return 0;
+}
+
+void entity::set_max_lights( unsigned int ml )
+{
+	PANIC;
+}
 
 
 #include "my_assertions.h"

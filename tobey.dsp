@@ -168,6 +168,14 @@ SOURCE=.\SpideyTM\SRC\chunkfile.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\collide.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\controller.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\debugutil.cpp
 # End Source File
 # Begin Source File
@@ -205,6 +213,10 @@ SOURCE=.\SpideyTM\SRC\ini_parser.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\light.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\lightmgr.cpp
 # End Source File
 # Begin Source File
 
@@ -704,6 +716,10 @@ SOURCE=.\SpideyTM\SRC\box_trigger_interface.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\bsp_collide.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\camera.h
 # End Source File
 # Begin Source File
@@ -720,7 +736,15 @@ SOURCE=.\SpideyTM\SRC\chunkfile.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\clipflags.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\colgeom.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\collide.h
 # End Source File
 # Begin Source File
 
@@ -732,11 +756,19 @@ SOURCE=.\SpideyTM\SRC\color.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\commands.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\conglom.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\constants.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\controller.h
 # End Source File
 # Begin Source File
 
@@ -753,6 +785,10 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\d3d_texturemgr.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\debug.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\debug_render.h
 # End Source File
 # Begin Source File
 
@@ -908,6 +944,10 @@ SOURCE=.\SpideyTM\SRC\light.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\lightmgr.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\linear_anim.h
 # End Source File
 # Begin Source File
@@ -937,6 +977,14 @@ SOURCE=.\SpideyTM\SRC\maxskinbones.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\mbi.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\mcs.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\menusys.h
 # End Source File
 # Begin Source File
 

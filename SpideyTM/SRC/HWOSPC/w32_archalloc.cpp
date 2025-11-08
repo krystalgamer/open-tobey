@@ -83,6 +83,11 @@ void *os_malloc32(int size)
 	return malloc(size);
 }
 
+void *os_malloc(int size)
+{
+	return malloc(size);
+}
+
 // @Ok
 // @Matching
 void os_free32(void* p)

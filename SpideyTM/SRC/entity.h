@@ -720,11 +720,11 @@ public:
   EXPORT static unsigned short get_signal_id( const char *name );
 
   EXPORT void clear_all_raised_signals();
-  EXPORT void clear_signal_raised(unsigned short sig_id);
-  EXPORT bool signal_raised(unsigned short sig_id);
+  void clear_signal_raised(unsigned short sig_id);
+  bool signal_raised(unsigned short sig_id);
 
   void clear_signal_raised(const char *name)        { clear_signal_raised(get_signal_id(name)); }
-  EXPORT bool signal_raised(const char *name)              { return(signal_raised(get_signal_id(name))); }
+  bool signal_raised(const char *name)              { return(signal_raised(get_signal_id(name))); }
 
 private:
 

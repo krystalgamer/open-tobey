@@ -45,7 +45,9 @@ CLEAN :
 	-@erase "$(INTDIR)\app.obj"
 	-@erase "$(INTDIR)\bone.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
+	-@erase "$(INTDIR)\collide.obj"
 	-@erase "$(INTDIR)\compress.obj"
+	-@erase "$(INTDIR)\controller.obj"
 	-@erase "$(INTDIR)\crc32.obj"
 	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\deflate.obj"
@@ -65,6 +67,7 @@ CLEAN :
 	-@erase "$(INTDIR)\infutil.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
 	-@erase "$(INTDIR)\light.obj"
+	-@erase "$(INTDIR)\lightmgr.obj"
 	-@erase "$(INTDIR)\link_interface.obj"
 	-@erase "$(INTDIR)\maketree.obj"
 	-@erase "$(INTDIR)\mustash.obj"
@@ -170,7 +173,10 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\entity_anim.obj"
+	"$(INTDIR)\entity_anim.obj" \
+	"$(INTDIR)\collide.obj" \
+	"$(INTDIR)\lightmgr.obj" \
+	"$(INTDIR)\controller.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -193,7 +199,9 @@ CLEAN :
 	-@erase "$(INTDIR)\app.obj"
 	-@erase "$(INTDIR)\bone.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
+	-@erase "$(INTDIR)\collide.obj"
 	-@erase "$(INTDIR)\compress.obj"
+	-@erase "$(INTDIR)\controller.obj"
 	-@erase "$(INTDIR)\crc32.obj"
 	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\deflate.obj"
@@ -213,6 +221,7 @@ CLEAN :
 	-@erase "$(INTDIR)\infutil.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
 	-@erase "$(INTDIR)\light.obj"
+	-@erase "$(INTDIR)\lightmgr.obj"
 	-@erase "$(INTDIR)\link_interface.obj"
 	-@erase "$(INTDIR)\maketree.obj"
 	-@erase "$(INTDIR)\mustash.obj"
@@ -320,7 +329,10 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\entity_anim.obj"
+	"$(INTDIR)\entity_anim.obj" \
+	"$(INTDIR)\collide.obj" \
+	"$(INTDIR)\lightmgr.obj" \
+	"$(INTDIR)\controller.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -478,6 +490,18 @@ SOURCE=.\SpideyTM\SRC\chunkfile.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\collide.cpp
+
+"$(INTDIR)\collide.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\controller.cpp
+
+"$(INTDIR)\controller.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\debugutil.cpp
 
 "$(INTDIR)\debugutil.obj" : $(SOURCE) "$(INTDIR)"
@@ -534,6 +558,12 @@ SOURCE=.\SpideyTM\SRC\ini_parser.cpp
 SOURCE=.\SpideyTM\SRC\light.cpp
 
 "$(INTDIR)\light.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\lightmgr.cpp
+
+"$(INTDIR)\lightmgr.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
