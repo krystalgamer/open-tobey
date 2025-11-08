@@ -107,6 +107,8 @@ INLINE void entity_id::set_entity_id(const char* name)
 }
 
 
+// @Ok
+// @Matching
 void entity_id::delete_entity_id(entity_id id)
 {
   name_to_number_map::iterator found;
@@ -361,6 +363,7 @@ void validate_entity_manager(void)
 
 void validate_entity_id(void)
 {
+	VALIDATE(entity_id, val, 0x0);
 }
 
 #include "my_patch.h"
@@ -371,6 +374,8 @@ void patch_entity_id(void)
 	PATCH_PUSH_RET(0x004E3DD0, entity_id::set_entity_id);
 
 	PATCH_PUSH_RET_POLY(0x004E3CF0, entity_id::entity_id(const char*), "??0entity_id@@QAE@PBD@Z");
+
+	PATCH_PUSH_RET(0x004E3EB0, entity_id::delete_entity_id);
 }
 
 void patch_entity_manager(void)
