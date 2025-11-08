@@ -156,7 +156,15 @@ SOURCE=.\SpideyTM\SRC\zlib\zutil.c
 # End Group
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\anim_flavor.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\app.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\billboard.cpp
 # End Source File
 # Begin Source File
 
@@ -204,6 +212,10 @@ SOURCE=.\SpideyTM\SRC\filespec.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\frame_info.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\global.cpp
 # End Source File
 # Begin Source File
@@ -248,6 +260,10 @@ SOURCE=.\SpideyTM\SRC\po.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\po_anim.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\pstring.cpp
 # End Source File
 # Begin Source File
@@ -289,6 +305,10 @@ SOURCE=.\SpideyTM\SRC\stringx.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\textfile.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\visrep.cpp
 # End Source File
 # Begin Source File
 
@@ -704,6 +724,10 @@ SOURCE=.\SpideyTM\SRC\beam_signals.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\billboard.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\bone.h
 # End Source File
 # Begin Source File
@@ -868,6 +892,10 @@ SOURCE=.\SpideyTM\SRC\filespec.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\forceflags.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\forwards.h
 # End Source File
 # Begin Source File
@@ -925,6 +953,10 @@ SOURCE=.\SpideyTM\SRC\inputmgr.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\instance.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\iri.h
 # End Source File
 # Begin Source File
 

@@ -42,7 +42,9 @@ ALL : "$(OUTDIR)\tobey.dll"
 
 CLEAN :
 	-@erase "$(INTDIR)\adler32.obj"
+	-@erase "$(INTDIR)\anim_flavor.obj"
 	-@erase "$(INTDIR)\app.obj"
+	-@erase "$(INTDIR)\billboard.obj"
 	-@erase "$(INTDIR)\bone.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\collide.obj"
@@ -57,6 +59,7 @@ CLEAN :
 	-@erase "$(INTDIR)\errorcontext.obj"
 	-@erase "$(INTDIR)\file_manager.obj"
 	-@erase "$(INTDIR)\filespec.obj"
+	-@erase "$(INTDIR)\frame_info.obj"
 	-@erase "$(INTDIR)\global.obj"
 	-@erase "$(INTDIR)\gzio.obj"
 	-@erase "$(INTDIR)\infblock.obj"
@@ -76,6 +79,7 @@ CLEAN :
 	-@erase "$(INTDIR)\pc_algebra.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\po.obj"
+	-@erase "$(INTDIR)\po_anim.obj"
 	-@erase "$(INTDIR)\pstring.obj"
 	-@erase "$(INTDIR)\region.obj"
 	-@erase "$(INTDIR)\script_lib.obj"
@@ -91,6 +95,7 @@ CLEAN :
 	-@erase "$(INTDIR)\uncompr.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
+	-@erase "$(INTDIR)\visrep.obj"
 	-@erase "$(INTDIR)\vm_executable.obj"
 	-@erase "$(INTDIR)\vm_stack.obj"
 	-@erase "$(INTDIR)\vm_symbol.obj"
@@ -176,7 +181,12 @@ LINK32_OBJS= \
 	"$(INTDIR)\entity_anim.obj" \
 	"$(INTDIR)\collide.obj" \
 	"$(INTDIR)\lightmgr.obj" \
-	"$(INTDIR)\controller.obj"
+	"$(INTDIR)\controller.obj" \
+	"$(INTDIR)\po_anim.obj" \
+	"$(INTDIR)\anim_flavor.obj" \
+	"$(INTDIR)\frame_info.obj" \
+	"$(INTDIR)\visrep.obj" \
+	"$(INTDIR)\billboard.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -196,7 +206,9 @@ ALL : "$(OUTDIR)\tobey.dll"
 
 CLEAN :
 	-@erase "$(INTDIR)\adler32.obj"
+	-@erase "$(INTDIR)\anim_flavor.obj"
 	-@erase "$(INTDIR)\app.obj"
+	-@erase "$(INTDIR)\billboard.obj"
 	-@erase "$(INTDIR)\bone.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\collide.obj"
@@ -211,6 +223,7 @@ CLEAN :
 	-@erase "$(INTDIR)\errorcontext.obj"
 	-@erase "$(INTDIR)\file_manager.obj"
 	-@erase "$(INTDIR)\filespec.obj"
+	-@erase "$(INTDIR)\frame_info.obj"
 	-@erase "$(INTDIR)\global.obj"
 	-@erase "$(INTDIR)\gzio.obj"
 	-@erase "$(INTDIR)\infblock.obj"
@@ -230,6 +243,7 @@ CLEAN :
 	-@erase "$(INTDIR)\pc_algebra.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\po.obj"
+	-@erase "$(INTDIR)\po_anim.obj"
 	-@erase "$(INTDIR)\pstring.obj"
 	-@erase "$(INTDIR)\region.obj"
 	-@erase "$(INTDIR)\script_lib.obj"
@@ -245,6 +259,7 @@ CLEAN :
 	-@erase "$(INTDIR)\uncompr.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
+	-@erase "$(INTDIR)\visrep.obj"
 	-@erase "$(INTDIR)\vm_executable.obj"
 	-@erase "$(INTDIR)\vm_stack.obj"
 	-@erase "$(INTDIR)\vm_symbol.obj"
@@ -332,7 +347,12 @@ LINK32_OBJS= \
 	"$(INTDIR)\entity_anim.obj" \
 	"$(INTDIR)\collide.obj" \
 	"$(INTDIR)\lightmgr.obj" \
-	"$(INTDIR)\controller.obj"
+	"$(INTDIR)\controller.obj" \
+	"$(INTDIR)\po_anim.obj" \
+	"$(INTDIR)\anim_flavor.obj" \
+	"$(INTDIR)\frame_info.obj" \
+	"$(INTDIR)\visrep.obj" \
+	"$(INTDIR)\billboard.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -472,9 +492,21 @@ SOURCE=.\SpideyTM\SRC\zlib\zutil.c
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\anim_flavor.cpp
+
+"$(INTDIR)\anim_flavor.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\app.cpp
 
 "$(INTDIR)\app.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\billboard.cpp
+
+"$(INTDIR)\billboard.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
@@ -540,6 +572,12 @@ SOURCE=.\SpideyTM\SRC\file_manager.cpp
 SOURCE=.\SpideyTM\SRC\filespec.cpp
 
 "$(INTDIR)\filespec.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\frame_info.cpp
+
+"$(INTDIR)\frame_info.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
@@ -609,6 +647,12 @@ SOURCE=.\SpideyTM\SRC\po.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\po_anim.cpp
+
+"$(INTDIR)\po_anim.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\pstring.cpp
 
 "$(INTDIR)\pstring.obj" : $(SOURCE) "$(INTDIR)"
@@ -672,6 +716,12 @@ SOURCE=.\SpideyTM\SRC\stringx.cpp
 SOURCE=.\SpideyTM\SRC\textfile.cpp
 
 "$(INTDIR)\textfile.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\visrep.cpp
+
+"$(INTDIR)\visrep.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

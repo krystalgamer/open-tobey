@@ -22,6 +22,10 @@
 #include "lightmgr.h"
 #include "controller.h"
 #include "entity_interface.h"
+#include "vm_thread.h"
+
+// @TODO - REMOVE
+DEFINE_SINGLETON(anim_id_manager);
 
 // @Ok
 // @Matching
@@ -1469,41 +1473,7 @@ extern rational_t g_level_time;
 
 void entity::record_motion()
 {
-  // save the motion blur rotation as quaternions as we're going to want to
-  // interpolate between records
-  if(is_motion_blurred() || is_motion_trailed())
-  {
-    assert(mbi);
-
-    if( mbi->last_motion_recording != g_level_time )
-    {
-
-//      matrix4x4 m = get_abs_po().get_matrix(); // unused, remove me?
-      mbi->motion_trail_buffer[mbi->motion_trail_end].q = quaternion(get_abs_po().get_matrix());
-      matrix4x4 n;
-
-      mbi->motion_trail_buffer[mbi->motion_trail_end].q.to_matrix( &n );
-      mbi->motion_trail_buffer[mbi->motion_trail_end].t = get_abs_po().get_position();
-      mbi->motion_trail_end++;
-      if(mbi->motion_trail_end >= mbi->motion_trail_length)
-
-        mbi->motion_trail_end = 0;
-
-      if(mbi->motion_trail_count < mbi->motion_trail_length)
-
-      {
-        ++mbi->motion_trail_count;
-      }
-
-      else
-      {
-
-        // whee, the circle is complete
-        mbi->motion_trail_start = mbi->motion_trail_end;
-      }
-      mbi->last_motion_recording = g_level_time;
-    }
-  }
+	PANIC;
 }
 
 
@@ -1598,87 +1568,12 @@ sound_emitter* entity::get_emitter()
 void entity::set_frame_delta(po const & bob, time_value_t t)
 
 {
-//  bool locked;
-  if(t > 0.0f)
-  {
-    if ( !mi )
-    {
-
-      // CTT 07/22/00: for the Max Steel project, the NONSTATIC flag only matters
-      // for walkable entities
-  //    #ifdef PROJECT_STEEL
-      // guard against dynamic allocation in static entity
-      if ( is_walkable() && !is_flagged(EFLAG_MISC_NONSTATIC) )
-      {
-        error( "Tried to manipulate static walkable object, ID: " + id.get_val() );
-      }
-
-      mi = NEW movement_info;
-      invalidate_frame_delta();
-    }
-
-    if(mi->frame_delta_valid)
-    {
-      fast_po_mul(mi->frame_delta, mi->frame_delta, bob);
-  //    mi->frame_delta = mi->frame_delta*bob;
-
-    }
-    else
-      mi->frame_delta = bob;
-
-
-    mi->frame_time = t;
-    mi->frame_delta_valid = true;
-  }
-
-  assert(!mi || !mi->frame_delta_valid || mi->frame_time > 0.0f);
-
-//  assert(!mi || !mi->frame_delta_valid || mi->frame_delta.get_position().length() < 50.0f);
+	PANIC;
 }
 
 void entity::set_frame_delta_trans(const vector3d &bob, time_value_t t)
 {
-  if(t > 0.0f)
-  {
-    if ( !mi )
-    {
-      // CTT 07/22/00: for the Max Steel project, the NONSTATIC flag only matters
-      // for walkable entities
-  //    #ifdef PROJECT_STEEL
-      // guard against dynamic allocation in static entity
-      if ( is_walkable() && !is_flagged(EFLAG_MISC_NONSTATIC) )
-      {
-
-        error( "Tried to manipulate static walkable object, ID: " + id.get_val() );
-      }
-
-
-      mi = NEW movement_info;
-      invalidate_frame_delta();
-    }
-
-    if(mi->frame_delta_valid)
-    {
-      static po trans;
-      trans.set_translate(bob);
-      fast_po_mul(mi->frame_delta, mi->frame_delta, trans);
-
-  //    mi->frame_delta = mi->frame_delta*trans;
-
-    }
-    else
-    {
-      mi->frame_delta.set_position(bob);
-    }
-
-    mi->frame_time = t;
-    mi->frame_delta_valid = true;
-  }
-
-  assert(!mi || !mi->frame_delta_valid || mi->frame_time > 0.0f);
-
-
-//  assert(!mi || !mi->frame_delta_valid || mi->frame_delta.get_position().length() < 50.0f);
+	PANIC;
 }
 
 
@@ -2217,27 +2112,8 @@ region_node * entity::get_primary_region() const
 region_node * entity::update_region(bool parent_computed)
 
 {
-#ifndef REGIONCULL
-  set_needs_compute_sector(false);
-
-  if (flags&EFLAG_REGION_FORCED)
-  {
-    return (in_regions.empty() ? NULL : *in_regions.begin());
-  }
-
-  if (has_parent())// /*! pi && pi->parent !*/ && flags&EFLAG_MISC_NONSTATIC)
-  {
-    region_node * parents_region;
-/*!    if (get_flavor()==ENTITY_LIMB_BODY)
-      parents_region = ((limb_body *) this)->get_my_limb()->get_my_actor()->update_region();
-    else
-!*/
-    parents_region = parent_computed ? ((entity *)link_ifc()->get_parent())->get_primary_region() : ((entity *)link_ifc()->get_parent())->update_region();
-    if (get_primary_region()!=parents_region /*! && get_flavor()!=ENTITY_LIMB_BODY !*/)
-      compute_sector(g_world_ptr->get_the_terrain());
-  }
-#endif
-  return get_primary_region();
+	PANIC;
+	return NULL;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2445,6 +2321,142 @@ motion_blur_info::motion_blur_info( int max_trail_length )
 motion_blur_info::~motion_blur_info()
 { delete[] motion_trail_buffer; }
 
+destroyable_info* destroyable_info::make_instance(entity *ent)
+{
+
+  destroyable_info* info = NEW destroyable_info(ent);
+
+  info->copy_instance_data(this);
+  return info;
+}
+
+void destroyable_info::copy_instance_data(destroyable_info* data)
+{
+  flags = data->flags;
+  destroy_lifetime = data->destroy_lifetime;
+
+#ifdef ECULL
+  destroy_sound = data->destroy_sound;
+#endif
+  destroy_fx = data->destroy_fx;
+  destroy_script = data->destroy_script;
+  preload_script = data->preload_script;
+  destroyed_visrep = data->destroyed_visrep;
+
+  hit_points = data->hit_points;
+
+
+//  dread_net_cue = data->dread_net_cue;
+
+  if(data->destroyed_mesh)
+    destroyed_mesh = new_visrep_instance(data->destroyed_mesh);
+
+  else
+    destroyed_mesh = NULL;
+}
+
+
+destroyable_info::destroyable_info(entity *ent)
+{
+  flags = 0;
+
+  destroy_lifetime = 1.0f;
+#ifdef ECULL
+  destroy_sound = empty_string;
+#endif
+  destroy_fx = empty_string;
+  destroy_script = empty_string;
+  preload_script = empty_string;
+  destroyed_visrep = empty_string;
+
+  destroyed_mesh = NULL;
+
+  hit_points = 0;
+
+//  dread_net_cue = dread_net::UNDEFINED_AV_CUE;
+
+  owner = ent;
+  assert(owner);
+}
+
+destroyable_info::~destroyable_info()
+{
+  if(destroyed_mesh)
+
+  {
+    unload_visual_rep(destroyed_mesh);
+    destroyed_mesh = NULL;
+  }
+}
+
+void destroyable_info::read_enx_data( chunk_file& fs, stringx& lstr )
+
+{
+	PANIC;
+}
+
+void destroyable_info::reset()
+{
+  // reset the destroy info structure
+  set_hit_points(0);
+  set_has_hit_points(false);
+  set_destroy_lifetime(1.0f);
+  set_has_destroy_fx(false);
+  set_has_destroy_script(false);
+  set_has_preload_script(false);
+  set_has_preload_script_run(false);
+#ifdef ECULL
+  set_has_destroy_sound(false);
+#endif
+  set_has_destroyed_visrep(false);
+  set_single_blow(false);
+  set_remain_visible(false);
+  set_remain_active(false);
+  set_no_collision(false);
+  set_remain_collision(false);
+//  dread_net_cue = dread_net::UNDEFINED_AV_CUE;
+}
+
+
+int destroyable_info::apply_damage(int damage, const vector3d &pos, const vector3d &norm)
+{
+  if ( has_hit_points() )
+  {
+    if ( !is_single_blow() || damage>=hit_points )
+      hit_points -= damage;
+    if ( hit_points <= 0 )
+      hit_points = 0;
+    return hit_points;
+  }
+
+  else
+    return 1;
+}
+
+void destroyable_info::apply_destruction_fx()
+{
+	PANIC;
+}
+
+
+
+
+void destroyable_info::preload()
+{
+  if(!has_preload_script_run())
+  {
+    set_has_preload_script_run(true);
+    entity::exec_preload_function(get_preload_script());
+
+  }
+}
+
+
+vm_thread* entity::spawn_entity_script_function( const stringx& function_name ) const
+{
+	PANIC;
+	return NULL;
+}
 
 void entity::exec_preload_function(const stringx &preload_func)
 {
@@ -2565,19 +2577,8 @@ item* entity::get_item( unsigned int n ) const
 // returns null pointer if no like item found
 item* entity::find_like_item( item* it ) const
 {
-  if ( is_container() )
-
-  {
-    item_list_t::const_iterator i = coninfo->items.begin();
-    item_list_t::const_iterator i_end = coninfo->items.end();
-    for ( ; i!=i_end; ++i )
-    {
-      item* lit = *i;
-      if ( lit && lit->is_same_item( *it ) )
-        return lit;
-    }
-  }
-  return NULL;
+	PANIC;
+	return NULL;
 }
 
 // returns null pointer if no like item found

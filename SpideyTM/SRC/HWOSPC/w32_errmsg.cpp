@@ -18,3 +18,10 @@ void warning(const stringx& str )
 	OutputDebugStringA("WARNING BOY");
 	OutputDebugStringA(str.c_str());
 }
+
+// @TODO
+void warning(const char* fmtp, ...)
+{
+	OutputDebugStringA("WARNING BOY");
+	OutputDebugStringA(fmtp);
+}

@@ -15,6 +15,9 @@ class matrix4x4;
 #include "hwmath.h"
 #include "renderflav.h"
 
+// @Patch
+#include "errorcontext.h"
+
 // this bugs:
 enum visrep_t
 {

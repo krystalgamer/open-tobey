@@ -60,7 +60,10 @@ class linear_key
     void set_value( const animatable_t& v ) { key_value = v; }
 
     // interpolate function must be defined by user of template class
-    animatable_t interpolate( const linear_key& b, rational_t r ) const;
+    animatable_t interpolate( const linear_key& b, rational_t r ) const
+	{
+		PANIC;
+	}
 
 
     animatable_t get_value( time_value_t t, const linear_key& b ) const

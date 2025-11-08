@@ -23,7 +23,7 @@ template
   class _NodeKey,
   class _NodeData,
   class _EdgeData,
-  class _KeyComp = less<_NodeKey>
+  class _KeyComp = std::less<_NodeKey>
   >
   class graph
   {
