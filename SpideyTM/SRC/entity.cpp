@@ -231,6 +231,8 @@ entity_manager::~entity_manager()
   name_to_number = name_to_number_map();
 }
 
+// @Ok
+// @Matching
 entity* entity_manager::find_entity(const entity_id& target_entity,
                                     entity_flavor_t flavor, bool unknown_ok)
 {
@@ -421,6 +423,8 @@ void patch_entity_manager(void)
 	PATCH_PUSH_RET(0x004F2590, entity_manager::deregister_entity);
 
 	PATCH_PUSH_RET(0x004F22B0, entity_manager::purge);
+
+	PATCH_PUSH_RET(0x004F2100, entity_manager::find_entity);
 }
 
 void patch_str(void)
