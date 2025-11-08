@@ -23,6 +23,7 @@ class aggregate_vert_buf;
 //class hw_texture;
 #include "hwrasterize.h"
 
+struct nglMaterial;
 class mat_fac
 {
 public:

@@ -180,6 +180,10 @@ SOURCE=.\SpideyTM\SRC\entity.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\entity_anim.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\errorcontext.cpp
 # End Source File
 # Begin Source File
@@ -929,6 +933,10 @@ SOURCE=.\SpideyTM\SRC\matfac.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\maxskinbones.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\mbi.h
 # End Source File
 # Begin Source File
 

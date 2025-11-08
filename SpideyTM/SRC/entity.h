@@ -537,31 +537,31 @@ class entity : public bone
   /*** Interface support ***/
   public:
 
-    virtual bool get_ifc_num(const pstring &att, rational_t &val);
-    virtual bool set_ifc_num(const pstring &att, rational_t val);
-    virtual bool get_ifc_vec(const pstring &att, vector3d &val);
-    virtual bool set_ifc_vec(const pstring &att, const vector3d &val);
-    virtual bool get_ifc_str(const pstring &att, stringx &val);
-    virtual bool set_ifc_str(const pstring &att, const stringx &val);
+    EXPORT virtual bool get_ifc_num(const pstring &att, rational_t &val);
+    EXPORT virtual bool set_ifc_num(const pstring &att, rational_t val);
+    EXPORT virtual bool get_ifc_vec(const pstring &att, vector3d &val);
+    EXPORT virtual bool set_ifc_vec(const pstring &att, const vector3d &val);
+    EXPORT virtual bool get_ifc_str(const pstring &att, stringx &val);
+    EXPORT virtual bool set_ifc_str(const pstring &att, const stringx &val);
 
   public:
     /*** Virtual Interfaces =) ***/
-    virtual void frame_advance( time_value_t t );
-    virtual void render( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct );
-    virtual void rendershadow( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct, rational_t scale );
+    EXPORT virtual void frame_advance( time_value_t t );
+    EXPORT virtual void render( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct );
+    EXPORT virtual void rendershadow( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct, rational_t scale );
 
-		void updatelighting( time_value_t t, const int playerID );
+		EXPORT void updatelighting( time_value_t t, const int playerID );
 
     /*** Entity Methods ***/
-    entity(void *fixup_offset); // static loading constructor
-    void set_parsed_name(stringx _name) {parsedName = _name; parsedName.to_lower(); };
-    stringx get_parsed_name() {return parsedName;};
-	void SetMaterialMask(int mask) { MaterialMask |= mask; }
-	int GetMaterialMask(void) const { return MaterialMask; }
-	void SetTextureFrame(int frame) { TextureFrame = frame; }
-	int GetTextureFrame(void) const { return TextureFrame; }
-  void set_texture_scroll (float u, float v) { use_uv_scrolling = true; scroll_u = u; scroll_v = v; };
-  void SetCull(bool cull) { cull_entity = cull; }
+    EXPORT entity(void *fixup_offset); // static loading constructor
+    EXPORT void set_parsed_name(stringx _name) {parsedName = _name; parsedName.to_lower(); };
+    EXPORT stringx get_parsed_name() {return parsedName;};
+	EXPORT void SetMaterialMask(int mask) { MaterialMask |= mask; }
+	EXPORT int GetMaterialMask(void) const { return MaterialMask; }
+	EXPORT void SetTextureFrame(int frame) { TextureFrame = frame; }
+	EXPORT int GetTextureFrame(void) const { return TextureFrame; }
+  EXPORT void set_texture_scroll (float u, float v) { use_uv_scrolling = true; scroll_u = u; scroll_v = v; };
+  EXPORT void SetCull(bool cull) { cull_entity = cull; }
 
 
 
@@ -575,39 +575,39 @@ protected:
 
 // Constructors
 public:
-  entity( const entity_id& _id, unsigned int _flags );
+  EXPORT entity( const entity_id& _id, unsigned int _flags );
 
 
   // The last_po_init_val is simply a way of telling the constructor to create a last_po
 
   // I am doing it this way to avoid the potential ambiguity of a bool third parameter
   // with regard to confusion with the other constructors here.
-  entity( const entity_id& _id, unsigned int _flags, const po & last_po_init_val );
+  EXPORT entity( const entity_id& _id, unsigned int _flags, const po & last_po_init_val );
 
-  entity( const entity_id& _id = ANONYMOUS,
+  EXPORT entity( const entity_id& _id = ANONYMOUS,
           entity_flavor_t _flavor = ENTITY_ENTITY,
           unsigned int _flags = 0 );
 
 
-  entity( const entity_id& _id,
+  EXPORT entity( const entity_id& _id,
           entity_flavor_t _flavor,
           anim_id_t _anim_id );
 
 
-  entity( const entity_id& _id,
+  EXPORT entity( const entity_id& _id,
           entity_flavor_t _flavor,
           const char* _anim_id );
 
-  virtual ~entity();
-  void destruct();
+  EXPORT virtual ~entity();
+  EXPORT void destruct();
 
 
 	// This function allows the entity to any post-level-load initialization
-	virtual void initialize();
+	EXPORT virtual void initialize();
 
 
 private:
-  void _construct( const entity_id& _id,
+  EXPORT void _construct( const entity_id& _id,
                    entity_flavor_t _flavor,
                    anim_id_t _anim_id,
                    unsigned int _flags = 0,
@@ -616,33 +616,33 @@ private:
 // NEWENT File I/O
 public:
 
-  entity( chunk_file& fs,
+  EXPORT entity( chunk_file& fs,
           const entity_id& _id,
           entity_flavor_t _flavor = ENTITY_ENTITY,
           unsigned int _flags = 0 );
 
-  virtual void read_enx( chunk_file& fs );
+  EXPORT virtual void read_enx( chunk_file& fs );
 //  virtual void read_enx( chunk_file& fs, stringx& lstr );
 
-  virtual bool handle_enx_chunk( chunk_file& fs, stringx& label );
+  EXPORT virtual bool handle_enx_chunk( chunk_file& fs, stringx& label );
 
   // This function allows parsing instance data according to entity type.
-  virtual bool parse_instance( const stringx& pcf, chunk_file& fs );
+  EXPORT virtual bool parse_instance( const stringx& pcf, chunk_file& fs );
 
 // Old File I/O
 
 public:
-  entity( const stringx& entity_fname,
+  EXPORT entity( const stringx& entity_fname,
           const entity_id& _id = ANONYMOUS,
           entity_flavor_t _flavor = ENTITY_ENTITY,
           bool delete_stream = DELETE_STREAM);
 
 // Instancing
 public:
-  virtual entity* make_instance( const entity_id& _id,
+  EXPORT virtual entity* make_instance( const entity_id& _id,
                                  unsigned int _flags ) const;
 protected:
-  void copy_instance_data( const entity& b );
+  EXPORT void copy_instance_data( const entity& b );
 
 /////////////////////////////////////////////////////////////////////////////
 // Interfaces
@@ -660,21 +660,21 @@ protected:
 /////////////////////////////////////////////////////////////////////////////
 
 public:
-  bool is_flagged(register unsigned int f) const { return flags & f; }
-  void set_flag(register unsigned int f, register bool set) { if(set) flags|=f; else flags&=~f; }
-  unsigned int get_flags() const { return flags; }
-  void set_flags( unsigned int f ) { flags = f; }
+  EXPORT bool is_flagged(register unsigned int f) const { return flags & f; }
+  EXPORT void set_flag(register unsigned int f, register bool set) { if(set) flags|=f; else flags&=~f; }
+  EXPORT unsigned int get_flags() const { return flags; }
+  EXPORT void set_flags( unsigned int f ) { flags = f; }
 
 
-  bool is_ext_flagged(register unsigned int f) const { return ext_flags & f; }
-  void set_ext_flag(register unsigned int f, register bool set) { if(set) ext_flags|=f; else ext_flags&=~f; }
-  unsigned int get_ext_flags() const { return ext_flags; }
-  void set_ext_flags( unsigned int f ) { ext_flags = f; }
+  EXPORT bool is_ext_flagged(register unsigned int f) const { return ext_flags & f; }
+  EXPORT void set_ext_flag(register unsigned int f, register bool set) { if(set) ext_flags|=f; else ext_flags&=~f; }
+  EXPORT unsigned int get_ext_flags() const { return ext_flags; }
+  EXPORT void set_ext_flags( unsigned int f ) { ext_flags = f; }
 
 
-  virtual void set_ext_flag_recursive(register unsigned int f, register bool set) { set_ext_flag(f, set); }
+  EXPORT virtual void set_ext_flag_recursive(register unsigned int f, register bool set) { set_ext_flag(f, set); }
 
-  void copy_flags( const entity& b );
+  EXPORT void copy_flags( const entity& b );
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -682,14 +682,14 @@ public:
 /////////////////////////////////////////////////////////////////////////////
 public:
 
-  virtual void set_created_entity_default_active_status();
+  EXPORT virtual void set_created_entity_default_active_status();
 
 /////////////////////////////////////////////////////////////////////////////
 // Optimization of entities (after everything is loaded and initialized)
 /////////////////////////////////////////////////////////////////////////////
 public:
 
-  virtual void optimize();
+  EXPORT virtual void optimize();
 
 /////////////////////////////////////////////////////////////////////////////
 // Event signals
@@ -715,16 +715,16 @@ public:
   // signal_manager.  This call must be performed before any signal objects are
   // actually created for this class (via signaller::signal_ptr(); see signal.h).
 
-  static void register_signals();
+  EXPORT static void register_signals();
 
-  static unsigned short get_signal_id( const char *name );
+  EXPORT static unsigned short get_signal_id( const char *name );
 
-  void clear_all_raised_signals();
-  void clear_signal_raised(unsigned short sig_id);
-  bool signal_raised(unsigned short sig_id);
+  EXPORT void clear_all_raised_signals();
+  EXPORT void clear_signal_raised(unsigned short sig_id);
+  EXPORT bool signal_raised(unsigned short sig_id);
 
   void clear_signal_raised(const char *name)        { clear_signal_raised(get_signal_id(name)); }
-  bool signal_raised(const char *name)              { return(signal_raised(get_signal_id(name))); }
+  EXPORT bool signal_raised(const char *name)              { return(signal_raised(get_signal_id(name))); }
 
 private:
 
@@ -733,7 +733,7 @@ private:
   // function for the construction of the signal list, so that it will reserve
   // exactly the number of signal pointers required, on demand.
 
-  virtual signal_list* construct_signal_list() { return NEW signal_list( N_SIGNALS, (signal*)NULL ); }
+  EXPORT virtual signal_list* construct_signal_list() { return NEW signal_list( N_SIGNALS, (signal*)NULL ); }
 
   friend void entity_signal_callback_raiser(signaller* sig, const char* sig_id);
   unsigned int signals_raised[2];
@@ -742,7 +742,7 @@ protected:
   // This virtual function, used only for debugging purposes, returns the
 
   // name of the given local signal
-  virtual const char* get_signal_name( unsigned short idx ) const;
+  EXPORT virtual const char* get_signal_name( unsigned short idx ) const;
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -751,8 +751,8 @@ protected:
 public:
   // spawn the named global script function with this entity as a parameter;
   // the function must match the prototype:  foo(entity e);
-  vm_thread* spawn_entity_script_function( const stringx& function_name ) const;
-  static void exec_preload_function(const stringx &preload_func);
+  EXPORT vm_thread* spawn_entity_script_function( const stringx& function_name ) const;
+  EXPORT static void exec_preload_function(const stringx &preload_func);
 
 /////////////////////////////////////////////////////////////////////////////
 // Movement histry interface
@@ -796,8 +796,8 @@ public:
 
 
   // ALWAYS AVAILABLE
-  virtual void set_radius( rational_t r )           { radius = r; }
-  virtual rational_t get_radius() const             { return radius; }
+  EXPORT virtual void set_radius( rational_t r )           { radius = r; }
+  EXPORT virtual rational_t get_radius() const             { return radius; }
 
 //  const po& get_po() const;
 /*  inline const po& get_po_inline() const
@@ -844,100 +844,100 @@ public:
 
 
 
-  void get_direction(vector3d* target) const;
+  EXPORT void get_direction(vector3d* target) const;
 
   // set entity orientation such that it is facing the given world-coordinate point
-  void look_at( const vector3d& abs_pos );
+  EXPORT void look_at( const vector3d& abs_pos );
 
-  short get_bone_idx() const           { return bone_idx; }
-  void set_bone_idx( short _bone_idx ) { bone_idx = _bone_idx; }
+  EXPORT short get_bone_idx() const           { return bone_idx; }
+  EXPORT void set_bone_idx( short _bone_idx ) { bone_idx = _bone_idx; }
 
-  void set_preloaded( bool s ) { if(s) ext_flags |= EFLAG_EXT_PRELOADED; else ext_flags &= ~EFLAG_EXT_PRELOADED; }
-  bool was_preloaded() const { return((ext_flags & EFLAG_EXT_PRELOADED)); }
-
-
-  void set_invulnerable( bool s ) { if(s) ext_flags |= EFLAG_EXT_INVULNERABLE; else ext_flags &= ~EFLAG_EXT_INVULNERABLE; }
-  bool is_invulnerable() const { return((ext_flags & EFLAG_EXT_INVULNERABLE)); }
+  EXPORT void set_preloaded( bool s ) { if(s) ext_flags |= EFLAG_EXT_PRELOADED; else ext_flags &= ~EFLAG_EXT_PRELOADED; }
+  EXPORT bool was_preloaded() const { return((ext_flags & EFLAG_EXT_PRELOADED)); }
 
 
-  bool is_auto_targetable() const { return((ext_flags & EFLAG_EXT_TARGETABLE) && !is_invulnerable()); }
-
-  void set_auto_targetable(bool s) { if(s) ext_flags |= EFLAG_EXT_TARGETABLE; else ext_flags &=~ EFLAG_EXT_TARGETABLE; }
-
-
-  bool is_combat_target() const   { return(!(ext_flags & EFLAG_EXT_NONTARGET)); }
-  void set_combat_target(bool s)  { if(!s) ext_flags |= EFLAG_EXT_NONTARGET; else ext_flags &= ~EFLAG_EXT_NONTARGET; }
-
-  bool is_visible_to_AI() const           { return(!(ext_flags & EFLAG_EXT_AI_INVISIBLE)); }
-  void set_visible_to_AI(bool v)          { if(!v) ext_flags |= EFLAG_EXT_AI_INVISIBLE; else ext_flags &= ~EFLAG_EXT_AI_INVISIBLE; }
+  EXPORT void set_invulnerable( bool s ) { if(s) ext_flags |= EFLAG_EXT_INVULNERABLE; else ext_flags &= ~EFLAG_EXT_INVULNERABLE; }
+  EXPORT bool is_invulnerable() const { return((ext_flags & EFLAG_EXT_INVULNERABLE)); }
 
 
-  bool is_crawlable() const               { return(!(ext_flags & EFLAG_EXT_NONCRAWLABLE)); }
-  void set_crawlable( bool a )            { if(!a) ext_flags|=EFLAG_EXT_NONCRAWLABLE; else ext_flags&=~EFLAG_EXT_NONCRAWLABLE; }
+  EXPORT bool is_auto_targetable() const { return((ext_flags & EFLAG_EXT_TARGETABLE) && !is_invulnerable()); }
+
+  EXPORT void set_auto_targetable(bool s) { if(s) ext_flags |= EFLAG_EXT_TARGETABLE; else ext_flags &=~ EFLAG_EXT_TARGETABLE; }
 
 
-  bool is_smallcrawl() const               { return(ext_flags & EFLAG_EXT_SMALLCRAWL); }
-  void set_smallcrawl( bool a )            { if(a) ext_flags|=EFLAG_EXT_SMALLCRAWL; else ext_flags&=~EFLAG_EXT_SMALLCRAWL; }
+  EXPORT bool is_combat_target() const   { return(!(ext_flags & EFLAG_EXT_NONTARGET)); }
+  EXPORT void set_combat_target(bool s)  { if(!s) ext_flags |= EFLAG_EXT_NONTARGET; else ext_flags &= ~EFLAG_EXT_NONTARGET; }
 
-  bool is_mustcrawl() const               { return(ext_flags & EFLAG_EXT_MUSTCRAWL); }
-  void set_mustcrawl( bool a )            { if(a) ext_flags|=EFLAG_EXT_MUSTCRAWL; else ext_flags&=~EFLAG_EXT_MUSTCRAWL; }
+  EXPORT bool is_visible_to_AI() const           { return(!(ext_flags & EFLAG_EXT_AI_INVISIBLE)); }
+  EXPORT void set_visible_to_AI(bool v)          { if(!v) ext_flags |= EFLAG_EXT_AI_INVISIBLE; else ext_flags &= ~EFLAG_EXT_AI_INVISIBLE; }
 
-  bool is_ai_cover() const               { return(ext_flags & EFLAG_EXT_AI_COVER); }
-  void set_ai_cover( bool a )            { if(a) ext_flags|=EFLAG_EXT_AI_COVER; else ext_flags&=~EFLAG_EXT_AI_COVER; }
 
-  bool is_ai_los_block() const               { return(!(ext_flags & EFLAG_EXT_AI_LOS_SEE_THROUGH)); }
-  void set_ai_los_block( bool a )            { if(!a) ext_flags|=EFLAG_EXT_AI_LOS_SEE_THROUGH; else ext_flags&=~EFLAG_EXT_AI_LOS_SEE_THROUGH; }
+  EXPORT bool is_crawlable() const               { return(!(ext_flags & EFLAG_EXT_NONCRAWLABLE)); }
+  EXPORT void set_crawlable( bool a )            { if(!a) ext_flags|=EFLAG_EXT_NONCRAWLABLE; else ext_flags&=~EFLAG_EXT_NONCRAWLABLE; }
 
-  bool needs_compute_sector() const           { return(ext_flags & EFLAG_EXT_NEEDS_COMPUTE_SECTOR); }
-  void set_needs_compute_sector( bool a )     { if(a) ext_flags|=EFLAG_EXT_NEEDS_COMPUTE_SECTOR; else ext_flags&=~EFLAG_EXT_NEEDS_COMPUTE_SECTOR; }
 
-  bool playing_scene_anim() const               { return(ext_flags & EFLAG_EXT_SCENE_ANIM); }
-  void set_playing_scene_anim( bool a )         { if(a) ext_flags|=EFLAG_EXT_SCENE_ANIM; else ext_flags&=~EFLAG_EXT_SCENE_ANIM; }
+  EXPORT bool is_smallcrawl() const               { return(ext_flags & EFLAG_EXT_SMALLCRAWL); }
+  EXPORT void set_smallcrawl( bool a )            { if(a) ext_flags|=EFLAG_EXT_SMALLCRAWL; else ext_flags&=~EFLAG_EXT_SMALLCRAWL; }
+
+  EXPORT bool is_mustcrawl() const               { return(ext_flags & EFLAG_EXT_MUSTCRAWL); }
+  EXPORT void set_mustcrawl( bool a )            { if(a) ext_flags|=EFLAG_EXT_MUSTCRAWL; else ext_flags&=~EFLAG_EXT_MUSTCRAWL; }
+
+  EXPORT bool is_ai_cover() const               { return(ext_flags & EFLAG_EXT_AI_COVER); }
+  EXPORT void set_ai_cover( bool a )            { if(a) ext_flags|=EFLAG_EXT_AI_COVER; else ext_flags&=~EFLAG_EXT_AI_COVER; }
+
+  EXPORT bool is_ai_los_block() const               { return(!(ext_flags & EFLAG_EXT_AI_LOS_SEE_THROUGH)); }
+  EXPORT void set_ai_los_block( bool a )            { if(!a) ext_flags|=EFLAG_EXT_AI_LOS_SEE_THROUGH; else ext_flags&=~EFLAG_EXT_AI_LOS_SEE_THROUGH; }
+
+  EXPORT bool needs_compute_sector() const           { return(ext_flags & EFLAG_EXT_NEEDS_COMPUTE_SECTOR); }
+  EXPORT void set_needs_compute_sector( bool a )     { if(a) ext_flags|=EFLAG_EXT_NEEDS_COMPUTE_SECTOR; else ext_flags&=~EFLAG_EXT_NEEDS_COMPUTE_SECTOR; }
+
+  EXPORT bool playing_scene_anim() const               { return(ext_flags & EFLAG_EXT_SCENE_ANIM); }
+  EXPORT void set_playing_scene_anim( bool a )         { if(a) ext_flags|=EFLAG_EXT_SCENE_ANIM; else ext_flags&=~EFLAG_EXT_SCENE_ANIM; }
 
 
   // currently only support two types (bio and mechanical). easy to expand though. just don't use the flag, and add an enum var.
 
-  int get_target_type() const { return((ext_flags & EFLAG_EXT_TARGET_TYPE) != 0); }
+  EXPORT int get_target_type() const { return((ext_flags & EFLAG_EXT_TARGET_TYPE) != 0); }
 
-  void set_target_type(int s) { if(s) ext_flags |= EFLAG_EXT_TARGET_TYPE; else ext_flags &=~ EFLAG_EXT_TARGET_TYPE; }
+  EXPORT void set_target_type(int s) { if(s) ext_flags |= EFLAG_EXT_TARGET_TYPE; else ext_flags &=~ EFLAG_EXT_TARGET_TYPE; }
 
-  bool is_actionable() const { return((ext_flags & EFLAG_EXT_ACTIONABLE)); }
+  EXPORT bool is_actionable() const { return((ext_flags & EFLAG_EXT_ACTIONABLE)); }
 
-  void set_actionable(bool s) { if(s) ext_flags |= EFLAG_EXT_ACTIONABLE; else ext_flags &=~ EFLAG_EXT_ACTIONABLE; }
+  EXPORT void set_actionable(bool s) { if(s) ext_flags |= EFLAG_EXT_ACTIONABLE; else ext_flags &=~ EFLAG_EXT_ACTIONABLE; }
 
-  bool action_uses_facing() const { return((ext_flags & EFLAG_EXT_ACTION_USES_FACING)); }
-  void set_action_uses_facing(bool s) { if(s) ext_flags |= EFLAG_EXT_ACTION_USES_FACING; else ext_flags &=~ EFLAG_EXT_ACTION_USES_FACING; }
-
-
-  bool is_scannable() const { return((ext_flags & EFLAG_EXT_SCANABLE)); }
-  void set_scannable(bool s) { if(s) ext_flags |= EFLAG_EXT_SCANABLE; else ext_flags &=~ EFLAG_EXT_SCANABLE; }
-
-  bool is_beamable() const { return((ext_flags & EFLAG_EXT_BEAMABLE)); }
-  void set_beamable(bool s) { if(s) ext_flags |= EFLAG_EXT_BEAMABLE; else ext_flags &=~ EFLAG_EXT_BEAMABLE; }
+  EXPORT bool action_uses_facing() const { return((ext_flags & EFLAG_EXT_ACTION_USES_FACING)); }
+  EXPORT void set_action_uses_facing(bool s) { if(s) ext_flags |= EFLAG_EXT_ACTION_USES_FACING; else ext_flags &=~ EFLAG_EXT_ACTION_USES_FACING; }
 
 
-  bool was_spawned() const            { return (ext_flags & EFLAG_EXT_SPAWNED); }
-  void set_spawned( bool a )          { { if(a) ext_flags|=EFLAG_EXT_SPAWNED; else ext_flags&=~EFLAG_EXT_SPAWNED; } }
+  EXPORT bool is_scannable() const { return((ext_flags & EFLAG_EXT_SCANABLE)); }
+  EXPORT void set_scannable(bool s) { if(s) ext_flags |= EFLAG_EXT_SCANABLE; else ext_flags &=~ EFLAG_EXT_SCANABLE; }
 
-  bool from_sin_file() const            { return (ext_flags & EFLAG_EXT_SIN); }
-  void set_from_sin_file( bool a )          { { if(a) ext_flags|=EFLAG_EXT_SIN; else ext_flags&=~EFLAG_EXT_SIN; } }
-
-  bool needs_export() const            { return (ext_flags & EFLAG_EXT_NEEDS_EXPORT); }
-  void set_needs_export( bool a )          { { if(a) ext_flags|=EFLAG_EXT_NEEDS_EXPORT; else ext_flags&=~EFLAG_EXT_NEEDS_EXPORT; } }
+  EXPORT bool is_beamable() const { return((ext_flags & EFLAG_EXT_BEAMABLE)); }
+  EXPORT void set_beamable(bool s) { if(s) ext_flags |= EFLAG_EXT_BEAMABLE; else ext_flags &=~ EFLAG_EXT_BEAMABLE; }
 
 
-  bool is_a_clone() const            { return (ext_flags & EFLAG_EXT_INSTANCE); }
-  void set_clone( bool a )          { { if(a) ext_flags|=EFLAG_EXT_INSTANCE; else ext_flags&=~EFLAG_EXT_INSTANCE; } }
+  EXPORT bool was_spawned() const            { return (ext_flags & EFLAG_EXT_SPAWNED); }
+  EXPORT void set_spawned( bool a )          { { if(a) ext_flags|=EFLAG_EXT_SPAWNED; else ext_flags&=~EFLAG_EXT_SPAWNED; } }
+
+  EXPORT bool from_sin_file() const            { return (ext_flags & EFLAG_EXT_SIN); }
+  EXPORT void set_from_sin_file( bool a )          { { if(a) ext_flags|=EFLAG_EXT_SIN; else ext_flags&=~EFLAG_EXT_SIN; } }
+
+  EXPORT bool needs_export() const            { return (ext_flags & EFLAG_EXT_NEEDS_EXPORT); }
+  EXPORT void set_needs_export( bool a )          { { if(a) ext_flags|=EFLAG_EXT_NEEDS_EXPORT; else ext_flags&=~EFLAG_EXT_NEEDS_EXPORT; } }
 
 
-  bool is_conglom_member() const            { return (ext_flags & EFLAG_EXT_MEMBER); }
+  EXPORT bool is_a_clone() const            { return (ext_flags & EFLAG_EXT_INSTANCE); }
+  EXPORT void set_clone( bool a )          { { if(a) ext_flags|=EFLAG_EXT_INSTANCE; else ext_flags&=~EFLAG_EXT_INSTANCE; } }
 
-  bool is_door() const { return((ext_flags & EFLAG_EXT_IS_DOOR)); }
 
-  void set_door( bool d );
+  EXPORT bool is_conglom_member() const            { return (ext_flags & EFLAG_EXT_MEMBER); }
 
-  bool is_door_closed() const { return((ext_flags & EFLAG_EXT_DOOR_CLOSED)); }
-  void set_door_closed( bool d );
+  EXPORT bool is_door() const { return((ext_flags & EFLAG_EXT_IS_DOOR)); }
+
+  EXPORT void set_door( bool d );
+
+  EXPORT bool is_door_closed() const { return((ext_flags & EFLAG_EXT_DOOR_CLOSED)); }
+  EXPORT void set_door_closed( bool d );
 
 
   // Compatibility flags stuff
@@ -951,12 +951,12 @@ public:
 */
 
 
-  virtual bool is_time_limited() const             { return is_ext_flagged(EFLAG_EXT_TIME_LIMITED);}
-  virtual void set_time_limited( bool torf )       { assert(torf || !is_time_limited()); if(torf) ext_flags |= EFLAG_EXT_TIME_LIMITED; else ext_flags &= ~EFLAG_EXT_TIME_LIMITED; }
+  EXPORT virtual bool is_time_limited() const             { return is_ext_flagged(EFLAG_EXT_TIME_LIMITED);}
+  EXPORT virtual void set_time_limited( bool torf )       { assert(torf || !is_time_limited()); if(torf) ext_flags |= EFLAG_EXT_TIME_LIMITED; else ext_flags &= ~EFLAG_EXT_TIME_LIMITED; }
 
-  virtual bool is_active() const              { return flags & EFLAG_ACTIVE; }
+  EXPORT virtual bool is_active() const              { return flags & EFLAG_ACTIVE; }
 
-  virtual void set_active( bool a );
+  EXPORT virtual void set_active( bool a );
 
   enum force_active_t
   {
@@ -1285,9 +1285,9 @@ public:
 
   // @Ok
   // @Matching
-  entity_id get_id() const {return id;}
-  stringx get_name() const { return id.get_val(); }
-  entity_flavor_t get_flavor() const {return flavor;}
+  EXPORT entity_id get_id() const {return id;}
+  EXPORT stringx get_name() const { return id.get_val(); }
+  EXPORT entity_flavor_t get_flavor() const {return flavor;}
 
   anim_id_t get_anim_id() const { return anim_id; }
   void set_anim_id( const char* _anim_id )

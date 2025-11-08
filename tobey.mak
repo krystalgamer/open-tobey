@@ -51,6 +51,7 @@ CLEAN :
 	-@erase "$(INTDIR)\deflate.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
 	-@erase "$(INTDIR)\entity.obj"
+	-@erase "$(INTDIR)\entity_anim.obj"
 	-@erase "$(INTDIR)\errorcontext.obj"
 	-@erase "$(INTDIR)\file_manager.obj"
 	-@erase "$(INTDIR)\filespec.obj"
@@ -130,6 +131,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\uncompr.obj" \
 	"$(INTDIR)\zutil.obj" \
 	"$(INTDIR)\app.obj" \
+	"$(INTDIR)\bone.obj" \
 	"$(INTDIR)\chunkfile.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
@@ -140,10 +142,13 @@ LINK32_OBJS= \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\ini_parser.obj" \
 	"$(INTDIR)\light.obj" \
+	"$(INTDIR)\link_interface.obj" \
 	"$(INTDIR)\mustash.obj" \
 	"$(INTDIR)\my_assertions.obj" \
 	"$(INTDIR)\ngl_pc.obj" \
+	"$(INTDIR)\pc_algebra.obj" \
 	"$(INTDIR)\pc_timer.obj" \
+	"$(INTDIR)\po.obj" \
 	"$(INTDIR)\pstring.obj" \
 	"$(INTDIR)\region.obj" \
 	"$(INTDIR)\script_lib.obj" \
@@ -165,10 +170,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\bone.obj" \
-	"$(INTDIR)\link_interface.obj" \
-	"$(INTDIR)\po.obj" \
-	"$(INTDIR)\pc_algebra.obj"
+	"$(INTDIR)\entity_anim.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -197,6 +199,7 @@ CLEAN :
 	-@erase "$(INTDIR)\deflate.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
 	-@erase "$(INTDIR)\entity.obj"
+	-@erase "$(INTDIR)\entity_anim.obj"
 	-@erase "$(INTDIR)\errorcontext.obj"
 	-@erase "$(INTDIR)\file_manager.obj"
 	-@erase "$(INTDIR)\filespec.obj"
@@ -278,6 +281,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\uncompr.obj" \
 	"$(INTDIR)\zutil.obj" \
 	"$(INTDIR)\app.obj" \
+	"$(INTDIR)\bone.obj" \
 	"$(INTDIR)\chunkfile.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
@@ -288,10 +292,13 @@ LINK32_OBJS= \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\ini_parser.obj" \
 	"$(INTDIR)\light.obj" \
+	"$(INTDIR)\link_interface.obj" \
 	"$(INTDIR)\mustash.obj" \
 	"$(INTDIR)\my_assertions.obj" \
 	"$(INTDIR)\ngl_pc.obj" \
+	"$(INTDIR)\pc_algebra.obj" \
 	"$(INTDIR)\pc_timer.obj" \
+	"$(INTDIR)\po.obj" \
 	"$(INTDIR)\pstring.obj" \
 	"$(INTDIR)\region.obj" \
 	"$(INTDIR)\script_lib.obj" \
@@ -313,10 +320,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\bone.obj" \
-	"$(INTDIR)\link_interface.obj" \
-	"$(INTDIR)\po.obj" \
-	"$(INTDIR)\pc_algebra.obj"
+	"$(INTDIR)\entity_anim.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -488,6 +492,12 @@ SOURCE=.\dllmain.cpp
 SOURCE=.\SpideyTM\SRC\entity.cpp
 
 "$(INTDIR)\entity.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\entity_anim.cpp
+
+"$(INTDIR)\entity_anim.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

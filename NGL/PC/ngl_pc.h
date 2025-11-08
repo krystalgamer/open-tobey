@@ -1,6 +1,30 @@
 #ifndef NGL_PC_H
 #define NGL_PC_H
 
+/*---------------------------------------------------------------------------------------------------------
+
+  Defines and types for projects that conditionally compile NGL.
+---------------------------------------------------------------------------------------------------------*/
+#define NGL       1
+
+
+struct nglMesh
+{
+	// @TODO
+};
+
+// Mesh material structure with a fixed set of passes.
+#pragma pack(push,1)
+
+
+struct nglMaterial
+{
+	int a;
+	// @TODO
+};
+
+#pragma pack(pop)
+
 // Texture resource structure.  These are stored in the texture instance bank.
 struct nglTexture
 {
