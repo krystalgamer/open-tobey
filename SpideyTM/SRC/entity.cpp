@@ -204,6 +204,8 @@ void serial_in(chunk_file& io,entity_id* eid)
 // @Test - used for testing asm gen
 entity_manager* entity_manager::my_inst;
 
+// @Ok
+// @Matching
 entity_manager::entity_manager() : number_server( 0 )
 {
 #if defined(TARGET_XBOX)
@@ -425,6 +427,8 @@ void patch_entity_manager(void)
 	PATCH_PUSH_RET(0x004F22B0, entity_manager::purge);
 
 	PATCH_PUSH_RET(0x004F2100, entity_manager::find_entity);
+
+	PATCH_PUSH_RET_POLY(0x004F1C90, entity_manager::entity_manager, "??0entity_manager@@AAE@XZ");
 }
 
 void patch_str(void)
