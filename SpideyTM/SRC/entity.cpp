@@ -64,15 +64,16 @@ entity_flavor_t to_entity_flavor_t( const stringx& s )
 //  entity_id
 ////////////////////////////////////////////////////////////////////////////////
 
+// @Ok
+// @Matching
 entity_id::entity_id(const char* name)
-
 {
   set_entity_id(name);
 }
 
 // @Ok
 // @Matching
-void entity_id::set_entity_id(const char* name)
+INLINE void entity_id::set_entity_id(const char* name)
 {
   // from now on, entity_id's must be uppercase.  tools are responsible
   // for converting.
@@ -368,6 +369,8 @@ void patch_entity_id(void)
 {
 	PATCH_PUSH_RET(0x004E3FC0, entity_id::get_val);
 	PATCH_PUSH_RET(0x004E3DD0, entity_id::set_entity_id);
+
+	PATCH_PUSH_RET_POLY(0x004E3CF0, entity_id::entity_id(const char*), "??0entity_id@@QAE@PBD@Z");
 }
 
 void patch_entity_manager(void)
