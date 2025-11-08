@@ -17,36 +17,46 @@ INLINE char* strdupcpp(const char* str)
 // These strings must be maintained in a 1-1 correspondence with entity_flavors.
 // This is somewhat automatically enforced by the entity_manager constructor, using
 // the designated stringx "null" at the end of the list.
-// @TODO - not correct
+
+// @Ok
+// @Patch - made it match spidey
 const char* entity_flavor_names[NUM_ENTITY_FLAVORS+1] =
 {
+	"CAMERA",
+	"ENTITY",
+	"MARKER",
+	"MIC",
+	"LIGHT_SOURCE",
+	"PARTICLE",
+	"PHYSICAL",
+	"ITEM",
+	"LIGHT",
+	"MOBILE",
+	"CONGLOMERATE",
+	"TURRET",
+	"BEAM",
+	"SCANNER",
+	"MORPHABLE_ITEM",
+	"SKY",
+	"MANIP",
+	"SWITCH",
+	"BOX_TRIGGER",
+	"POLYTUBE",
+	"LENSFLARE",
+	"NEOLIGHT",
+	"GAME_CAMERA",
+	"INTERP_CAMERA",
+	"SPIDERMAN_CAMERA",
+	"MARKY_CAMERA",
+	"MOUSELOOK_CAMERA",
+	"SNIPER_CAMERA",
+	"AI_CAMERA",
 
-  "CAMERA",
-  "ENTITY",
-  "MARKER",
-  "MIC",
-  "LIGHT_SOURCE",
-  "PARTICLE",
-  "PHYSICAL",
-
-  "ITEM",
-  "LIGHT",
-  "MOBILE",
-  "CONGLOMERATE",
-  "TURRET",
-  "BEAM",
-  "SCANNER",
-  "MORPHABLE_ITEM",
-  "SKY",
-  "MANIP",
-  "SWITCH",
-  "BOX_TRIGGER",
-  "POLYTUBE",
-
-  "LENSFLARE",
-  "null"
+	"null"
 };
 
+// @Ok
+// @Matching
 // return entity_flavor_t corresponding to given string (NUM_ENTITY_FLAVORS if not found)
 entity_flavor_t to_entity_flavor_t( const stringx& s )
 {
@@ -410,11 +420,11 @@ void patch_entity_manager(void)
 	PATCH_PUSH_RET(0x004F24C0, entity_manager::register_entity);
 	PATCH_PUSH_RET(0x004F2590, entity_manager::deregister_entity);
 
-	PATCH_PUSH_RET(0x00F22B0, entity_manager::purge);
+	PATCH_PUSH_RET(0x004F22B0, entity_manager::purge);
 }
 
 void patch_str(void)
 {
 	PATCH_PUSH_RET(0x004EBEA0, strdupcpp);
-	PATCH_PUSH_RET(0x004EBEA0, strdupcpp);
+	PATCH_PUSH_RET(0x004E3C60, to_entity_flavor_t);
 }

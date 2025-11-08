@@ -321,6 +321,15 @@ void dumper()
 		printf("MAC(STRING_%s, \"%s\", \"%s\")\n", string_name, string_name, string_defaults[i]);
 	}
 	*/
+	
+	/*
+	const char **flavors = (const char**)0x008C4440;
+	for (int i = 0; i < 29; i++)
+	{
+		const char *flavor = flavors[i];
+		printf("ENTITY_%s,\n", flavor);
+	}
+	*/
 
 }
 
@@ -351,7 +360,7 @@ BOOL WINAPI DllMain(
 			runtime_assertions();
 			runtime_patches();
 
-			//dumper();
+			dumper();
             break;
 
         case DLL_THREAD_ATTACH:

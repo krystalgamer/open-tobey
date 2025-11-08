@@ -78,9 +78,12 @@ class particle_generator : public entity
 {
 public:
   particle_generator( const entity_id& _id, unsigned int _flags );
+  // @Patch - removed because ENTITY_PARTICLE_GENERATOR doesn't exist
+  /*
   particle_generator( const entity_id& _id = ANONYMOUS,
                       entity_flavor_t _flavor = ENTITY_PARTICLE_GENERATOR,
                       unsigned int _flags = 0 );
+					  */
   virtual ~particle_generator();
 
   void initialize_variables();
@@ -96,10 +99,13 @@ public:
 // File I/O
 
 public:
+  // @Patch - removed because ENTITY_PARTICLE_GENERATOR doesn't exist
+  /*
   particle_generator( const stringx& _filename,
                       const entity_id& _id = ANONYMOUS,
                       entity_flavor_t _flavor = ENTITY_PARTICLE_GENERATOR,
                       unsigned int _flags = 0 );
+					  */
 
 
   void load();

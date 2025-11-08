@@ -315,7 +315,7 @@ extern const char* entity_flavor_names[NUM_ENTITY_FLAVORS+1];
 
 
 // return entity_flavor_t corresponding to given string (NUM_ENTITY_FLAVORS if not found)
-entity_flavor_t to_entity_flavor_t( const stringx& s );
+EXPORT entity_flavor_t to_entity_flavor_t( const stringx& s );
 
 enum entity_flag_t
 {
