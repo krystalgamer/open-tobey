@@ -303,6 +303,8 @@ entity* entity_manager::find_nearest_entity_to_line(const vector3d& pos1, const 
 }
 
 #endif /* SPIDEY_SIM */
+// @Ok
+// @Matching
 void entity_manager::purge()
 {
   name_to_number_map::iterator mi;
@@ -366,6 +368,7 @@ void validate_entity_manager(void)
 	VALIDATE_SIZE(entity_manager, 0x20);
 
 	VALIDATE(entity_manager, name_to_number, 0x10);
+	VALIDATE(entity_manager, number_server, 0x1C);
 }
 
 void validate_entity_id(void)
@@ -406,6 +409,8 @@ void patch_entity_manager(void)
 {
 	PATCH_PUSH_RET(0x004F24C0, entity_manager::register_entity);
 	PATCH_PUSH_RET(0x004F2590, entity_manager::deregister_entity);
+
+	PATCH_PUSH_RET(0x00F22B0, entity_manager::purge);
 }
 
 void patch_str(void)
