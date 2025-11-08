@@ -6,14 +6,14 @@ class charstarwrap
   {
   public:
     char* str;
-    charstarwrap(char* s) {str=s;}
+    EXPORT charstarwrap(char* s) {str=s;}
 
-    bool operator<(const charstarwrap& csw) const
+    EXPORT bool operator<(const charstarwrap& csw) const
 
       {
       return (strcmp(str, csw.str)<0);
       }
-    bool operator==(const charstarwrap& csw) const
+    EXPORT bool operator==(const charstarwrap& csw) const
       {
       return (strcmp(str, csw.str)==0);
       }

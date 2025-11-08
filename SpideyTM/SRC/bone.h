@@ -111,6 +111,7 @@ class bone : public signaller
 	// @Matching
     EXPORT const po& get_abs_po() const
     {
+		// @Patch - this check
 		if (this->get_bone_flag(bone::BONE_UNK_ONE))
 		{
 			this->update_abs_po_reverse();

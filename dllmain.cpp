@@ -128,6 +128,8 @@ extern "C" EXPORT int run_assertions(void)
 	validate_po();
 	validate_matrix4x4();
 
+	validate_entity_manager();
+
 	return FAIL_VALIDATION;
 }
 
@@ -204,6 +206,8 @@ void game_patches()
 
 	patch_po();
 	patch_matrix4x4();
+
+	patch_entity_manager();
 }
 
 #pragma pack(push,1)

@@ -182,21 +182,21 @@ inline const stringx& to_string( anim_id_t id )
 class entity_id
 {
  public:
-  entity_id() : val((unsigned)-1) {}   // will be equal to entity_id("unreg")
-  entity_id(const char* name);
-  void set_entity_id(const char* name);
-  bool operator==(const entity_id& e) const
+  EXPORT entity_id() : val((unsigned)-1) {}   // will be equal to entity_id("unreg")
+  EXPORT entity_id(const char* name);
+  EXPORT void set_entity_id(const char* name);
+  EXPORT bool operator==(const entity_id& e) const
   {
     return val==e.val;
   }
-  bool operator<(const entity_id& e) const {return val < e.val;}
-  stringx get_val() const;
+  EXPORT bool operator<(const entity_id& e) const {return val < e.val;}
+  EXPORT stringx get_val() const;
 
-  static entity_id &make_unique_id();
-  static void delete_entity_id(entity_id id);
-  unsigned int get_numerical_val() const {return val;}
+  EXPORT static entity_id &make_unique_id();
+  EXPORT static void delete_entity_id(entity_id id);
+  EXPORT unsigned int get_numerical_val() const {return val;}
 
-  static entity_id &make_entity_id(const char *foo)
+  EXPORT static entity_id &make_entity_id(const char *foo)
   {
     static entity_id ret;
     ret.set_entity_id(foo);
@@ -249,32 +249,46 @@ typedef std::map< entity_id, entity*
 
 //class entity_manager : public map< entity_id, entity* >, public singleton
 class entity_manager : entity_map, public singleton
-
 {
+	friend void validate_entity_manager(void);
+	friend void patch_entity_manager(void);
  public:
-  entity* find_entity( const entity_id& target_entity, entity_flavor_t flavor, bool unknown = FIND_ENTITY_UNKNOWN_NOT_OK );
+  EXPORT entity* find_entity( const entity_id& target_entity, entity_flavor_t flavor, bool unknown = FIND_ENTITY_UNKNOWN_NOT_OK );
 #ifdef SPIDEY_SIM
-  entity* find_nearest_entity_to_line( const vector3d& pos1, const vector3d& pos2, entity_flavor_t flavor );
+  EXPORT entity* find_nearest_entity_to_line( const vector3d& pos1, const vector3d& pos2, entity_flavor_t flavor );
 #endif /* SPIDEY_SIM */
 
   // delivers a warning about entities that aren't in the world.
 
-  void check_entity_sectors();
-  void purge();
-  void reset_name_to_number_map();
+  EXPORT void check_entity_sectors();
+  EXPORT void purge();
+  EXPORT void reset_name_to_number_map();
 
   // returns a pointer to the single instance
-  DECLARE_SINGLETON(entity_manager)
+  // @Patch
+  //DECLARE_SINGLETON(entity_manager)
 
-	static void stl_prealloc(void);
+ public:
+  static inline entity_manager* inst()
+  {
+	  // @Hardcode
+	  return *reinterpret_cast<entity_manager**>(0x00910DC0);
+  }
+
+  static inline void create_inst()
+  {
+	  *reinterpret_cast<entity_manager**>(0x00910DC0) = NEW entity_manager;
+  }
+
+	EXPORT static void stl_prealloc(void);
 
  private:
-  entity_manager();
-  ~entity_manager();
+  EXPORT entity_manager();
+  EXPORT ~entity_manager();
 
-  void register_entity(entity*);
+  EXPORT void register_entity(entity*);
 
-  void deregister_entity(entity*);
+  EXPORT void deregister_entity(entity*);
 
   friend class entity;
   friend class entity_id;
