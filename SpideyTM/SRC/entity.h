@@ -181,6 +181,9 @@ inline const stringx& to_string( anim_id_t id )
 // probably do something like we did in DBTS 1.
 class entity_id
 {
+	friend void validate_entity_id(void);
+	friend void patch_entity_id(void);
+
  public:
   EXPORT entity_id() : val((unsigned)-1) {}   // will be equal to entity_id("unreg")
   EXPORT entity_id(const char* name);
@@ -237,6 +240,7 @@ enum
 // entity_manager class
 ///////////////////////////////////////////////////////////////////////////////
 
+
 typedef std::map< entity_id, entity*
 , std::less<entity_id>
 	#ifdef TARGET_PS2
@@ -252,6 +256,9 @@ class entity_manager : entity_map, public singleton
 {
 	friend void validate_entity_manager(void);
 	friend void patch_entity_manager(void);
+ private:
+	static entity_manager *my_inst;
+
  public:
   EXPORT entity* find_entity( const entity_id& target_entity, entity_flavor_t flavor, bool unknown = FIND_ENTITY_UNKNOWN_NOT_OK );
 #ifdef SPIDEY_SIM
@@ -273,6 +280,7 @@ class entity_manager : entity_map, public singleton
   {
 	  // @Hardcode
 	  return *reinterpret_cast<entity_manager**>(0x00910DC0);
+	  //return my_inst;
   }
 
   static inline void create_inst()

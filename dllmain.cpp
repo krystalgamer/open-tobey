@@ -129,6 +129,7 @@ extern "C" EXPORT int run_assertions(void)
 	validate_matrix4x4();
 
 	validate_entity_manager();
+	validate_entity_id();
 
 	return FAIL_VALIDATION;
 }
@@ -208,6 +209,7 @@ void game_patches()
 	patch_matrix4x4();
 
 	patch_entity_manager();
+	patch_entity_id();
 }
 
 #pragma pack(push,1)

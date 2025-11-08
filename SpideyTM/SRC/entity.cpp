@@ -2,7 +2,7 @@
 
 // @Ok
 // @Matching
-char* strdupcpp(const char* str)
+INLINE char* strdupcpp(const char* str)
 {
   char* retstr;
 
@@ -70,6 +70,8 @@ entity_id::entity_id(const char* name)
   set_entity_id(name);
 }
 
+// @Ok
+// @Matching
 void entity_id::set_entity_id(const char* name)
 {
   // from now on, entity_id's must be uppercase.  tools are responsible
@@ -181,6 +183,10 @@ void serial_in(chunk_file& io,entity_id* eid)
 ////////////////////////////////////////////////////////////////////////////////
 //  entity_manager
 ////////////////////////////////////////////////////////////////////////////////
+
+
+// @Test - used for testing asm gen
+entity_manager* entity_manager::my_inst;
 
 entity_manager::entity_manager() : number_server( 0 )
 {
@@ -352,7 +358,17 @@ void validate_entity_manager(void)
 	VALIDATE(entity_manager, name_to_number, 0x10);
 }
 
+void validate_entity_id(void)
+{
+}
+
 #include "my_patch.h"
+
+void patch_entity_id(void)
+{
+	PATCH_PUSH_RET(0x004E3FC0, entity_id::get_val);
+	PATCH_PUSH_RET(0x004E3DD0, entity_id::set_entity_id);
+}
 
 void patch_entity_manager(void)
 {
@@ -360,5 +376,6 @@ void patch_entity_manager(void)
 
 void patch_str(void)
 {
+	PATCH_PUSH_RET(0x004EBEA0, strdupcpp);
 	PATCH_PUSH_RET(0x004EBEA0, strdupcpp);
 }
