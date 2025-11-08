@@ -483,6 +483,8 @@ class box_trigger_interface;
 
 class entity : public bone
 {
+	friend void validate_entity(void);
+	friend void patch_entity(void);
   public:
   stringx fileName;
 
@@ -1281,6 +1283,8 @@ public:
   virtual stringx const& get_dirname() const { assert(false); return sendl; }
   virtual bool has_dirname() const { return false; }
 
+  // @Ok
+  // @Matching
   entity_id get_id() const {return id;}
   stringx get_name() const { return id.get_val(); }
   entity_flavor_t get_flavor() const {return flavor;}

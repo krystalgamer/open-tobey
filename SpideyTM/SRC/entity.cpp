@@ -366,10 +366,21 @@ void validate_entity_manager(void)
 
 void validate_entity_id(void)
 {
+	VALIDATE_SIZE(entity_id, 0x4);
+
 	VALIDATE(entity_id, val, 0x0);
 }
 
+void validate_entity(void)
+{
+	VALIDATE(entity, id, 0x70);
+}
+
 #include "my_patch.h"
+
+void patch_entity(void)
+{
+}
 
 void patch_entity_id(void)
 {

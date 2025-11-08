@@ -130,6 +130,7 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_entity_manager();
 	validate_entity_id();
+	validate_entity();
 
 	return FAIL_VALIDATION;
 }
@@ -210,6 +211,7 @@ void game_patches()
 
 	patch_entity_manager();
 	patch_entity_id();
+	patch_entity();
 }
 
 #pragma pack(push,1)

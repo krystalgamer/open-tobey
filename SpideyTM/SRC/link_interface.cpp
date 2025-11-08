@@ -91,48 +91,12 @@ void link_interface::update_abs_po_family()
 
 void link_interface::update_handed_abs_po_family()
 {
-  assert(my_bone);
-
-  // update my children
-  if (my_child != NULL)
-  {
-    assert (my_child->has_link_ifc());
-    my_child->update_handed_abs_po();
-
-    // update my brothers (part of update children)
-    bone *it = my_child;
-    assert(it->has_link_ifc());
-    while(it->link_ifc()->my_brother != NULL)
-    {
-      it->link_ifc()->my_brother->update_handed_abs_po();
-      it = it->link_ifc()->my_brother;
-      assert(!it || it->has_link_ifc());
-    }
-  }
+	PANIC;
 }
 
 void link_interface::set_handed_axis_family(int axis)
 {
-	assert(my_bone);
-
-  // update my children
-  if (my_child != NULL)
-  {
-    assert (my_child->has_link_ifc());
-
-    my_child->set_handed_axis(axis);
-
-    // update my brothers (part of update children)
-
-    bone *it = my_child;
-    assert(it->has_link_ifc());
-    while(it->link_ifc()->my_brother != NULL)
-    {
-      it->link_ifc()->my_brother->set_handed_axis(axis);
-      it = it->link_ifc()->my_brother;
-      assert(!it || it->has_link_ifc());
-    }
-  }
+	PANIC;
 }
 
 // @Ok

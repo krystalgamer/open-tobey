@@ -27,6 +27,7 @@ void validate_po(void);
 void validate_matrix4x4(void);
 void validate_entity_manager(void);
 void validate_entity_id(void);
+void validate_entity(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -54,4 +55,5 @@ void patch_po(void);
 void patch_matrix4x4(void);
 void patch_entity_manager(void);
 void patch_entity_id(void);
+void patch_entity(void);
 #endif

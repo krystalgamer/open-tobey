@@ -297,6 +297,7 @@ const vector3d& bone::get_abs_position() const
 
 void validate_bone(void)
 {
+	VALIDATE_SIZE(bone, 0x60);
 	VALIDATE(bone, my_rel_po, 0x14);
 
 	VALIDATE(bone, my_abs_po, 0x54);
