@@ -157,6 +157,8 @@ static int unique_entity_id_idx=0;
 #ifdef DEBUG
 //int agorra;
 #endif
+// @Ok
+// @Matching
 entity_id &entity_id::make_unique_id()
 {
   static entity_id ret;
@@ -376,6 +378,10 @@ void patch_entity_id(void)
 	PATCH_PUSH_RET_POLY(0x004E3CF0, entity_id::entity_id(const char*), "??0entity_id@@QAE@PBD@Z");
 
 	PATCH_PUSH_RET(0x004E3EB0, entity_id::delete_entity_id);
+
+	// @TODO - can't patch yet because it was inlined in other places
+	// and it references a static variable
+	//PATCH_PUSH_RET(0x004E4060, entity_id::make_unique_id);
 }
 
 void patch_entity_manager(void)
