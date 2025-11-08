@@ -66,7 +66,7 @@ entity_flavor_t to_entity_flavor_t( const stringx& s )
 
 // @Ok
 // @Matching
-entity_id::entity_id(const char* name)
+INLINE entity_id::entity_id(const char* name)
 {
   set_entity_id(name);
 }
@@ -174,8 +174,9 @@ entity_id &entity_id::make_unique_id()
 }
 
 
+// @Ok
+// @Matching
 void serial_in(chunk_file& io,entity_id* eid)
-
 {
   stringx in;
   serial_in(io,&in);
@@ -382,6 +383,8 @@ void patch_entity_id(void)
 	// @TODO - can't patch yet because it was inlined in other places
 	// and it references a static variable
 	//PATCH_PUSH_RET(0x004E4060, entity_id::make_unique_id);
+
+	PATCH_PUSH_RET_POLY(0x004E4200, serial_in, "?serial_in@@YAXAAVchunk_file@@PAVentity_id@@@Z");
 }
 
 void patch_entity_manager(void)

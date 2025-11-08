@@ -216,7 +216,7 @@ class entity_id
   friend void serial_out(chunk_file& io, const entity_id* eid);
 
 #endif
-  friend void serial_in(chunk_file& io, entity_id* eid);
+  EXPORT friend void serial_in(chunk_file& io, entity_id* eid);
 };
 
 #if !defined(NO_SERIAL_OUT)
