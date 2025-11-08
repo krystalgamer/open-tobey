@@ -329,6 +329,8 @@ void entity_manager::stl_prealloc(void)
 }
 
 
+// @OK
+// @Matching
 void entity_manager::register_entity(entity* e)
 
 {
@@ -400,6 +402,7 @@ void patch_entity_id(void)
 
 void patch_entity_manager(void)
 {
+	PATCH_PUSH_RET(0x004F24C0, entity_manager::register_entity);
 }
 
 void patch_str(void)
