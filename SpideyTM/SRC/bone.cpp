@@ -217,6 +217,19 @@ void bone::update_abs_po(bool arg)
 
 // @Ok
 // @Matching
+INLINE const po& bone::get_abs_po() const
+{
+	// @Patch - this check
+	if (this->get_bone_flag(bone::BONE_UNK_ONE))
+	{
+		this->update_abs_po_reverse();
+	}
+
+  return *my_abs_po;
+}
+
+// @Ok
+// @Matching
 void bone::dirty_family(bool parm)
 {
 	this->set_bone_flag(bone::BONE_UNK_ONE, true);

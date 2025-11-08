@@ -222,6 +222,8 @@ void link_interface::add_child(bone *good_kid)
   good_kid->link_ifc()->set_parent(my_bone);
 }
 
+// @Ok
+// @Matching
 void link_interface::set_parent(bone *new_parent)
 {
   // add me to my NEW parent's children list, and from the sibling list
@@ -234,7 +236,14 @@ void link_interface::set_parent(bone *new_parent)
   else if(new_parent != my_parent)
   {
     if(my_parent != NULL)
+	{
       clear_parent();
+	}
+	else
+	{
+		// @Patch - added call
+		this->my_bone->dirty_family(false);
+	}
 
 
     assert(new_parent->has_link_ifc());
@@ -475,8 +484,7 @@ void validate_link_interface(void)
 
 void patch_link_interface(void)
 {
-	// @TODO wait until link_parent is matching
-	//PATCH_PUSH_RET(0x004BFAF0, link_interface::add_child);
+	PATCH_PUSH_RET(0x004BFAF0, link_interface::add_child);
 
 
 	PATCH_PUSH_RET(0x004BFA60, link_interface::clear_parent);
@@ -486,4 +494,6 @@ void patch_link_interface(void)
 	PATCH_PUSH_RET(0x004BFA40, link_interface::remove_child);
 
 	PATCH_PUSH_RET(0x004BF9B0, link_interface::update_abs_po_family);
+
+	PATCH_PUSH_RET(0x004BFB20, link_interface::set_parent);
 }

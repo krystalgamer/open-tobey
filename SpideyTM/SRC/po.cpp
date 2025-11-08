@@ -1082,6 +1082,8 @@ bool po::is_valid( void ) const
 
 void validate_po(void)
 {
+	VALIDATE_SIZE(po, 0x40);
+
 	VALIDATE(po, m[3], 0x30);
 }
 
