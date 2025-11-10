@@ -331,6 +331,15 @@ void dumper()
 	}
 	*/
 
+
+	/*
+	const char **entity_signals = (const char**)0x008C44F8;
+	for (int i = 0; entity_signals[i] ; i++)
+	{
+		const char *cur = entity_signals[i];
+		printf("MAC( %s, \"%s\" )\n", &cur[8], cur);
+	}
+	*/
 }
 
 BOOL WINAPI DllMain(

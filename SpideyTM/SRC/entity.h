@@ -1353,7 +1353,7 @@ public:
 public:
   // @Ok
   // @Matching
-  virtual bool is_an_entity() const { return(true); }
+  EXPORT virtual bool is_an_entity() const { return(true); }
 
 
   virtual bool is_a_beam() const { return false; }

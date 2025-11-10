@@ -653,6 +653,8 @@ void entity::register_signals()
   #undef MAC
 }
 
+// @Ok
+// @Matching
 // This virtual function, used only for debugging purposes, returns the
 // name of the given local signal
 const char* entity::get_signal_name( unsigned short idx ) const
@@ -3420,6 +3422,8 @@ void validate_entity(void)
 
 	VALIDATE_VTABLE(entity, is_an_entity, 1);
 
+	VALIDATE_VTABLE(entity, get_signal_name, 6);
+
 	VALIDATE_VTABLE(entity, set_radius, 25);
 	VALIDATE_VTABLE(entity, get_radius, 26);
 
@@ -3472,6 +3476,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A0B30, entity::set_radius, "?set_radius@entity@@UAEXM@Z");
 
 	PATCH_PUSH_RET_POLY(0x004A1280, entity::is_an_entity, "?is_an_entity@entity@@UBE_NXZ");
+
+	PATCH_PUSH_RET_POLY(0x004EA910, entity::get_signal_name, "?get_signal_name@entity@@MBEPBDG@Z");
 }
 
 void patch_entity_id(void)
