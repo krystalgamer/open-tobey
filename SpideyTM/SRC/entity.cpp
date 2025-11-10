@@ -3056,6 +3056,8 @@ bool entity::possibly_aging() const
 }
 
 
+// @Ok
+// @Matching
 void entity::set_active( bool a )
 {
   if(entity::is_active() != a)
@@ -3067,9 +3069,11 @@ void entity::set_active( bool a )
       flags&=~EFLAG_ACTIVE;
 
 //    region_update_poss_active();
-
+	// @Patch - remove my_controller stuff
+	/*
     if ( my_controller )
       set_control_active( a );
+	*/
   }
 }
 
@@ -3408,6 +3412,7 @@ void validate_entity(void)
 	VALIDATE(entity, id, 0x70);
 
 	VALIDATE_VTABLE(entity, is_active, 29);
+	VALIDATE_VTABLE(entity, set_active, 30);
 
 	VALIDATE_VTABLE(entity, is_sticky, 40);
 	VALIDATE_VTABLE(entity, set_sticky, 41);
@@ -3443,6 +3448,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A0DE0, entity::set_repulsion, "?set_repulsion@entity@@UAEX_N@Z");
 
 	PATCH_PUSH_RET_POLY(0x004A0BD0, entity::is_active, "?is_active@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004F4AB0, entity::set_active, "?set_active@entity@@UAEX_N@Z");
 }
 
 void patch_entity_id(void)
