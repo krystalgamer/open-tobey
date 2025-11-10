@@ -1005,6 +1005,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual bool is_repulsion() const           { return flags & EFLAG_MISC_REPULSION; }
+  // @Ok
+  // @Matching
   EXPORT virtual void set_repulsion( bool s )        { { if(s) flags|=EFLAG_MISC_REPULSION; else flags&=~EFLAG_MISC_REPULSION; } }
 
 
