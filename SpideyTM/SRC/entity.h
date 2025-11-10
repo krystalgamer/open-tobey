@@ -491,9 +491,14 @@ class entity : public bone
 
   protected:
     unsigned int flags;
+
+	  // @Patch - moved closer to flags
+	  unsigned int ext_flags;
+
     entity_flavor_t flavor;
 
-	PADDING(0x70-0x68);
+	PADDING(4);
+
     entity_id id;
     stringx parsedName;
     entity_anim * my_animation;
@@ -956,6 +961,8 @@ public:
 */
 
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_time_limited() const             { return is_ext_flagged(EFLAG_EXT_TIME_LIMITED);}
   EXPORT virtual void set_time_limited( bool torf )       { assert(torf || !is_time_limited()); if(torf) ext_flags |= EFLAG_EXT_TIME_LIMITED; else ext_flags &= ~EFLAG_EXT_TIME_LIMITED; }
 
@@ -1893,7 +1900,6 @@ private:
   time_value_t programmed_cell_death;
   unsigned short bone_idx;
 
-  unsigned int ext_flags;
 
   destroyable_info *destroy_info;
 
