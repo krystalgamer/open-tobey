@@ -987,7 +987,11 @@ public:
   // @Matching
   EXPORT virtual void set_sticky( bool s )           { { if(s) flags|=EFLAG_PHYSICS_STICKY; else flags&=~EFLAG_PHYSICS_STICKY; } }
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_stationary() const          { return !(flags & EFLAG_PHYSICS_MOVING); }
+  // @Ok
+  // @Matching
   EXPORT virtual void set_stationary( bool s )       { { if(!s) flags|=EFLAG_PHYSICS_MOVING; else flags&=~EFLAG_PHYSICS_MOVING; } }
 
   EXPORT virtual bool is_walkable() const            { return flags & EFLAG_PHYSICS_WALKABLE; }

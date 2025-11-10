@@ -3417,6 +3417,7 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, set_sticky, 41);
 
 	VALIDATE_VTABLE(entity, is_stationary, 42);
+	VALIDATE_VTABLE(entity, set_stationary, 43);
 
 	VALIDATE_VTABLE(entity, is_visible, 48);
 }
@@ -3426,9 +3427,12 @@ void validate_entity(void)
 void patch_entity(void)
 {
 	PATCH_PUSH_RET_POLY(0x004A0E10, entity::is_visible, "?is_visible@entity@@UBE_NXZ");
+
 	PATCH_PUSH_RET_POLY(0x004A0CD0, entity::is_sticky, "?is_sticky@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A0CF0, entity::set_sticky, "?set_sticky@entity@@UAEX_N@Z");
+
 	PATCH_PUSH_RET_POLY(0x004A0D20, entity::is_stationary, "?is_stationary@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A0D40, entity::set_stationary, "?set_stationary@entity@@UAEX_N@Z");
 }
 
 void patch_entity_id(void)
