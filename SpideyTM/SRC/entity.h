@@ -997,6 +997,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual bool is_walkable() const            { return flags & EFLAG_PHYSICS_WALKABLE; }
+  // @Ok
+  // @Matching
   EXPORT virtual void set_walkable( bool s )         { { if(s) flags|=EFLAG_PHYSICS_WALKABLE; else flags&=~EFLAG_PHYSICS_WALKABLE; } }
 
 
