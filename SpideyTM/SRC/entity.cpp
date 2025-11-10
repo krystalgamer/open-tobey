@@ -3422,6 +3422,8 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, is_walkable, 44);
 	VALIDATE_VTABLE(entity, set_walkable, 45);
 
+	VALIDATE_VTABLE(entity, is_repulsion, 46);
+
 	VALIDATE_VTABLE(entity, is_visible, 48);
 }
 
@@ -3439,6 +3441,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A0D70, entity::is_walkable, "?is_walkable@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A0D90, entity::set_walkable, "?set_walkable@entity@@UAEX_N@Z");
+
+	PATCH_PUSH_RET_POLY(0x004A0DC0, entity::is_repulsion, "?is_repulsion@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
