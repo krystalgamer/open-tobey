@@ -1094,6 +1094,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual bool get_in_use() const { return flags & EFLAG_MISC_IN_USE; }
+  // @Ok
+  // @Matching
   EXPORT virtual void set_in_use(bool b) { { if(b) flags|=EFLAG_MISC_IN_USE; else flags&=~EFLAG_MISC_IN_USE; } }
 
   // EFLAG_PHYSICS
