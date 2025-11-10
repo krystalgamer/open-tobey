@@ -3413,8 +3413,12 @@ void validate_entity(void)
 	VALIDATE(entity, ext_flags, 0x64);
 	VALIDATE(entity, id, 0x70);
 
+	VALIDATE(entity, radius, 0xA8);
+
+	VALIDATE_VTABLE(entity, get_radius, 26);
+
 	VALIDATE_VTABLE(entity, is_time_limited, 27);
-	VALIDATE_VTABLE(entity, is_time_limited, 28);
+	VALIDATE_VTABLE(entity, set_time_limited, 28);
 
 	VALIDATE_VTABLE(entity, is_active, 29);
 	VALIDATE_VTABLE(entity, set_active, 30);
@@ -3457,6 +3461,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A0B70, entity::is_time_limited, "?is_time_limited@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A0B90, entity::set_time_limited, "?set_time_limited@entity@@UAEX_N@Z");
+
+	PATCH_PUSH_RET_POLY(0x004A0B50, entity::get_radius, "?get_radius@entity@@UBEMXZ");
 }
 
 void patch_entity_id(void)

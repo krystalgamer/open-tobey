@@ -502,7 +502,7 @@ class entity : public bone
     entity_id id;
     stringx parsedName;
     entity_anim * my_animation;
-    rational_t radius;
+	PADDING(4);
 
 
 	int MaterialMask;   //  this is used to mask off materials
@@ -807,6 +807,8 @@ public:
 
   // ALWAYS AVAILABLE
   EXPORT virtual void set_radius( rational_t r )           { radius = r; }
+  // @Ok
+  // @Matching
   EXPORT virtual rational_t get_radius() const             { return radius; }
 
 //  const po& get_po() const;
@@ -1573,6 +1575,8 @@ public:
 
 
 protected:
+  // @Patch - moved it here since it's protected and offset is good
+    rational_t radius;
   light_manager* my_light_mgr;
 
 /////////////////////////////////////////////////////////////////////////////
