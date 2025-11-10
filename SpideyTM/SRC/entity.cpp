@@ -1433,12 +1433,6 @@ extern float shadow_reflective_value;
 
 
 
-void entity::rendershadow( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct, rational_t scale )
-{
-	// @TODO
-	PANIC;
-}
-
 // permanent:
 
 /*
@@ -3413,6 +3407,8 @@ void validate_entity(void)
 	VALIDATE(entity, flags, 0x60);
 	VALIDATE(entity, id, 0x70);
 
+	VALIDATE_VTABLE(entity, is_active, 29);
+
 	VALIDATE_VTABLE(entity, is_sticky, 40);
 	VALIDATE_VTABLE(entity, set_sticky, 41);
 
@@ -3445,6 +3441,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A0DC0, entity::is_repulsion, "?is_repulsion@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A0DE0, entity::set_repulsion, "?set_repulsion@entity@@UAEX_N@Z");
+
+	PATCH_PUSH_RET_POLY(0x004A0BD0, entity::is_active, "?is_active@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)

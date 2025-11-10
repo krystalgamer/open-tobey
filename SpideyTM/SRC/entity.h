@@ -551,7 +551,9 @@ class entity : public bone
     /*** Virtual Interfaces =) ***/
     EXPORT virtual void frame_advance( time_value_t t );
     EXPORT virtual void render( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct );
-    EXPORT virtual void rendershadow( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct, rational_t scale );
+
+	// @Patch - doesn't exist
+    //EXPORT virtual void rendershadow( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct, rational_t scale );
 
 		EXPORT void updatelighting( time_value_t t, const int playerID );
 
@@ -957,6 +959,8 @@ public:
   EXPORT virtual bool is_time_limited() const             { return is_ext_flagged(EFLAG_EXT_TIME_LIMITED);}
   EXPORT virtual void set_time_limited( bool torf )       { assert(torf || !is_time_limited()); if(torf) ext_flags |= EFLAG_EXT_TIME_LIMITED; else ext_flags &= ~EFLAG_EXT_TIME_LIMITED; }
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_active() const              { return flags & EFLAG_ACTIVE; }
 
   EXPORT virtual void set_active( bool a );
@@ -973,6 +977,7 @@ public:
   EXPORT virtual bool are_collisions_active() const      { return flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE; }
   EXPORT virtual void set_collisions_active( bool a, bool update_reg = true );
 
+  PADDING_VIRTUAL();
   PADDING_VIRTUAL();
   PADDING_VIRTUAL();
   PADDING_VIRTUAL();
