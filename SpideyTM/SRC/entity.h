@@ -806,6 +806,8 @@ public:
 
 
   // ALWAYS AVAILABLE
+  // @Ok
+  // @Matching
   EXPORT virtual void set_radius( rational_t r )           { radius = r; }
   // @Ok
   // @Matching
