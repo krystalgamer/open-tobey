@@ -3080,7 +3080,6 @@ void entity::set_active( bool a )
 }
 
 void entity::set_visible( bool a )
-
 {
 	if(entity::is_visible() != a)
 	{
@@ -3414,6 +3413,7 @@ void validate_entity(void)
 	VALIDATE(entity, flags, 0x60);
 	VALIDATE(entity, id, 0x70);
 
+	VALIDATE_VTABLE(entity, is_sticky, 40);
 	VALIDATE_VTABLE(entity, is_visible, 48);
 }
 
@@ -3422,6 +3422,7 @@ void validate_entity(void)
 void patch_entity(void)
 {
 	PATCH_PUSH_RET_POLY(0x004A0E10, entity::is_visible, "?is_visible@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A0CD0, entity::is_sticky, "?is_sticky@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)

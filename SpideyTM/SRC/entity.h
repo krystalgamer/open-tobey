@@ -973,6 +973,15 @@ public:
   EXPORT virtual bool are_collisions_active() const      { return flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE; }
   EXPORT virtual void set_collisions_active( bool a, bool update_reg = true );
 
+  PADDING_VIRTUAL();
+  PADDING_VIRTUAL();
+  PADDING_VIRTUAL();
+  PADDING_VIRTUAL();
+  PADDING_VIRTUAL();
+
+
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_sticky() const              { return flags & EFLAG_PHYSICS_STICKY; }
   EXPORT virtual void set_sticky( bool s )           { { if(s) flags|=EFLAG_PHYSICS_STICKY; else flags&=~EFLAG_PHYSICS_STICKY; } }
 
@@ -987,12 +996,8 @@ public:
   EXPORT virtual void set_repulsion( bool s )        { { if(s) flags|=EFLAG_MISC_REPULSION; else flags&=~EFLAG_MISC_REPULSION; } }
 
 
-  PADDING_VIRTUAL();
-  PADDING_VIRTUAL();
-  PADDING_VIRTUAL();
-  PADDING_VIRTUAL();
-  PADDING_VIRTUAL();
-
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_visible() const             { return flags & EFLAG_GRAPHICS_VISIBLE; }
   EXPORT virtual void set_visible( bool a );
 
@@ -1006,48 +1011,48 @@ public:
     FAMILYVIS_CUR_VARIANT_ONLY=1
   };
   // set me and all my children's visibility
-  void set_family_visible( bool a, bool current_variant_only=false );
+  EXPORT void set_family_visible( bool a, bool current_variant_only=false );
 
   // needed by particle_generator and, thus, conglomerate also
-  virtual bool is_still_visible() const { return is_visible(); }
+  EXPORT virtual bool is_still_visible() const { return is_visible(); }
 
-  virtual bool is_motion_blurred() const      { return flags & EFLAG_GRAPHICS_MOTION_BLUR; }
+  EXPORT virtual bool is_motion_blurred() const      { return flags & EFLAG_GRAPHICS_MOTION_BLUR; }
 
-  void         allocate_motion_info();
-  virtual void activate_motion_blur(  int _blur_min_alpha,
+  EXPORT void         allocate_motion_info();
+  EXPORT virtual void activate_motion_blur(  int _blur_min_alpha,
                                       int _blur_max_alpha,
                                       int _num_blur_images,
                                       float _blur_spread );
-  virtual void deactivate_motion_blur();
+  EXPORT virtual void deactivate_motion_blur();
 
-  virtual bool is_motion_trailed() const      { return flags & EFLAG_GRAPHICS_MOTION_TRAIL; }
-  virtual void activate_motion_trail( int _trail_length,
+  EXPORT virtual bool is_motion_trailed() const      { return flags & EFLAG_GRAPHICS_MOTION_TRAIL; }
+  EXPORT virtual void activate_motion_trail( int _trail_length,
                                       color32 _trail_color,
                                       int _trail_min_alpha,
 
                                       int _trail_max_alpha,
                                       const vector3d& tip
                                       );
-  virtual void deactivate_motion_trail();
+  EXPORT virtual void deactivate_motion_trail();
 
-  virtual bool get_externally_controlled() const
+  EXPORT virtual bool get_externally_controlled() const
     { return flags & EFLAG_PHYSENT_EXTERNALLY_CONTROLLED; }
 
-  void set_externally_controlled( bool ec )
+  EXPORT void set_externally_controlled( bool ec )
     { { if(ec) flags|=EFLAG_PHYSENT_EXTERNALLY_CONTROLLED; else flags&=~EFLAG_PHYSENT_EXTERNALLY_CONTROLLED; } }
 
-  bool get_angle_externally_controlled() const
+  EXPORT bool get_angle_externally_controlled() const
     { return flags & EFLAG_PHYSENT_ANGLE_EXTERNALLY_CONTROLLED; }
-  void set_angle_externally_controlled( bool ec )
+  EXPORT void set_angle_externally_controlled( bool ec )
     { { if(ec) flags|=EFLAG_PHYSENT_ANGLE_EXTERNALLY_CONTROLLED; else flags&=~EFLAG_PHYSENT_ANGLE_EXTERNALLY_CONTROLLED; } }
 
 
-  bool get_motion_externally_controlled() const
+  EXPORT bool get_motion_externally_controlled() const
     { return flags & EFLAG_PHYSENT_MOTION_EXTERNALLY_CONTROLLED; }
-  void set_motion_externally_controlled( bool ec )
+  EXPORT void set_motion_externally_controlled( bool ec )
     { { if(ec) flags|=EFLAG_PHYSENT_MOTION_EXTERNALLY_CONTROLLED; else flags&=~EFLAG_PHYSENT_MOTION_EXTERNALLY_CONTROLLED; } }
 
-  void check_nonstatic();
+  EXPORT void check_nonstatic();
 
   bool foreign_controller_active() const { return flags & (EFLAG_PHYSENT_EXTERNALLY_CONTROLLED|EFLAG_PHYSENT_ANGLE_EXTERNALLY_CONTROLLED|EFLAG_PHYSENT_MOTION_EXTERNALLY_CONTROLLED); }
 
