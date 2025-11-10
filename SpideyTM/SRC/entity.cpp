@@ -3414,6 +3414,7 @@ void validate_entity(void)
 	VALIDATE(entity, id, 0x70);
 
 	VALIDATE_VTABLE(entity, is_time_limited, 27);
+	VALIDATE_VTABLE(entity, is_time_limited, 28);
 
 	VALIDATE_VTABLE(entity, is_active, 29);
 	VALIDATE_VTABLE(entity, set_active, 30);
@@ -3455,6 +3456,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004F4AB0, entity::set_active, "?set_active@entity@@UAEX_N@Z");
 
 	PATCH_PUSH_RET_POLY(0x004A0B70, entity::is_time_limited, "?is_time_limited@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A0B90, entity::set_time_limited, "?set_time_limited@entity@@UAEX_N@Z");
 }
 
 void patch_entity_id(void)

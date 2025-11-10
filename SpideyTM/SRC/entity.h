@@ -964,6 +964,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual bool is_time_limited() const             { return is_ext_flagged(EFLAG_EXT_TIME_LIMITED);}
+  // @Ok
+  // @Matching
   EXPORT virtual void set_time_limited( bool torf )       { assert(torf || !is_time_limited()); if(torf) ext_flags |= EFLAG_EXT_TIME_LIMITED; else ext_flags &= ~EFLAG_EXT_TIME_LIMITED; }
 
   // @Ok
