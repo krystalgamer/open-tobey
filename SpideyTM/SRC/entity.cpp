@@ -3422,6 +3422,7 @@ void validate_entity(void)
 
 	VALIDATE_VTABLE(entity, is_an_entity, 1);
 
+	VALIDATE_VTABLE(entity, construct_signal_list, 5);
 	VALIDATE_VTABLE(entity, get_signal_name, 6);
 
 	VALIDATE_VTABLE(entity, set_radius, 25);
@@ -3478,6 +3479,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1280, entity::is_an_entity, "?is_an_entity@entity@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x004EA910, entity::get_signal_name, "?get_signal_name@entity@@MBEPBDG@Z");
+	PATCH_PUSH_RET_POLY(0x004A0AC0, entity::construct_signal_list, "?construct_signal_list@entity@@EAEPAV?$fast_vector@PAVsignal@@@@XZ");
 }
 
 void patch_entity_id(void)
