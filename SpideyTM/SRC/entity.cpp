@@ -3411,13 +3411,17 @@ void validate_entity_id(void)
 
 void validate_entity(void)
 {
+	VALIDATE(entity, flags, 0x60);
 	VALIDATE(entity, id, 0x70);
+
+	VALIDATE_VTABLE(entity, is_visible, 48);
 }
 
 #include "my_patch.h"
 
 void patch_entity(void)
 {
+	PATCH_PUSH_RET_POLY(0x004A0E10, entity::is_visible, "?is_visible@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)

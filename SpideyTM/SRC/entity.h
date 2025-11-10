@@ -486,11 +486,14 @@ class entity : public bone
 	friend void validate_entity(void);
 	friend void patch_entity(void);
   public:
-  stringx fileName;
+	// @Patch - remove this for now
+  //stringx fileName;
 
   protected:
     unsigned int flags;
     entity_flavor_t flavor;
+
+	PADDING(0x70-0x68);
     entity_id id;
     stringx parsedName;
     entity_anim * my_animation;
@@ -965,30 +968,36 @@ public:
     FORCE_ACTIVE_TRUE = 1
   };
 
-  virtual force_active_t get_forced_active() const { return FORCE_ACTIVE_NONE; }
+  EXPORT virtual force_active_t get_forced_active() const { return FORCE_ACTIVE_NONE; }
 
-  virtual bool are_collisions_active() const      { return flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE; }
-  virtual void set_collisions_active( bool a, bool update_reg = true );
+  EXPORT virtual bool are_collisions_active() const      { return flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE; }
+  EXPORT virtual void set_collisions_active( bool a, bool update_reg = true );
 
-  virtual bool is_sticky() const              { return flags & EFLAG_PHYSICS_STICKY; }
-  virtual void set_sticky( bool s )           { { if(s) flags|=EFLAG_PHYSICS_STICKY; else flags&=~EFLAG_PHYSICS_STICKY; } }
+  EXPORT virtual bool is_sticky() const              { return flags & EFLAG_PHYSICS_STICKY; }
+  EXPORT virtual void set_sticky( bool s )           { { if(s) flags|=EFLAG_PHYSICS_STICKY; else flags&=~EFLAG_PHYSICS_STICKY; } }
 
-  virtual bool is_stationary() const          { return !(flags & EFLAG_PHYSICS_MOVING); }
-  virtual void set_stationary( bool s )       { { if(!s) flags|=EFLAG_PHYSICS_MOVING; else flags&=~EFLAG_PHYSICS_MOVING; } }
+  EXPORT virtual bool is_stationary() const          { return !(flags & EFLAG_PHYSICS_MOVING); }
+  EXPORT virtual void set_stationary( bool s )       { { if(!s) flags|=EFLAG_PHYSICS_MOVING; else flags&=~EFLAG_PHYSICS_MOVING; } }
 
-  virtual bool is_walkable() const            { return flags & EFLAG_PHYSICS_WALKABLE; }
-  virtual void set_walkable( bool s )         { { if(s) flags|=EFLAG_PHYSICS_WALKABLE; else flags&=~EFLAG_PHYSICS_WALKABLE; } }
-
-
-  virtual bool is_repulsion() const           { return flags & EFLAG_MISC_REPULSION; }
-  virtual void set_repulsion( bool s )        { { if(s) flags|=EFLAG_MISC_REPULSION; else flags&=~EFLAG_MISC_REPULSION; } }
+  EXPORT virtual bool is_walkable() const            { return flags & EFLAG_PHYSICS_WALKABLE; }
+  EXPORT virtual void set_walkable( bool s )         { { if(s) flags|=EFLAG_PHYSICS_WALKABLE; else flags&=~EFLAG_PHYSICS_WALKABLE; } }
 
 
-  virtual bool is_visible() const             { return flags & EFLAG_GRAPHICS_VISIBLE; }
-  virtual void set_visible( bool a );
+  EXPORT virtual bool is_repulsion() const           { return flags & EFLAG_MISC_REPULSION; }
+  EXPORT virtual void set_repulsion( bool s )        { { if(s) flags|=EFLAG_MISC_REPULSION; else flags&=~EFLAG_MISC_REPULSION; } }
 
-  unsigned get_max_lights() const             { return max_lights; }
-  void set_max_lights(unsigned ml);
+
+  PADDING_VIRTUAL();
+  PADDING_VIRTUAL();
+  PADDING_VIRTUAL();
+  PADDING_VIRTUAL();
+  PADDING_VIRTUAL();
+
+  EXPORT virtual bool is_visible() const             { return flags & EFLAG_GRAPHICS_VISIBLE; }
+  EXPORT virtual void set_visible( bool a );
+
+  EXPORT unsigned get_max_lights() const             { return max_lights; }
+  EXPORT void set_max_lights(unsigned ml);
 
 
   enum
