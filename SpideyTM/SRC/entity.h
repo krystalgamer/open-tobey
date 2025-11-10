@@ -1351,6 +1351,8 @@ public:
 
   virtual void set_min_detail(int md);
 public:
+  // @Ok
+  // @Matching
   virtual bool is_an_entity() const { return(true); }
 
 

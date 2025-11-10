@@ -3408,12 +3408,17 @@ void validate_entity_id(void)
 
 void validate_entity(void)
 {
+	// @TODO - it's way too big to uncomment this now
+	//VALIDATE_SIZE(entity, 0xF4);
+
 	VALIDATE(entity, flags, 0x60);
 
 	VALIDATE(entity, ext_flags, 0x64);
 	VALIDATE(entity, id, 0x70);
 
 	VALIDATE(entity, radius, 0xA8);
+
+	VALIDATE_VTABLE(entity, is_an_entity, 1);
 
 	VALIDATE_VTABLE(entity, set_radius, 25);
 	VALIDATE_VTABLE(entity, get_radius, 26);
@@ -3465,6 +3470,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A0B50, entity::get_radius, "?get_radius@entity@@UBEMXZ");
 	PATCH_PUSH_RET_POLY(0x004A0B30, entity::set_radius, "?set_radius@entity@@UAEXM@Z");
+
+	PATCH_PUSH_RET_POLY(0x004A1280, entity::is_an_entity, "?is_an_entity@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
