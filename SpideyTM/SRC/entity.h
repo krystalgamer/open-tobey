@@ -1088,14 +1088,19 @@ public:
 
   bool foreign_controller_active() const { return flags & (EFLAG_PHYSENT_EXTERNALLY_CONTROLLED|EFLAG_PHYSENT_ANGLE_EXTERNALLY_CONTROLLED|EFLAG_PHYSENT_MOTION_EXTERNALLY_CONTROLLED); }
 
-  virtual bool get_in_use() const { return flags & EFLAG_MISC_IN_USE; }
-  virtual void set_in_use(bool b) { { if(b) flags|=EFLAG_MISC_IN_USE; else flags&=~EFLAG_MISC_IN_USE; } }
+  PADDING_VIRTUAL();
+  PADDING_VIRTUAL();
+
+  // @Ok
+  // @Matching
+  EXPORT virtual bool get_in_use() const { return flags & EFLAG_MISC_IN_USE; }
+  EXPORT virtual void set_in_use(bool b) { { if(b) flags|=EFLAG_MISC_IN_USE; else flags&=~EFLAG_MISC_IN_USE; } }
 
   // EFLAG_PHYSICS
-  virtual collision_geometry * get_colgeom() const    { return colgeom; }
+  EXPORT virtual collision_geometry * get_colgeom() const    { return colgeom; }
 
-  bool has_entity_collision() const;
-  bool has_camera_collision() const;
+  EXPORT bool has_entity_collision() const;
+  EXPORT bool has_camera_collision() const;
 
 
   // uses replacement_po instead of the usual po if it is non-NULL
