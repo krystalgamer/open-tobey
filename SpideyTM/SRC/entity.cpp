@@ -3561,7 +3561,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004E6820 , entity::optimize, "?optimize@entity@@UAEXXZ");
 
 	PATCH_PUSH_RET_POLY(0x004A0F70 , entity::set_member_hidden, "?set_member_hidden@entity@@UAEX_N@Z");
-	PATCH_PUSH_RET_POLY(0x004A0F50 , entity::get_member_hidden, "?get_member_hidden@entity@@UBE_N_N@Z");
+	PATCH_PUSH_RET_POLY(0x004A0F50 , entity::get_member_hidden, "?get_member_hidden@entity@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x004A1180 , entity::get_vrep, "?get_vrep@entity@@UBEPAVvisual_rep@@XZ");
 	PATCH_PUSH_RET_POLY(0x004A11A0 , entity::get_mesh, "?get_mesh@entity@@UBEPAUnglMesh@@XZ");

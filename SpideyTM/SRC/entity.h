@@ -1123,7 +1123,7 @@ public:
 
   // @Ok
   // @Matching
-  EXPORT virtual bool get_member_hidden(bool b) const
+  EXPORT virtual bool get_member_hidden() const
   {
 	  return flags & EFLAG_MEMBER_HIDDEN;
   }
