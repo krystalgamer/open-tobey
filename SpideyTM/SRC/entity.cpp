@@ -3491,6 +3491,21 @@ void validate_entity(void)
 
 	VALIDATE_VTABLE(entity, get_in_use, 60);
 	VALIDATE_VTABLE(entity, set_in_use, 61);
+
+	VALIDATE_VTABLE(entity, get_member_hidden, 62);
+	VALIDATE_VTABLE(entity, set_member_hidden, 63);
+
+
+	VALIDATE_VAL(EFLAG_MISC_IN_USE, 0x00010000);
+	VALIDATE_VAL(EFLAG_MISC_REPULSION, 0x00001000);
+	VALIDATE_VAL(EFLAG_GRAPHICS_VISIBLE, 0x200);
+	VALIDATE_VAL(EFLAG_PHYSICS_WALKABLE, 8);
+
+	VALIDATE_VAL(EFLAG_PHYSICS_MOVING, 4);
+	VALIDATE_VAL(EFLAG_PHYSICS_STICKY, 0x40);
+
+	VALIDATE_VAL(EFLAG_EXT_TIME_LIMITED, 0x10000);
+	VALIDATE_VAL(EFLAG_MEMBER_HIDDEN, 0x80000000);
 }
 
 #include "my_patch.h"
@@ -3536,6 +3551,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EBE10 , entity::set_created_entity_default_active_status, "?set_created_entity_default_active_status@entity@@UAEXXZ");
 
 	PATCH_PUSH_RET_POLY(0x004E6820 , entity::optimize, "?optimize@entity@@UAEXXZ");
+
+	PATCH_PUSH_RET_POLY(0x004A0F70 , entity::set_member_hidden, "?set_member_hidden@entity@@UAEX_N@Z");
 }
 
 void patch_entity_id(void)

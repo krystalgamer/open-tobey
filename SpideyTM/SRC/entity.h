@@ -364,6 +364,9 @@ enum entity_flag_t
   EFLAG_MISC_NOKILLME                        = 0x40000000, // if true, then cell death doesn't cause a delete, used in pooled particle emitters
   EFLAG_MISC_REUSEME                         = 0x80000000, // if true, ready for pool re-use
 
+  // @Patch - added
+  EFLAG_MEMBER_HIDDEN                        = 0x80000000, // if true, ready for pool re-use
+
   // this is a mask that specifies which of the above flags get copied on a make_instance()
   EFLAG_COPY_MASK = EFLAG_GRAPHICS|EFLAG_GRAPHICS_VISIBLE|EFLAG_MISC_CAST_SHADOW|EFLAG_COLGEOM_INSTANCED,
 };
@@ -1109,6 +1112,13 @@ public:
   // @Matching
   EXPORT virtual void set_in_use(bool b) { { if(b) flags|=EFLAG_MISC_IN_USE; else flags&=~EFLAG_MISC_IN_USE; } }
 
+  // @Ok
+  // @Matching
+  EXPORT virtual void set_member_hidden(bool b)
+  {
+	  if (b) flags |= EFLAG_MEMBER_HIDDEN; else flags &= ~EFLAG_MEMBER_HIDDEN;
+  }
+
   // EFLAG_PHYSICS
   EXPORT virtual collision_geometry * get_colgeom() const    { return colgeom; }
 
@@ -1117,21 +1127,21 @@ public:
 
 
   // uses replacement_po instead of the usual po if it is non-NULL
-  virtual void update_colgeom(po * replacement_po = NULL);
+  EXPORT virtual void update_colgeom(po * replacement_po = NULL);
 
-  virtual void invalidate_colgeom();
-  virtual collision_geometry* get_updated_colgeom(po * replacement_po = NULL, rational_t radius_scale=1);
-  void delete_colgeom();
-  void delete_visrep();
+  EXPORT virtual void invalidate_colgeom();
+  EXPORT virtual collision_geometry* get_updated_colgeom(po * replacement_po = NULL, rational_t radius_scale=1);
+  EXPORT void delete_colgeom();
+  EXPORT void delete_visrep();
 
   // special function support for entity-entity collision algorithm
 
-  void set_colgeom(collision_geometry * const _colgeom) { colgeom = _colgeom; }
+  EXPORT void set_colgeom(collision_geometry * const _colgeom) { colgeom = _colgeom; }
 
   // This gets a special collsion capsule for purposes of being damaged.
-  virtual collision_capsule* get_damage_capsule()           { assert(false); return 0; }
-  virtual collision_capsule* get_updated_damage_capsule()   { assert(false); return 0; }
-  virtual rational_t get_inter_capsule_radius_scale() {return 1.0f;}
+  EXPORT virtual collision_capsule* get_damage_capsule()           { assert(false); return 0; }
+  EXPORT virtual collision_capsule* get_updated_damage_capsule()   { assert(false); return 0; }
+  EXPORT virtual rational_t get_inter_capsule_radius_scale() {return 1.0f;}
 
 
 
