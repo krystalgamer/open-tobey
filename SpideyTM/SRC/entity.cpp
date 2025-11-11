@@ -599,14 +599,6 @@ entity* entity::make_instance( const entity_id& _id,
 
 }
 
-void entity::set_flag_recursive(unsigned int a2, bool a3)
-{
-	if ( a3 )
-		this->flags |= a2;
-	else
-		this->flags &= ~a2;
-}
-
 void entity::copy_instance_data( const entity& b )
 {
 	// @TODO
@@ -3457,6 +3449,7 @@ void validate_entity(void)
 
 	VALIDATE_VTABLE(entity, make_instance, 20);
 	VALIDATE_VTABLE(entity, set_flag_recursive, 21);
+	VALIDATE_VTABLE(entity, set_ext_flag_recursive, 22);
 
 	VALIDATE_VTABLE(entity, set_radius, 25);
 	VALIDATE_VTABLE(entity, get_radius, 26);
@@ -3523,6 +3516,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004F5F50 , entity::signal_error, "?signal_error@entity@@UAEXIABVstringx@@@Z");
 
 	PATCH_PUSH_RET_POLY(0x004A0A40 , entity::set_flag_recursive, "?set_flag_recursive@entity@@UAEXI_N@Z");
+	PATCH_PUSH_RET_POLY(0x004A0A80 , entity::set_ext_flag_recursive, "?set_ext_flag_recursive@entity@@UAEXI_N@Z");
 }
 
 void patch_entity_id(void)

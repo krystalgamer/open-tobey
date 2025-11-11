@@ -651,9 +651,6 @@ public:
 public:
   EXPORT virtual entity* make_instance( const entity_id& _id,
                                  unsigned int _flags ) const;
-
-  // @Patch - added
-  EXPORT virtual void set_flag_recursive(unsigned int, bool);
 protected:
   EXPORT void copy_instance_data( const entity& b );
 
@@ -685,6 +682,13 @@ public:
   EXPORT void set_ext_flags( unsigned int f ) { ext_flags = f; }
 
 
+  // @Ok
+  // @Matching
+  // @Patch - added
+  EXPORT virtual void set_flag_recursive(register unsigned int f, register bool set) { set_flag(f, set); }
+
+  // @Ok
+  // @Matching
   EXPORT virtual void set_ext_flag_recursive(register unsigned int f, register bool set) { set_ext_flag(f, set); }
 
   EXPORT void copy_flags( const entity& b );
