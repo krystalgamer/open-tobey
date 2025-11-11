@@ -3495,6 +3495,8 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, get_member_hidden, 62);
 	VALIDATE_VTABLE(entity, set_member_hidden, 63);
 
+	VALIDATE_VTABLE(entity, get_vrep, 86);
+
 
 	VALIDATE_VAL(EFLAG_MISC_IN_USE, 0x00010000);
 	VALIDATE_VAL(EFLAG_MISC_REPULSION, 0x00001000);
@@ -3553,6 +3555,9 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004E6820 , entity::optimize, "?optimize@entity@@UAEXXZ");
 
 	PATCH_PUSH_RET_POLY(0x004A0F70 , entity::set_member_hidden, "?set_member_hidden@entity@@UAEX_N@Z");
+	PATCH_PUSH_RET_POLY(0x004A0F50 , entity::get_member_hidden, "?get_member_hidden@entity@@UBE_N_N@Z");
+
+	PATCH_PUSH_RET_POLY(0x004A1180 , entity::get_vrep, "?get_vrep@entity@@UBEPAVvisual_rep@@XZ");
 }
 
 void patch_entity_id(void)

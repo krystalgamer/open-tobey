@@ -1275,11 +1275,14 @@ public:
 
   virtual vector3d get_visual_center() const;
   virtual rational_t get_visual_radius() const;
+  // @Patch - removed
+  /*
   virtual rational_t get_visual_xz_radius_rel_center() const { return vis_xz_rad_rel_center; }
   rational_t get_visual_max_x_extent_rel_center() const { return get_visual_center().x + get_visual_xz_radius_rel_center();}
   rational_t get_visual_min_x_extent_rel_center() const { return get_visual_center().x - get_visual_xz_radius_rel_center();}
   rational_t get_visual_max_z_extent_rel_center() const { return get_visual_center().z + get_visual_xz_radius_rel_center();}
   rational_t get_visual_min_z_extent_rel_center() const { return get_visual_center().z - get_visual_xz_radius_rel_center();}
+  */
 
   bool is_statically_sortable()
   {
@@ -1296,7 +1299,9 @@ public:
 
   void render_heart( rational_t detail, render_flavor_t flavor, light_manager* light_set, unsigned force_flags, rational_t entity_translucency_pct );
 
-  virtual visual_rep *get_vrep() const { return my_visrep; }
+  // @Ok
+  // @Matching
+  EXPORT virtual visual_rep *get_vrep() const { return my_visrep; }
 #if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC)
 	void load_lores_mesh( const char *name );
 
