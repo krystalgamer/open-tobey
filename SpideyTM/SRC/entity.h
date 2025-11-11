@@ -63,7 +63,12 @@ class entity_widget;
 
 class entity_pool;
 class entity_track_tree;
-class camera;
+class camera; 
+
+// @Patch
+struct nglTexture;
+struct nglMesh;
+struct nglVector;
 
 //typedef graph<stringx,region*,portal*> region_graph;
 //typedef region_graph::node region_node;
@@ -504,8 +509,11 @@ class entity : public bone
 
     entity_id id;
     stringx parsedName;
+
+	  // @Patch - moved around
+	  nglMesh *my_mesh;
+
     entity_anim * my_animation;
-	PADDING(4);
 
 	  // @Patch - moved around
 	  visual_rep* my_visrep;
@@ -1302,18 +1310,26 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual visual_rep *get_vrep() const { return my_visrep; }
-#if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC)
+  // @Patch - add PC
+#if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC) || defined(TARGET_PC)
+  // @Patch
+  /*
 	void load_lores_mesh( const char *name );
 
 	void load_shadow_mesh( const char *name );
 	void set_force_hi_res(bool fhr) { force_hi_res = fhr; }
 	bool get_force_hi_res() { return force_hi_res; }
+	*/
 
-  virtual nglMesh *get_mesh() const { return my_mesh; }
-  virtual void     set_mesh(nglMesh *m)  { my_mesh = m; }
-  virtual nglMesh *get_lores_mesh() const { return lores_mesh; }
-  virtual void     set_lores_mesh(nglMesh *m)  { lores_mesh=m; }
-  virtual nglMesh *get_shadow_mesh() const { return shadow_mesh; }
+  // @Ok
+  // @Matching
+  EXPORT virtual nglMesh *get_mesh() const { return my_mesh; }
+  // @Patch
+  /*
+  EXPORT virtual void     set_mesh(nglMesh *m)  { my_mesh = m; }
+  EXPORT virtual nglMesh *get_lores_mesh() const { return lores_mesh; }
+  EXPORT virtual void     set_lores_mesh(nglMesh *m)  { lores_mesh=m; }
+  EXPORT virtual nglMesh *get_shadow_mesh() const { return shadow_mesh; }
 	void set_mesh_texture( nglTexture *tex );
 	void set_mesh_distance( nglVector &Center, float Radius, float forcedist=-1.0f );
 	u_int get_mesh_flags( void );
@@ -1324,6 +1340,7 @@ public:
 	void clear_mesh_matflagbits( u_int flags );
 
 	void set_zbias( int newz );
+	*/
 
 
 #ifndef TARGET_XBOX
@@ -1873,10 +1890,9 @@ protected:
 //  entity_id  id;
   anim_id_t  anim_id;
 
-#if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC)
+#if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC) || defined(TARGET_PC)
   nglMesh *shadow_mesh;
   nglMesh *lores_mesh;
-  nglMesh *my_mesh;
 	bool     usezbias;
 	float    zbias;
 	bool force_hi_res;

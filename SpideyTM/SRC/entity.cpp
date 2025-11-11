@@ -3441,6 +3441,8 @@ void validate_entity(void)
 	VALIDATE(entity, flavor, 0x6C);
 	VALIDATE(entity, id, 0x70);
 
+	VALIDATE(entity, my_mesh, 0x7C);
+
 	VALIDATE(entity, my_visrep, 0x84);
 
 	VALIDATE(entity, radius, 0xA8);
@@ -3496,6 +3498,7 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, set_member_hidden, 63);
 
 	VALIDATE_VTABLE(entity, get_vrep, 86);
+	VALIDATE_VTABLE(entity, get_mesh, 87);
 
 
 	VALIDATE_VAL(EFLAG_MISC_IN_USE, 0x00010000);
@@ -3558,6 +3561,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A0F50 , entity::get_member_hidden, "?get_member_hidden@entity@@UBE_N_N@Z");
 
 	PATCH_PUSH_RET_POLY(0x004A1180 , entity::get_vrep, "?get_vrep@entity@@UBEPAVvisual_rep@@XZ");
+	PATCH_PUSH_RET_POLY(0x004A11A0 , entity::get_mesh, "?get_mesh@entity@@UBEPAUnglMesh@@XZ");
 }
 
 void patch_entity_id(void)
