@@ -587,6 +587,7 @@ entity::entity( const stringx& entity_fname,
 entity* entity::make_instance( const entity_id& _id,
                                unsigned int _flags ) const
 {
+	PANIC;
 
 //  if(_id.get_val() == "FORGE01_FORGE")
 //    int b = 1;
@@ -596,6 +597,14 @@ entity* entity::make_instance( const entity_id& _id,
 
   return ent;
 
+}
+
+void entity::set_flag_recursive(unsigned int a2, bool a3)
+{
+	if ( a3 )
+		this->flags |= a2;
+	else
+		this->flags &= ~a2;
 }
 
 void entity::copy_instance_data( const entity& b )
@@ -3446,6 +3455,9 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, construct_signal_list, 5);
 	VALIDATE_VTABLE(entity, get_signal_name, 6);
 
+	VALIDATE_VTABLE(entity, make_instance, 20);
+	VALIDATE_VTABLE(entity, set_flag_recursive, 21);
+
 	VALIDATE_VTABLE(entity, set_radius, 25);
 	VALIDATE_VTABLE(entity, get_radius, 26);
 
@@ -3509,6 +3521,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A0F10 , entity::set_in_use, "?set_in_use@entity@@UAEX_N@Z");
 
 	PATCH_PUSH_RET_POLY(0x004F5F50 , entity::signal_error, "?signal_error@entity@@UAEXIABVstringx@@@Z");
+
+	PATCH_PUSH_RET_POLY(0x004A0A40 , entity::set_flag_recursive, "?set_flag_recursive@entity@@UAEXI_N@Z");
 }
 
 void patch_entity_id(void)

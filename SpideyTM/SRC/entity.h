@@ -651,6 +651,9 @@ public:
 public:
   EXPORT virtual entity* make_instance( const entity_id& _id,
                                  unsigned int _flags ) const;
+
+  // @Patch - added
+  EXPORT virtual void set_flag_recursive(unsigned int, bool);
 protected:
   EXPORT void copy_instance_data( const entity& b );
 
@@ -803,8 +806,6 @@ public:
     COLLIDE_WITH_ACTORS=1,
     COLLIDE_WITH_TERRAIN=2
   };
-
-  PADDING_VIRTUAL();
 
 
   // ALWAYS AVAILABLE
