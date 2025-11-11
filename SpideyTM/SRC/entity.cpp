@@ -392,6 +392,8 @@ entity::entity( chunk_file& fs,
 }
 
 
+// @Ok
+// @Matching
 void entity::optimize()
 {
 	if (my_visrep)
@@ -3439,6 +3441,8 @@ void validate_entity(void)
 	VALIDATE(entity, flavor, 0x6C);
 	VALIDATE(entity, id, 0x70);
 
+	VALIDATE(entity, my_visrep, 0x84);
+
 	VALIDATE(entity, radius, 0xA8);
 
 	// entity vtable validation
@@ -3459,6 +3463,8 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, set_ext_flag_recursive, 22);
 
 	VALIDATE_VTABLE(entity, set_created_entity_default_active_status, 23);
+
+	VALIDATE_VTABLE(entity, optimize, 24);
 
 	VALIDATE_VTABLE(entity, set_radius, 25);
 	VALIDATE_VTABLE(entity, get_radius, 26);
@@ -3528,6 +3534,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A0A80 , entity::set_ext_flag_recursive, "?set_ext_flag_recursive@entity@@UAEXI_N@Z");
 
 	PATCH_PUSH_RET_POLY(0x004EBE10 , entity::set_created_entity_default_active_status, "?set_created_entity_default_active_status@entity@@UAEXXZ");
+
+	PATCH_PUSH_RET_POLY(0x004E6820 , entity::optimize, "?optimize@entity@@UAEXXZ");
 }
 
 void patch_entity_id(void)

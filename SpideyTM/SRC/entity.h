@@ -504,6 +504,9 @@ class entity : public bone
     entity_anim * my_animation;
 	PADDING(4);
 
+	  // @Patch - moved around
+	  visual_rep* my_visrep;
+
 
 	int MaterialMask;   //  this is used to mask off materials
 	int TextureFrame;   //  this is used to lock texture frames of ifl's
@@ -511,7 +514,8 @@ class entity : public bone
 
   bool use_uv_scrolling;
   float scroll_u;
-  float scroll_v;
+  // @Patch - remove for now
+  // float scroll_v;
 
   /*** Interfaces ***/
   // @Patch - remove
@@ -570,7 +574,7 @@ class entity : public bone
 	EXPORT int GetMaterialMask(void) const { return MaterialMask; }
 	EXPORT void SetTextureFrame(int frame) { TextureFrame = frame; }
 	EXPORT int GetTextureFrame(void) const { return TextureFrame; }
-  EXPORT void set_texture_scroll (float u, float v) { use_uv_scrolling = true; scroll_u = u; scroll_v = v; };
+  EXPORT void set_texture_scroll (float u, float v) { PANIC; };
   EXPORT void SetCull(bool cull) { cull_entity = cull; }
 
 
@@ -1846,7 +1850,6 @@ protected:
 //  entity_id  id;
   anim_id_t  anim_id;
 
-  visual_rep* my_visrep;
 #if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC)
   nglMesh *shadow_mesh;
   nglMesh *lores_mesh;
