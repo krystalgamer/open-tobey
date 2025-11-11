@@ -3500,6 +3500,8 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, get_vrep, 86);
 	VALIDATE_VTABLE(entity, get_mesh, 87);
 
+	VALIDATE_VTABLE(entity, set_fade_away, 88);
+
 
 	VALIDATE_VAL(EFLAG_MISC_IN_USE, 0x00010000);
 	VALIDATE_VAL(EFLAG_MISC_REPULSION, 0x00001000);

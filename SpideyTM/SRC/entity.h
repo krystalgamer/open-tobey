@@ -1356,8 +1356,11 @@ public:
 
   // maximum detail level of my mesh
   //int get_max_detail() const;
-  virtual void set_fade_away( bool fade ) { assert(false); }
-  virtual bool get_fade_away() const { return false; }
+
+  // @Ok
+  // @Matching
+  EXPORT virtual void set_fade_away( bool fade ) { assert(false); }
+  EXPORT virtual bool get_fade_away() const { return false; }
   int get_min_polys() const;
 
   int get_max_polys() const;
