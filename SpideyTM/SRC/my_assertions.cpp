@@ -120,3 +120,12 @@ void validate_vtable_index(
 
 	fflush(stdout);
 }
+
+void validate_val(int a, int b, const char* name)
+{
+	if (a != b)
+	{
+		printf("[!] Different value for %s, got %d expected %d\n", name, a, b);
+		fflush(stdout);
+	}
+}

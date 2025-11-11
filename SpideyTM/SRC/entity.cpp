@@ -393,10 +393,15 @@ entity::entity( chunk_file& fs,
 
 
 void entity::optimize()
-
 {
-	// @TODO
-	PANIC;
+	if (my_visrep)
+	{
+		if (my_visrep->get_type()==VISREP_PMESH)
+		{
+			vr_pmesh* mesh = static_cast<vr_pmesh*>(my_visrep);
+			mesh->shrink_memory_footprint();
+		}
+	}
 }
 
 

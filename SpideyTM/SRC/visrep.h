@@ -57,6 +57,8 @@ enum light_method_t
 
 class visual_rep
 {
+	friend void patch_visual_rep(void);
+	friend void validate_visual_rep(void);
 public:
 
   visual_rep(visrep_t _type, bool _instanced = true);
@@ -102,6 +104,8 @@ public:
   
   virtual void set_light_method(light_method_t lmt);
 
+  // @Ok
+  // @Matching
   visrep_t get_type() const { return type; }
 
   bool is_instanced() const { return instanced; }

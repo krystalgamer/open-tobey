@@ -135,3 +135,16 @@ bool visual_rep::is_uv_animated() const
 {
   return false;
 }
+
+#include "my_assertions.h"
+
+void validate_visual_rep(void)
+{
+	VALIDATE(visual_rep, type, 4);
+}
+
+#include "my_patch.h"
+
+void patch_visual_rep(void)
+{
+}

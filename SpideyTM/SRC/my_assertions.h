@@ -14,6 +14,9 @@ void validate_class(int cur, int expected, const char *cls, const char *member);
 void validate_size(int cur, int expected, const char *name);
 #define VALIDATE_SIZE(cls, size) validate_size(sizeof(cls), size, #cls);
 
+void validate_val(int, int, const char* name);
+#define VALIDATE_VAL(val, exp) validate_val(val, exp, #val);
+
 template<bool b>
 
 struct StaticAssert{};

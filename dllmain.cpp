@@ -132,6 +132,9 @@ extern "C" EXPORT int run_assertions(void)
 	validate_entity_id();
 	validate_entity();
 
+	validate_vr_pmesh();
+	validate_visual_rep();
+
 	return FAIL_VALIDATION;
 }
 
@@ -212,6 +215,9 @@ void game_patches()
 	patch_entity_manager();
 	patch_entity_id();
 	patch_entity();
+
+	patch_vr_pmesh();
+	patch_visual_rep();
 }
 
 #pragma pack(push,1)

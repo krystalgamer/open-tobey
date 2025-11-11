@@ -256,6 +256,10 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\pc_timer.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\pmesh.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\po.cpp
 # End Source File
 # Begin Source File

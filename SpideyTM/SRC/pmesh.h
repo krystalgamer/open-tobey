@@ -85,6 +85,8 @@ enum
 
 class vr_pmesh : public visual_rep
 {
+	friend void validate_vr_pmesh(void);
+	friend void patch_vr_pmesh(void);
 
 // Types
 public:

@@ -25,10 +25,6 @@ NULL=
 NULL=nul
 !ENDIF 
 
-CPP=cl.exe
-MTL=midl.exe
-RSC=rc.exe
-
 !IF  "$(CFG)" == "tobey - Win32 Release"
 
 OUTDIR=.\Release
@@ -78,6 +74,7 @@ CLEAN :
 	-@erase "$(INTDIR)\ngl_pc.obj"
 	-@erase "$(INTDIR)\pc_algebra.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
+	-@erase "$(INTDIR)\pmesh.obj"
 	-@erase "$(INTDIR)\po.obj"
 	-@erase "$(INTDIR)\po_anim.obj"
 	-@erase "$(INTDIR)\pstring.obj"
@@ -114,8 +111,42 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
+CPP=cl.exe
 CPP_PROJ=/nologo /MT /W3 /Zi /O2 /I "SpideyTM\SRC\sgistl" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+
+.c{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.c{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+MTL=midl.exe
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
+RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
 BSC32_SBRS= \
@@ -138,18 +169,25 @@ LINK32_OBJS= \
 	"$(INTDIR)\trees.obj" \
 	"$(INTDIR)\uncompr.obj" \
 	"$(INTDIR)\zutil.obj" \
+	"$(INTDIR)\anim_flavor.obj" \
 	"$(INTDIR)\app.obj" \
+	"$(INTDIR)\billboard.obj" \
 	"$(INTDIR)\bone.obj" \
 	"$(INTDIR)\chunkfile.obj" \
+	"$(INTDIR)\collide.obj" \
+	"$(INTDIR)\controller.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
 	"$(INTDIR)\entity.obj" \
+	"$(INTDIR)\entity_anim.obj" \
 	"$(INTDIR)\errorcontext.obj" \
 	"$(INTDIR)\file_manager.obj" \
 	"$(INTDIR)\filespec.obj" \
+	"$(INTDIR)\frame_info.obj" \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\ini_parser.obj" \
 	"$(INTDIR)\light.obj" \
+	"$(INTDIR)\lightmgr.obj" \
 	"$(INTDIR)\link_interface.obj" \
 	"$(INTDIR)\mustash.obj" \
 	"$(INTDIR)\my_assertions.obj" \
@@ -157,6 +195,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\pc_algebra.obj" \
 	"$(INTDIR)\pc_timer.obj" \
 	"$(INTDIR)\po.obj" \
+	"$(INTDIR)\po_anim.obj" \
 	"$(INTDIR)\pstring.obj" \
 	"$(INTDIR)\region.obj" \
 	"$(INTDIR)\script_lib.obj" \
@@ -168,6 +207,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\so_data_block.obj" \
 	"$(INTDIR)\stringx.obj" \
 	"$(INTDIR)\textfile.obj" \
+	"$(INTDIR)\visrep.obj" \
 	"$(INTDIR)\vm_executable.obj" \
 	"$(INTDIR)\vm_stack.obj" \
 	"$(INTDIR)\vm_symbol.obj" \
@@ -178,15 +218,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\entity_anim.obj" \
-	"$(INTDIR)\collide.obj" \
-	"$(INTDIR)\lightmgr.obj" \
-	"$(INTDIR)\controller.obj" \
-	"$(INTDIR)\po_anim.obj" \
-	"$(INTDIR)\anim_flavor.obj" \
-	"$(INTDIR)\frame_info.obj" \
-	"$(INTDIR)\visrep.obj" \
-	"$(INTDIR)\billboard.obj"
+	"$(INTDIR)\pmesh.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -242,6 +274,7 @@ CLEAN :
 	-@erase "$(INTDIR)\ngl_pc.obj"
 	-@erase "$(INTDIR)\pc_algebra.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
+	-@erase "$(INTDIR)\pmesh.obj"
 	-@erase "$(INTDIR)\po.obj"
 	-@erase "$(INTDIR)\po_anim.obj"
 	-@erase "$(INTDIR)\pstring.obj"
@@ -280,86 +313,8 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
+CPP=cl.exe
 CPP_PROJ=/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
-MTL_PROJ=/nologo /D "_DEBUG" /mktyplib203 /win32 
-BSC32=bscmake.exe
-BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
-BSC32_SBRS= \
-	
-LINK32=link.exe
-LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\tobey.pdb" /debug /machine:I386 /out:"$(OUTDIR)\tobey.dll" /implib:"$(OUTDIR)\tobey.lib" /pdbtype:sept 
-LINK32_OBJS= \
-	"$(INTDIR)\adler32.obj" \
-	"$(INTDIR)\compress.obj" \
-	"$(INTDIR)\crc32.obj" \
-	"$(INTDIR)\deflate.obj" \
-	"$(INTDIR)\gzio.obj" \
-	"$(INTDIR)\infblock.obj" \
-	"$(INTDIR)\infcodes.obj" \
-	"$(INTDIR)\inffast.obj" \
-	"$(INTDIR)\inflate.obj" \
-	"$(INTDIR)\inftrees.obj" \
-	"$(INTDIR)\infutil.obj" \
-	"$(INTDIR)\maketree.obj" \
-	"$(INTDIR)\trees.obj" \
-	"$(INTDIR)\uncompr.obj" \
-	"$(INTDIR)\zutil.obj" \
-	"$(INTDIR)\app.obj" \
-	"$(INTDIR)\bone.obj" \
-	"$(INTDIR)\chunkfile.obj" \
-	"$(INTDIR)\debugutil.obj" \
-	"$(INTDIR)\dllmain.obj" \
-	"$(INTDIR)\entity.obj" \
-	"$(INTDIR)\errorcontext.obj" \
-	"$(INTDIR)\file_manager.obj" \
-	"$(INTDIR)\filespec.obj" \
-	"$(INTDIR)\global.obj" \
-	"$(INTDIR)\ini_parser.obj" \
-	"$(INTDIR)\light.obj" \
-	"$(INTDIR)\link_interface.obj" \
-	"$(INTDIR)\mustash.obj" \
-	"$(INTDIR)\my_assertions.obj" \
-	"$(INTDIR)\ngl_pc.obj" \
-	"$(INTDIR)\pc_algebra.obj" \
-	"$(INTDIR)\pc_timer.obj" \
-	"$(INTDIR)\po.obj" \
-	"$(INTDIR)\pstring.obj" \
-	"$(INTDIR)\region.obj" \
-	"$(INTDIR)\script_lib.obj" \
-	"$(INTDIR)\script_library_class.obj" \
-	"$(INTDIR)\script_object.obj" \
-	"$(INTDIR)\semaphores.obj" \
-	"$(INTDIR)\signal.obj" \
-	"$(INTDIR)\singleton.obj" \
-	"$(INTDIR)\so_data_block.obj" \
-	"$(INTDIR)\stringx.obj" \
-	"$(INTDIR)\textfile.obj" \
-	"$(INTDIR)\vm_executable.obj" \
-	"$(INTDIR)\vm_stack.obj" \
-	"$(INTDIR)\vm_symbol.obj" \
-	"$(INTDIR)\vm_thread.obj" \
-	"$(INTDIR)\w32_archalloc.obj" \
-	"$(INTDIR)\w32_errmsg.obj" \
-	"$(INTDIR)\w32_file.obj" \
-	"$(INTDIR)\wds.obj" \
-	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\entity_anim.obj" \
-	"$(INTDIR)\collide.obj" \
-	"$(INTDIR)\lightmgr.obj" \
-	"$(INTDIR)\controller.obj" \
-	"$(INTDIR)\po_anim.obj" \
-	"$(INTDIR)\anim_flavor.obj" \
-	"$(INTDIR)\frame_info.obj" \
-	"$(INTDIR)\visrep.obj" \
-	"$(INTDIR)\billboard.obj"
-
-"$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
-    $(LINK32) @<<
-  $(LINK32_FLAGS) $(LINK32_OBJS)
-<<
-
-!ENDIF 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -390,6 +345,89 @@ LINK32_OBJS= \
    $(CPP) @<<
    $(CPP_PROJ) $< 
 <<
+
+MTL=midl.exe
+MTL_PROJ=/nologo /D "_DEBUG" /mktyplib203 /win32 
+RSC=rc.exe
+BSC32=bscmake.exe
+BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
+BSC32_SBRS= \
+	
+LINK32=link.exe
+LINK32_FLAGS=kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:yes /pdb:"$(OUTDIR)\tobey.pdb" /debug /machine:I386 /out:"$(OUTDIR)\tobey.dll" /implib:"$(OUTDIR)\tobey.lib" /pdbtype:sept 
+LINK32_OBJS= \
+	"$(INTDIR)\adler32.obj" \
+	"$(INTDIR)\compress.obj" \
+	"$(INTDIR)\crc32.obj" \
+	"$(INTDIR)\deflate.obj" \
+	"$(INTDIR)\gzio.obj" \
+	"$(INTDIR)\infblock.obj" \
+	"$(INTDIR)\infcodes.obj" \
+	"$(INTDIR)\inffast.obj" \
+	"$(INTDIR)\inflate.obj" \
+	"$(INTDIR)\inftrees.obj" \
+	"$(INTDIR)\infutil.obj" \
+	"$(INTDIR)\maketree.obj" \
+	"$(INTDIR)\trees.obj" \
+	"$(INTDIR)\uncompr.obj" \
+	"$(INTDIR)\zutil.obj" \
+	"$(INTDIR)\anim_flavor.obj" \
+	"$(INTDIR)\app.obj" \
+	"$(INTDIR)\billboard.obj" \
+	"$(INTDIR)\bone.obj" \
+	"$(INTDIR)\chunkfile.obj" \
+	"$(INTDIR)\collide.obj" \
+	"$(INTDIR)\controller.obj" \
+	"$(INTDIR)\debugutil.obj" \
+	"$(INTDIR)\dllmain.obj" \
+	"$(INTDIR)\entity.obj" \
+	"$(INTDIR)\entity_anim.obj" \
+	"$(INTDIR)\errorcontext.obj" \
+	"$(INTDIR)\file_manager.obj" \
+	"$(INTDIR)\filespec.obj" \
+	"$(INTDIR)\frame_info.obj" \
+	"$(INTDIR)\global.obj" \
+	"$(INTDIR)\ini_parser.obj" \
+	"$(INTDIR)\light.obj" \
+	"$(INTDIR)\lightmgr.obj" \
+	"$(INTDIR)\link_interface.obj" \
+	"$(INTDIR)\mustash.obj" \
+	"$(INTDIR)\my_assertions.obj" \
+	"$(INTDIR)\ngl_pc.obj" \
+	"$(INTDIR)\pc_algebra.obj" \
+	"$(INTDIR)\pc_timer.obj" \
+	"$(INTDIR)\po.obj" \
+	"$(INTDIR)\po_anim.obj" \
+	"$(INTDIR)\pstring.obj" \
+	"$(INTDIR)\region.obj" \
+	"$(INTDIR)\script_lib.obj" \
+	"$(INTDIR)\script_library_class.obj" \
+	"$(INTDIR)\script_object.obj" \
+	"$(INTDIR)\semaphores.obj" \
+	"$(INTDIR)\signal.obj" \
+	"$(INTDIR)\singleton.obj" \
+	"$(INTDIR)\so_data_block.obj" \
+	"$(INTDIR)\stringx.obj" \
+	"$(INTDIR)\textfile.obj" \
+	"$(INTDIR)\visrep.obj" \
+	"$(INTDIR)\vm_executable.obj" \
+	"$(INTDIR)\vm_stack.obj" \
+	"$(INTDIR)\vm_symbol.obj" \
+	"$(INTDIR)\vm_thread.obj" \
+	"$(INTDIR)\w32_archalloc.obj" \
+	"$(INTDIR)\w32_errmsg.obj" \
+	"$(INTDIR)\w32_file.obj" \
+	"$(INTDIR)\wds.obj" \
+	"$(INTDIR)\x86_math.obj" \
+	"$(INTDIR)\zip_filter.obj" \
+	"$(INTDIR)\pmesh.obj"
+
+"$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
+    $(LINK32) @<<
+  $(LINK32_FLAGS) $(LINK32_OBJS)
+<<
+
+!ENDIF 
 
 
 !IF "$(NO_EXTERNAL_DEPS)" != "1"
@@ -638,6 +676,12 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\pc_algebra.cpp
 SOURCE=.\SpideyTM\SRC\HWOSPC\pc_timer.cpp
 
 "$(INTDIR)\pc_timer.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\pmesh.cpp
+
+"$(INTDIR)\pmesh.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

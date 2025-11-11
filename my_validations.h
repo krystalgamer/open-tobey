@@ -28,6 +28,8 @@ void validate_matrix4x4(void);
 void validate_entity_manager(void);
 void validate_entity_id(void);
 void validate_entity(void);
+void validate_vr_pmesh(void);
+void validate_visual_rep(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -56,4 +58,6 @@ void patch_matrix4x4(void);
 void patch_entity_manager(void);
 void patch_entity_id(void);
 void patch_entity(void);
+void patch_vr_pmesh(void);
+void patch_visual_rep(void);
 #endif
