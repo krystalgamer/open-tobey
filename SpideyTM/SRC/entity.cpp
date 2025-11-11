@@ -969,6 +969,8 @@ vector3d entity::get_last_position() const
 }
 
 
+// @Ok
+// @Matching
 void entity::set_created_entity_default_active_status()
 {
   switch ( flavor )
@@ -3451,6 +3453,8 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, set_flag_recursive, 21);
 	VALIDATE_VTABLE(entity, set_ext_flag_recursive, 22);
 
+	VALIDATE_VTABLE(entity, set_created_entity_default_active_status, 23);
+
 	VALIDATE_VTABLE(entity, set_radius, 25);
 	VALIDATE_VTABLE(entity, get_radius, 26);
 
@@ -3517,6 +3521,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A0A40 , entity::set_flag_recursive, "?set_flag_recursive@entity@@UAEXI_N@Z");
 	PATCH_PUSH_RET_POLY(0x004A0A80 , entity::set_ext_flag_recursive, "?set_ext_flag_recursive@entity@@UAEXI_N@Z");
+
+	PATCH_PUSH_RET_POLY(0x004EBE10 , entity::set_created_entity_default_active_status, "?set_created_entity_default_active_status@entity@@UAEXXZ");
 }
 
 void patch_entity_id(void)
