@@ -3501,6 +3501,7 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, get_mesh, 87);
 
 	VALIDATE_VTABLE(entity, set_fade_away, 88);
+	VALIDATE_VTABLE(entity, get_fade_away, 89);
 
 
 	VALIDATE_VAL(EFLAG_MISC_IN_USE, 0x00010000);
@@ -3564,6 +3565,9 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A1180 , entity::get_vrep, "?get_vrep@entity@@UBEPAVvisual_rep@@XZ");
 	PATCH_PUSH_RET_POLY(0x004A11A0 , entity::get_mesh, "?get_mesh@entity@@UBEPAUnglMesh@@XZ");
+
+	PATCH_PUSH_RET_POLY(0x004A11C0 , entity::set_fade_away, "?set_fade_away@entity@@UAEX_N@Z");
+	PATCH_PUSH_RET_POLY(0x004A11E0 , entity::get_fade_away, "?get_fade_away@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)

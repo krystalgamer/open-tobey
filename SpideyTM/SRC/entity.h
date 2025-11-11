@@ -1360,7 +1360,10 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual void set_fade_away( bool fade ) { assert(false); }
+  // @Ok
+  // @Matching
   EXPORT virtual bool get_fade_away() const { return false; }
+
   int get_min_polys() const;
 
   int get_max_polys() const;
