@@ -6,4 +6,7 @@
 #define INLINE inline
 // #define INLINE 
 
+#define OVERRIDE 
+//#define OVERRIDE override
+
 #endif

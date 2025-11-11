@@ -305,6 +305,18 @@ void entity::_construct( const entity_id& _id,
 	PANIC;
 }
 
+// @Ok
+// @NotMatching - it seems it knows that signal_error is a _notreturn
+// but declaring it in the header is not easy because it'd mean I have to move signal_manager up
+// doesn't justify the effort
+void entity::signal_error(unsigned int a2, const stringx& parm)
+{
+	signaller::signal_error(a2,
+			"Entity: " + this->id.get_val() +
+			"\nFlavor: "  + stringx(entity_flavor_names[this->flavor]) +
+			"\n");
+}
+
 int entity::get_hero_id( void )
 {
 	// @TODO
@@ -3414,13 +3426,22 @@ void validate_entity(void)
 	//VALIDATE_SIZE(entity, 0xF4);
 
 	VALIDATE(entity, flags, 0x60);
-
 	VALIDATE(entity, ext_flags, 0x64);
+
+	VALIDATE(entity, flavor, 0x6C);
 	VALIDATE(entity, id, 0x70);
 
 	VALIDATE(entity, radius, 0xA8);
 
+	// entity vtable validation
+
 	VALIDATE_VTABLE(entity, is_an_entity, 1);
+
+	VALIDATE_VTABLE(entity, is_a_trigger, 2);
+
+	VALIDATE_VTABLE(entity, signal_error, 3);
+	VALIDATE_VTABLE(entity, raise_signal, 4);
+
 
 	VALIDATE_VTABLE(entity, construct_signal_list, 5);
 	VALIDATE_VTABLE(entity, get_signal_name, 6);
@@ -3486,6 +3507,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A0EF0, entity::get_in_use, "?get_in_use@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A0F10 , entity::set_in_use, "?set_in_use@entity@@UAEX_N@Z");
+
+	PATCH_PUSH_RET_POLY(0x004F5F50 , entity::signal_error, "?signal_error@entity@@UAEXIABVstringx@@@Z");
 }
 
 void patch_entity_id(void)

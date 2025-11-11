@@ -495,9 +495,9 @@ class entity : public bone
 	  // @Patch - moved closer to flags
 	  unsigned int ext_flags;
 
+	PADDING(4);
     entity_flavor_t flavor;
 
-	PADDING(4);
 
     entity_id id;
     stringx parsedName;
@@ -1362,6 +1362,7 @@ public:
   // @Matching
   EXPORT virtual bool is_an_entity() const { return(true); }
 
+  EXPORT void signal_error(unsigned int a2, const stringx& parm) OVERRIDE;
 
   virtual bool is_a_beam() const { return false; }
 
