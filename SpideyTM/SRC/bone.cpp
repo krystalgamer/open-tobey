@@ -61,8 +61,13 @@ entity *test_ent = NULL;
 
 // 40.83f, 7.96f, 2.17f
 
+// @Ok
+// @Matching
 void bone::po_changed()
 {
+	// @Patch - remove the body
+	return;
+	/*
   #if TEST_HERO_ONLY
     if(g_world_ptr && this == g_world_ptr->get_hero_ptr())
   #else
@@ -94,15 +99,15 @@ void bone::po_changed()
     }
 
 
-  /*
-    else if(g_game_ptr && g_game_ptr->level_is_loaded() && !ignore_ZEROVEC)
-    {
+  //
+  //else if(g_game_ptr && g_game_ptr->level_is_loaded() && !ignore_ZEROVEC)
+  //{
 
-      vector3d pos=get_abs_position();
-      assert(pos != ZEROVEC);
-    }
+  //  vector3d pos=get_abs_position();
+  //  assert(pos != ZEROVEC);
+  //}
 
-  */
+  //
 
 
   // derived classes may want to know when po changes
@@ -111,6 +116,7 @@ void bone::po_changed()
   if (!pos.is_valid())
     break_on_me ++;
   assert(pos.is_valid());
+  */
 
 }
 
@@ -304,6 +310,15 @@ void validate_bone(void)
 
 	VALIDATE(bone, bone_flags, 0x58);
 	VALIDATE(bone, my_link_interface, 0x5C);
+
+
+	VALIDATE_VTABLE(bone, is_an_entity, 1);
+	VALIDATE_VTABLE(bone, is_a_trigger, 2);
+	VALIDATE_VTABLE(bone, signal_error, 3);
+	VALIDATE_VTABLE(bone, raise_signal, 4);
+	//VALIDATE_VTABLE(bone, construct_signal_list, 5);
+	VALIDATE_VTABLE(bone, get_signal_name, 6);
+	VALIDATE_VTABLE(bone, po_changed, 7);
 }
 
 

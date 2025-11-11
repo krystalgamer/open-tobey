@@ -804,6 +804,8 @@ public:
     COLLIDE_WITH_TERRAIN=2
   };
 
+  PADDING_VIRTUAL();
+
 
   // ALWAYS AVAILABLE
   // @Ok

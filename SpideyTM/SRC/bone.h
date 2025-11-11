@@ -40,7 +40,8 @@ class bone : public signaller
 		PANIC;
     }
 
-	EXPORT virtual int get_bone_idx(void) { return -1; }
+	// @Patch - remove
+	//EXPORT virtual int get_bone_idx(void) { return -1; }
 
   /*** has_parent ***/
     EXPORT bool has_parent() const { return (has_link_ifc() && link_ifc()->get_parent()); }
@@ -192,7 +193,6 @@ class bone : public signaller
 
 
     EXPORT const orientation get_abs_orientation() const
-
     {
       return my_abs_po->get_orientation();
     }
