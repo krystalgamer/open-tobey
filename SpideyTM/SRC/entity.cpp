@@ -2451,12 +2451,6 @@ int destroyable_info::apply_damage(int damage, const vector3d &pos, const vector
     return 1;
 }
 
-void destroyable_info::apply_destruction_fx()
-{
-	PANIC;
-}
-
-
 
 
 void destroyable_info::preload()
@@ -2547,28 +2541,6 @@ void entity::apply_damage(int damage, const vector3d &pos, const vector3d &norm,
 
 }
 
-
-
-void entity::apply_destruction_fx()
-{
-  if ( destroy_info )
-  {
-    destroy_info->apply_destruction_fx();
-
-    // disgorge any items I may be carrying
-    disgorge_items();
-  }
-  else
-    set_active( false );
-
-}
-
-
-bool entity::is_destroyable() const
-{
-
-  return destroy_info != NULL && (!destroy_info->has_hit_points() || destroy_info->get_hit_points()>0);
-}
 
 // add an item to this container;
 
@@ -2987,12 +2959,6 @@ bool entity::parse_instance( const stringx& pcf, chunk_file& fs )
 }
 
 
-void entity::create_destroy_info()
-{
-  if(destroy_info == NULL)
-    destroy_info = NEW destroyable_info(this);
-}
-
 void entity::suspend()
 {
 	// @TODO
@@ -3032,12 +2998,6 @@ brain * entity::get_brain()
     return(NULL);
 }
 */
-void entity::set_control_active( bool a )
-
-{
-  if ( my_controller )
-    my_controller->set_active( a );
-}
 
 bool entity::is_alive() const
 {
@@ -3535,6 +3495,86 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, is_a_rocket, 123);
 	VALIDATE_VTABLE(entity, is_a_scanner, 124);
 	VALIDATE_VTABLE(entity, is_a_sky, 125);
+
+	VALIDATE_VTABLE(entity, advance_age, 126);
+	VALIDATE_VTABLE(entity, frame_done, 127);
+	VALIDATE_VTABLE(entity, add_position_increment, 128);
+	VALIDATE_VTABLE(entity, terrain_position, 129);
+	VALIDATE_VTABLE(entity, terrain_radius, 130);
+
+	VALIDATE_VTABLE(entity, get_colgeom_root_po, 131);
+	VALIDATE_VTABLE(entity, get_colgeom_root, 132);
+	VALIDATE_VTABLE(entity, add_me_to_region, 133);
+	VALIDATE_VTABLE(entity, remove_me_from_region, 134);
+	VALIDATE_VTABLE(entity, compute_sector, 135);
+
+	VALIDATE_VTABLE(entity, get_region, 136);
+	VALIDATE_VTABLE(entity, force_region, 137);
+	VALIDATE_VTABLE(entity, force_current_region, 138);
+	VALIDATE_VTABLE(entity, unforce_regions, 139);
+	VALIDATE_VTABLE(entity, force_regions, 140);
+	VALIDATE_VTABLE(entity, record_motion, 141);
+	VALIDATE_VTABLE(entity, camera_set_target, 142);
+	VALIDATE_VTABLE(entity, camera_set_roll, 143);
+	VALIDATE_VTABLE(entity, camera_set_collide_with_world, 144);
+	VALIDATE_VTABLE(entity, camera_slide_to, 145);
+	VALIDATE_VTABLE(entity, camera_slide_to_orbit, 146);
+	VALIDATE_VTABLE(entity, camera_orbit, 147);
+	VALIDATE_VTABLE(entity, get_color, 148);
+	VALIDATE_VTABLE(entity, set_color, 149);
+	VALIDATE_VTABLE(entity, get_additive_color, 150);
+	VALIDATE_VTABLE(entity, set_additive_color, 151);
+	VALIDATE_VTABLE(entity, get_near_range, 152);
+	VALIDATE_VTABLE(entity, set_near_range, 153);
+	VALIDATE_VTABLE(entity, get_cutoff_range, 154);
+	VALIDATE_VTABLE(entity, set_cutoff_range, 155);
+	VALIDATE_VTABLE(entity, add_light_category, 156);
+	VALIDATE_VTABLE(entity, remove_light_category, 157);
+	VALIDATE_VTABLE(entity, get_light_set, 158);
+	VALIDATE_VTABLE(entity, create_light_set, 159);
+	VALIDATE_VTABLE(entity, is_frame_delta_valid, 160);
+	VALIDATE_VTABLE(entity, is_last_frame_delta_valid, 161);
+	VALIDATE_VTABLE(entity, get_frame_delta, 162);
+	VALIDATE_VTABLE(entity, set_frame_delta, 163);
+	VALIDATE_VTABLE(entity, set_frame_delta_trans, 164);
+	VALIDATE_VTABLE(entity, invalidate_frame_delta, 165);
+	VALIDATE_VTABLE(entity, get_last_capsule, 166);
+	VALIDATE_VTABLE(entity, get_last_position, 167);
+	VALIDATE_VTABLE(entity, render_passes_needed, 168);
+	VALIDATE_VTABLE(entity, set_recursive_age, 169);
+	VALIDATE_VTABLE(entity, attach_anim, 170);
+	VALIDATE_VTABLE(entity, detach_anim, 171);
+	VALIDATE_VTABLE(entity, acquire, 172);
+	VALIDATE_VTABLE(entity, release, 173);
+	VALIDATE_VTABLE(entity, get_hit_points, 174);
+	VALIDATE_VTABLE(entity, get_full_hit_points, 175);
+	VALIDATE_VTABLE(entity, add_item, 176);
+	VALIDATE_VTABLE(entity, use_item, 177);
+	VALIDATE_VTABLE(entity, compute_bounding_box, 178);
+	VALIDATE_VTABLE(entity, apply_damage, 179);
+	VALIDATE_VTABLE(entity, copy_visrep, 180);
+	VALIDATE_VTABLE(entity, allow_targeting, 181);
+	VALIDATE_VTABLE(entity, test_combat_target, 182);
+	VALIDATE_VTABLE(entity, get_detonate_position, 183);
+	VALIDATE_VTABLE(entity, add_signal_callbacks, 184);
+	VALIDATE_VTABLE(entity, get_distance_fade_ok, 185);
+	VALIDATE_VTABLE(entity, suspend, 186);
+	VALIDATE_VTABLE(entity, unsuspend, 187);
+	VALIDATE_VTABLE(entity, possibly_active, 188);
+	VALIDATE_VTABLE(entity, possibly_aging, 189);
+	VALIDATE_VTABLE(entity, region_update_poss_active, 190);
+	VALIDATE_VTABLE(entity, region_update_poss_render, 191);
+	VALIDATE_VTABLE(entity, region_update_poss_collide, 192);
+	VALIDATE_VTABLE(entity, is_alive, 193);
+	VALIDATE_VTABLE(entity, is_dying, 194);
+	VALIDATE_VTABLE(entity, is_alive_or_dying, 195);
+	VALIDATE_VTABLE(entity, preload, 196);
+	VALIDATE_VTABLE(entity, ifl_play, 197);
+	VALIDATE_VTABLE(entity, ifl_lock, 198);
+	VALIDATE_VTABLE(entity, ifl_pause, 199);
+	VALIDATE_VTABLE(entity, set_render_color, 200);
+	VALIDATE_VTABLE(entity, set_render_scale, 201);
+	//VALIDATE_VTABLE(entity, set_render_zbias, 202);
 
 
 	VALIDATE_VAL(EFLAG_MISC_IN_USE, 0x00010000);

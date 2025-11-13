@@ -1197,7 +1197,8 @@ public:
 
   // Stuff for tracking movment of stuff that moves apart from by physics
   vector3d get_frame_abs_delta_position( bool first_time = true, const vector3d& rel_delta_pos = ZEROVEC ) const;
-  virtual vector3d get_last_position() const;
+
+  PADDING_VIRTUAL();
 
     // for trailing collision_capsules
   const po& get_last_po();
@@ -1696,23 +1697,28 @@ public:
 // Light Interface (This should probably be turned into an interface!!! - JDB)
 /////////////////////////////////////////////////////////////////////////////
 public:
-  virtual const color& get_color() const;
-  virtual void         set_color(const color& c);
+  EXPORT virtual const color& get_color() const;
+  EXPORT virtual void         set_color(const color& c);
 
-  virtual const color& get_additive_color() const;
-  virtual void         set_additive_color(const color& c);
+  EXPORT virtual const color& get_additive_color() const;
+  EXPORT virtual void         set_additive_color(const color& c);
 
 
-  virtual rational_t get_near_range() const;
-  virtual void       set_near_range(rational_t _r);
+  EXPORT virtual rational_t get_near_range() const;
+  EXPORT virtual void       set_near_range(rational_t _r);
 
-  virtual rational_t get_cutoff_range() const;
-  virtual void       set_cutoff_range(rational_t _r);
+  EXPORT virtual rational_t get_cutoff_range() const;
+  EXPORT virtual void       set_cutoff_range(rational_t _r);
+
+  // @TODO
+  EXPORT virtual void       add_light_category(void) { PANIC; }
+  // @TODO
+  EXPORT virtual void       remove_light_category(void) { PANIC; }
 
   // not technically an interface to a light, but interface
   // to characters influenced by lights:
-  virtual light_manager* get_light_set() const;
-  virtual void create_light_set();
+  EXPORT virtual light_manager* get_light_set() const;
+  EXPORT virtual void create_light_set();
 
 
 protected:
@@ -1725,23 +1731,33 @@ protected:
 /////////////////////////////////////////////////////////////////////////////
 public:
   movement_info * get_movement_info() const { return mi; }
-  virtual bool is_frame_delta_valid() const { return mi && mi->frame_delta_valid; }
-  virtual bool is_last_frame_delta_valid() const { return mi && mi->last_frame_delta_valid; }
-  virtual const po & get_frame_delta() const { assert(mi); return mi->frame_delta; }
-  virtual void set_frame_delta(po const & bob, time_value_t t);
-  virtual void set_frame_delta_trans(const vector3d &bob, time_value_t t);
-  virtual void invalidate_frame_delta();
+  EXPORT virtual bool is_frame_delta_valid() const { return mi && mi->frame_delta_valid; }
+  EXPORT virtual bool is_last_frame_delta_valid() const { return mi && mi->last_frame_delta_valid; }
+  EXPORT virtual const po & get_frame_delta() const { assert(mi); return mi->frame_delta; }
+  EXPORT virtual void set_frame_delta(po const & bob, time_value_t t);
+  EXPORT virtual void set_frame_delta_trans(const vector3d &bob, time_value_t t);
+  EXPORT virtual void invalidate_frame_delta();
+
+  // @TODO
+  EXPORT virtual void       get_last_capsule(void) { PANIC; }
+
+  // @Patch - moved here
+  EXPORT virtual vector3d get_last_position() const;
 
   // Used by render loop to skip translucent pass on entities that don't need it.
-  virtual render_flavor_t render_passes_needed() const;
+  EXPORT virtual render_flavor_t render_passes_needed() const;
+
+  // @TODO
+  EXPORT virtual void       set_recursive_age(void) { PANIC; }
 
   // aging stuff
 
   void rebirth();
   time_value_t get_age() const;
   void set_age(time_value_t);
-  virtual time_value_t get_programmed_cell_death() const
-  { return programmed_cell_death; }
+  // @Patch - removed
+  // virtual time_value_t get_programmed_cell_death() const { return programmed_cell_death; }
+
   void set_programmed_cell_death( time_value_t t )
   { programmed_cell_death = t; }
 
@@ -1821,9 +1837,9 @@ protected:
 
 public:
   // attach entity to given animation
-  virtual bool attach_anim( entity_anim* new_anim );
+  EXPORT virtual bool attach_anim( entity_anim* new_anim );
   // detach entity from current animation
-  virtual void detach_anim();
+  EXPORT virtual void detach_anim();
 
   // return pointer to current animation
   entity_anim* get_anim() const { return current_anim; }
@@ -1917,7 +1933,7 @@ public:
 protected:
   bounding_box* bbi;
 public:
-  virtual void compute_bounding_box();
+  EXPORT virtual void compute_bounding_box();
   bool has_bounding_box() const { return bbi != NULL; }
   const bounding_box& get_bounding_box() const { return *bbi; }
 
@@ -2075,11 +2091,14 @@ public:
   vector3d get_current_target_norm() const { return current_target_norm; }
   void set_current_target_norm( const vector3d &c ) { current_target_norm = c; }
 
+  // @Patch - remove
+  /*
   virtual void apply_destruction_fx();
   virtual bool has_destroy_info() const { return (destroy_info != NULL); }
   virtual bool is_destroyable() const;
   virtual destroyable_info *get_destroy_info() const { return destroy_info; }
   virtual void create_destroy_info();
+  */
 
 /*!  virtual void activate_by_character(character *chr);
   virtual character *action_activated_by() const { return action_character; }
@@ -2109,20 +2128,20 @@ public:
 public:
 
 
-  virtual void apply_damage(int damage, const vector3d &pos, const vector3d &norm, int _damage_type = 0, entity *attacker = NULL, int dmg_flags = 0 );
-  virtual void copy_visrep(entity *ent);
+  EXPORT virtual void apply_damage(int damage, const vector3d &pos, const vector3d &norm, int _damage_type = 0, entity *attacker = NULL, int dmg_flags = 0 );
+  EXPORT virtual void copy_visrep(entity *ent);
 
 
-  virtual bool allow_targeting() const;
+  EXPORT virtual bool allow_targeting() const;
 
 
-  virtual bool test_combat_target( const vector3d& p0, const vector3d& p1,
+  EXPORT virtual bool test_combat_target( const vector3d& p0, const vector3d& p1,
                                    vector3d* impact_pos, vector3d* impact_normal,
                                    rational_t default_radius = 1.0f, bool rear_cull = true ) const;
 
-  virtual vector3d get_detonate_position() const { return get_abs_position(); }
+  EXPORT virtual vector3d get_detonate_position() const { return get_abs_position(); }
 
-  virtual void add_signal_callbacks();
+  EXPORT virtual void add_signal_callbacks();
 
   // position at start of frame (in world coords);
 
@@ -2149,11 +2168,15 @@ public:
   bool is_hero() const;
   virtual bool possibly_active() const;
   virtual bool possibly_aging() const;
-  void region_update_poss_active();
-  void region_update_poss_render();
-  void region_update_poss_collide();
+  // @Patch - virtual 
+  virtual void region_update_poss_active();
+  // @Patch - virtual 
+  virtual void region_update_poss_render();
+  // @Patch - virtual 
+  virtual void region_update_poss_collide();
 
-  virtual void set_control_active(bool a);
+  // @Patch - remove
+  //virtual void set_control_active(bool a);
 
 
   virtual bool is_alive() const;
@@ -2197,12 +2220,17 @@ public:
   material_set *get_alternative_material_set() const { return alternative_materials; }
   material_list *get_alternative_materials() const { return alternative_materials ? alternative_materials->data : NULL; }
 
-  void set_render_color(const color32 new_color ) { render_color = new_color; }
-  void set_render_color(const uint8 _r, const uint8 _g, const uint8 _b, const uint8 _a) { render_color.c.r = _r; render_color.c.g = _g; render_color.c.b = _b; render_color.c.a = _a; }
+  // @Patch - virtual
+  virtual void set_render_color(const color32 new_color ) { render_color = new_color; }
+  // @Patch - removed for now
+  // void set_render_color(const uint8 _r, const uint8 _g, const uint8 _b, const uint8 _a) { render_color.c.r = _r; render_color.c.g = _g; render_color.c.b = _b; render_color.c.a = _a; }
   color32 get_render_color() const { return render_color; }
 
-  virtual void set_render_scale( const vector3d& s ) { render_scale = s; }
+  EXPORT virtual void set_render_scale( const vector3d& s ) { render_scale = s; }
   vector3d get_render_scale() const { return render_scale; }
+
+  // @TODO
+  EXPORT virtual void set_render_zbias(void) { PANIC; }
 
   // searchers
 public:
