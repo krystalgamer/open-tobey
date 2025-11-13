@@ -1468,6 +1468,8 @@ public:
   // @Matching
   EXPORT virtual bool is_a_limb_body() const { return false; }
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_marker() const { return false; }
   EXPORT virtual bool is_a_rectangle_marker() const { return false; }
   EXPORT virtual bool is_a_cube_marker() const      { return false; }
