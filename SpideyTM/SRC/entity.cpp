@@ -3601,6 +3601,7 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A1360 , entity::is_a_turret, "?is_a_turret@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A1380 , entity::is_a_ladder, "?is_a_ladder@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A13A0 , entity::is_a_light_source, "?is_a_light_source@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
