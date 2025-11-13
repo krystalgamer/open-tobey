@@ -1452,6 +1452,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual bool is_a_conglomerate() const { return false; }
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_turret() const { return false; }
 
   EXPORT virtual bool is_a_ladder() const { return false; }

@@ -3508,6 +3508,17 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, is_a_sniper_camera, 99);
 	VALIDATE_VTABLE(entity, is_a_conglomerate, 100);
 
+	VALIDATE_VTABLE(entity, is_a_turret, 101);
+	VALIDATE_VTABLE(entity, is_a_ladder, 102);
+	VALIDATE_VTABLE(entity, is_a_light_source, 103);
+	VALIDATE_VTABLE(entity, is_a_limb_body, 104);
+	VALIDATE_VTABLE(entity, is_a_marker, 105);
+	VALIDATE_VTABLE(entity, is_a_rectangle_marker, 106);
+	VALIDATE_VTABLE(entity, is_a_cube_marker, 107);
+	VALIDATE_VTABLE(entity, is_a_crawl_marker, 108);
+	VALIDATE_VTABLE(entity, is_a_particle_generator, 109);
+	VALIDATE_VTABLE(entity, is_a_physical_entity, 110);
+
 
 	VALIDATE_VAL(EFLAG_MISC_IN_USE, 0x00010000);
 	VALIDATE_VAL(EFLAG_MISC_REPULSION, 0x00001000);
@@ -3587,6 +3598,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1300 , entity::is_a_mouselook_camera, "?is_a_mouselook_camera@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A1320 , entity::is_a_sniper_camera, "?is_a_sniper_camera@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A1340 , entity::is_a_conglomerate, "?is_a_conglomerate@entity@@UBE_NXZ");
+
+	PATCH_PUSH_RET_POLY(0x004A1360 , entity::is_a_turret, "?is_a_turret@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
