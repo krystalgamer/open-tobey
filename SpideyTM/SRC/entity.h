@@ -1419,7 +1419,6 @@ public:
 
   EXPORT int get_min_detail() const { return min_detail; }
 
-  EXPORT virtual void set_min_detail(int md);
 public:
   // @Ok
   // @Matching
@@ -1427,6 +1426,8 @@ public:
 
   EXPORT void signal_error(unsigned int a2, const stringx& parm) OVERRIDE;
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_beam() const { return false; }
 
   EXPORT virtual bool is_a_camera() const { return false; }

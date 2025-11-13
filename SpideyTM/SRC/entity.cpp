@@ -3202,14 +3202,6 @@ void entity::preload()
 
 }
 
-
-void entity::set_min_detail(int md)
-{
-PANIC;
-}
-
-
-
 void entity::clear_all_raised_signals()
 {
   signals_raised[0] = 0;
@@ -3507,6 +3499,15 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, get_dirname, 91);
 	VALIDATE_VTABLE(entity, has_dirname, 92);
 
+	VALIDATE_VTABLE(entity, is_a_beam, 93);
+	VALIDATE_VTABLE(entity, is_a_camera, 94);
+	VALIDATE_VTABLE(entity, is_a_station_camera, 95);
+	VALIDATE_VTABLE(entity, is_a_game_camera, 96);
+	VALIDATE_VTABLE(entity, is_a_marky_camera, 97);
+	VALIDATE_VTABLE(entity, is_a_mouselook_camera, 98);
+	VALIDATE_VTABLE(entity, is_a_sniper_camera, 99);
+	VALIDATE_VTABLE(entity, is_a_conglomerate, 100);
+
 
 	VALIDATE_VAL(EFLAG_MISC_IN_USE, 0x00010000);
 	VALIDATE_VAL(EFLAG_MISC_REPULSION, 0x00001000);
@@ -3577,6 +3578,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A1230 , entity::get_dirname, "?get_dirname@entity@@UBE?AVstringx@@XZ");
 	PATCH_PUSH_RET_POLY(0x004A1260 , entity::has_dirname, "?has_dirname@entity@@UBE_NXZ");
+
+	PATCH_PUSH_RET_POLY(0x004A12A0 , entity::is_a_beam, "?is_a_beam@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
