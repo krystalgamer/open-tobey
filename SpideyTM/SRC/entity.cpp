@@ -3607,6 +3607,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1400 , entity::is_a_rectangle_marker, "?is_a_rectangle_marker@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A1420 , entity::is_a_cube_marker, "?is_a_cube_marker@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A1440 , entity::is_a_crawl_marker, "?is_a_crawl_marker@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A1460 , entity::is_a_particle_generator, "?is_a_particle_generator@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
