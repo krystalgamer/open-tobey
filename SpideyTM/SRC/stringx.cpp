@@ -78,8 +78,9 @@ string_buf *stringx::free_long_buffers[STRINGX_MAX_LONG_STRINGS];    unsigned in
 
 string_buf *stringx::buf_cache[256 * STRINGX_CACHE_BUCKETS];     unsigned int stringx::buf_cache_lru[256];
 
-stringx empty_string = stringx("");
-stringx sendl = stringx("\n");
+// @Patch - defines seem to be the way
+//stringx empty_string = stringx("");
+//stringx sendl = stringx("\n");
 
 
 // @Matching

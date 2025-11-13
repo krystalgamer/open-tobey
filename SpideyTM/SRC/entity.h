@@ -1389,9 +1389,9 @@ public:
 // Identification interface
 /////////////////////////////////////////////////////////////////////////////
 public:
-  virtual stringx const& get_filename() const { assert(false); return sendl; } // <<<< only provided by physents.  need to deal with this.
-  virtual stringx const& get_dirname() const { assert(false); return sendl; }
-  virtual bool has_dirname() const { return false; }
+  EXPORT virtual stringx get_filename() const { assert(false); return sendl; } // <<<< only provided by physents.  need to deal with this.
+  EXPORT virtual stringx const& get_dirname() const { assert(false); return sendl; }
+  EXPORT virtual bool has_dirname() const { return false; }
 
   // @Ok
   // @Matching
@@ -1409,11 +1409,11 @@ public:
     anim_id = anim_id_manager::inst()->anim_id( _anim_id );
   }
 
-  void set_anim_id( anim_id_t _anim_id ) { anim_id = _anim_id; }
+  EXPORT void set_anim_id( anim_id_t _anim_id ) { anim_id = _anim_id; }
 
-  int get_min_detail() const { return min_detail; }
+  EXPORT int get_min_detail() const { return min_detail; }
 
-  virtual void set_min_detail(int md);
+  EXPORT virtual void set_min_detail(int md);
 public:
   // @Ok
   // @Matching
@@ -1421,61 +1421,61 @@ public:
 
   EXPORT void signal_error(unsigned int a2, const stringx& parm) OVERRIDE;
 
-  virtual bool is_a_beam() const { return false; }
+  EXPORT virtual bool is_a_beam() const { return false; }
 
-  virtual bool is_a_camera() const { return false; }
-  virtual bool is_a_station_camera() const { return false; }
-  virtual bool is_a_game_camera() const { return false; }
-  virtual bool is_a_marky_camera() const { return false; }
-  virtual bool is_a_mouselook_camera() const { return false; }
-  virtual bool is_a_sniper_camera() const { return false; }
+  EXPORT virtual bool is_a_camera() const { return false; }
+  EXPORT virtual bool is_a_station_camera() const { return false; }
+  EXPORT virtual bool is_a_game_camera() const { return false; }
+  EXPORT virtual bool is_a_marky_camera() const { return false; }
+  EXPORT virtual bool is_a_mouselook_camera() const { return false; }
+  EXPORT virtual bool is_a_sniper_camera() const { return false; }
 
 
-  virtual bool is_a_conglomerate() const { return false; }
-  virtual bool is_a_turret() const { return false; }
+  EXPORT virtual bool is_a_conglomerate() const { return false; }
+  EXPORT virtual bool is_a_turret() const { return false; }
 
-  virtual bool is_a_ladder() const { return false; }
+  EXPORT virtual bool is_a_ladder() const { return false; }
 
-  virtual bool is_a_light_source() const { return false; }
+  EXPORT virtual bool is_a_light_source() const { return false; }
 
-  virtual bool is_a_limb_body() const { return false; }
+  EXPORT virtual bool is_a_limb_body() const { return false; }
 
-  virtual bool is_a_marker() const { return false; }
-  virtual bool is_a_rectangle_marker() const { return false; }
-  virtual bool is_a_cube_marker() const      { return false; }
-  virtual bool is_a_crawl_marker() const     { return false; }
+  EXPORT virtual bool is_a_marker() const { return false; }
+  EXPORT virtual bool is_a_rectangle_marker() const { return false; }
+  EXPORT virtual bool is_a_cube_marker() const      { return false; }
+  EXPORT virtual bool is_a_crawl_marker() const     { return false; }
 
-  virtual bool is_a_particle_generator() const { return false; }
+  EXPORT virtual bool is_a_particle_generator() const { return false; }
 
-  virtual bool is_a_physical_entity() const { return false; }
+  EXPORT virtual bool is_a_physical_entity() const { return false; }
 
 
 //!  virtual bool is_an_actor() const { return false; }
 //!  virtual bool is_a_character() const { return false; }
 
 
-  virtual bool is_a_crate() const { return false; }
+  EXPORT virtual bool is_a_crate() const { return false; }
 
-  virtual bool is_an_item() const { return false; }
-  virtual bool is_a_visual_item() const { return false; }
-  virtual bool is_a_handheld_item() const { return false; }
-  virtual bool is_a_gun() const { return false; }
-  virtual bool is_a_thrown_item() const { return false; }
-  virtual bool is_a_melee_item() const { return false; }
-  virtual bool is_a_morphable_item() const { return false; }
-
-
-  virtual bool is_a_projectile() const { return false; }
-
-  virtual bool is_a_rigid_body() const { return false; }
-
-  virtual bool is_a_grenade() const { return false; }
-  virtual bool is_a_rocket() const { return false; }
-
-  virtual bool is_a_scanner() const { return false; }
+  EXPORT virtual bool is_an_item() const { return false; }
+  EXPORT virtual bool is_a_visual_item() const { return false; }
+  EXPORT virtual bool is_a_handheld_item() const { return false; }
+  EXPORT virtual bool is_a_gun() const { return false; }
+  EXPORT virtual bool is_a_thrown_item() const { return false; }
+  EXPORT virtual bool is_a_melee_item() const { return false; }
+  EXPORT virtual bool is_a_morphable_item() const { return false; }
 
 
-  virtual bool is_a_sky() const { return false; }
+  EXPORT virtual bool is_a_projectile() const { return false; }
+
+  EXPORT virtual bool is_a_rigid_body() const { return false; }
+
+  EXPORT virtual bool is_a_grenade() const { return false; }
+  EXPORT virtual bool is_a_rocket() const { return false; }
+
+  EXPORT virtual bool is_a_scanner() const { return false; }
+
+
+  EXPORT virtual bool is_a_sky() const { return false; }
 
 
 /////////////////////////////////////////////////////////////////////////////

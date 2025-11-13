@@ -584,10 +584,12 @@ inline stringx get_ext( const stringx& path )
 
 
 
-//#define empty_string (stringx(""))
-//#define sendl (stringx("\n"))
-extern stringx empty_string;
-extern stringx sendl;
+#define empty_string (stringx(""))
+#define sendl (stringx("\n"))
+
+// @Patch - defines seem realer
+//extern stringx empty_string;
+//extern stringx sendl;
 
 void patch_string_buf();
 void patch_stringx();
