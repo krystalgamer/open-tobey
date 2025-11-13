@@ -1501,6 +1501,10 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual bool is_an_item() const { return false; }
+
+  // @Ok
+  // @Matching
+  // @Patch - added
   EXPORT virtual bool is_a_switch() const { return false; }
 
   EXPORT virtual bool is_a_visual_item() const { return false; }

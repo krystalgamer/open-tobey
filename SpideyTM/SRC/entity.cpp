@@ -3623,6 +3623,7 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A14A0 , entity::is_a_crate, "?is_a_crate@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A14C0 , entity::is_an_item, "?is_an_item@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A14E0 , entity::is_a_switch, "?is_a_switch@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
