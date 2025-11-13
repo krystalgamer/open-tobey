@@ -1545,6 +1545,8 @@ public:
   EXPORT virtual bool is_a_scanner() const { return false; }
 
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_sky() const { return false; }
 
 
