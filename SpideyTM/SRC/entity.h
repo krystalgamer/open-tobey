@@ -1390,7 +1390,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////
 public:
   EXPORT virtual stringx get_filename() const { assert(false); return sendl; } // <<<< only provided by physents.  need to deal with this.
-  EXPORT virtual stringx const& get_dirname() const { assert(false); return sendl; }
+  EXPORT virtual stringx get_dirname() const { assert(false); return sendl; }
   EXPORT virtual bool has_dirname() const { return false; }
 
   // @Ok
