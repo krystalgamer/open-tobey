@@ -1530,8 +1530,9 @@ public:
   // @Matching
   EXPORT virtual bool is_a_projectile() const { return false; }
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_rigid_body() const { return false; }
-
   EXPORT virtual bool is_a_grenade() const { return false; }
   EXPORT virtual bool is_a_rocket() const { return false; }
 

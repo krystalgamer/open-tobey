@@ -3530,6 +3530,12 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, is_a_morphable_item, 119);
 	VALIDATE_VTABLE(entity, is_a_projectile, 120);
 
+	VALIDATE_VTABLE(entity, is_a_rigid_body, 121);
+	VALIDATE_VTABLE(entity, is_a_grenade, 122);
+	VALIDATE_VTABLE(entity, is_a_rocket, 123);
+	VALIDATE_VTABLE(entity, is_a_scanner, 124);
+	VALIDATE_VTABLE(entity, is_a_sky, 125);
+
 
 	VALIDATE_VAL(EFLAG_MISC_IN_USE, 0x00010000);
 	VALIDATE_VAL(EFLAG_MISC_REPULSION, 0x00001000);
@@ -3631,6 +3637,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1580 , entity::is_a_melee_item, "?is_a_melee_item@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A15A0 , entity::is_a_morphable_item, "?is_a_morphable_item@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A15C0 , entity::is_a_projectile, "?is_a_projectile@entity@@UBE_NXZ");
+
+	PATCH_PUSH_RET_POLY(0x004A15E0 , entity::is_a_rigid_body, "?is_a_rigid_body@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
