@@ -1464,6 +1464,8 @@ public:
   // @Matching
   EXPORT virtual bool is_a_light_source() const { return false; }
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_limb_body() const { return false; }
 
   EXPORT virtual bool is_a_marker() const { return false; }
