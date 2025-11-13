@@ -627,9 +627,6 @@ public:
   EXPORT void destruct();
 
 
-	// This function allows the entity to any post-level-load initialization
-	EXPORT virtual void initialize();
-
 
 private:
   EXPORT void _construct( const entity_id& _id,
@@ -664,6 +661,10 @@ public:
 
 // Instancing
 public:
+
+  // @Patch - moved
+	// This function allows the entity to any post-level-load initialization
+	EXPORT virtual void initialize();
   EXPORT virtual entity* make_instance( const entity_id& _id,
                                  unsigned int _flags ) const;
 protected:
@@ -1012,12 +1013,18 @@ public:
   EXPORT virtual bool are_collisions_active() const      { return flags & EFLAG_PHYSICS_COLLISIONS_ACTIVE; }
   EXPORT virtual void set_collisions_active( bool a, bool update_reg = true );
 
-  PADDING_VIRTUAL();
-  PADDING_VIRTUAL();
-  PADDING_VIRTUAL();
-  PADDING_VIRTUAL();
-  PADDING_VIRTUAL();
-  PADDING_VIRTUAL();
+	// @TODO - wrong parms
+	EXPORT virtual void are_character_collisions_active(void) { PANIC; }
+	// @TODO - wrong parms
+	EXPORT virtual void are_terrain_collisions_active(void) { PANIC; }
+	// @TODO - wrong parms
+	EXPORT virtual void are_moving_terrain_only_collisions_active(void) { PANIC; }
+	// @TODO - wrong parms
+	EXPORT virtual void set_character_collisions_active(void) { PANIC; }
+	// @TODO - wrong parms
+	EXPORT virtual void set_terrain_collisions_active(void) { PANIC; }
+	// @TODO - wrong parms
+	EXPORT virtual void set_moving_terrain_only_collisions_active(void) { PANIC; }
 
 
   // @Ok
@@ -1070,6 +1077,12 @@ public:
   // needed by particle_generator and, thus, conglomerate also
   EXPORT virtual bool is_still_visible() const { return is_visible(); }
 
+
+
+  // @TODO
+  //EXPORT virtual void render_trail(float, unsigned int, float) { PANIC; }
+
+  PADDING_VIRTUAL();
   EXPORT virtual bool is_motion_blurred() const      { return flags & EFLAG_GRAPHICS_MOTION_BLUR; }
 
   EXPORT void         allocate_motion_info();
@@ -1077,7 +1090,11 @@ public:
                                       int _blur_max_alpha,
                                       int _num_blur_images,
                                       float _blur_spread );
-  EXPORT virtual void deactivate_motion_blur();
+  // @TODO
+  EXPORT virtual void render_trail(vector3d,vector3d,vector3d,color32,color32,color32,bool) { PANIC; }
+
+  // @Patch - not virtual
+  EXPORT void deactivate_motion_blur();
 
   EXPORT virtual bool is_motion_trailed() const      { return flags & EFLAG_GRAPHICS_MOTION_TRAIL; }
   EXPORT virtual void activate_motion_trail( int _trail_length,
@@ -1087,7 +1104,14 @@ public:
                                       int _trail_max_alpha,
                                       const vector3d& tip
                                       );
-  EXPORT virtual void deactivate_motion_trail();
+  // @TODO - wrong parms
+  EXPORT virtual void activate_motion_trail(float, int) { PANIC; }
+
+  // @TODO - wrong parms
+  EXPORT virtual void activate_motion_trail(int , int) { PANIC; }
+
+  // @Patch - not virtual
+  EXPORT void deactivate_motion_trail();
 
   EXPORT virtual bool get_externally_controlled() const
     { return flags & EFLAG_PHYSENT_EXTERNALLY_CONTROLLED; }
@@ -1109,9 +1133,6 @@ public:
   EXPORT void check_nonstatic();
 
   bool foreign_controller_active() const { return flags & (EFLAG_PHYSENT_EXTERNALLY_CONTROLLED|EFLAG_PHYSENT_ANGLE_EXTERNALLY_CONTROLLED|EFLAG_PHYSENT_MOTION_EXTERNALLY_CONTROLLED); }
-
-  PADDING_VIRTUAL();
-  PADDING_VIRTUAL();
 
   // @Ok
   // @Matching
@@ -1141,6 +1162,8 @@ public:
   EXPORT bool has_entity_collision() const;
   EXPORT bool has_camera_collision() const;
 
+  // @TODO - wrong parms
+  EXPORT virtual void set_colgeom_flag_recursive(void) { PANIC; }
 
   // uses replacement_po instead of the usual po if it is non-NULL
   EXPORT virtual void update_colgeom(po * replacement_po = NULL);
@@ -1198,8 +1221,6 @@ public:
   // Stuff for tracking movment of stuff that moves apart from by physics
   vector3d get_frame_abs_delta_position( bool first_time = true, const vector3d& rel_delta_pos = ZEROVEC ) const;
 
-  PADDING_VIRTUAL();
-
     // for trailing collision_capsules
   const po& get_last_po();
   void set_last_po( const po& the_po );
@@ -1209,10 +1230,10 @@ public:
 //  virtual void update_unused_velocity(time_value_t increment){} // this is correct.  Entities always compute this if asked.
   //    virtual void save_current_position(void)                          { assert(false); }
 
-  virtual void get_effective_collision_velocity( vector3d* target, const vector3d& loc ) const  { *target=ZEROVEC; assert(false); }
-  virtual rational_t get_effective_collision_mass( const vector3d& loc, const vector3d& dir ) const { assert(false); return 0; }
+  EXPORT virtual void get_effective_collision_velocity( vector3d* target, const vector3d& loc ) const  { *target=ZEROVEC; assert(false); }
+  EXPORT virtual rational_t get_effective_collision_mass( const vector3d& loc, const vector3d& dir ) const { assert(false); return 0; }
 
-  virtual void get_closest_point_along_dir( vector3d* target, const vector3d& axis ) const;
+  EXPORT virtual void get_closest_point_along_dir( vector3d* target, const vector3d& axis ) const;
   vector3d get_updated_closest_point_along_dir( const vector3d& axis );
 
 //  virtual unsigned int get_collision_flags()        { assert(false); return 0; }

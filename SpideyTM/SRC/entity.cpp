@@ -3402,63 +3402,99 @@ void validate_entity(void)
 	// entity vtable validation
 
 	VALIDATE_VTABLE(entity, is_an_entity, 1);
-
 	VALIDATE_VTABLE(entity, is_a_trigger, 2);
-
 	VALIDATE_VTABLE(entity, signal_error, 3);
 	VALIDATE_VTABLE(entity, raise_signal, 4);
-
-
 	VALIDATE_VTABLE(entity, construct_signal_list, 5);
 	VALIDATE_VTABLE(entity, get_signal_name, 6);
-
+	VALIDATE_VTABLE(entity, po_changed, 7);
+	VALIDATE_VTABLE(entity, get_ifc_num, 8);
+	VALIDATE_VTABLE(entity, set_ifc_num, 9);
+	VALIDATE_VTABLE(entity, get_ifc_vec, 10);
+	VALIDATE_VTABLE(entity, set_ifc_vec, 11);
+	VALIDATE_VTABLE(entity, get_ifc_str, 12);
+	VALIDATE_VTABLE(entity, set_ifc_str, 13);
+	VALIDATE_VTABLE(entity, frame_advance, 14);
+	VALIDATE_VTABLE(entity, render, 15);
+	VALIDATE_VTABLE(entity, read_enx, 16);
+	VALIDATE_VTABLE(entity, handle_enx_chunk, 17);
+	VALIDATE_VTABLE(entity, parse_instance, 18);
+	VALIDATE_VTABLE(entity, initialize, 19);
 	VALIDATE_VTABLE(entity, make_instance, 20);
 	VALIDATE_VTABLE(entity, set_flag_recursive, 21);
 	VALIDATE_VTABLE(entity, set_ext_flag_recursive, 22);
-
 	VALIDATE_VTABLE(entity, set_created_entity_default_active_status, 23);
-
 	VALIDATE_VTABLE(entity, optimize, 24);
-
 	VALIDATE_VTABLE(entity, set_radius, 25);
 	VALIDATE_VTABLE(entity, get_radius, 26);
-
 	VALIDATE_VTABLE(entity, is_time_limited, 27);
 	VALIDATE_VTABLE(entity, set_time_limited, 28);
-
 	VALIDATE_VTABLE(entity, is_active, 29);
 	VALIDATE_VTABLE(entity, set_active, 30);
-
+	VALIDATE_VTABLE(entity, get_forced_active, 31);
+	VALIDATE_VTABLE(entity, are_collisions_active, 32);
+	VALIDATE_VTABLE(entity, set_collisions_active, 33);
+	VALIDATE_VTABLE(entity, are_character_collisions_active, 34);
+	VALIDATE_VTABLE(entity, are_terrain_collisions_active, 35);
+	VALIDATE_VTABLE(entity, are_moving_terrain_only_collisions_active, 36);
+	VALIDATE_VTABLE(entity, set_character_collisions_active, 37);
+	VALIDATE_VTABLE(entity, set_terrain_collisions_active, 38);
+	VALIDATE_VTABLE(entity, set_moving_terrain_only_collisions_active, 39);
 	VALIDATE_VTABLE(entity, is_sticky, 40);
 	VALIDATE_VTABLE(entity, set_sticky, 41);
-
 	VALIDATE_VTABLE(entity, is_stationary, 42);
 	VALIDATE_VTABLE(entity, set_stationary, 43);
-
 	VALIDATE_VTABLE(entity, is_walkable, 44);
 	VALIDATE_VTABLE(entity, set_walkable, 45);
-
 	VALIDATE_VTABLE(entity, is_repulsion, 46);
 	VALIDATE_VTABLE(entity, set_repulsion, 47);
-
 	VALIDATE_VTABLE(entity, is_visible, 48);
-
+	VALIDATE_VTABLE(entity, set_visible, 49);
+	VALIDATE_VTABLE(entity, is_still_visible, 50);
+	//VALIDATE_VTABLE(entity, render_trail, 51);
+	VALIDATE_VTABLE(entity, is_motion_blurred, 52);
+	VALIDATE_VTABLE(entity, activate_motion_blur, 53);
+	//VALIDATE_VTABLE(entity, render_trail, 54);
+	VALIDATE_VTABLE(entity, is_motion_trailed, 55);
+	/*
+	VALIDATE_VTABLE(entity, activate_motion_trail, 56);
+	VALIDATE_VTABLE(entity, activate_motion_trail, 57);
+	VALIDATE_VTABLE(entity, activate_motion_trail, 58);
+	*/
+	VALIDATE_VTABLE(entity, get_externally_controlled, 59);
 	VALIDATE_VTABLE(entity, get_in_use, 60);
 	VALIDATE_VTABLE(entity, set_in_use, 61);
-
 	VALIDATE_VTABLE(entity, get_member_hidden, 62);
 	VALIDATE_VTABLE(entity, set_member_hidden, 63);
-
+	VALIDATE_VTABLE(entity, get_colgeom, 64);
+	VALIDATE_VTABLE(entity, set_colgeom_flag_recursive, 65);
+	VALIDATE_VTABLE(entity, update_colgeom, 66);
+	VALIDATE_VTABLE(entity, invalidate_colgeom, 67);
+	VALIDATE_VTABLE(entity, get_updated_colgeom, 68);
+	VALIDATE_VTABLE(entity, get_damage_capsule, 69);
+	VALIDATE_VTABLE(entity, get_updated_damage_capsule, 70);
+	VALIDATE_VTABLE(entity, get_inter_capsule_radius_scale, 71);
+	VALIDATE_VTABLE(entity, get_velocity, 72);
+	VALIDATE_VTABLE(entity, get_angular_velocity, 73);
+	VALIDATE_VTABLE(entity, get_water_dist, 74);
+	VALIDATE_VTABLE(entity, get_underwater_pct, 75);
+	VALIDATE_VTABLE(entity, get_water_normal, 76);
+	VALIDATE_VTABLE(entity, get_underwater_time, 77);
+	VALIDATE_VTABLE(entity, get_effective_collision_velocity, 78);
+	VALIDATE_VTABLE(entity, get_effective_collision_mass, 79);
+	VALIDATE_VTABLE(entity, get_closest_point_along_dir, 80);
+	VALIDATE_VTABLE(entity, is_picked_up, 81);
+	VALIDATE_VTABLE(entity, phys_render, 82);
+	VALIDATE_VTABLE(entity, get_visrep_ending_time, 83);
+	VALIDATE_VTABLE(entity, get_visual_center, 84);
+	VALIDATE_VTABLE(entity, get_visual_radius, 85);
 	VALIDATE_VTABLE(entity, get_vrep, 86);
 	VALIDATE_VTABLE(entity, get_mesh, 87);
-
 	VALIDATE_VTABLE(entity, set_fade_away, 88);
 	VALIDATE_VTABLE(entity, get_fade_away, 89);
-
 	VALIDATE_VTABLE(entity, get_filename, 90);
 	VALIDATE_VTABLE(entity, get_dirname, 91);
 	VALIDATE_VTABLE(entity, has_dirname, 92);
-
 	VALIDATE_VTABLE(entity, is_a_beam, 93);
 	VALIDATE_VTABLE(entity, is_a_camera, 94);
 	VALIDATE_VTABLE(entity, is_a_station_camera, 95);
@@ -3467,7 +3503,6 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, is_a_mouselook_camera, 98);
 	VALIDATE_VTABLE(entity, is_a_sniper_camera, 99);
 	VALIDATE_VTABLE(entity, is_a_conglomerate, 100);
-
 	VALIDATE_VTABLE(entity, is_a_turret, 101);
 	VALIDATE_VTABLE(entity, is_a_ladder, 102);
 	VALIDATE_VTABLE(entity, is_a_light_source, 103);
@@ -3478,7 +3513,6 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, is_a_crawl_marker, 108);
 	VALIDATE_VTABLE(entity, is_a_particle_generator, 109);
 	VALIDATE_VTABLE(entity, is_a_physical_entity, 110);
-
 	VALIDATE_VTABLE(entity, is_a_crate, 111);
 	VALIDATE_VTABLE(entity, is_an_item, 112);
 	VALIDATE_VTABLE(entity, is_a_switch, 113);
@@ -3489,26 +3523,23 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, is_a_melee_item, 118);
 	VALIDATE_VTABLE(entity, is_a_morphable_item, 119);
 	VALIDATE_VTABLE(entity, is_a_projectile, 120);
-
 	VALIDATE_VTABLE(entity, is_a_rigid_body, 121);
 	VALIDATE_VTABLE(entity, is_a_grenade, 122);
 	VALIDATE_VTABLE(entity, is_a_rocket, 123);
 	VALIDATE_VTABLE(entity, is_a_scanner, 124);
 	VALIDATE_VTABLE(entity, is_a_sky, 125);
-
 	VALIDATE_VTABLE(entity, advance_age, 126);
 	VALIDATE_VTABLE(entity, frame_done, 127);
 	VALIDATE_VTABLE(entity, add_position_increment, 128);
 	VALIDATE_VTABLE(entity, terrain_position, 129);
 	VALIDATE_VTABLE(entity, terrain_radius, 130);
-
 	VALIDATE_VTABLE(entity, get_colgeom_root_po, 131);
 	VALIDATE_VTABLE(entity, get_colgeom_root, 132);
 	VALIDATE_VTABLE(entity, add_me_to_region, 133);
 	VALIDATE_VTABLE(entity, remove_me_from_region, 134);
 	VALIDATE_VTABLE(entity, compute_sector, 135);
-
 	VALIDATE_VTABLE(entity, get_region, 136);
+
 	VALIDATE_VTABLE(entity, force_region, 137);
 	VALIDATE_VTABLE(entity, force_current_region, 138);
 	VALIDATE_VTABLE(entity, unforce_regions, 139);
@@ -3574,7 +3605,7 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, ifl_pause, 199);
 	VALIDATE_VTABLE(entity, set_render_color, 200);
 	VALIDATE_VTABLE(entity, set_render_scale, 201);
-	//VALIDATE_VTABLE(entity, set_render_zbias, 202);
+	VALIDATE_VTABLE(entity, set_render_zbias, 202);
 
 
 	VALIDATE_VAL(EFLAG_MISC_IN_USE, 0x00010000);
