@@ -3629,6 +3629,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1540 , entity::is_a_gun, "?is_a_gun@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A1560 , entity::is_a_thrown_item, "?is_a_thrown_item@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A1580 , entity::is_a_melee_item, "?is_a_melee_item@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A15A0 , entity::is_a_morphable_item, "?is_a_morphable_item@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
