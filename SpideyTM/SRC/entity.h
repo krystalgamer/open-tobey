@@ -1477,6 +1477,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual bool is_a_cube_marker() const      { return false; }
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_crawl_marker() const     { return false; }
 
   EXPORT virtual bool is_a_particle_generator() const { return false; }
