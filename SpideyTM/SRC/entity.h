@@ -1445,6 +1445,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual bool is_a_mouselook_camera() const { return false; }
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_sniper_camera() const { return false; }
 
 
