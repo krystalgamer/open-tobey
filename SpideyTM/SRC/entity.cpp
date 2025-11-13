@@ -3584,6 +3584,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A12C0 , entity::is_a_station_camera, "?is_a_station_camera@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004D2960 , entity::is_a_game_camera, "?is_a_game_camera@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A12E0 , entity::is_a_marky_camera, "?is_a_marky_camera@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A1300 , entity::is_a_mouselook_camera, "?is_a_mouselook_camera@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
