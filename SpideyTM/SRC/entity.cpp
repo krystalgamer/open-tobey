@@ -3625,6 +3625,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A14C0 , entity::is_an_item, "?is_an_item@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A14E0 , entity::is_a_switch, "?is_a_switch@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A1500 , entity::is_a_visual_item, "?is_a_visual_item@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A1520 , entity::is_handhel_item, "?is_a_handheld_item@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
