@@ -3622,6 +3622,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1480 , entity::is_a_physical_entity, "?is_a_physical_entity@entity@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x004A14A0 , entity::is_a_crate, "?is_a_crate@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A14C0 , entity::is_an_item, "?is_an_item@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
