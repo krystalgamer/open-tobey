@@ -1485,6 +1485,8 @@ public:
   // @Matching
   EXPORT virtual bool is_a_particle_generator() const { return false; }
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_physical_entity() const { return false; }
 
 
