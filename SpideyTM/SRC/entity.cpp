@@ -3639,6 +3639,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A15C0 , entity::is_a_projectile, "?is_a_projectile@entity@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x004A15E0 , entity::is_a_rigid_body, "?is_a_rigid_body@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A1600 , entity::is_a_grenade, "?is_a_grenade@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
