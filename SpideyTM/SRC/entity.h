@@ -1430,6 +1430,8 @@ public:
   // @Matching
   EXPORT virtual bool is_a_beam() const { return false; }
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_camera() const { return false; }
   EXPORT virtual bool is_a_station_camera() const { return false; }
   EXPORT virtual bool is_a_game_camera() const { return false; }

@@ -3580,6 +3580,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1260 , entity::has_dirname, "?has_dirname@entity@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x004A12A0 , entity::is_a_beam, "?is_a_beam@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004D2940 , entity::is_a_camera, "?is_a_camera@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
