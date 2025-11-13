@@ -3641,6 +3641,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A15E0 , entity::is_a_rigid_body, "?is_a_rigid_body@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A1600 , entity::is_a_grenade, "?is_a_grenade@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A1620 , entity::is_a_rocket, "?is_a_rocket@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A1640 , entity::is_a_scanner, "?is_a_scanner@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)

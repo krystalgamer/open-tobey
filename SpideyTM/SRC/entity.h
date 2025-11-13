@@ -1540,6 +1540,8 @@ public:
   // @Matching
   EXPORT virtual bool is_a_rocket() const { return false; }
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_scanner() const { return false; }
 
 
