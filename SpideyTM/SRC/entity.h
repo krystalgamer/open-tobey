@@ -1513,6 +1513,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual bool is_a_handheld_item() const { return false; }
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_gun() const { return false; }
   EXPORT virtual bool is_a_thrown_item() const { return false; }
   EXPORT virtual bool is_a_melee_item() const { return false; }
