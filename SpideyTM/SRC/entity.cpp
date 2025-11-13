@@ -3505,6 +3505,7 @@ void validate_entity(void)
 
 	VALIDATE_VTABLE(entity, get_filename, 90);
 	VALIDATE_VTABLE(entity, get_dirname, 91);
+	VALIDATE_VTABLE(entity, has_dirname, 92);
 
 
 	VALIDATE_VAL(EFLAG_MISC_IN_USE, 0x00010000);
@@ -3573,7 +3574,9 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A11E0 , entity::get_fade_away, "?get_fade_away@entity@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x004A1200 , entity::get_filename, "?get_filename@entity@@UBE?AVstringx@@XZ");
+
 	PATCH_PUSH_RET_POLY(0x004A1230 , entity::get_dirname, "?get_dirname@entity@@UBE?AVstringx@@XZ");
+	PATCH_PUSH_RET_POLY(0x004A1260 , entity::has_dirname, "?has_dirname@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
