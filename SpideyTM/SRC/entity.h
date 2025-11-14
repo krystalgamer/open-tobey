@@ -1605,6 +1605,8 @@ public:
   // this exists so characters can override it and attack their collision geometry
   // to their waist rather than to the actor
 
+  // @Ok
+  // @Matching
   EXPORT virtual const po& get_colgeom_root_po() const { return get_abs_po(); }
   EXPORT virtual const entity * get_colgeom_root() const { return this; }
 

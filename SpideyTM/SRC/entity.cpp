@@ -3719,6 +3719,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A16A0 , entity::add_position_increment, "?add_position_increment@entity@@UAE_NAAVvector3d@@@Z");
 	PATCH_PUSH_RET_POLY(0x004A16C0 , entity::terrain_position, "?terrain_position@entity@@UBEABVvector3d@@XZ");
 	PATCH_PUSH_RET_POLY(0x004A16E0 , entity::terrain_radius, "?terrain_radius@entity@@UBEMXZ");
+
+	PATCH_PUSH_RET_POLY(0x004A1700 , entity::get_colgeom_root_po, "?get_colgeom_root_po@entity@@UBEABVpo@@XZ");
 }
 
 void patch_entity_id(void)
