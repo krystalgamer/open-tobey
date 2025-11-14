@@ -3717,6 +3717,7 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A1680 , entity::frame_done, "?frame_done@entity@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x004A16A0 , entity::add_position_increment, "?add_position_increment@entity@@UAE_NAAVvector3d@@@Z");
+	PATCH_PUSH_RET_POLY(0x00004A16C0 , entity::terrain_position, "?terrain_position@entity@@UBEABVvector3d@@XZ");
 }
 
 void patch_entity_id(void)

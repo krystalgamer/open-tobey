@@ -1595,6 +1595,8 @@ public:
   // virtual functions allow descendants to assert different notions of
   // position and radius for the purposes of computing entity's terrain
   // locale (i.e., sector and region(s) occupied)
+  // @Ok
+  // @Matching
   EXPORT virtual const vector3d& terrain_position() const { return get_abs_position(); }
   EXPORT virtual rational_t terrain_radius() const { return get_visual_radius(); }
 
