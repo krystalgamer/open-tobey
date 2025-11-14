@@ -1598,6 +1598,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual const vector3d& terrain_position() const { return get_abs_position(); }
+  // @Ok
+  // @Matching
   EXPORT virtual rational_t terrain_radius() const { return get_visual_radius(); }
 
   // this exists so characters can override it and attack their collision geometry
