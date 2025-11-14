@@ -3715,7 +3715,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1640 , entity::is_a_scanner, "?is_a_scanner@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A1660 , entity::is_a_sky, "?is_a_sky@entity@@UBE_NXZ");
 
-	PATCH_PUSH_RET_POLY(0x00004A1680 , entity::frame_done, "?frame_done@entity@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x004A1680 , entity::frame_done, "?frame_done@entity@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x004A16A0 , entity::add_position_increment, "?add_position_increment@entity@@UAE_NAAVvector3d@@@Z");
 }
 
 void patch_entity_id(void)
