@@ -1580,30 +1580,34 @@ public:
   // ALWAYS AVAILABLE
 
   // get older:
-  virtual void advance_age(time_value_t t);
+  EXPORT virtual void advance_age(time_value_t t);
 
 //  virtual void frame_advance( time_value_t t );
-  virtual void frame_done() {}
+  // @Ok
+  // @Matching
+  EXPORT virtual void frame_done() {}
 
 
-  virtual bool add_position_increment( vector3d& v ) { assert(false); return false; }
+  // @Ok
+  // @Matching
+  EXPORT virtual bool add_position_increment( vector3d& v ) { assert(false); return false; }
 
   // virtual functions allow descendants to assert different notions of
   // position and radius for the purposes of computing entity's terrain
   // locale (i.e., sector and region(s) occupied)
-  virtual const vector3d& terrain_position() const { return get_abs_position(); }
-  virtual rational_t terrain_radius() const { return get_visual_radius(); }
+  EXPORT virtual const vector3d& terrain_position() const { return get_abs_position(); }
+  EXPORT virtual rational_t terrain_radius() const { return get_visual_radius(); }
 
   // this exists so characters can override it and attack their collision geometry
   // to their waist rather than to the actor
 
-  virtual const po& get_colgeom_root_po() const { return get_abs_po(); }
-  virtual const entity * get_colgeom_root() const { return this; }
+  EXPORT virtual const po& get_colgeom_root_po() const { return get_abs_po(); }
+  EXPORT virtual const entity * get_colgeom_root() const { return this; }
 
   // these virtual functions allow types descended from entity to be
   // recognized when adding them to regions, so that the region class can
   // maintain lists of different entity types as desired
-  virtual void add_me_to_region( region* r );
+  EXPORT virtual void add_me_to_region( region* r );
   // NOTE: any descendant of entity that overloads add_me_to_region() and
 
   // remove_me_from_region() must call the cleanup method remove_from_terrain()
@@ -1614,14 +1618,14 @@ public:
   // parent's version of remove_me_from_region() (which makes sense when you
   // think about it, since by that point the descendant class has already been
   // destroyed)
-  virtual void remove_me_from_region( region* r );
+  EXPORT virtual void remove_me_from_region( region* r );
 
   // compute_sector will determine what sector of the terrain BSP tree the
 
   // entity is in (using terrain_position(); see above), as well as all the
   // regions possibly occupied by the entity (if terrain_x() is greater
   // than zero)
-  virtual void compute_sector( terrain& ter, bool use_high_res_intersect = false );
+  EXPORT virtual void compute_sector( terrain& ter, bool use_high_res_intersect = false );
 
   bool has_valid_sector() const
   {
@@ -1657,11 +1661,11 @@ public:
 
   // force or un-force region membership
 
-  virtual void force_region( region_node* r );
-  virtual void force_current_region();
-  virtual void unforce_regions();
+  EXPORT virtual void force_region( region_node* r );
+  EXPORT virtual void force_current_region();
+  EXPORT virtual void unforce_regions();
   // put me into same region(s) as the given entity
-  virtual void force_regions( entity* e );
+  EXPORT virtual void force_regions( entity* e );
 
 /////////////////////////////////////////////////////////////////////////////
 // Parenting interface
@@ -1697,22 +1701,22 @@ private:
 // Motion Blur interface
 /////////////////////////////////////////////////////////////////////////////
 public:
-  virtual void record_motion();
+  EXPORT virtual void record_motion();
 
 /////////////////////////////////////////////////////////////////////////////
 // Marky Cam interface
 /////////////////////////////////////////////////////////////////////////////
 public:
-  virtual void camera_set_target( const vector3d& pos )  { assert(false); }
-  virtual void camera_set_roll( rational_t angle )     { assert(false); }
-  virtual void camera_set_collide_with_world( bool v ) { assert(false); }
+  EXPORT virtual void camera_set_target( const vector3d& pos )  { assert(false); }
+  EXPORT virtual void camera_set_roll( rational_t angle )     { assert(false); }
+  EXPORT virtual void camera_set_collide_with_world( bool v ) { assert(false); }
 
   // logarithmically transitions to the target parameters.  returns true when there.
-  virtual bool camera_slide_to( const vector3d& new_pos, const vector3d& new_target, rational_t new_roll, rational_t speed ) { assert( false ); return false; }
+  EXPORT virtual bool camera_slide_to( const vector3d& new_pos, const vector3d& new_target, rational_t new_roll, rational_t speed ) { assert( false ); return false; }
 
   // places the camera somewhere in a circle around the center, looking at the center.
-  virtual bool camera_slide_to_orbit( const vector3d& center, rational_t range, rational_t theta, rational_t psi, rational_t speed ) { assert( false ); return false; }
-  virtual void camera_orbit( const vector3d& center, rational_t range, rational_t theta, rational_t psi ) { assert( false ); }
+  EXPORT virtual bool camera_slide_to_orbit( const vector3d& center, rational_t range, rational_t theta, rational_t psi, rational_t speed ) { assert( false ); return false; }
+  EXPORT virtual void camera_orbit( const vector3d& center, rational_t range, rational_t theta, rational_t psi ) { assert( false ); }
 
 /////////////////////////////////////////////////////////////////////////////
 // Light Interface (This should probably be turned into an interface!!! - JDB)
