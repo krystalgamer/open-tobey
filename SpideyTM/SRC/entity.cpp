@@ -3721,6 +3721,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A16E0 , entity::terrain_radius, "?terrain_radius@entity@@UBEMXZ");
 
 	PATCH_PUSH_RET_POLY(0x004A1700 , entity::get_colgeom_root_po, "?get_colgeom_root_po@entity@@UBEABVpo@@XZ");
+	PATCH_PUSH_RET_POLY(0x004A1720 , entity::get_colgeom_root, "?get_colgeom_root@entity@@UBEPBV1@XZ");
 }
 
 void patch_entity_id(void)

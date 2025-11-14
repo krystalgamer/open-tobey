@@ -1608,6 +1608,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual const po& get_colgeom_root_po() const { return get_abs_po(); }
+  // @Ok
+  // @Matching
   EXPORT virtual const entity * get_colgeom_root() const { return this; }
 
   // these virtual functions allow types descended from entity to be
