@@ -371,6 +371,12 @@ int region::get_high_water_index( rational_t val ) const
 
 void region::add( entity* e )
 {
+	// @TODO
+	typedef void (__fastcall *add_ptr)(region*, int, entity*);
+	add_ptr add_func = (add_ptr)0x0050E530;
+	add_func(this, 0, e);
+	return;
+	PANIC;
   entity_list::iterator ei_begin = entities.begin();
   entity_list::iterator ei_end = entities.end();
 

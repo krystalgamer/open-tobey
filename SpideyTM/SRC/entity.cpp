@@ -836,6 +836,8 @@ bool entity::add_region( region_node* r )
 }
 
 
+// @Ok
+// @Matching
 // these virtual functions allow types descended from entity to be
 // recognized when adding them to regions, so that the region class can
 // maintain lists of different entity types as desired
@@ -3722,6 +3724,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A1700 , entity::get_colgeom_root_po, "?get_colgeom_root_po@entity@@UBEABVpo@@XZ");
 	PATCH_PUSH_RET_POLY(0x004A1720 , entity::get_colgeom_root, "?get_colgeom_root@entity@@UBEPBV1@XZ");
+
+	PATCH_PUSH_RET_POLY(0x004EB200 , entity::add_me_to_region, "?add_me_to_region@entity@@UAEXPAVregion@@@Z");
 }
 
 void patch_entity_id(void)
