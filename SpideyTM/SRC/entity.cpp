@@ -1756,6 +1756,8 @@ void       entity::set_near_range(rational_t)
 }
 
 
+// @Ok
+// @Matching
 rational_t entity::get_cutoff_range() const
 
 {
@@ -3746,6 +3748,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EFE50 , entity::set_additive_color, "?set_additive_color@entity@@UAEXABVcolor@@@Z");
 	PATCH_PUSH_RET_POLY(0x004EFEC0 , entity::get_near_range, "?get_near_range@entity@@UBEMXZ");
 	PATCH_PUSH_RET_POLY(0x004EFF30 , entity::set_near_range, "?set_near_range@entity@@UAEXM@Z");
+	PATCH_PUSH_RET_POLY(0x004EFFA0 , entity::get_cutoff_range, "?get_cutoff_range@entity@@UBEMXZ");
 }
 
 void patch_entity_id(void)
