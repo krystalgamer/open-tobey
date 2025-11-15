@@ -359,6 +359,7 @@ void validate_os_developer_options(void)
 
 
 	VALIDATE(os_developer_options, flags[os_developer_options::FLAG_MOVE_EDITOR], 0x24);
+	VALIDATE(os_developer_options, flags[os_developer_options::FLAG_DISTANCE_FADING], 0x3B);
 }
 
 void patch_os_developer_options(void)

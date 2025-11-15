@@ -141,6 +141,8 @@ bool visual_rep::is_uv_animated() const
 void validate_visual_rep(void)
 {
 	VALIDATE(visual_rep, type, 4);
+
+	VALIDATE_VTABLE(visual_rep, get_distance_fade_ok, 14);
 }
 
 #include "my_patch.h"

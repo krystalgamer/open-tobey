@@ -1144,6 +1144,8 @@ void entity::set_alternative_materials( const stringx& alt_mat_name )
 	PANIC;
 }
 
+// @Ok
+// @Matching
 bool entity::get_distance_fade_ok() const
 {
   if (!os_developer_options::inst()->is_flagged(os_developer_options::FLAG_DISTANCE_FADING))
@@ -3796,6 +3798,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004F2980 , entity::apply_damage, "?apply_damage@entity@@UAEXHABVvector3d@@0HPAV1@H@Z");
 
 	PATCH_PUSH_RET_POLY(0x004A1900 , entity::get_detonate_position, "?get_detonate_position@entity@@UBE?AVvector3d@@XZ");
+
+	PATCH_PUSH_RET_POLY(0x004EC220 , entity::get_distance_fade_ok, "?get_distance_fade_ok@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)

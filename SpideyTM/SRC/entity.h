@@ -2228,7 +2228,7 @@ public:
   // used by wds to determine when compute_sector() is needed
   rational_t last_compute_sector_position_hash;
 
-  virtual bool get_distance_fade_ok() const;
+  EXPORT virtual bool get_distance_fade_ok() const;
 
   region_node * update_region(bool parent_computed = false);
 
