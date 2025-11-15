@@ -1260,6 +1260,8 @@ void entity::look_at( const vector3d& abs_pos )
 }
 
 
+// @Ok
+// @Matching
 // force entity to belong to current region(s) until un-forced (see below)
 void entity::force_current_region()
 {
@@ -3715,6 +3717,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EB200 , entity::add_me_to_region, "?add_me_to_region@entity@@UAEXPAVregion@@@Z");
 	PATCH_PUSH_RET_POLY(0x004EB220 , entity::remove_me_from_region, "?remove_me_from_region@entity@@UAEXPAVregion@@@Z");
 	PATCH_PUSH_RET_POLY(0x004A1740 , entity::get_region, "?get_region@entity@@UBEPAVnode@?$graph@Vstringx@@PAVregion@@PAVportal@@U?$less@Vstringx@@@std@@@@XZ");
+
+	PATCH_PUSH_RET_POLY(0x004EC790 , entity::force_current_region, "?force_current_region@entity@@UAEXXZ");
 }
 
 void patch_entity_id(void)
