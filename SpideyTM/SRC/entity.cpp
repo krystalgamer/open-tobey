@@ -3722,6 +3722,7 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A1760 , entity::camera_set_target, "?camera_set_target@entity@@UAEXABVvector3d@@@Z");
 	PATCH_PUSH_RET_POLY(0x004A1780 , entity::camera_set_roll, "?camera_set_roll@entity@@UAEXM@Z");
+	PATCH_PUSH_RET_POLY(0x004A17A0 , entity::camera_set_collide_with_world, "?camera_set_collide_with_world@entity@@UAEX_N@Z");
 }
 
 void patch_entity_id(void)

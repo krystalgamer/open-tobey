@@ -1733,6 +1733,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual void camera_set_roll( rational_t angle )     { assert(false); }
+  // @Ok
+  // @Matching
   EXPORT virtual void camera_set_collide_with_world( bool v ) { assert(false); }
 
   // logarithmically transitions to the target parameters.  returns true when there.
