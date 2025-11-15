@@ -1768,9 +1768,9 @@ public:
   EXPORT virtual void       set_cutoff_range(rational_t _r);
 
   // @TODO
-  EXPORT virtual void       add_light_category(void) { PANIC; }
+  EXPORT virtual void       add_light_category(int);
   // @TODO
-  EXPORT virtual void       remove_light_category(void) { PANIC; }
+  EXPORT virtual void       remove_light_category(int);
 
   // not technically an interface to a light, but interface
   // to characters influenced by lights:
