@@ -1708,6 +1708,8 @@ const color& entity::get_color() const
   return evil_color;
 }
 
+// @Ok
+// @Matching
 void   entity::set_color(const color&)
 {
   stringx composite = id.get_val() + " is not a light source.";
@@ -3727,10 +3729,11 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1780 , entity::camera_set_roll, "?camera_set_roll@entity@@UAEXM@Z");
 	PATCH_PUSH_RET_POLY(0x004A17A0 , entity::camera_set_collide_with_world, "?camera_set_collide_with_world@entity@@UAEX_N@Z");
 	PATCH_PUSH_RET_POLY(0x004A17C0 , entity::camera_slide_to, "?camera_slide_to@entity@@UAE_NABVvector3d@@0MM@Z");
-	PATCH_PUSH_RET_POLY(0x004A17E0  , entity::camera_slide_to_orbit, "?camera_slide_to_orbit@entity@@UAE_NABVvector3d@@MMMM@Z");
-	PATCH_PUSH_RET_POLY(0x004A1800  , entity::camera_orbit, "?camera_orbit@entity@@UAEXABVvector3d@@MMM@Z");
+	PATCH_PUSH_RET_POLY(0x004A17E0 , entity::camera_slide_to_orbit, "?camera_slide_to_orbit@entity@@UAE_NABVvector3d@@MMMM@Z");
+	PATCH_PUSH_RET_POLY(0x004A1800 , entity::camera_orbit, "?camera_orbit@entity@@UAEXABVvector3d@@MMM@Z");
 
-	PATCH_PUSH_RET_POLY(0x004EFD00  , entity::get_color, "?get_color@entity@@UBEABVcolor@@XZ");
+	PATCH_PUSH_RET_POLY(0x004EFD00 , entity::get_color, "?get_color@entity@@UBEABVcolor@@XZ");
+	PATCH_PUSH_RET_POLY(0x004EFD70 , entity::set_color, "?set_color@entity@@UAEXABVcolor@@@Z");
 }
 
 void patch_entity_id(void)
