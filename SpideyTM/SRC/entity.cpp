@@ -1680,6 +1680,8 @@ void entity::set_age(time_value_t new_age)
   frame_time_info.set_age(new_age);
 }
 
+// @Ok
+// @Matching
 void entity::rebirth()
 {
 //  age = 0;
@@ -3875,6 +3877,7 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET(0x004EFBC0 , entity::set_age);
 	PATCH_PUSH_RET(0x004EFBA0 , entity::get_age);
+	PATCH_PUSH_RET(0x004EFBE0 , entity::rebirth);
 }
 
 void patch_entity_id(void)
