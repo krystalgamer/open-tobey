@@ -940,6 +940,13 @@ PANIC;
 
 void ai_interface::pop_disable()
 {
+	// @TODO
+	typedef void (__fastcall *func_ptr)(ai_interface*);
+	func_ptr func = (func_ptr)0x00783780;
+
+	func(this);
+	return;
+	PANIC;
 
 #ifdef BUILD_DEBUG
   stringx ent_name = my_entity->get_name();

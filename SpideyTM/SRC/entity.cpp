@@ -2995,10 +2995,19 @@ void entity::suspend()
 
 
 
+// @Ok
+// @Matching
 void entity::unsuspend()
 {
-	// @TODO
-	PANIC;
+	if (is_flagged(EFLAG_MISC_SUSPENDED))
+	{
+		this->flags &= ~EFLAG_MISC_SUSPENDED;
+
+		if (has_ai_ifc())
+		{
+			ai_ifc()->pop_disable();
+		}
+	}
 }
 
 
@@ -3818,6 +3827,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004F3590 , entity::allow_targeting, "?allow_targeting@entity@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x004F4840 , entity::suspend, "?suspend@entity@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x004F4880 , entity::unsuspend, "?unsuspend@entity@@UAEXXZ");
 }
 
 void patch_entity_id(void)
