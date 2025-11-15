@@ -1737,6 +1737,8 @@ public:
   // @Matching
   EXPORT virtual void camera_set_collide_with_world( bool v ) { assert(false); }
 
+  // @Ok
+  // @Matching
   // logarithmically transitions to the target parameters.  returns true when there.
   EXPORT virtual bool camera_slide_to( const vector3d& new_pos, const vector3d& new_target, rational_t new_roll, rational_t speed ) { assert( false ); return false; }
 
