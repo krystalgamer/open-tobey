@@ -3720,7 +3720,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004EC790 , entity::force_current_region, "?force_current_region@entity@@UAEXXZ");
 
-	PATCH_PUSH_RET_POLY(0x00004A1760 , entity::camera_set_target, "?camera_set_target@entity@@UAEXABVvector3d@@@Z");
+	PATCH_PUSH_RET_POLY(0x004A1760 , entity::camera_set_target, "?camera_set_target@entity@@UAEXABVvector3d@@@Z");
+	PATCH_PUSH_RET_POLY(0x004A1780 , entity::camera_set_roll, "?camera_set_roll@entity@@UAEXM@Z");
 }
 
 void patch_entity_id(void)

@@ -1730,6 +1730,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual void camera_set_target( const vector3d& pos )  { assert(false); }
+  // @Ok
+  // @Matching
   EXPORT virtual void camera_set_roll( rational_t angle )     { assert(false); }
   EXPORT virtual void camera_set_collide_with_world( bool v ) { assert(false); }
 
