@@ -1783,6 +1783,8 @@ void       entity::add_light_category(int)
   error(composite.c_str());
 }
 
+// @Ok
+// @Matching
 void       entity::remove_light_category(int)
 {
   stringx composite = id.get_val() + " is not a light source.";
@@ -3767,6 +3769,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EFFA0 , entity::get_cutoff_range, "?get_cutoff_range@entity@@UBEMXZ");
 	PATCH_PUSH_RET_POLY(0x004F0010 , entity::set_cutoff_range, "?set_cutoff_range@entity@@UAEXM@Z");
 	PATCH_PUSH_RET_POLY(0x004F0080 , entity::add_light_category, "?add_light_category@entity@@UAEXH@Z");
+	PATCH_PUSH_RET_POLY(0x004F00F0 , entity::remove_light_category, "?remove_light_category@entity@@UAEXH@Z");
 }
 
 void patch_entity_id(void)
