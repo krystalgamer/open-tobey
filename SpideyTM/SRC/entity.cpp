@@ -3719,6 +3719,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1740 , entity::get_region, "?get_region@entity@@UBEPAVnode@?$graph@Vstringx@@PAVregion@@PAVportal@@U?$less@Vstringx@@@std@@@@XZ");
 
 	PATCH_PUSH_RET_POLY(0x004EC790 , entity::force_current_region, "?force_current_region@entity@@UAEXXZ");
+
+	PATCH_PUSH_RET_POLY(0x00004A1760 , entity::camera_set_target, "?camera_set_target@entity@@UAEXABVvector3d@@@Z");
 }
 
 void patch_entity_id(void)
