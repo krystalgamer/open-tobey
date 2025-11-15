@@ -1021,6 +1021,8 @@ void entity::set_family_visible( bool _vis, bool _cur_variant_only )
 
 ////////////////////////////////////////////////////////////////////////////////
 
+// @Ok
+// @Matching
 light_manager* entity::get_light_set() const
 {
   if (!my_light_mgr && has_parent())
@@ -3420,8 +3422,10 @@ void validate_entity(void)
 
 	VALIDATE(entity, radius, 0xA8);
 
+	VALIDATE(entity, my_light_mgr, 0xDC);
+
 	// @Temp
-	VALIDATE(entity, my_sector, 0x118);
+	//VALIDATE(entity, my_sector, 0x118);
 
 	// entity vtable validation
 
@@ -3770,6 +3774,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004F0010 , entity::set_cutoff_range, "?set_cutoff_range@entity@@UAEXM@Z");
 	PATCH_PUSH_RET_POLY(0x004F0080 , entity::add_light_category, "?add_light_category@entity@@UAEXH@Z");
 	PATCH_PUSH_RET_POLY(0x004F00F0 , entity::remove_light_category, "?remove_light_category@entity@@UAEXH@Z");
+
+	PATCH_PUSH_RET_POLY(0x004EBEE0 , entity::get_light_set, "?get_light_set@entity@@UBEPAVlight_manager@@XZ");
 }
 
 void patch_entity_id(void)

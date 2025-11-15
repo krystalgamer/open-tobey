@@ -1781,7 +1781,6 @@ public:
 protected:
   // @Patch - moved it here since it's protected and offset is good
     rational_t radius;
-  light_manager* my_light_mgr;
 
 /////////////////////////////////////////////////////////////////////////////
 // Scripted movement interface
@@ -1892,6 +1891,11 @@ public:
 protected:
   entity_anim* current_anim;
 
+  PADDING(4);
+
+	// @Patch - moved around
+  light_manager* my_light_mgr;
+
 public:
   // attach entity to given animation
   EXPORT virtual bool attach_anim( entity_anim* new_anim );
@@ -1988,6 +1992,7 @@ public:
 // bounding-box info (only used by entities with collision mesh)
 /////////////////////////////////////////////////////////////////////////////
 protected:
+
   bounding_box* bbi;
 public:
   EXPORT virtual void compute_bounding_box();
