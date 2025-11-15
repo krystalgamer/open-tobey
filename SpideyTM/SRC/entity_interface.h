@@ -2,6 +2,8 @@
 #define ENTITY_INTERFACE_CLASS_HEADER
 
 
+// @Patch
+#include "algebra.h"
 
 /*** ENTITY_INTERFACE macro ***/
 #define ENTITY_INTERFACE(itype)                                           \

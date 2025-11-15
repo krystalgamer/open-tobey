@@ -23,6 +23,8 @@ class camera;
 
 class path_graph_edge;
 
+// @Patch
+#include "algebra.h"
 
 class path_graph_node
 {

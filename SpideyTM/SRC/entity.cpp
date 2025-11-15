@@ -2989,8 +2989,17 @@ bool entity::parse_instance( const stringx& pcf, chunk_file& fs )
 
 void entity::suspend()
 {
-	// @TODO
-	PANIC;
+	/*
+	if (!suspended)
+	{
+		suspended = true;
+
+		if (has_ai_ifc())
+		{
+			ai_ifc()->push_disble();
+		}
+	}
+	*/
 }
 
 

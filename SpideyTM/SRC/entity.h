@@ -564,8 +564,7 @@ protected:
   // float scroll_v;
 
   /*** Interfaces ***/
-  // @Patch - remove
-   // ENTITY_INTERFACE(ai)
+   ENTITY_INTERFACE(ai)
 
 
 	   // @Patch -comment because this is too big

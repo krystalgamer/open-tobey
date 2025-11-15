@@ -25,6 +25,10 @@ NULL=
 NULL=nul
 !ENDIF 
 
+CPP=cl.exe
+MTL=midl.exe
+RSC=rc.exe
+
 !IF  "$(CFG)" == "tobey - Win32 Release"
 
 OUTDIR=.\Release
@@ -38,6 +42,9 @@ ALL : "$(OUTDIR)\tobey.dll"
 
 CLEAN :
 	-@erase "$(INTDIR)\adler32.obj"
+	-@erase "$(INTDIR)\ai_interface.obj"
+	-@erase "$(INTDIR)\ai_locomotion.obj"
+	-@erase "$(INTDIR)\ai_polypath.obj"
 	-@erase "$(INTDIR)\anim_flavor.obj"
 	-@erase "$(INTDIR)\app.obj"
 	-@erase "$(INTDIR)\billboard.obj"
@@ -56,6 +63,7 @@ CLEAN :
 	-@erase "$(INTDIR)\file_manager.obj"
 	-@erase "$(INTDIR)\filespec.obj"
 	-@erase "$(INTDIR)\frame_info.obj"
+	-@erase "$(INTDIR)\game.obj"
 	-@erase "$(INTDIR)\global.obj"
 	-@erase "$(INTDIR)\gzio.obj"
 	-@erase "$(INTDIR)\infblock.obj"
@@ -72,6 +80,7 @@ CLEAN :
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
+	-@erase "$(INTDIR)\path.obj"
 	-@erase "$(INTDIR)\pc_algebra.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\pmesh.obj"
@@ -111,42 +120,8 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP=cl.exe
 CPP_PROJ=/nologo /MT /W3 /Zi /O2 /I "SpideyTM\SRC\sgistl" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
-
-.c{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.c{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-MTL=midl.exe
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
-RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
 BSC32_SBRS= \
@@ -194,6 +169,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\ngl_pc.obj" \
 	"$(INTDIR)\pc_algebra.obj" \
 	"$(INTDIR)\pc_timer.obj" \
+	"$(INTDIR)\pmesh.obj" \
 	"$(INTDIR)\po.obj" \
 	"$(INTDIR)\po_anim.obj" \
 	"$(INTDIR)\pstring.obj" \
@@ -218,7 +194,11 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\pmesh.obj"
+	"$(INTDIR)\ai_interface.obj" \
+	"$(INTDIR)\ai_locomotion.obj" \
+	"$(INTDIR)\ai_polypath.obj" \
+	"$(INTDIR)\path.obj" \
+	"$(INTDIR)\game.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -238,6 +218,9 @@ ALL : "$(OUTDIR)\tobey.dll"
 
 CLEAN :
 	-@erase "$(INTDIR)\adler32.obj"
+	-@erase "$(INTDIR)\ai_interface.obj"
+	-@erase "$(INTDIR)\ai_locomotion.obj"
+	-@erase "$(INTDIR)\ai_polypath.obj"
 	-@erase "$(INTDIR)\anim_flavor.obj"
 	-@erase "$(INTDIR)\app.obj"
 	-@erase "$(INTDIR)\billboard.obj"
@@ -256,6 +239,7 @@ CLEAN :
 	-@erase "$(INTDIR)\file_manager.obj"
 	-@erase "$(INTDIR)\filespec.obj"
 	-@erase "$(INTDIR)\frame_info.obj"
+	-@erase "$(INTDIR)\game.obj"
 	-@erase "$(INTDIR)\global.obj"
 	-@erase "$(INTDIR)\gzio.obj"
 	-@erase "$(INTDIR)\infblock.obj"
@@ -272,6 +256,7 @@ CLEAN :
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
+	-@erase "$(INTDIR)\path.obj"
 	-@erase "$(INTDIR)\pc_algebra.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\pmesh.obj"
@@ -313,42 +298,8 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP=cl.exe
 CPP_PROJ=/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
-
-.c{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.c{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-MTL=midl.exe
 MTL_PROJ=/nologo /D "_DEBUG" /mktyplib203 /win32 
-RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
 BSC32_SBRS= \
@@ -396,6 +347,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\ngl_pc.obj" \
 	"$(INTDIR)\pc_algebra.obj" \
 	"$(INTDIR)\pc_timer.obj" \
+	"$(INTDIR)\pmesh.obj" \
 	"$(INTDIR)\po.obj" \
 	"$(INTDIR)\po_anim.obj" \
 	"$(INTDIR)\pstring.obj" \
@@ -420,7 +372,11 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\pmesh.obj"
+	"$(INTDIR)\ai_interface.obj" \
+	"$(INTDIR)\ai_locomotion.obj" \
+	"$(INTDIR)\ai_polypath.obj" \
+	"$(INTDIR)\path.obj" \
+	"$(INTDIR)\game.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -428,6 +384,36 @@ LINK32_OBJS= \
 <<
 
 !ENDIF 
+
+.c{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.c{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
 
 !IF "$(NO_EXTERNAL_DEPS)" != "1"
@@ -530,6 +516,24 @@ SOURCE=.\SpideyTM\SRC\zlib\zutil.c
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\ai_interface.cpp
+
+"$(INTDIR)\ai_interface.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\ai_locomotion.cpp
+
+"$(INTDIR)\ai_locomotion.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\ai_polypath.cpp
+
+"$(INTDIR)\ai_polypath.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\anim_flavor.cpp
 
 "$(INTDIR)\anim_flavor.obj" : $(SOURCE) "$(INTDIR)"
@@ -619,6 +623,12 @@ SOURCE=.\SpideyTM\SRC\frame_info.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\game.cpp
+
+"$(INTDIR)\game.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\global.cpp
 
 "$(INTDIR)\global.obj" : $(SOURCE) "$(INTDIR)"
@@ -664,6 +674,12 @@ SOURCE=.\SpideyTM\SRC\my_assertions.cpp
 SOURCE=.\NGL\PC\ngl_pc.cpp
 
 "$(INTDIR)\ngl_pc.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\path.cpp
+
+"$(INTDIR)\path.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

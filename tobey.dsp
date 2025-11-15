@@ -156,6 +156,18 @@ SOURCE=.\SpideyTM\SRC\zlib\zutil.c
 # End Group
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\ai_interface.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\ai_locomotion.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\ai_polypath.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\anim_flavor.cpp
 # End Source File
 # Begin Source File
@@ -216,6 +228,10 @@ SOURCE=.\SpideyTM\SRC\frame_info.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\game.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\global.cpp
 # End Source File
 # Begin Source File
@@ -245,6 +261,10 @@ SOURCE=.\SpideyTM\SRC\my_assertions.cpp
 # Begin Source File
 
 SOURCE=.\NGL\PC\ngl_pc.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\path.cpp
 # End Source File
 # Begin Source File
 
@@ -688,6 +708,38 @@ SOURCE=.\SpideyTM\SRC\aggvertbuf.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\ai_constants.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\ai_goals.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\ai_goals_mac.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\ai_interface.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\ai_locomotion.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\ai_polypath.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\ai_polypath_cell.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\ai_polypath_heap.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\algebra.h
 # End Source File
 # Begin Source File
@@ -708,6 +760,10 @@ SOURCE=.\SpideyTM\SRC\anim_ids.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\animation_interface.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\app.h
 # End Source File
 # Begin Source File
@@ -716,7 +772,15 @@ SOURCE=.\SpideyTM\SRC\archalloc.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\attribute_template.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\avltree.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\b_spline.h
 # End Source File
 # Begin Source File
 
@@ -757,6 +821,10 @@ SOURCE=.\SpideyTM\SRC\capsule.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\cface.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\character_hard_attribs.h
 # End Source File
 # Begin Source File
 
@@ -841,6 +909,10 @@ SOURCE=.\SpideyTM\SRC\entity.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\entity_anim.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\entity_hard_attribs.h
 # End Source File
 # Begin Source File
 
@@ -929,6 +1001,14 @@ SOURCE=.\SpideyTM\SRC\global_signals.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\graph.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\guidance_sys.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\hard_attrib_interface.h
 # End Source File
 # Begin Source File
 
@@ -1112,6 +1192,10 @@ SOURCE=.\SpideyTM\SRC\pcglobals.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\physical_interface.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\physics.h
 # End Source File
 # Begin Source File
@@ -1133,6 +1217,10 @@ SOURCE=.\SpideyTM\SRC\po.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\po_anim.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\polytube.h
 # End Source File
 # Begin Source File
 
@@ -1212,6 +1300,10 @@ SOURCE=.\SpideyTM\SRC\signals.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\simple_classes.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\singleton.h
 # End Source File
 # Begin Source File
@@ -1225,6 +1317,10 @@ SOURCE=.\SpideyTM\SRC\sl_debugger.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\so_data_block.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sound_interface.h
 # End Source File
 # Begin Source File
 
@@ -1253,6 +1349,10 @@ SOURCE=.\SpideyTM\SRC\terrain.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\textfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\time_interface.h
 # End Source File
 # Begin Source File
 
