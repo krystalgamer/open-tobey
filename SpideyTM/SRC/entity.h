@@ -480,7 +480,8 @@ enum
 
 class ai_interface;
 class animation_interface;
-// BIGCULL class damage_interface;
+// @Patch - undo BIGCULL
+class damage_interface;
 class hard_attrib_interface;
 class owner_interface;
 class physical_interface;
@@ -683,7 +684,6 @@ protected:
 	   // @Patch -comment because this is too big
   /*
    ENTITY_INTERFACE(animation)
-// BIGCULL    ENTITY_INTERFACE(damage)
    ENTITY_INTERFACE(hard_attrib)
    ENTITY_INTERFACE(owner)
    ENTITY_INTERFACE(physical)
@@ -1938,7 +1938,12 @@ protected:
   // @Patch - moved around
    ENTITY_INTERFACE(ai)
 
-	PADDING(0xDC-0xB0-4);
+	PADDING(4);// prob animation ifc
+
+   // @Patch - undo BIGCULL for damage
+ENTITY_INTERFACE(damage);
+
+	PADDING(0xDC-0xB8-4);
 	// @Patch - moved around
   light_manager* my_light_mgr;
 
@@ -2262,22 +2267,22 @@ public:
 //  brain * get_brain();
 
   bool is_hero() const;
-  virtual bool possibly_active() const;
-  virtual bool possibly_aging() const;
+  EXPORT virtual bool possibly_active() const;
+  EXPORT virtual bool possibly_aging() const;
   // @Patch - virtual 
-  virtual void region_update_poss_active();
+  EXPORT virtual void region_update_poss_active();
   // @Patch - virtual 
-  virtual void region_update_poss_render();
+  EXPORT virtual void region_update_poss_render();
   // @Patch - virtual 
-  virtual void region_update_poss_collide();
+  EXPORT virtual void region_update_poss_collide();
 
   // @Patch - remove
   //virtual void set_control_active(bool a);
 
 
-  virtual bool is_alive() const;
-  virtual bool is_dying() const;
-  virtual bool is_alive_or_dying() const;
+  EXPORT virtual bool is_alive() const;
+  EXPORT virtual bool is_dying() const;
+  EXPORT virtual bool is_alive_or_dying() const;
 
 
   virtual void preload();

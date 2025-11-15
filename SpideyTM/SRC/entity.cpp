@@ -27,6 +27,7 @@
 
 // @Patch
 #include "ai_interface.h"
+#include "damage_interface.h"
 
 // @TODO - REMOVE
 DEFINE_SINGLETON(anim_id_manager);
@@ -3036,11 +3037,13 @@ brain * entity::get_brain()
 }
 */
 
+// @Ok
+// @Matching
 bool entity::is_alive() const
 {
-// BIGCULL return(!has_damage_ifc() || damage_ifc()->is_alive());
+	// @Patch - undo BIGCULL
+	return(!has_damage_ifc() || damage_ifc()->is_alive());
 return true;
-
 }
 
 
@@ -3446,6 +3449,8 @@ void validate_entity(void)
 
 	VALIDATE(entity, my_ai_interface, 0xB0);
 
+	VALIDATE(entity, my_damage_interface, 0xB8);
+
 	VALIDATE(entity, my_light_mgr, 0xDC);
 
 	// @Temp
@@ -3832,6 +3837,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004F4880 , entity::unsuspend, "?unsuspend@entity@@UAEXXZ");
 
 	PATCH_PUSH_RET_POLY(0x004F4A60 , entity::possibly_aging, "?possibly_aging@entity@@UBE_NXZ");
+
+	PATCH_PUSH_RET_POLY(0x004F48C0 , entity::is_alive, "?is_alive@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
