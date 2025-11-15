@@ -570,9 +570,12 @@ public:
     // Walkable stuff
     bool frame_delta_valid;
     bool last_frame_delta_valid;
-    po frame_delta;
 
     time_value_t frame_time;
+	PADDING(0x10);
+
+    po frame_delta;
+
     movement_info()
     {
       frame_delta_valid=false;

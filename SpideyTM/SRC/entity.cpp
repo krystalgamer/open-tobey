@@ -956,9 +956,16 @@ void entity::invalidate_frame_delta()
 
 
 
+// @Ok
+// @Matching
 vector3d entity::get_last_position() const
 {
-  return get_abs_position()-get_frame_abs_delta_position();
+	if (this->mi)
+	{
+		return this->mi->frame_delta.get_position();
+	}
+
+	return get_abs_position();
 }
 
 
@@ -3694,8 +3701,12 @@ void validate_entity(void)
 
 void validate_movement_info(void)
 {
+	VALIDATE_SIZE(entity::movement_info, 0x58);
+
 	VALIDATE(entity::movement_info, frame_delta_valid, 0x0);
 	VALIDATE(entity::movement_info, last_frame_delta_valid, 0x1);
+
+	VALIDATE(entity::movement_info, frame_delta, 0x18);
 }
 
 #include "my_patch.h"
@@ -3854,6 +3865,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004F4910 , entity::is_alive_or_dying, "?is_alive_or_dying@entity@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x004F4D90 , entity::preload, "?preload@entity@@UAEXXZ");
+
+	PATCH_PUSH_RET_POLY(0x004EBDC0 , entity::get_last_position, "?get_last_position@entity@@UBE?AVvector3d@@XZ");
 }
 
 void patch_entity_id(void)
