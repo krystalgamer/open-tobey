@@ -523,8 +523,14 @@ class entity : public bone
 	int TextureFrame;   //  this is used to lock texture frames of ifl's
 	bool cull_entity;		//	this flag will tell NGL to cull this entity
 
-  bool use_uv_scrolling;
-  float scroll_u;
+
+	// @Patch - removed for now
+  //bool use_uv_scrolling;
+  //float scroll_u;
+
+	PADDING(4);
+  // @Patch - moved around
+  region_node*     center_region;
   // @Patch - remove for now
   // float scroll_v;
 
@@ -1271,13 +1277,17 @@ public:
 protected:
   static unsigned int visit_key;
 
-  unsigned int visited;
+  // @Patch - removed for now
+  // unsigned int visited;
 public:
   // this function prepares for a NEW visitation sequence
   static void prepare_for_visiting() { visit_key++; }
+  // @Patch - removed for now
+  /*
   void visit() { visited = visit_key; }
   void unvisit() { visited = visit_key-1; }
   bool already_visited() const { return (visited == visit_key); }
+  */
 
 protected:
   static unsigned int visit_key2;
@@ -1301,10 +1311,10 @@ public:
 public:
 
   // EFLAG_MISC_GRAPHICS
-  virtual time_value_t get_visrep_ending_time() const { assert(my_visrep); return my_visrep->get_ending_time(); }
+  EXPORT virtual time_value_t get_visrep_ending_time() const { assert(my_visrep); return my_visrep->get_ending_time(); }
 
-  virtual vector3d get_visual_center() const;
-  virtual rational_t get_visual_radius() const;
+  EXPORT virtual vector3d get_visual_center() const;
+  EXPORT virtual rational_t get_visual_radius() const;
   // @Patch - removed
   /*
   virtual rational_t get_visual_xz_radius_rel_center() const { return vis_xz_rad_rel_center; }
@@ -1644,10 +1654,12 @@ public:
 
   sector* get_sector() const { return my_sector; }
 
+  // @Ok
+  // @Matching
   // last region that was physically occupied by the entity;
   // NOTE: will return NULL if the entity has never occupied a valid sector
   // or is currently forced to at least one region (see force_region())
-  virtual region_node* get_region() const { return center_region; }
+  EXPORT virtual region_node* get_region() const { return center_region; }
 
   region_node* get_primary_region() const;
 
@@ -2055,7 +2067,6 @@ protected:
 
   // terrain locale data
   sector*          my_sector;
-  region_node*     center_region;
 #ifndef REGIONCULL
   region_node_pset in_regions;
 

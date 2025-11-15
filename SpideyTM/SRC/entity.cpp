@@ -878,30 +878,7 @@ void entity::remove_from_terrain()
 // add entity to regions newly inhabited
 void entity::_update_regions()
 {
-#ifndef REGIONCULL
-  region_node_pset::iterator i,j;
-  for ( i=in_regions.begin(); i!=in_regions.end(); )
-  {
-
-    region* r = (*i)->get_data();
-    if ( !r->already_visited() )
-    {
-      remove_me_from_region( r );
-
-      j = i;
-      ++j;
-      in_regions.erase( i );
-
-      i = j;
-    }
-
-    else
-      ++i;
-  }
-  vector<region_node*>::iterator k;
-  for ( k=new_regions.begin(); k!=new_regions.end(); k++ )
-    add_region( *k );
-#endif
+	PANIC;
 }
 
 
@@ -3401,6 +3378,8 @@ void validate_entity(void)
 
 	VALIDATE(entity, my_visrep, 0x84);
 
+	VALIDATE(entity, center_region, 0x98);
+
 	VALIDATE(entity, radius, 0xA8);
 
 	// entity vtable validation
@@ -3729,6 +3708,7 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004EB200 , entity::add_me_to_region, "?add_me_to_region@entity@@UAEXPAVregion@@@Z");
 	PATCH_PUSH_RET_POLY(0x004EB220 , entity::remove_me_from_region, "?remove_me_from_region@entity@@UAEXPAVregion@@@Z");
+	PATCH_PUSH_RET_POLY(0x004A1740 , entity::get_region, "?get_region@entity@@UBEPAVnode@?$graph@Vstringx@@PAVregion@@PAVportal@@U?$less@Vstringx@@@std@@@@XZ");
 }
 
 void patch_entity_id(void)
