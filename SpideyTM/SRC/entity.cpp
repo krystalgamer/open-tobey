@@ -3054,6 +3054,8 @@ bool entity::is_dying() const
   return(false);
 }
 
+// @Ok
+// @Matching
 bool entity::is_alive_or_dying() const
 {
   return(is_alive() || is_dying());
@@ -3842,6 +3844,7 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004F48C0 , entity::is_alive, "?is_alive@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004F48F0 , entity::is_dying, "?is_dying@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004F4910 , entity::is_alive_or_dying, "?is_alive_or_dying@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
