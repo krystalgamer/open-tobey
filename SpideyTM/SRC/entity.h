@@ -2271,8 +2271,8 @@ public:
   void inc_target_timer(rational_t inc) { target_timer += inc; }
   void set_target_timer(rational_t val) { target_timer = val; }
 
-  virtual void suspend();
-  virtual void unsuspend();
+  EXPORT virtual void suspend();
+  EXPORT virtual void unsuspend();
   bool is_suspended(){return suspended;}
 
   entity_controller * get_controller(){return my_controller;}
