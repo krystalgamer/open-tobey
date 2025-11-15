@@ -1663,6 +1663,8 @@ void entity::invalidate_colgeom()
 }
 
 
+// @Ok
+// @Matching
 time_value_t entity::get_age() const
 {
 //  return age;
@@ -3872,6 +3874,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EBDC0 , entity::get_last_position, "?get_last_position@entity@@UBE?AVvector3d@@XZ");
 
 	PATCH_PUSH_RET(0x004EFBC0 , entity::set_age);
+	PATCH_PUSH_RET(0x004EFBA0 , entity::get_age);
 }
 
 void patch_entity_id(void)
