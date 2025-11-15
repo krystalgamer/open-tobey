@@ -846,6 +846,8 @@ void entity::add_me_to_region( region* r )
   r->add( this );
 }
 
+// @Ok
+// @Matching
 void entity::remove_me_from_region( region* r )
 {
   r->remove( this );
@@ -3726,6 +3728,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1720 , entity::get_colgeom_root, "?get_colgeom_root@entity@@UBEPBV1@XZ");
 
 	PATCH_PUSH_RET_POLY(0x004EB200 , entity::add_me_to_region, "?add_me_to_region@entity@@UAEXPAVregion@@@Z");
+	PATCH_PUSH_RET_POLY(0x004EB220 , entity::remove_me_from_region, "?remove_me_from_region@entity@@UAEXPAVregion@@@Z");
 }
 
 void patch_entity_id(void)

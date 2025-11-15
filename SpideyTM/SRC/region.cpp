@@ -459,6 +459,13 @@ void region::add( entity* e )
 
 void region::remove( entity* e )
 {
+	// @TODO
+	typedef void (__fastcall *remove_ptr)(region*, int, entity*);
+	remove_ptr remove_func = (remove_ptr)0x0050E940;
+	remove_func(this, 0, e);
+	return;
+	PANIC;
+
   entity_list::iterator ei_end = entities.end();
   entity_list::iterator ei = std::find( entities.begin(), ei_end, e );
   if ( ei != ei_end )
