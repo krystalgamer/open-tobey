@@ -2217,6 +2217,8 @@ public:
                                    vector3d* impact_pos, vector3d* impact_normal,
                                    rational_t default_radius = 1.0f, bool rear_cull = true ) const;
 
+  // @Ok
+  // @Matching
   EXPORT virtual vector3d get_detonate_position() const { return get_abs_position(); }
 
   EXPORT virtual void add_signal_callbacks();

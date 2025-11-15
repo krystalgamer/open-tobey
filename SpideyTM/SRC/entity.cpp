@@ -3794,6 +3794,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A18B0 , entity::get_last_capsule, "?get_last_capsule@entity@@UAEHXZ");
 
 	PATCH_PUSH_RET_POLY(0x004F2980 , entity::apply_damage, "?apply_damage@entity@@UAEXHABVvector3d@@0HPAV1@H@Z");
+
+	PATCH_PUSH_RET_POLY(0x004A1900 , entity::get_detonate_position, "?get_detonate_position@entity@@UBE?AVvector3d@@XZ");
 }
 
 void patch_entity_id(void)
