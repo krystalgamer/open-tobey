@@ -983,6 +983,8 @@ public:
   EXPORT short get_bone_idx() const           { return bone_idx; }
   EXPORT void set_bone_idx( short _bone_idx ) { bone_idx = _bone_idx; }
 
+  // @Ok
+  // @Matching
   EXPORT void set_preloaded( bool s ) { if(s) ext_flags |= EFLAG_EXT_PRELOADED; else ext_flags &= ~EFLAG_EXT_PRELOADED; }
   // @Ok
   // @Matching
