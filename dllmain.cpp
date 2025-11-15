@@ -139,6 +139,7 @@ extern "C" EXPORT int run_assertions(void)
 	validate_damage_interface();
 
 	validate_bounded_attribute();
+	validate_frame_info();
 
 	return FAIL_VALIDATION;
 }
@@ -227,6 +228,8 @@ void game_patches()
 	patch_movement_info();
 
 	patch_damage_interface();
+
+	patch_frame_info();
 }
 
 #pragma pack(push,1)

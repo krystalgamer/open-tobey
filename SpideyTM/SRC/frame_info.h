@@ -8,6 +8,8 @@
 
 class frame_info
 {
+	friend void validate_frame_info(void);
+	friend void patch_frame_info(void);
 private:
   time_value_t age;
   int ifl_frame_boost;
@@ -20,6 +22,8 @@ public:
   static void set_frame_rate(float);
   static float get_frame_rate ();
   time_value_t get_age() const;
+  // @Ok
+  // @Matching
   void set_age(time_value_t a) { age = a; }
   int get_ifl_frame_boost () const;
   void set_ifl_frame_boost( int boost ) { ifl_frame_boost = boost; }

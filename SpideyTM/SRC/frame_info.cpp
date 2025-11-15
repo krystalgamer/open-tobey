@@ -96,3 +96,16 @@ void frame_info::compute_boost_for_play(int period)
 
   }
 }
+
+
+#include "my_assertions.h"
+void validate_frame_info(void)
+{
+	VALIDATE(frame_info, age, 0);
+}
+
+#include "my_patch.h"
+
+void patch_frame_info(void)
+{
+}
