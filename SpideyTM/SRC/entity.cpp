@@ -24,6 +24,10 @@
 #include "entity_interface.h"
 #include "vm_thread.h"
 
+
+// @Patch
+#include "ai_interface.h"
+
 // @TODO - REMOVE
 DEFINE_SINGLETON(anim_id_manager);
 
@@ -2031,28 +2035,15 @@ void entity::reconstruct_anim_trees()
 
 bool entity::attach_anim( entity_anim* new_anim )
 {
-
-  assert( new_anim );
-  if ( current_anim==NULL || new_anim->get_priority()>=current_anim->get_priority() )
-  {
-    if ( current_anim && new_anim!=current_anim )
-    {
-      // another animation is currently attached;
-      // detach it
-      current_anim->detach();
-
-    }
-    current_anim = new_anim;
-    return true;
-  }
-  else
-    return false;
+	// @TODO
+	PANIC;
+	return true;
 }
 
 // detach given animation if it matches current_anim; returns true if successful
 void entity::detach_anim()
 {
-  current_anim = NULL;
+	PANIC;
 }
 
 
@@ -2987,19 +2978,19 @@ bool entity::parse_instance( const stringx& pcf, chunk_file& fs )
 }
 
 
+// @Ok
+// @Matching
 void entity::suspend()
 {
-	/*
-	if (!suspended)
+	if (!is_flagged(EFLAG_MISC_SUSPENDED))
 	{
-		suspended = true;
+		this->flags |= EFLAG_MISC_SUSPENDED;
 
 		if (has_ai_ifc())
 		{
-			ai_ifc()->push_disble();
+			ai_ifc()->push_disable();
 		}
 	}
-	*/
 }
 
 
@@ -3435,9 +3426,14 @@ void validate_entity(void)
 	VALIDATE(entity, my_visrep, 0x84);
 
 	VALIDATE(entity, mi, 0x90);
+
+	VALIDATE(entity, anim_trees, 0x94);
+
 	VALIDATE(entity, center_region, 0x98);
 
 	VALIDATE(entity, radius, 0xA8);
+
+	VALIDATE(entity, my_ai_interface, 0xB0);
 
 	VALIDATE(entity, my_light_mgr, 0xDC);
 
@@ -3665,6 +3661,8 @@ void validate_entity(void)
 	VALIDATE_VAL(EFLAG_MEMBER_HIDDEN, 0x80000000);
 
 	VALIDATE_VAL(EFLAG_EXT_NONTARGET, 0x20000);
+
+	VALIDATE_VAL(EFLAG_MISC_SUSPENDED, 0x40000000);
 }
 
 void validate_movement_info(void)
@@ -3818,6 +3816,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EC220 , entity::get_distance_fade_ok, "?get_distance_fade_ok@entity@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x004F3590 , entity::allow_targeting, "?allow_targeting@entity@@UBE_NXZ");
+
+	PATCH_PUSH_RET_POLY(0x004F4840 , entity::suspend, "?suspend@entity@@UAEXXZ");
 }
 
 void patch_entity_id(void)

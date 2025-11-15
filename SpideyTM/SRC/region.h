@@ -41,6 +41,9 @@ struct cface_replacement
   {
 	  // @TODO
 	  PANIC;
+
+	  vector3d *resp = NEW vector3d;
+	  return *resp;
   }
 
   const vector3d& get_center() const { return center; }

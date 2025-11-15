@@ -917,6 +917,15 @@ void ai_interface::render_ai(char level)
 
 void ai_interface::push_disable()
 {
+	// @TODO
+	typedef void (__fastcall *func_ptr)(ai_interface*);
+	func_ptr func = (func_ptr)0x00783740;
+
+	func(this);
+	return;
+PANIC;
+
+	/*
 #ifdef BUILD_DEBUG
   stringx ent_name = my_entity->get_name();
 #endif
@@ -926,6 +935,7 @@ void ai_interface::push_disable()
   assert(disable_count > 0);
 
   goto_position(my_entity->get_abs_position(), 25.0f, true, false, true);
+  */
 }
 
 void ai_interface::pop_disable()

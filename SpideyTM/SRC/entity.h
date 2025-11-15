@@ -367,6 +367,10 @@ enum entity_flag_t
   EFLAG_REGION_FORCED                        = 0x10000000, // replaced the region_forced bool.  means the entity is forced to a region.
   EFLAG_COLGEOM_INSTANCED                    = 0x20000000, // replaced the colgeom_instanced bool.  means the entity's colgeom is shared with other entities (in an instanced bank).
   EFLAG_MISC_NOKILLME                        = 0x40000000, // if true, then cell death doesn't cause a delete, used in pooled particle emitters
+
+  // @Patch - added
+  EFLAG_MISC_SUSPENDED                        = 0x40000000,
+
   EFLAG_MISC_REUSEME                         = 0x80000000, // if true, ready for pool re-use
 
   // @Patch - added
@@ -460,7 +464,8 @@ enum
   ANIM_LIPSYNC_A,		// animation channel dedicated to Lipsync anims
   ANIM_SCENE,
 
-  MAX_ANIM_SLOTS
+  // @patch - reduced the number
+  MAX_ANIM_SLOTS = 3
 };
 #define ANIM_PRIMARY ANIM_PRIMARY_A
 
@@ -522,75 +527,6 @@ class entity : public bone
 	int MaterialMask;   //  this is used to mask off materials
 	int TextureFrame;   //  this is used to lock texture frames of ifl's
 
-/////////////////////////////////////////////////////////////////////////////
-// Movement histry interface
-/////////////////////////////////////////////////////////////////////////////
-public:
-  struct movement_info
-  {
-    // Walkable stuff
-    bool frame_delta_valid;
-    bool last_frame_delta_valid;
-    po frame_delta;
-
-    time_value_t frame_time;
-    movement_info()
-    {
-      frame_delta_valid=false;
-      last_frame_delta_valid=false;
-
-    }
-
-    STATICALLOCCLASSHEADER
-  };
-
-protected:
-  // @Patch - moved around
-  // movement by script
-  movement_info * mi;
-
-  // @Patch - removed for now
-	// bool cull_entity;		//	this flag will tell NGL to cull this entity
-
-
-	// @Patch - removed for now
-  //bool use_uv_scrolling;
-  //float scroll_u;
-
-	PADDING(4);
-  // @Patch - moved around
-  region_node*     center_region;
-  // @Patch - remove for now
-  // float scroll_v;
-
-  /*** Interfaces ***/
-   ENTITY_INTERFACE(ai)
-
-
-	   // @Patch -comment because this is too big
-  /*
-   ENTITY_INTERFACE(animation)
-// BIGCULL    ENTITY_INTERFACE(damage)
-   ENTITY_INTERFACE(hard_attrib)
-   ENTITY_INTERFACE(owner)
-   ENTITY_INTERFACE(physical)
-   ENTITY_INTERFACE(render)
-#ifdef ECULL
-   ENTITY_INTERFACE(script_data)
-#endif
-   ENTITY_INTERFACE(skeleton)
-   ENTITY_INTERFACE(slave)
-   ENTITY_INTERFACE(soft_attrib)
-
-#ifdef ECULL
-   ENTITY_INTERFACE(sound)
-#endif
-   ENTITY_INTERFACE(time)
-#ifdef ECULL
-   ENTITY_INTERFACE(box_trigger)
-#endif
-   */
-
   /*** Interface support ***/
   public:
 
@@ -622,6 +558,151 @@ protected:
   EXPORT void set_texture_scroll (float u, float v) { PANIC; };
   // @Patch - removed for now
   //EXPORT void SetCull(bool cull) { cull_entity = cull; }
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Movement histry interface
+/////////////////////////////////////////////////////////////////////////////
+public:
+  struct movement_info
+  {
+    // Walkable stuff
+    bool frame_delta_valid;
+    bool last_frame_delta_valid;
+    po frame_delta;
+
+    time_value_t frame_time;
+    movement_info()
+    {
+      frame_delta_valid=false;
+      last_frame_delta_valid=false;
+
+    }
+
+    STATICALLOCCLASSHEADER
+  };
+
+protected:
+  // @Patch - moved around
+  // movement by script
+  movement_info * mi;
+
+/////////////////////////////////////////////////////////////////////////////
+// Animation interface
+/////////////////////////////////////////////////////////////////////////////
+
+// hierarchical entity animation support
+protected:
+	   // @Patch - changed from MAX
+  entity_anim_tree* anim_trees[1];
+public:
+  void load_anim( const stringx& filename ) const;
+  void unload_anim( const stringx& filename ) const;
+
+
+  // play a hierarchical animation in slot 0
+	void make_animateable( bool onOff=true );
+  entity_anim_tree* play_loop_anim( const stringx& filename,
+                                    unsigned short anim_flags = 0,
+                                    short loop = -1 );
+  entity_anim_tree* play_anim( const stringx& filename,
+                               time_value_t start_time,
+                               unsigned short anim_flags = 0,
+                               short loop = -1 );
+  // play a hierarchical animation in the given slot (used for secondary animations)
+  entity_anim_tree* play_anim( int slot,
+                               const stringx& filename,
+                               time_value_t start_time,
+                               unsigned short anim_flags = 0,
+                               short loop = -1 );
+  entity_anim_tree* play_anim( int slot,
+                               const stringx& _name,
+                               const entity_track_tree& track,
+
+                               time_value_t start_time,
+                               unsigned short anim_flags = 0,
+                               short loop = -1 );
+
+  // play a hierarchical animation in the given slot (used for secondary animations)
+  entity_anim_tree* play_anim( int slot,
+                               const stringx& filenamea,
+                               const stringx& filenameb,
+                               rational_t blenda,
+                               rational_t blendb,
+                               time_value_t start_time,
+                               unsigned short anim_flags = 0,
+                               short loop = -1 );
+  entity_anim_tree* play_anim( int slot,
+                               const stringx& _name,
+                               const entity_track_tree& tracka,
+                               const entity_track_tree& trackb,
+                               rational_t blenda,
+                               rational_t blendb,
+                               time_value_t start_time,
+                               unsigned short anim_flags = 0,
+                               short loop = -1 );
+
+
+  bool has_anim_trees() const { return true; /*(anim_trees != NULL);*/ }
+  entity_anim_tree* get_anim_tree( int slot ) const;
+  void kill_anim( int slot );
+  bool anim_finished( int slot ) const;
+  // this function should ONLY be called by the entity_anim_tree destructor
+  void clear_anim( entity_anim_tree* a );
+  // this function causes the internal animation nodes of each attached hierarchical
+
+  // animation to be destroyed (made necessary by the actor limb_tree_pool system)
+  void deconstruct_anim_trees();
+
+  // this function reconstructs all attached hierarchical animations
+  void reconstruct_anim_trees();
+
+// interface for currently-attached entity anim (this node only)
+protected:
+  // @patch - removed for now
+  //entity_anim* current_anim;
+
+protected:
+  // @Patch - removed for now
+	// bool cull_entity;		//	this flag will tell NGL to cull this entity
+
+
+	// @Patch - removed for now
+  //bool use_uv_scrolling;
+  //float scroll_u;
+
+  // @Patch - moved around
+  region_node*     center_region;
+  // @Patch - remove for now
+  // float scroll_v;
+
+  /*** Interfaces ***/
+
+  PADDING(4);
+
+	   // @Patch -comment because this is too big
+  /*
+   ENTITY_INTERFACE(animation)
+// BIGCULL    ENTITY_INTERFACE(damage)
+   ENTITY_INTERFACE(hard_attrib)
+   ENTITY_INTERFACE(owner)
+   ENTITY_INTERFACE(physical)
+   ENTITY_INTERFACE(render)
+#ifdef ECULL
+   ENTITY_INTERFACE(script_data)
+#endif
+   ENTITY_INTERFACE(skeleton)
+   ENTITY_INTERFACE(slave)
+   ENTITY_INTERFACE(soft_attrib)
+
+#ifdef ECULL
+   ENTITY_INTERFACE(sound)
+#endif
+   ENTITY_INTERFACE(time)
+#ifdef ECULL
+   ENTITY_INTERFACE(box_trigger)
+#endif
+   */
 
 
 
@@ -1300,13 +1381,16 @@ public:
 
 protected:
   static unsigned int visit_key2;
-  unsigned int visited2;
+  // @Patch - removed for now
+  //unsigned int visited2;
 public:
   // this function prepares for a NEW visitation sequence
   static void prepare_for_visiting2() { visit_key2++; }
+  /*
   void visit2() { visited2 = visit_key2; }
   void unvisit2() { visited2 = visit_key2-1; }
   bool already_visited2() const { return (visited2 == visit_key2); }
+  */
 
 
 #ifdef ECULL
@@ -1839,84 +1923,6 @@ public:
   { programmed_cell_death = t; }
 
 
-/////////////////////////////////////////////////////////////////////////////
-// Animation interface
-/////////////////////////////////////////////////////////////////////////////
-
-// hierarchical entity animation support
-protected:
-  entity_anim_tree* anim_trees[MAX_ANIM_SLOTS];
-public:
-  void load_anim( const stringx& filename ) const;
-  void unload_anim( const stringx& filename ) const;
-
-
-  // play a hierarchical animation in slot 0
-	void make_animateable( bool onOff=true );
-  entity_anim_tree* play_loop_anim( const stringx& filename,
-                                    unsigned short anim_flags = 0,
-                                    short loop = -1 );
-  entity_anim_tree* play_anim( const stringx& filename,
-                               time_value_t start_time,
-                               unsigned short anim_flags = 0,
-                               short loop = -1 );
-  // play a hierarchical animation in the given slot (used for secondary animations)
-  entity_anim_tree* play_anim( int slot,
-                               const stringx& filename,
-                               time_value_t start_time,
-                               unsigned short anim_flags = 0,
-                               short loop = -1 );
-  entity_anim_tree* play_anim( int slot,
-                               const stringx& _name,
-                               const entity_track_tree& track,
-
-                               time_value_t start_time,
-                               unsigned short anim_flags = 0,
-                               short loop = -1 );
-
-  // play a hierarchical animation in the given slot (used for secondary animations)
-  entity_anim_tree* play_anim( int slot,
-                               const stringx& filenamea,
-                               const stringx& filenameb,
-                               rational_t blenda,
-                               rational_t blendb,
-                               time_value_t start_time,
-                               unsigned short anim_flags = 0,
-                               short loop = -1 );
-  entity_anim_tree* play_anim( int slot,
-                               const stringx& _name,
-                               const entity_track_tree& tracka,
-                               const entity_track_tree& trackb,
-                               rational_t blenda,
-                               rational_t blendb,
-                               time_value_t start_time,
-                               unsigned short anim_flags = 0,
-                               short loop = -1 );
-
-
-  bool has_anim_trees() const { return true; /*(anim_trees != NULL);*/ }
-  entity_anim_tree* get_anim_tree( int slot ) const;
-  void kill_anim( int slot );
-  bool anim_finished( int slot ) const;
-  // this function should ONLY be called by the entity_anim_tree destructor
-  void clear_anim( entity_anim_tree* a );
-  // this function causes the internal animation nodes of each attached hierarchical
-
-  // animation to be destroyed (made necessary by the actor limb_tree_pool system)
-  void deconstruct_anim_trees();
-
-  // this function reconstructs all attached hierarchical animations
-  void reconstruct_anim_trees();
-
-// interface for currently-attached entity anim (this node only)
-protected:
-  entity_anim* current_anim;
-
-  PADDING(4);
-
-	// @Patch - moved around
-  light_manager* my_light_mgr;
-
 public:
   // attach entity to given animation
   EXPORT virtual bool attach_anim( entity_anim* new_anim );
@@ -1924,8 +1930,17 @@ public:
   EXPORT virtual void detach_anim();
 
   // return pointer to current animation
-  entity_anim* get_anim() const { return current_anim; }
+  entity_anim* get_anim() const { PANIC; return NULL; }
 
+
+protected:
+  PADDING(4);
+  // @Patch - moved around
+   ENTITY_INTERFACE(ai)
+
+	PADDING(0xDC-0xB0-4);
+	// @Patch - moved around
+  light_manager* my_light_mgr;
 
 /////////////////////////////////////////////////////////////////////////////
 // entity_maker interface
