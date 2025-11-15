@@ -2792,9 +2792,14 @@ void entity::activate_by_character(character *chr)
 
 
 
+// @Ok
+// @Matching
 bool entity::allow_targeting() const
 {
-  return 1;
+	return is_combat_target();
+
+	// @Patch - restore old code
+  //return 1;
 #if 0 // BIGCULL
 
   if (!has_damage_ifc())
@@ -3802,6 +3807,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1900 , entity::get_detonate_position, "?get_detonate_position@entity@@UBE?AVvector3d@@XZ");
 
 	PATCH_PUSH_RET_POLY(0x004EC220 , entity::get_distance_fade_ok, "?get_distance_fade_ok@entity@@UBE_NXZ");
+
+	PATCH_PUSH_RET_POLY(0x004F3590 , entity::allow_targeting, "?allow_targeting@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
