@@ -1767,6 +1767,8 @@ rational_t entity::get_cutoff_range() const
   return 0;
 }
 
+// @Ok
+// @Matching
 void       entity::set_cutoff_range(rational_t)
 {
   stringx composite = id.get_val() + " is not a light source.";
@@ -3749,6 +3751,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EFEC0 , entity::get_near_range, "?get_near_range@entity@@UBEMXZ");
 	PATCH_PUSH_RET_POLY(0x004EFF30 , entity::set_near_range, "?set_near_range@entity@@UAEXM@Z");
 	PATCH_PUSH_RET_POLY(0x004EFFA0 , entity::get_cutoff_range, "?get_cutoff_range@entity@@UBEMXZ");
+	PATCH_PUSH_RET_POLY(0x004F0010 , entity::set_cutoff_range, "?set_cutoff_range@entity@@UAEXM@Z");
 }
 
 void patch_entity_id(void)
