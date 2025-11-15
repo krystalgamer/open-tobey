@@ -1725,6 +1725,8 @@ const color& entity::get_additive_color() const
   return evil_color;
 }
 
+// @Ok
+// @Matching
 void   entity::set_additive_color(const color&)
 {
 
@@ -3737,6 +3739,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EFD00 , entity::get_color, "?get_color@entity@@UBEABVcolor@@XZ");
 	PATCH_PUSH_RET_POLY(0x004EFD70 , entity::set_color, "?set_color@entity@@UAEXABVcolor@@@Z");
 	PATCH_PUSH_RET_POLY(0x004EFDE0 , entity::get_additive_color, "?get_additive_color@entity@@UBEABVcolor@@XZ");
+	PATCH_PUSH_RET_POLY(0x004EFE50 , entity::set_additive_color, "?set_additive_color@entity@@UAEXABVcolor@@@Z");
 }
 
 void patch_entity_id(void)
