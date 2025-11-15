@@ -1804,8 +1804,18 @@ public:
   EXPORT virtual void set_frame_delta_trans(const vector3d &bob, time_value_t t);
   EXPORT virtual void invalidate_frame_delta();
 
-  // @TODO
-  EXPORT virtual void       get_last_capsule(void) { PANIC; }
+  // @Ok
+  // @NotMatching
+  // @TODO - fix the deref
+  EXPORT virtual int       get_last_capsule(void)
+  {
+	  if (this->mi)
+	  {
+		  return reinterpret_cast<int*>(this->mi)[21];
+	  }
+
+	  return 0;
+  }
 
   // @Patch - moved here
   EXPORT virtual vector3d get_last_position() const;

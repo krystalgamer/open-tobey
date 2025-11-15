@@ -3790,6 +3790,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A1820 , entity::is_frame_delta_valid, "?is_frame_delta_valid@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004A1850 , entity::is_last_frame_delta_valid, "?is_last_frame_delta_valid@entity@@UBE_NXZ");
+
+	PATCH_PUSH_RET_POLY(0x004A18B0 , entity::get_last_capsule, "?get_last_capsule@entity@@UAEHXZ");
 }
 
 void patch_entity_id(void)
