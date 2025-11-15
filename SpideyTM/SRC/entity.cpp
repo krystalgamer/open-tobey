@@ -1267,11 +1267,14 @@ void entity::force_current_region()
 }
 
 // INTERNAL
-void entity::_set_region_forced_status()
+// @Ok
+// @Matching
+INLINE void entity::_set_region_forced_status()
 {
   set_flag(EFLAG_REGION_FORCED,true);
+  // @Patch - removed sector part
   // while forced, the entity has no sector and will not compute one!
-  my_sector = NULL;
+  //my_sector = NULL;
   center_region = NULL;
 }
 
@@ -3381,6 +3384,9 @@ void validate_entity(void)
 	VALIDATE(entity, center_region, 0x98);
 
 	VALIDATE(entity, radius, 0xA8);
+
+	// @Temp
+	VALIDATE(entity, my_sector, 0x118);
 
 	// entity vtable validation
 
