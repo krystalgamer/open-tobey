@@ -3191,6 +3191,8 @@ void entity::region_update_poss_collide()
 }
 
 
+// @Ok
+// @Matching
 void entity::preload()
 {
   if(!was_preloaded())
@@ -3199,8 +3201,11 @@ void entity::preload()
     set_preloaded(true);
 
 
+	// @Patch - remove destroy_info
+	/*
     if(destroy_info != NULL)
       destroy_info->preload();
+	  */
 
 //    if(get_brain() != NULL)
 //      get_brain()->preload();
@@ -3847,6 +3852,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004F48C0 , entity::is_alive, "?is_alive@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004F48F0 , entity::is_dying, "?is_dying@entity@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x004F4910 , entity::is_alive_or_dying, "?is_alive_or_dying@entity@@UBE_NXZ");
+
+	PATCH_PUSH_RET_POLY(0x004F4D90 , entity::preload, "?preload@entity@@UAEXXZ");
 }
 
 void patch_entity_id(void)
