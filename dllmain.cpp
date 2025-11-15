@@ -135,6 +135,8 @@ extern "C" EXPORT int run_assertions(void)
 	validate_vr_pmesh();
 	validate_visual_rep();
 
+	validate_movement_info();
+
 	return FAIL_VALIDATION;
 }
 
@@ -218,6 +220,8 @@ void game_patches()
 
 	patch_vr_pmesh();
 	patch_visual_rep();
+
+	patch_movement_info();
 }
 
 #pragma pack(push,1)

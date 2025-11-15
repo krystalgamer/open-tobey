@@ -521,7 +521,36 @@ class entity : public bone
 
 	int MaterialMask;   //  this is used to mask off materials
 	int TextureFrame;   //  this is used to lock texture frames of ifl's
-	bool cull_entity;		//	this flag will tell NGL to cull this entity
+
+/////////////////////////////////////////////////////////////////////////////
+// Movement histry interface
+/////////////////////////////////////////////////////////////////////////////
+public:
+  struct movement_info
+  {
+    // Walkable stuff
+    bool frame_delta_valid;
+    bool last_frame_delta_valid;
+    po frame_delta;
+
+    time_value_t frame_time;
+    movement_info()
+    {
+      frame_delta_valid=false;
+      last_frame_delta_valid=false;
+
+    }
+
+    STATICALLOCCLASSHEADER
+  };
+
+protected:
+  // @Patch - moved around
+  // movement by script
+  movement_info * mi;
+
+  // @Patch - removed for now
+	// bool cull_entity;		//	this flag will tell NGL to cull this entity
 
 
 	// @Patch - removed for now
@@ -592,7 +621,8 @@ class entity : public bone
 	EXPORT void SetTextureFrame(int frame) { TextureFrame = frame; }
 	EXPORT int GetTextureFrame(void) const { return TextureFrame; }
   EXPORT void set_texture_scroll (float u, float v) { PANIC; };
-  EXPORT void SetCull(bool cull) { cull_entity = cull; }
+  // @Patch - removed for now
+  //EXPORT void SetCull(bool cull) { cull_entity = cull; }
 
 
 
@@ -792,28 +822,6 @@ public:
   // the function must match the prototype:  foo(entity e);
   EXPORT vm_thread* spawn_entity_script_function( const stringx& function_name ) const;
   EXPORT static void exec_preload_function(const stringx &preload_func);
-
-/////////////////////////////////////////////////////////////////////////////
-// Movement histry interface
-/////////////////////////////////////////////////////////////////////////////
-public:
-  struct movement_info
-  {
-    // Walkable stuff
-    bool frame_delta_valid;
-    bool last_frame_delta_valid;
-    po frame_delta;
-
-    time_value_t frame_time;
-    movement_info()
-    {
-      frame_delta_valid=false;
-      last_frame_delta_valid=false;
-
-    }
-
-    STATICALLOCCLASSHEADER
-  };
 
 /////////////////////////////////////////////////////////////////////////////
 // Physics interface
@@ -1787,6 +1795,8 @@ protected:
 /////////////////////////////////////////////////////////////////////////////
 public:
   movement_info * get_movement_info() const { return mi; }
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_frame_delta_valid() const { return mi && mi->frame_delta_valid; }
   EXPORT virtual bool is_last_frame_delta_valid() const { return mi && mi->last_frame_delta_valid; }
   EXPORT virtual const po & get_frame_delta() const { assert(mi); return mi->frame_delta; }
@@ -2074,9 +2084,6 @@ protected:
 #ifdef ECULL
   sound_emitter * emitter;
 #endif
-
-  // movement by script
-  movement_info * mi;
 
 
   int min_detail;

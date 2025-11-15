@@ -3418,6 +3418,7 @@ void validate_entity(void)
 
 	VALIDATE(entity, my_visrep, 0x84);
 
+	VALIDATE(entity, mi, 0x90);
 	VALIDATE(entity, center_region, 0x98);
 
 	VALIDATE(entity, radius, 0xA8);
@@ -3648,7 +3649,16 @@ void validate_entity(void)
 	VALIDATE_VAL(EFLAG_MEMBER_HIDDEN, 0x80000000);
 }
 
+void validate_movement_info(void)
+{
+	VALIDATE(entity::movement_info, frame_delta_valid, 0x0);
+}
+
 #include "my_patch.h"
+
+void patch_movement_info(void)
+{
+}
 
 void patch_entity(void)
 {
@@ -3776,6 +3786,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004F00F0 , entity::remove_light_category, "?remove_light_category@entity@@UAEXH@Z");
 
 	PATCH_PUSH_RET_POLY(0x004EBEE0 , entity::get_light_set, "?get_light_set@entity@@UBEPAVlight_manager@@XZ");
+
+	PATCH_PUSH_RET_POLY(0x004A1820 , entity::is_frame_delta_valid, "?is_frame_delta_valid@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
