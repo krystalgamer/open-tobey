@@ -3652,6 +3652,7 @@ void validate_entity(void)
 void validate_movement_info(void)
 {
 	VALIDATE(entity::movement_info, frame_delta_valid, 0x0);
+	VALIDATE(entity::movement_info, last_frame_delta_valid, 0x1);
 }
 
 #include "my_patch.h"
@@ -3788,6 +3789,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EBEE0 , entity::get_light_set, "?get_light_set@entity@@UBEPAVlight_manager@@XZ");
 
 	PATCH_PUSH_RET_POLY(0x004A1820 , entity::is_frame_delta_valid, "?is_frame_delta_valid@entity@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x004A1850 , entity::is_last_frame_delta_valid, "?is_last_frame_delta_valid@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
