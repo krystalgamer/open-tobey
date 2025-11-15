@@ -196,6 +196,10 @@ SOURCE=.\SpideyTM\SRC\controller.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\damage_interface.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\debugutil.cpp
 # End Source File
 # Begin Source File
@@ -877,6 +881,10 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\d3d_rasterize.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\HWOSPC\d3d_texturemgr.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\damage_interface.h
 # End Source File
 # Begin Source File
 

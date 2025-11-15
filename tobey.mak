@@ -54,6 +54,7 @@ CLEAN :
 	-@erase "$(INTDIR)\compress.obj"
 	-@erase "$(INTDIR)\controller.obj"
 	-@erase "$(INTDIR)\crc32.obj"
+	-@erase "$(INTDIR)\damage_interface.obj"
 	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\deflate.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
@@ -198,7 +199,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\ai_locomotion.obj" \
 	"$(INTDIR)\ai_polypath.obj" \
 	"$(INTDIR)\path.obj" \
-	"$(INTDIR)\game.obj"
+	"$(INTDIR)\game.obj" \
+	"$(INTDIR)\damage_interface.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -230,6 +232,7 @@ CLEAN :
 	-@erase "$(INTDIR)\compress.obj"
 	-@erase "$(INTDIR)\controller.obj"
 	-@erase "$(INTDIR)\crc32.obj"
+	-@erase "$(INTDIR)\damage_interface.obj"
 	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\deflate.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
@@ -376,7 +379,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\ai_locomotion.obj" \
 	"$(INTDIR)\ai_polypath.obj" \
 	"$(INTDIR)\path.obj" \
-	"$(INTDIR)\game.obj"
+	"$(INTDIR)\game.obj" \
+	"$(INTDIR)\damage_interface.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -573,6 +577,12 @@ SOURCE=.\SpideyTM\SRC\collide.cpp
 SOURCE=.\SpideyTM\SRC\controller.cpp
 
 "$(INTDIR)\controller.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\damage_interface.cpp
+
+"$(INTDIR)\damage_interface.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

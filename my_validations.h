@@ -31,6 +31,8 @@ void validate_entity(void);
 void validate_vr_pmesh(void);
 void validate_visual_rep(void);
 void validate_movement_info(void);
+void validate_damage_interface(void);
+void validate_bounded_attribute(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -62,4 +64,5 @@ void patch_entity(void);
 void patch_vr_pmesh(void);
 void patch_visual_rep(void);
 void patch_movement_info(void);
+void patch_damage_interface(void);
 #endif

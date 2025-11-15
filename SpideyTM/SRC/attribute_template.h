@@ -192,12 +192,15 @@ template <class type> pstring basic_attribute<type>::type_name = "";
 template <class type>
 class bounded_attribute
 {
+	friend void validate_bounded_attribute(void);
   private:
     static pstring type_name;
 
+	// @Patch - moved this up
+    type value;
+
     type max_value;
     type min_value;
-    type value;
 
 
   public:
@@ -235,16 +238,22 @@ class bounded_attribute
 
     }
 
+	// @Patch - removed for now
+	/*
     virtual ~bounded_attribute() 
     {
     }
+	*/
 
     /*** get_class_name ***/
 
+	// @Patch - not virtual gang
+	/*
     virtual const pstring &get_class_name() const 
     {
       return type_name;
     }
+	*/
 
     /*** get/set max and min ***/
     void set_max(const type &new_max)
