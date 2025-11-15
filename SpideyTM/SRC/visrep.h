@@ -132,8 +132,8 @@ private:
 
 
 public:
-  virtual int get_anim_length() const;
-  virtual bool is_uv_animated() const;
+  EXPORT virtual int get_anim_length() const;
+  EXPORT virtual bool is_uv_animated() const;
 
 
   virtual render_flavor_t render_passes_needed() const;

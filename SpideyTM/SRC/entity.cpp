@@ -3071,6 +3071,8 @@ bool entity::possibly_active() const
 }
 
 
+// @Ok
+// @Matching
 bool entity::possibly_aging() const
 {
   return(my_visrep != NULL && ( ( my_visrep->get_anim_length() > 1)||( my_visrep->is_uv_animated() ) ));
@@ -3828,6 +3830,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004F4840 , entity::suspend, "?suspend@entity@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x004F4880 , entity::unsuspend, "?unsuspend@entity@@UAEXXZ");
+
+	PATCH_PUSH_RET_POLY(0x004F4A60 , entity::possibly_aging, "?possibly_aging@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)

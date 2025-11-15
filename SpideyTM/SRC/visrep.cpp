@@ -76,6 +76,8 @@ render_flavor_t visual_rep::render_passes_needed() const
 visrep_t visual_rep_name_to_type( const stringx& visrep_name )
 {
 	PANIC;
+
+	return *(NEW visrep_t);
 }
 
 
@@ -143,6 +145,9 @@ void validate_visual_rep(void)
 	VALIDATE(visual_rep, type, 4);
 
 	VALIDATE_VTABLE(visual_rep, get_distance_fade_ok, 14);
+
+	VALIDATE_VTABLE(visual_rep, get_anim_length, 15);
+	VALIDATE_VTABLE(visual_rep, is_uv_animated, 16);
 }
 
 #include "my_patch.h"
