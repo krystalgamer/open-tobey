@@ -1653,9 +1653,10 @@ vector3d entity::get_updated_closest_point_along_dir( const vector3d& axis )
 }
 
 
+// @Ok
+// @Matching
 void entity::invalidate_colgeom()
 {
-
   if (get_colgeom())
   {
     get_colgeom()->invalidate();
@@ -3476,6 +3477,8 @@ void validate_entity(void)
 
 	VALIDATE(entity, my_light_mgr, 0xDC);
 
+	//VALIDATE(entity, colgeom, 0x100);
+
 	// @Temp
 	//VALIDATE(entity, my_sector, 0x118);
 
@@ -3878,6 +3881,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET(0x004EFBC0 , entity::set_age);
 	PATCH_PUSH_RET(0x004EFBA0 , entity::get_age);
 	PATCH_PUSH_RET(0x004EFBE0 , entity::rebirth);
+
+	PATCH_PUSH_RET_POLY(0x004EFB70 , entity::invalidate_colgeom, "?invalidate_colgeom@entity@@UAEXXZ");
 }
 
 void patch_entity_id(void)
