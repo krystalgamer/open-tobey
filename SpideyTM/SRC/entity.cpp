@@ -1745,6 +1745,8 @@ rational_t entity::get_near_range() const
   return 0;
 }
 
+// @Ok
+// @Matching
 void       entity::set_near_range(rational_t)
 {
 
@@ -3743,6 +3745,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EFDE0 , entity::get_additive_color, "?get_additive_color@entity@@UBEABVcolor@@XZ");
 	PATCH_PUSH_RET_POLY(0x004EFE50 , entity::set_additive_color, "?set_additive_color@entity@@UAEXABVcolor@@@Z");
 	PATCH_PUSH_RET_POLY(0x004EFEC0 , entity::get_near_range, "?get_near_range@entity@@UBEMXZ");
+	PATCH_PUSH_RET_POLY(0x004EFF30 , entity::set_near_range, "?set_near_range@entity@@UAEXM@Z");
 }
 
 void patch_entity_id(void)
