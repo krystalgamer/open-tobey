@@ -3649,6 +3649,8 @@ void validate_entity(void)
 
 	VALIDATE_VAL(EFLAG_EXT_TIME_LIMITED, 0x10000);
 	VALIDATE_VAL(EFLAG_MEMBER_HIDDEN, 0x80000000);
+
+	VALIDATE_VAL(EFLAG_EXT_NONTARGET, 0x20000);
 }
 
 void validate_movement_info(void)

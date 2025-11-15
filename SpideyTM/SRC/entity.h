@@ -916,6 +916,8 @@ public:
   EXPORT void set_auto_targetable(bool s) { if(s) ext_flags |= EFLAG_EXT_TARGETABLE; else ext_flags &=~ EFLAG_EXT_TARGETABLE; }
 
 
+  // @Ok
+  // @Matching
   EXPORT bool is_combat_target() const   { return(!(ext_flags & EFLAG_EXT_NONTARGET)); }
   EXPORT void set_combat_target(bool s)  { if(!s) ext_flags |= EFLAG_EXT_NONTARGET; else ext_flags &= ~EFLAG_EXT_NONTARGET; }
 
