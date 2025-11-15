@@ -984,6 +984,8 @@ public:
   EXPORT void set_bone_idx( short _bone_idx ) { bone_idx = _bone_idx; }
 
   EXPORT void set_preloaded( bool s ) { if(s) ext_flags |= EFLAG_EXT_PRELOADED; else ext_flags &= ~EFLAG_EXT_PRELOADED; }
+  // @Ok
+  // @Matching
   EXPORT bool was_preloaded() const { return((ext_flags & EFLAG_EXT_PRELOADED)); }
 
 

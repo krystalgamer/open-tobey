@@ -3683,6 +3683,8 @@ void validate_entity(void)
 	VALIDATE_VAL(EFLAG_EXT_NONTARGET, 0x20000);
 
 	VALIDATE_VAL(EFLAG_MISC_SUSPENDED, 0x40000000);
+
+	VALIDATE_VAL(EFLAG_EXT_PRELOADED, 0x80000);
 }
 
 void validate_movement_info(void)
