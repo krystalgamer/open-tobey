@@ -1920,9 +1920,9 @@ public:
 
   // aging stuff
 
-  void rebirth();
-  time_value_t get_age() const;
-  void set_age(time_value_t);
+  EXPORT void rebirth();
+  EXPORT time_value_t get_age() const;
+  EXPORT void set_age(time_value_t);
   // @Patch - removed
   // virtual time_value_t get_programmed_cell_death() const { return programmed_cell_death; }
 
@@ -1950,7 +1950,13 @@ protected:
    // @Patch - undo BIGCULL for damage
 ENTITY_INTERFACE(damage);
 
-	PADDING(0xDC-0xB8-4);
+	PADDING(0xD0-0xB8-4);
+  // @Patch - moved around
+public:
+  frame_info frame_time_info;
+
+
+protected:
 	// @Patch - moved around
   light_manager* my_light_mgr;
 
@@ -2292,7 +2298,7 @@ public:
   EXPORT virtual bool is_alive_or_dying() const;
 
 
-  virtual void preload();
+  EXPORT virtual void preload();
 
 
 
@@ -2300,21 +2306,22 @@ public:
 // ifl file operations
 
 public:
-  virtual void ifl_play();
-  virtual void ifl_lock(int frame_index);
-  virtual void ifl_pause();
+  EXPORT virtual void ifl_play();
+  EXPORT virtual void ifl_lock(int frame_index);
+  EXPORT virtual void ifl_pause();
 
 //Information for frame locking at renderering.
+
+
+
+
 public:
-  frame_info frame_time_info;
-
-
 #if _ENABLE_WORLD_EDITOR
   unsigned int scene_flags;
   stringx ent_filename;
 #endif
 
-  void process_extra_scene_flags(unsigned int scn_flags);
+  EXPORT void process_extra_scene_flags(unsigned int scn_flags);
 
 protected:
   color32       render_color;

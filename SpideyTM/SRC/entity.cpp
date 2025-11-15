@@ -1671,8 +1671,9 @@ time_value_t entity::get_age() const
 }
 
 
+// @Ok
+// @Matching
 void entity::set_age(time_value_t new_age)
-
 {
   frame_time_info.set_age(new_age);
 }
@@ -3467,6 +3468,8 @@ void validate_entity(void)
 
 	VALIDATE(entity, my_damage_interface, 0xB8);
 
+	VALIDATE(entity, frame_time_info, 0xD0);
+
 	VALIDATE(entity, my_light_mgr, 0xDC);
 
 	// @Temp
@@ -3867,6 +3870,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004F4D90 , entity::preload, "?preload@entity@@UAEXXZ");
 
 	PATCH_PUSH_RET_POLY(0x004EBDC0 , entity::get_last_position, "?get_last_position@entity@@UBE?AVvector3d@@XZ");
+
+	PATCH_PUSH_RET(0x004EFBC0 , entity::set_age);
 }
 
 void patch_entity_id(void)
