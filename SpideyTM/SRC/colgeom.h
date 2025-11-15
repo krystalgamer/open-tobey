@@ -37,6 +37,8 @@ void COLGEOM_stl_prealloc( void );
 
 class collision_geometry
 {
+	friend void validate_colgeom(void);
+	friend void patch_colgeom(void);
 public:
   collision_geometry();
   collision_geometry(const collision_geometry &b);
@@ -88,6 +90,8 @@ public:
 
   inline bool is_valid() const { return valid; }
   inline void validate() { valid = true; }
+  // @Ok
+  // @Matching
   inline void invalidate() { valid = false; }
   virtual unsigned int get_type() const=0;
 

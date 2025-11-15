@@ -50,6 +50,7 @@ CLEAN :
 	-@erase "$(INTDIR)\billboard.obj"
 	-@erase "$(INTDIR)\bone.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
+	-@erase "$(INTDIR)\colgeom.obj"
 	-@erase "$(INTDIR)\collide.obj"
 	-@erase "$(INTDIR)\compress.obj"
 	-@erase "$(INTDIR)\controller.obj"
@@ -200,7 +201,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\ai_polypath.obj" \
 	"$(INTDIR)\path.obj" \
 	"$(INTDIR)\game.obj" \
-	"$(INTDIR)\damage_interface.obj"
+	"$(INTDIR)\damage_interface.obj" \
+	"$(INTDIR)\colgeom.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -228,6 +230,7 @@ CLEAN :
 	-@erase "$(INTDIR)\billboard.obj"
 	-@erase "$(INTDIR)\bone.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
+	-@erase "$(INTDIR)\colgeom.obj"
 	-@erase "$(INTDIR)\collide.obj"
 	-@erase "$(INTDIR)\compress.obj"
 	-@erase "$(INTDIR)\controller.obj"
@@ -380,7 +383,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\ai_polypath.obj" \
 	"$(INTDIR)\path.obj" \
 	"$(INTDIR)\game.obj" \
-	"$(INTDIR)\damage_interface.obj"
+	"$(INTDIR)\damage_interface.obj" \
+	"$(INTDIR)\colgeom.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -565,6 +569,12 @@ SOURCE=.\SpideyTM\SRC\bone.cpp
 SOURCE=.\SpideyTM\SRC\chunkfile.cpp
 
 "$(INTDIR)\chunkfile.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\colgeom.cpp
+
+"$(INTDIR)\colgeom.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

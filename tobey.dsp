@@ -188,6 +188,10 @@ SOURCE=.\SpideyTM\SRC\chunkfile.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\colgeom.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\collide.cpp
 # End Source File
 # Begin Source File

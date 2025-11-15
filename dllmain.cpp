@@ -141,6 +141,8 @@ extern "C" EXPORT int run_assertions(void)
 	validate_bounded_attribute();
 	validate_frame_info();
 
+	validate_colgeom();
+
 	return FAIL_VALIDATION;
 }
 
@@ -230,6 +232,7 @@ void game_patches()
 	patch_damage_interface();
 
 	patch_frame_info();
+	patch_colgeom();
 }
 
 #pragma pack(push,1)
