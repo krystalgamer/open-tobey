@@ -1695,9 +1695,12 @@ render_flavor_t entity::render_passes_needed() const
 ////////////////////////////////////////////////////////////////////////////////
 
 
+// @Ok
 color evil_color(0,0,0,0);
 
 
+// @Ok
+// @Matching
 const color& entity::get_color() const
 {
   stringx composite = id.get_val() + " is not a light source.";
@@ -3726,6 +3729,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A17C0 , entity::camera_slide_to, "?camera_slide_to@entity@@UAE_NABVvector3d@@0MM@Z");
 	PATCH_PUSH_RET_POLY(0x004A17E0  , entity::camera_slide_to_orbit, "?camera_slide_to_orbit@entity@@UAE_NABVvector3d@@MMMM@Z");
 	PATCH_PUSH_RET_POLY(0x004A1800  , entity::camera_orbit, "?camera_orbit@entity@@UAEXABVvector3d@@MMM@Z");
+
+	PATCH_PUSH_RET_POLY(0x004EFD00  , entity::get_color, "?get_color@entity@@UBEABVcolor@@XZ");
 }
 
 void patch_entity_id(void)
