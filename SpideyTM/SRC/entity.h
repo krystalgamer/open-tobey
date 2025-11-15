@@ -1746,6 +1746,8 @@ public:
   // @Matching
   // places the camera somewhere in a circle around the center, looking at the center.
   EXPORT virtual bool camera_slide_to_orbit( const vector3d& center, rational_t range, rational_t theta, rational_t psi, rational_t speed ) { assert( false ); return false; }
+  // @Ok
+  // @Matching
   EXPORT virtual void camera_orbit( const vector3d& center, rational_t range, rational_t theta, rational_t psi ) { assert( false ); }
 
 /////////////////////////////////////////////////////////////////////////////
