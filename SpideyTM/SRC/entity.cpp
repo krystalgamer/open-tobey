@@ -3792,6 +3792,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1850 , entity::is_last_frame_delta_valid, "?is_last_frame_delta_valid@entity@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x004A18B0 , entity::get_last_capsule, "?get_last_capsule@entity@@UAEHXZ");
+
+	PATCH_PUSH_RET_POLY(0x004F2980 , entity::apply_damage, "?apply_damage@entity@@UAEXHABVvector3d@@0HPAV1@H@Z");
 }
 
 void patch_entity_id(void)

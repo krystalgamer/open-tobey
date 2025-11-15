@@ -1952,8 +1952,8 @@ public:
 // character interface
 /////////////////////////////////////////////////////////////////////////////
 public:
-  virtual rational_t get_hit_points() const { return 1.0f; }
-  virtual rational_t get_full_hit_points() const { return 1.0f; }
+  EXPORT virtual rational_t get_hit_points() const { return 1.0f; }
+  EXPORT virtual rational_t get_full_hit_points() const { return 1.0f; }
 
 
 /////////////////////////////////////////////////////////////////////////////
