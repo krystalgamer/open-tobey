@@ -1736,6 +1736,8 @@ void   entity::set_additive_color(const color&)
 }
 
 
+// @Ok
+// @Matching
 rational_t entity::get_near_range() const
 {
   stringx composite = id.get_val() + " is not a light source.";
@@ -3740,6 +3742,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EFD70 , entity::set_color, "?set_color@entity@@UAEXABVcolor@@@Z");
 	PATCH_PUSH_RET_POLY(0x004EFDE0 , entity::get_additive_color, "?get_additive_color@entity@@UBEABVcolor@@XZ");
 	PATCH_PUSH_RET_POLY(0x004EFE50 , entity::set_additive_color, "?set_additive_color@entity@@UAEXABVcolor@@@Z");
+	PATCH_PUSH_RET_POLY(0x004EFEC0 , entity::get_near_range, "?get_near_range@entity@@UBEMXZ");
 }
 
 void patch_entity_id(void)
