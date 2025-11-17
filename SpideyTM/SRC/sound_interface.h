@@ -64,36 +64,36 @@ protected:
   void add_voice(unsigned int id);
 
 public:
-	sound_interface(entity* _my_entity);
-	virtual ~sound_interface();
+	EXPORT sound_interface(entity* _my_entity);
+	EXPORT virtual ~sound_interface();
 
 
-  void copy(sound_interface *b);
+ EXPORT void copy(sound_interface *b);
 
-  sound_emitter *get_emitter() const { return(emitter); }
+ EXPORT sound_emitter *get_emitter() const { return(emitter); }
 
-  virtual void frame_advance(time_value_t t);
+ EXPORT virtual void frame_advance(time_value_t t);
 
 	// Returns the next entry in a sound group.
   sg_entry* get_sound_group_entry( const pstring& name )  { return(snd_grp != NULL ? snd_grp->get_sound_group_entry(name) : NULL); }
 
 
   // plays a non-positional sound through the sound_device
-  void play_sound(const stringx &snd, rational_t volume = 1.0f, rational_t pitch = 1.0f);
-  void play_sound(sound_id_t snd, rational_t volume = 1.0f, rational_t pitch = 1.0f);
-  sg_entry *play_sound_grp(const pstring &snd_grp, rational_t volume = 1.0f, rational_t pitch = 1.0f);
+  EXPORT void play_sound(const stringx &snd, rational_t volume = 1.0f, rational_t pitch = 1.0f);
+  EXPORT void play_sound(sound_id_t snd, rational_t volume = 1.0f, rational_t pitch = 1.0f);
+  EXPORT sg_entry *play_sound_grp(const pstring &snd_grp, rational_t volume = 1.0f, rational_t pitch = 1.0f);
 
 
   // plays a positional sound through the emitter
-  unsigned int play_3d_sound(const stringx &snd, rational_t volume = 1.0f, rational_t pitch = 1.0f);
-  unsigned int play_3d_sound(sound_id_t snd, rational_t volume = 1.0f, rational_t pitch = 1.0f);
-  sg_entry *play_3d_sound_grp(const pstring &snd_grp, rational_t volume = 1.0f, rational_t pitch = 1.0f);
-  sg_entry *play_looping_3d_sound_grp(const pstring &snd_grp, rational_t volume = 1.0f, rational_t pitch = 1.0f);
+  EXPORT unsigned int play_3d_sound(const stringx &snd, rational_t volume = 1.0f, rational_t pitch = 1.0f);
+  EXPORT unsigned int play_3d_sound(sound_id_t snd, rational_t volume = 1.0f, rational_t pitch = 1.0f);
+  EXPORT sg_entry *play_3d_sound_grp(const pstring &snd_grp, rational_t volume = 1.0f, rational_t pitch = 1.0f);
+  EXPORT sg_entry *play_looping_3d_sound_grp(const pstring &snd_grp, rational_t volume = 1.0f, rational_t pitch = 1.0f);
 
-  bool sound_playing(unsigned int id) const { return(emitter->sound_playing(id)); }
+	EXPORT  bool sound_playing(unsigned int id) const { return(emitter->sound_playing(id)); }
 
-  void kill_sound(unsigned int id) { emitter->kill_sound(id); }
+	EXPORT  void kill_sound(unsigned int id) { emitter->kill_sound(id); }
 
-	void read_enx_data( chunk_file& fs, stringx& lstr );
+	EXPORT 	void read_enx_data( chunk_file& fs, stringx& lstr );
 };
 #endif

@@ -7,9 +7,17 @@
 #include "entity.h"
 #include "pstring.h"
 
+// @Ok
+// @Matching
 sound_interface::sound_interface(entity* _my_entity)
   : entity_interface(_my_entity)
-{/*
+{
+	// @Patch - added this
+	this->emitter = 0;
+	this->max_voices = -1;
+	this->snd_grp = 0;
+
+	/*
 	emitter = sound_device::inst()->create_emitter();
   emitter->set_position(my_entity->get_abs_position());
   snd_grp = NULL;
@@ -213,6 +221,13 @@ void sound_interface::read_enx_data( chunk_file& fs, stringx& lstr )
 void validate_sound_interface(void)
 {
 	VALIDATE_SIZE(sound_interface, 0x20);
+
+	VALIDATE(sound_interface, emitter, 0x8);
+
+	VALIDATE(sound_interface, snd_grp, 0xC);
+	VALIDATE(sound_interface, max_voices, 0x10);
+
+	VALIDATE(sound_interface, voices, 0x14);
 }
 
 void validate_bone_interface(void)
@@ -233,4 +248,6 @@ void validate_entity_interface(void)
 
 void patch_sound_interface(void)
 {
+	// @TODO - when all vfuncs done
+	//PATCH_PUSH_RET_POLY(0x004CED70, sound_interface::sound_interface, "??0sound_interface@@QAE@PAVentity@@@Z");
 }
