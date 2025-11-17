@@ -35,6 +35,7 @@ void validate_damage_interface(void);
 void validate_bounded_attribute(void);
 void validate_frame_info(void);
 void validate_colgeom(void);
+void validate_sound_interface(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -69,4 +70,5 @@ void patch_movement_info(void);
 void patch_damage_interface(void);
 void patch_frame_info(void);
 void patch_colgeom(void);
+void patch_sound_interface(void);
 #endif

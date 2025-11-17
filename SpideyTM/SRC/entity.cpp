@@ -46,7 +46,13 @@ ENTITY_INTERFACE_CPP(entity, script_data);
 //ENTITY_INTERFACE_CPP(entity, slave);
 //ENTITY_INTERFACE_CPP(entity, soft_attrib);
 // @ Patch - uncomment ECULL
+
+#undef MACRO_INLINE
+#define MACRO_INLINE INLINE
 ENTITY_INTERFACE_CPP(entity, sound);
+#undef MACRO_INLINE
+#define MACRO_INLINE
+
 //ENTITY_INTERFACE_CPP(entity, time);
 #ifdef ECULL
 //ENTITY_INTERFACE_CPP(entity, box_trigger);
@@ -3495,8 +3501,8 @@ void validate_entity(void)
 	VALIDATE(entity, radius, 0xA8);
 
 	VALIDATE(entity, my_ai_interface, 0xB0);
-
 	VALIDATE(entity, my_damage_interface, 0xB8);
+	VALIDATE(entity, my_sound_interface, 0xC4);
 
 	VALIDATE(entity, frame_time_info, 0xD0);
 

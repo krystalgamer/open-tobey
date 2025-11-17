@@ -207,3 +207,17 @@ void sound_interface::read_enx_data( chunk_file& fs, stringx& lstr )
   if(max_voices > 0)
     voices.reserve(max_voices+1);*/
 }
+
+
+#include "my_assertions.h"
+
+void validate_sound_interface(void)
+{
+	VALIDATE_SIZE(sound_interface, 0x20);
+}
+
+#include "my_patch.h"
+
+void patch_sound_interface(void)
+{
+}

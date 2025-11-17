@@ -706,9 +706,6 @@ protected:
 #endif
    */
 
-  // @Patch - moved around
-   ENTITY_INTERFACE(sound);
-
 
 
 /***************************************************************************************************/
@@ -1948,9 +1945,14 @@ protected:
 	PADDING(4);// prob animation ifc
 
    // @Patch - undo BIGCULL for damage
-ENTITY_INTERFACE(damage);
+	ENTITY_INTERFACE(damage);
 
-	PADDING(0xD0-0xB8-4);
+	PADDING(0xC4-0xB8-4);
+
+  // @Patch - moved around
+   ENTITY_INTERFACE(sound);
+
+	PADDING(0xD0-0xC4-4);
   // @Patch - moved around
 public:
   frame_info frame_time_info;

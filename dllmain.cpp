@@ -142,6 +142,7 @@ extern "C" EXPORT int run_assertions(void)
 	validate_frame_info();
 
 	validate_colgeom();
+	validate_sound_interface();
 
 	return FAIL_VALIDATION;
 }
@@ -233,6 +234,8 @@ void game_patches()
 
 	patch_frame_info();
 	patch_colgeom();
+
+	patch_sound_interface();
 }
 
 #pragma pack(push,1)

@@ -48,6 +48,8 @@ protected:
 class sound_interface : public entity_interface
 
 {
+	friend void validate_sound_interface(void);
+	friend void patch_sound_interface(void);
 protected:
 	sound_emitter* emitter;
 
