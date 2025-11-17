@@ -6,6 +6,8 @@
 void validate_colgeom(void)
 {
 	VALIDATE(collision_geometry, valid, 8);
+
+	VALIDATE_VTABLE(collision_geometry, get_closest_point_along_dir, 10);
 }
 
 
