@@ -327,7 +327,10 @@ public:
 
 
   // constructors
-  inline vector3d() : x(0.0f), y(0.0f), z(0.0f) {} // uninitialized default ctor
+  // @Ok
+  // @MaybeMatching - changed this but now i'm unsure 17/11/2025
+  // @Patch - no defaults
+  inline vector3d() {} // uninitialized default ctor
   inline vector3d(const vector3d& v) { x = v.x; y = v.y; z = v.z; } // compiler would auto-generate this copy ctor
   inline vector3d(T _x, T _y, T _z) { x = _x; y = _y; z = _z; }
   

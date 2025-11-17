@@ -1644,6 +1644,8 @@ void entity::get_closest_point_along_dir( vector3d* target, const vector3d& axis
   get_colgeom()->get_closest_point_along_dir( target, axis );
 }
 
+// @Ok
+// @Matching
 // For use once game is active.
 vector3d entity::get_updated_closest_point_along_dir( const vector3d& axis )
 {
@@ -3886,6 +3888,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EFB70 , entity::invalidate_colgeom, "?invalidate_colgeom@entity@@UAEXXZ");
 
 	PATCH_PUSH_RET_POLY(0x004EFAE0 , entity::get_closest_point_along_dir, "?get_closest_point_along_dir@entity@@UBEXPAVvector3d@@ABV2@@Z");
+
+	PATCH_PUSH_RET(0x004EFB00 , entity::get_updated_closest_point_along_dir);
 }
 
 void patch_entity_id(void)
