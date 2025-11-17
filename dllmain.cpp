@@ -142,7 +142,11 @@ extern "C" EXPORT int run_assertions(void)
 	validate_frame_info();
 
 	validate_colgeom();
+	validate_bone_interface();
+	validate_entity_interface();
+
 	validate_sound_interface();
+
 
 	return FAIL_VALIDATION;
 }

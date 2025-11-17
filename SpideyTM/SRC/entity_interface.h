@@ -72,6 +72,7 @@ class generic_interface
 class itype;                                                              \
 class itype##_interface : public generic_interface                        \
 {                                                                         \
+friend void validate_##itype##_interface(void);                             \
 protected:                                                                \
   itype *my_##itype;                                                      \
                                                                           \

@@ -36,6 +36,8 @@ void validate_bounded_attribute(void);
 void validate_frame_info(void);
 void validate_colgeom(void);
 void validate_sound_interface(void);
+void validate_bone_interface(void);
+void validate_entity_interface(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);

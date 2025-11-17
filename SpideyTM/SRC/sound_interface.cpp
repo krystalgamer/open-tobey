@@ -8,7 +8,6 @@
 #include "pstring.h"
 
 sound_interface::sound_interface(entity* _my_entity)
-
   : entity_interface(_my_entity)
 {/*
 	emitter = sound_device::inst()->create_emitter();
@@ -214,6 +213,20 @@ void sound_interface::read_enx_data( chunk_file& fs, stringx& lstr )
 void validate_sound_interface(void)
 {
 	VALIDATE_SIZE(sound_interface, 0x20);
+}
+
+void validate_bone_interface(void)
+{
+	VALIDATE_SIZE(bone_interface, 0x8);
+
+	VALIDATE(bone_interface, my_bone, 0x4);
+}
+
+void validate_entity_interface(void)
+{
+	VALIDATE_SIZE(bone_interface, 0x8);
+
+	VALIDATE(entity_interface, my_entity, 0x4);
 }
 
 #include "my_patch.h"
