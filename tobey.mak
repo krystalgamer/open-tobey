@@ -82,6 +82,7 @@ CLEAN :
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
+	-@erase "$(INTDIR)\nsl_pc_emitter.obj"
 	-@erase "$(INTDIR)\path.obj"
 	-@erase "$(INTDIR)\pc_algebra.obj"
 	-@erase "$(INTDIR)\pc_audio.obj"
@@ -206,7 +207,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
 	"$(INTDIR)\pc_audio.obj" \
-	"$(INTDIR)\sound_interface.obj"
+	"$(INTDIR)\sound_interface.obj" \
+	"$(INTDIR)\nsl_pc_emitter.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -266,6 +268,7 @@ CLEAN :
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
+	-@erase "$(INTDIR)\nsl_pc_emitter.obj"
 	-@erase "$(INTDIR)\path.obj"
 	-@erase "$(INTDIR)\pc_algebra.obj"
 	-@erase "$(INTDIR)\pc_audio.obj"
@@ -392,7 +395,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
 	"$(INTDIR)\pc_audio.obj" \
-	"$(INTDIR)\sound_interface.obj"
+	"$(INTDIR)\sound_interface.obj" \
+	"$(INTDIR)\nsl_pc_emitter.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -535,6 +539,12 @@ SOURCE=.\SpideyTM\SRC\zlib\zutil.c
 SOURCE=.\SpideyTM\SRC\HWOSPC\pc_audio.cpp
 
 "$(INTDIR)\pc_audio.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\NSL\PC\nsl_pc_emitter.cpp
+
+"$(INTDIR)\nsl_pc_emitter.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

@@ -162,6 +162,18 @@ SOURCE=.\SpideyTM\SRC\zlib\zutil.c
 SOURCE=.\SpideyTM\SRC\HWOSPC\pc_audio.cpp
 # End Source File
 # End Group
+# Begin Group "NSL No. 1"
+
+# PROP Default_Filter ""
+# Begin Group "PC No. 1"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\NSL\PC\nsl_pc_emitter.cpp
+# End Source File
+# End Group
+# End Group
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\ai_interface.cpp
@@ -729,6 +741,42 @@ SOURCE=.\SpideyTM\SRC\zlib\zutil.h
 
 SOURCE=.\SpideyTM\SRC\HWOSPC\pc_audio.h
 # End Source File
+# End Group
+# Begin Group "NSL"
+
+# PROP Default_Filter ".h"
+# Begin Group "COMMON"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\NSL\COMMON\nl.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\NSL\COMMON\nsl.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\NSL\COMMON\ProjectOptions.h
+# End Source File
+# End Group
+# Begin Group "PC"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\NSL\PC\nl_pc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\NSL\PC\nsl_pc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\NSL\PC\nsl_pc_ext.h
+# End Source File
+# End Group
 # End Group
 # Begin Source File
 

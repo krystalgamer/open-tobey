@@ -6,6 +6,8 @@
 #include "sound_group.h"
 #include "hwaudio.h"
 
+#include "..\..\NSL\COMMON\nsl.h"
+
 class pstring;
 //class sound_emitter;
 
@@ -51,7 +53,7 @@ class sound_interface : public entity_interface
 	friend void validate_sound_interface(void);
 	friend void patch_sound_interface(void);
 protected:
-	sound_emitter* emitter;
+	nslEmitterId emitter;
 
 
   shared_sound_group *snd_grp;
@@ -68,9 +70,11 @@ public:
 	EXPORT virtual ~sound_interface();
 
 
+	EXPORT nslEmitterId sound_interface::create_emitter_if_we_havent_already(void);
+
  EXPORT void copy(sound_interface *b);
 
- EXPORT sound_emitter *get_emitter() const { return(emitter); }
+ EXPORT sound_emitter *get_emitter() const { PANIC; return NULL; }
 
  EXPORT virtual void frame_advance(time_value_t t);
 
@@ -90,9 +94,9 @@ public:
   EXPORT sg_entry *play_3d_sound_grp(const pstring &snd_grp, rational_t volume = 1.0f, rational_t pitch = 1.0f);
   EXPORT sg_entry *play_looping_3d_sound_grp(const pstring &snd_grp, rational_t volume = 1.0f, rational_t pitch = 1.0f);
 
-	EXPORT  bool sound_playing(unsigned int id) const { return(emitter->sound_playing(id)); }
+	EXPORT  bool sound_playing(unsigned int id) const { PANIC; return false; }
 
-	EXPORT  void kill_sound(unsigned int id) { emitter->kill_sound(id); }
+	EXPORT  void kill_sound(unsigned int id) { PANIC; }
 
 	EXPORT 	void read_enx_data( chunk_file& fs, stringx& lstr );
 };

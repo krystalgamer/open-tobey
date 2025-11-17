@@ -38,6 +38,18 @@ sound_interface::~sound_interface()
   }*/
 }
 
+// @Ok
+// @Matching
+nslEmitterId sound_interface::create_emitter_if_we_havent_already(void)
+{
+	if (!emitter)
+	{
+		emitter = nslCreateEmitter(TO_NLVECTOR3D(my_entity->get_abs_position()));
+	}
+
+	return emitter;
+}
+
 void sound_interface::copy(sound_interface *b)
 {/*
   if(snd_grp)
@@ -250,4 +262,6 @@ void patch_sound_interface(void)
 {
 	// @TODO - when all vfuncs done
 	//PATCH_PUSH_RET_POLY(0x004CED70, sound_interface::sound_interface, "??0sound_interface@@QAE@PAVentity@@@Z");
+
+	PATCH_PUSH_RET(0x004CEEF0, sound_interface::create_emitter_if_we_havent_already);
 }
