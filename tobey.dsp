@@ -352,6 +352,10 @@ SOURCE=.\SpideyTM\SRC\so_data_block.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\sound_group.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\sound_interface.cpp
 # End Source File
 # Begin Source File

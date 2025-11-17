@@ -51,17 +51,17 @@ nslEmitterId sound_interface::create_emitter_if_we_havent_already(void)
 }
 
 void sound_interface::copy(sound_interface *b)
-{/*
-  if(snd_grp)
-  {
-    snd_grp->del_ref();
-    snd_grp = NULL;
-
-  }
+{
+	if(snd_grp)
+	{
+		snd_grp->del_ref();
+		snd_grp = NULL;
+	}
 
   if(b->snd_grp)
+  {
     snd_grp = b->snd_grp->add_ref();
-    */
+  }
 }
 
 
@@ -256,6 +256,11 @@ void validate_entity_interface(void)
 	VALIDATE(entity_interface, my_entity, 0x4);
 }
 
+void validate_shared_sound_group(void)
+{
+	VALIDATE(shared_sound_group, ref_count, 0x0);
+}
+
 #include "my_patch.h"
 
 void patch_sound_interface(void)
@@ -264,4 +269,8 @@ void patch_sound_interface(void)
 	//PATCH_PUSH_RET_POLY(0x004CED70, sound_interface::sound_interface, "??0sound_interface@@QAE@PAVentity@@@Z");
 
 	PATCH_PUSH_RET(0x004CEEF0, sound_interface::create_emitter_if_we_havent_already);
+}
+
+void patch_shared_sound_group(void)
+{
 }

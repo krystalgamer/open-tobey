@@ -14,6 +14,8 @@ class pstring;
 
 class shared_sound_group
 {
+	friend void validate_shared_sound_group(void);
+	friend void patch_shared_sound_group(void);
 protected:
 
   friend class sound_interface;
@@ -43,8 +45,10 @@ protected:
   ~shared_sound_group()                 { assert(ref_count == 0); }
 
 
-  shared_sound_group *add_ref()         { ++ref_count; return(this); }
-  void del_ref()                        { --ref_count; if(ref_count == 0) delete this; }
+  // @Ok
+  // @Matching
+  EXPORT shared_sound_group *add_ref()         { ++ref_count; return(this); }
+  EXPORT void del_ref()                        { --ref_count; if(ref_count == 0) delete this; }
 };
 
 class sound_interface : public entity_interface

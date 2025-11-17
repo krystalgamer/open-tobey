@@ -38,6 +38,9 @@ void validate_colgeom(void);
 void validate_sound_interface(void);
 void validate_bone_interface(void);
 void validate_entity_interface(void);
+void validate_shared_sound_group(void);
+void validate_sound_group(void);
+void validate_sg_entry(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -73,4 +76,7 @@ void patch_damage_interface(void);
 void patch_frame_info(void);
 void patch_colgeom(void);
 void patch_sound_interface(void);
+void patch_shared_sound_group(void);
+void patch_sound_group(void);
+void patch_sg_entry(void);
 #endif

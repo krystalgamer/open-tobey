@@ -147,6 +147,11 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_sound_interface();
 
+	validate_shared_sound_group();
+	validate_sound_group();
+
+	validate_sg_entry();
+
 
 	return FAIL_VALIDATION;
 }
@@ -240,6 +245,10 @@ void game_patches()
 	patch_colgeom();
 
 	patch_sound_interface();
+	patch_shared_sound_group();
+	patch_sound_group();
+
+	patch_sg_entry();
 }
 
 #pragma pack(push,1)

@@ -99,6 +99,7 @@ CLEAN :
 	-@erase "$(INTDIR)\signal.obj"
 	-@erase "$(INTDIR)\singleton.obj"
 	-@erase "$(INTDIR)\so_data_block.obj"
+	-@erase "$(INTDIR)\sound_group.obj"
 	-@erase "$(INTDIR)\sound_interface.obj"
 	-@erase "$(INTDIR)\stringx.obj"
 	-@erase "$(INTDIR)\textfile.obj"
@@ -208,7 +209,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\zip_filter.obj" \
 	"$(INTDIR)\pc_audio.obj" \
 	"$(INTDIR)\sound_interface.obj" \
-	"$(INTDIR)\nsl_pc_emitter.obj"
+	"$(INTDIR)\nsl_pc_emitter.obj" \
+	"$(INTDIR)\sound_group.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -285,6 +287,7 @@ CLEAN :
 	-@erase "$(INTDIR)\signal.obj"
 	-@erase "$(INTDIR)\singleton.obj"
 	-@erase "$(INTDIR)\so_data_block.obj"
+	-@erase "$(INTDIR)\sound_group.obj"
 	-@erase "$(INTDIR)\sound_interface.obj"
 	-@erase "$(INTDIR)\stringx.obj"
 	-@erase "$(INTDIR)\textfile.obj"
@@ -396,7 +399,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\zip_filter.obj" \
 	"$(INTDIR)\pc_audio.obj" \
 	"$(INTDIR)\sound_interface.obj" \
-	"$(INTDIR)\nsl_pc_emitter.obj"
+	"$(INTDIR)\nsl_pc_emitter.obj" \
+	"$(INTDIR)\sound_group.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -808,6 +812,12 @@ SOURCE=.\SpideyTM\SRC\singleton.cpp
 SOURCE=.\SpideyTM\SRC\so_data_block.cpp
 
 "$(INTDIR)\so_data_block.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\sound_group.cpp
+
+"$(INTDIR)\sound_group.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
