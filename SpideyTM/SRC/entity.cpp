@@ -28,6 +28,30 @@
 // @Patch
 #include "ai_interface.h"
 #include "damage_interface.h"
+#include "sound_interface.h"
+
+
+//ENTITY_INTERFACE_CPP(entity, ai);
+//ENTITY_INTERFACE_CPP(entity, animation);
+// BIGCULL ENTITY_INTERFACE_CPP(entity, damage)
+//ENTITY_INTERFACE_CPP(entity, hard_attrib);
+//ENTITY_INTERFACE_CPP(entity, owner);
+
+//ENTITY_INTERFACE_CPP(entity, physical);
+//ENTITY_INTERFACE_CPP(entity, render);
+#ifdef ECULL
+ENTITY_INTERFACE_CPP(entity, script_data);
+#endif
+//ENTITY_INTERFACE_CPP(entity, skeleton);
+//ENTITY_INTERFACE_CPP(entity, slave);
+//ENTITY_INTERFACE_CPP(entity, soft_attrib);
+// @ Patch - uncomment ECULL
+ENTITY_INTERFACE_CPP(entity, sound);
+//ENTITY_INTERFACE_CPP(entity, time);
+#ifdef ECULL
+//ENTITY_INTERFACE_CPP(entity, box_trigger);
+#endif
+
 
 // @TODO - REMOVE
 DEFINE_SINGLETON(anim_id_manager);
@@ -36,7 +60,7 @@ DEFINE_SINGLETON(anim_id_manager);
 // @Matching
 INLINE char* strdupcpp(const char* str)
 {
-  char* retstr;
+char* retstr;
 
   retstr = NEW char[ strlen(str)+1 ];
   strcpy( retstr, str );
@@ -1555,9 +1579,8 @@ void entity::deactivate_motion_blur()
   set_flag(EFLAG_GRAPHICS_MOTION_BLUR,false);
 }
 
-#ifdef ECULL
+// @Patch - removed ECULL
 sound_emitter* entity::get_emitter()
-
 {
 /*
   if ( !emitter )
@@ -1580,7 +1603,6 @@ sound_emitter* entity::get_emitter()
   return(sound_ifc()->get_emitter());
 
 }
-#endif
 
 
 

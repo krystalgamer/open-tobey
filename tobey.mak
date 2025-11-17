@@ -84,6 +84,7 @@ CLEAN :
 	-@erase "$(INTDIR)\ngl_pc.obj"
 	-@erase "$(INTDIR)\path.obj"
 	-@erase "$(INTDIR)\pc_algebra.obj"
+	-@erase "$(INTDIR)\pc_audio.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\pmesh.obj"
 	-@erase "$(INTDIR)\po.obj"
@@ -97,6 +98,7 @@ CLEAN :
 	-@erase "$(INTDIR)\signal.obj"
 	-@erase "$(INTDIR)\singleton.obj"
 	-@erase "$(INTDIR)\so_data_block.obj"
+	-@erase "$(INTDIR)\sound_interface.obj"
 	-@erase "$(INTDIR)\stringx.obj"
 	-@erase "$(INTDIR)\textfile.obj"
 	-@erase "$(INTDIR)\trees.obj"
@@ -146,13 +148,18 @@ LINK32_OBJS= \
 	"$(INTDIR)\trees.obj" \
 	"$(INTDIR)\uncompr.obj" \
 	"$(INTDIR)\zutil.obj" \
+	"$(INTDIR)\ai_interface.obj" \
+	"$(INTDIR)\ai_locomotion.obj" \
+	"$(INTDIR)\ai_polypath.obj" \
 	"$(INTDIR)\anim_flavor.obj" \
 	"$(INTDIR)\app.obj" \
 	"$(INTDIR)\billboard.obj" \
 	"$(INTDIR)\bone.obj" \
 	"$(INTDIR)\chunkfile.obj" \
+	"$(INTDIR)\colgeom.obj" \
 	"$(INTDIR)\collide.obj" \
 	"$(INTDIR)\controller.obj" \
+	"$(INTDIR)\damage_interface.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
 	"$(INTDIR)\entity.obj" \
@@ -161,6 +168,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\file_manager.obj" \
 	"$(INTDIR)\filespec.obj" \
 	"$(INTDIR)\frame_info.obj" \
+	"$(INTDIR)\game.obj" \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\ini_parser.obj" \
 	"$(INTDIR)\light.obj" \
@@ -169,6 +177,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\mustash.obj" \
 	"$(INTDIR)\my_assertions.obj" \
 	"$(INTDIR)\ngl_pc.obj" \
+	"$(INTDIR)\path.obj" \
 	"$(INTDIR)\pc_algebra.obj" \
 	"$(INTDIR)\pc_timer.obj" \
 	"$(INTDIR)\pmesh.obj" \
@@ -196,13 +205,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\ai_interface.obj" \
-	"$(INTDIR)\ai_locomotion.obj" \
-	"$(INTDIR)\ai_polypath.obj" \
-	"$(INTDIR)\path.obj" \
-	"$(INTDIR)\game.obj" \
-	"$(INTDIR)\damage_interface.obj" \
-	"$(INTDIR)\colgeom.obj"
+	"$(INTDIR)\pc_audio.obj" \
+	"$(INTDIR)\sound_interface.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -264,6 +268,7 @@ CLEAN :
 	-@erase "$(INTDIR)\ngl_pc.obj"
 	-@erase "$(INTDIR)\path.obj"
 	-@erase "$(INTDIR)\pc_algebra.obj"
+	-@erase "$(INTDIR)\pc_audio.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\pmesh.obj"
 	-@erase "$(INTDIR)\po.obj"
@@ -277,6 +282,7 @@ CLEAN :
 	-@erase "$(INTDIR)\signal.obj"
 	-@erase "$(INTDIR)\singleton.obj"
 	-@erase "$(INTDIR)\so_data_block.obj"
+	-@erase "$(INTDIR)\sound_interface.obj"
 	-@erase "$(INTDIR)\stringx.obj"
 	-@erase "$(INTDIR)\textfile.obj"
 	-@erase "$(INTDIR)\trees.obj"
@@ -328,13 +334,18 @@ LINK32_OBJS= \
 	"$(INTDIR)\trees.obj" \
 	"$(INTDIR)\uncompr.obj" \
 	"$(INTDIR)\zutil.obj" \
+	"$(INTDIR)\ai_interface.obj" \
+	"$(INTDIR)\ai_locomotion.obj" \
+	"$(INTDIR)\ai_polypath.obj" \
 	"$(INTDIR)\anim_flavor.obj" \
 	"$(INTDIR)\app.obj" \
 	"$(INTDIR)\billboard.obj" \
 	"$(INTDIR)\bone.obj" \
 	"$(INTDIR)\chunkfile.obj" \
+	"$(INTDIR)\colgeom.obj" \
 	"$(INTDIR)\collide.obj" \
 	"$(INTDIR)\controller.obj" \
+	"$(INTDIR)\damage_interface.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
 	"$(INTDIR)\entity.obj" \
@@ -343,6 +354,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\file_manager.obj" \
 	"$(INTDIR)\filespec.obj" \
 	"$(INTDIR)\frame_info.obj" \
+	"$(INTDIR)\game.obj" \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\ini_parser.obj" \
 	"$(INTDIR)\light.obj" \
@@ -351,6 +363,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\mustash.obj" \
 	"$(INTDIR)\my_assertions.obj" \
 	"$(INTDIR)\ngl_pc.obj" \
+	"$(INTDIR)\path.obj" \
 	"$(INTDIR)\pc_algebra.obj" \
 	"$(INTDIR)\pc_timer.obj" \
 	"$(INTDIR)\pmesh.obj" \
@@ -378,13 +391,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\ai_interface.obj" \
-	"$(INTDIR)\ai_locomotion.obj" \
-	"$(INTDIR)\ai_polypath.obj" \
-	"$(INTDIR)\path.obj" \
-	"$(INTDIR)\game.obj" \
-	"$(INTDIR)\damage_interface.obj" \
-	"$(INTDIR)\colgeom.obj"
+	"$(INTDIR)\pc_audio.obj" \
+	"$(INTDIR)\sound_interface.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -521,6 +529,12 @@ SOURCE=.\SpideyTM\SRC\zlib\uncompr.c
 SOURCE=.\SpideyTM\SRC\zlib\zutil.c
 
 "$(INTDIR)\zutil.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\pc_audio.cpp
+
+"$(INTDIR)\pc_audio.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
@@ -784,6 +798,12 @@ SOURCE=.\SpideyTM\SRC\singleton.cpp
 SOURCE=.\SpideyTM\SRC\so_data_block.cpp
 
 "$(INTDIR)\so_data_block.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\sound_interface.cpp
+
+"$(INTDIR)\sound_interface.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

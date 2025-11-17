@@ -2,8 +2,6 @@
 #define _SOUND_INTERFACE_H_
 
 
-#if 0
-#include "global.h"
 #include "entity_interface.h"
 #include "sound_group.h"
 #include "hwaudio.h"
@@ -23,8 +21,8 @@ protected:
 	// Sound groups provide lists of sounds and the ability to draw from
 	// them randomly, with a built in history checker.  Be careful to add groups to
 	// the map<> if they're ever loaded outside game.
-	vector<sound_group> sound_groups;
-	map<pstring,sound_group*> sound_group_map;
+  std::vector<sound_group> sound_groups;
+	std::map<pstring,sound_group*> sound_group_map;
 
 	// Example:
 	// sg_entry* entry = g_game_ptr->get_sound_group_entry( "spidey_jump" );
@@ -35,7 +33,7 @@ protected:
 
 	sg_entry* get_sound_group_entry( const pstring& name )
   {
-	  map<pstring,sound_group*>::iterator it = sound_group_map.find( name );
+	  std::map<pstring,sound_group*>::iterator it = sound_group_map.find( name );
     return( it == sound_group_map.end() ? NULL : ( *it ).second->get_next() );
   }
 
@@ -59,7 +57,7 @@ protected:
 
   int max_voices;
 
-  vector<unsigned int> voices;
+  std::vector<unsigned int> voices;
 
   void add_voice(unsigned int id);
 
@@ -96,7 +94,4 @@ public:
 
 	void read_enx_data( chunk_file& fs, stringx& lstr );
 };
-#endif
-
-
 #endif

@@ -56,7 +56,8 @@ class item;
 // BIGCULL class handheld_item;
 
 class material;
-//class sound_emitter;
+// @Patch - uncomment
+class sound_emitter;
 class entity_controller;
 
 class entity_widget;
@@ -490,7 +491,8 @@ class script_data_interface;
 class skeleton_interface;
 class slave_interface;
 class soft_attrib_interface;
-//class sound_interface;
+// @Patch - removed comment
+class sound_interface;
 class time_interface;
 class box_trigger_interface;
 
@@ -698,14 +700,14 @@ protected:
    ENTITY_INTERFACE(slave)
    ENTITY_INTERFACE(soft_attrib)
 
-#ifdef ECULL
-   ENTITY_INTERFACE(sound)
-#endif
    ENTITY_INTERFACE(time)
 #ifdef ECULL
    ENTITY_INTERFACE(box_trigger)
 #endif
    */
+
+  // @Patch - moved around
+   ENTITY_INTERFACE(sound);
 
 
 
@@ -1400,10 +1402,8 @@ public:
   */
 
 
-#ifdef ECULL
-
+  // @Patch - remove ECULL
   sound_emitter* get_emitter();
-#endif
 
 /////////////////////////////////////////////////////////////////////////////
 // Graphics interface
@@ -2125,9 +2125,7 @@ protected:
 
   // sound
 
-#ifdef ECULL
   sound_emitter * emitter;
-#endif
 
 
   int min_detail;

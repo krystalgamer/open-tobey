@@ -154,6 +154,14 @@ SOURCE=.\SpideyTM\SRC\zlib\uncompr.c
 SOURCE=.\SpideyTM\SRC\zlib\zutil.c
 # End Source File
 # End Group
+# Begin Group "HWOSPC No. 1"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\pc_audio.cpp
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\ai_interface.cpp
@@ -329,6 +337,10 @@ SOURCE=.\SpideyTM\SRC\singleton.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\so_data_block.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sound_interface.cpp
 # End Source File
 # Begin Source File
 
@@ -710,6 +722,14 @@ SOURCE=.\SpideyTM\SRC\zlib\zlib.h
 SOURCE=.\SpideyTM\SRC\zlib\zutil.h
 # End Source File
 # End Group
+# Begin Group "HWOSPC"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\pc_audio.h
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\aggvertbuf.h
@@ -1028,6 +1048,10 @@ SOURCE=.\SpideyTM\SRC\hull.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\hwaudio.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\hwmath.h
 # End Source File
 # Begin Source File
@@ -1329,6 +1353,10 @@ SOURCE=.\SpideyTM\SRC\sl_debugger.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\so_data_block.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\sound_group.h
 # End Source File
 # Begin Source File
 
