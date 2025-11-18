@@ -10,6 +10,18 @@ sound_group::sound_group()
   clear_history();*/
 }
 
+// @Ok
+// @Matching
+sg_entry* sound_group::get_by_index(int index)
+{
+	if (index < 0 || index >= this->entries.size())
+	{
+		return NULL;
+	}
+
+	return &this->entries[index];
+}
+
 // Picks the next random string and cycles the history.
 sg_entry* sound_group::get_next()
 {
@@ -317,6 +329,7 @@ void validate_sg_entry(void)
 void patch_sound_group(void)
 {
 	PATCH_PUSH_RET(0x0060BB10, sound_group::copy);
+	PATCH_PUSH_RET(0x0060BAC0, sound_group::get_by_index);
 }
 
 void patch_sg_entry(void)

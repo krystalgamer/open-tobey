@@ -120,6 +120,8 @@ public:
     copy(b);
   } 
 
+   // @Patch - added
+ EXPORT sg_entry* get_by_index(int index);
   EXPORT void copy(const sound_group &b);
 
   EXPORT void clear_history();
