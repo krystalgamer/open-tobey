@@ -250,6 +250,8 @@ void validate_sound_interface(void)
 	VALIDATE(sound_interface, max_voices, 0x10);
 
 	VALIDATE(sound_interface, voices, 0x14);
+
+	VALIDATE_VTABLE(sound_interface, frame_advance, 7);
 }
 
 void validate_bone_interface(void)
@@ -275,8 +277,7 @@ void validate_shared_sound_group(void)
 
 void patch_sound_interface(void)
 {
-	// @TODO - when all vfuncs done
-	//PATCH_PUSH_RET_POLY(0x004CED70, sound_interface::sound_interface, "??0sound_interface@@QAE@PAVentity@@@Z");
+	PATCH_PUSH_RET_POLY(0x004CED70, sound_interface::sound_interface, "??0sound_interface@@QAE@PAVentity@@@Z");
 
 	PATCH_PUSH_RET(0x004CEEF0, sound_interface::create_emitter_if_we_havent_already);
 
