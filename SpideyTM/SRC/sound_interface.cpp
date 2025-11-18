@@ -174,22 +174,32 @@ void sound_interface::add_voice(unsigned int id)
 }
 
 
+// @Ok
+// @Matching
+// @Neat - get_my_entity() vs this->my_entity yield different code
 void sound_interface::frame_advance(time_value_t t)
-{/*
-  emitter->set_position( my_entity->get_abs_position() );
+{
+	if (emitter)
+	{
+		nslSetEmitterPosition(emitter, TO_NLVECTOR3D(this->get_my_entity()->get_abs_position()));
+	}
 
-  if(max_voices > 0 && !voices.empty())
-  {
-    vector<unsigned int>::iterator i = voices.begin();
+	if(max_voices > 0 && !voices.empty())
+	{
+		std::vector<unsigned int>::iterator i = voices.begin();
 
-    while(i != voices.end())
-    {
-      if(emitter->sound_playing(*i))
-        ++i;
-      else
-        i = voices.erase(i);
-    }
-  }*/
+		while(i != voices.end())
+		{
+			if(nslGetSoundStatus(*i))
+			{
+				++i;
+			}
+			else
+			{
+				i = voices.erase(i);
+			}
+		}
+	}
 }
 
 
@@ -269,6 +279,8 @@ void patch_sound_interface(void)
 	//PATCH_PUSH_RET_POLY(0x004CED70, sound_interface::sound_interface, "??0sound_interface@@QAE@PAVentity@@@Z");
 
 	PATCH_PUSH_RET(0x004CEEF0, sound_interface::create_emitter_if_we_havent_already);
+
+	PATCH_PUSH_RET_POLY(0x004D02C0, sound_interface::frame_advance, "?frame_advance@sound_interface@@UAEXM@Z");
 }
 
 void patch_shared_sound_group(void)

@@ -35,14 +35,14 @@ protected:
 
   // Returns the next entry in a sound group.
 
-	sg_entry* get_sound_group_entry( const pstring& name )
+	EXPORT sg_entry* get_sound_group_entry( const pstring& name )
   {
 	  std::map<pstring,sound_group*>::iterator it = sound_group_map.find( name );
     return( it == sound_group_map.end() ? NULL : ( *it ).second->get_next() );
   }
 
-  shared_sound_group() : ref_count(1)   { }
-  ~shared_sound_group()                 { assert(ref_count == 0); }
+  EXPORT shared_sound_group() : ref_count(1)   { }
+  EXPORT ~shared_sound_group()                 { assert(ref_count == 0); }
 
 
   // @Ok

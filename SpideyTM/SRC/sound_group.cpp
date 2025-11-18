@@ -4,10 +4,12 @@
 #include "hwaudio.h"
 
 
+// @Ok
+// @NotMatching - again the allocations seem different
 sound_group::sound_group()
-{/*
+{
   maxhistory = 0;
-  clear_history();*/
+  clear_history();
 }
 
 // @Ok
@@ -23,6 +25,7 @@ sg_entry* sound_group::get_by_index(int index)
 }
 
 // Picks the next random string and cycles the history.
+// @TODO
 sg_entry* sound_group::get_next()
 {
 /*
@@ -330,6 +333,8 @@ void patch_sound_group(void)
 {
 	PATCH_PUSH_RET(0x0060BB10, sound_group::copy);
 	PATCH_PUSH_RET(0x0060BAC0, sound_group::get_by_index);
+
+	PATCH_PUSH_RET_POLY(0x0060B790, sound_group::sound_group, "??0sound_group@@QAE@XZ");
 }
 
 void patch_sg_entry(void)
