@@ -111,6 +111,8 @@ sg_entry* sound_group::get_next()
 }
 
 
+// @Ok
+// @NotMatching - because of clear_history
 void sound_group::copy(const sound_group &b)
 {
   name = b.name;
@@ -127,19 +129,22 @@ void sound_group::copy(const sound_group &b)
   clear_history();
 }
 
+// @Ok
+// @NotMatching - there's some different level of inlines
+// I believe it's due to the memory safety
+// i.e my code spits a std::_Construct while the original doesn't
+// I guess it's trying to be safe
 INLINE void sound_group::clear_history()
 {
   pool.resize(0);
   pool.reserve(entries.size());
 
-  /*
   std::vector<sg_entry>::iterator sgei = entries.begin();
   while(sgei != entries.end())
   {
     pool.push_back(&(*sgei));
     ++sgei;
   }
-  */
   
   /*
 	for ( unsigned i = 0; i < ARRAY_ELEMENTS( history ); i++ )
@@ -284,6 +289,7 @@ void validate_sound_group(void)
 	VALIDATE(sound_group, entries, 0x24);
 	VALIDATE(sound_group, pool, 0x30);
 }
+
 void validate_sg_entry(void)
 {
 	VALIDATE_SIZE(sg_entry, 0x50);
@@ -310,6 +316,7 @@ void validate_sg_entry(void)
 #include "my_patch.h"
 void patch_sound_group(void)
 {
+	PATCH_PUSH_RET(0x0060BB10, sound_group::copy);
 }
 
 void patch_sg_entry(void)
