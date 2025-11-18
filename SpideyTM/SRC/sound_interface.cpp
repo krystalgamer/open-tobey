@@ -50,6 +50,8 @@ nslEmitterId sound_interface::create_emitter_if_we_havent_already(void)
 	return emitter;
 }
 
+// @Ok
+// @Matching
 void sound_interface::copy(sound_interface *b)
 {
 	if(snd_grp)
@@ -278,10 +280,10 @@ void validate_shared_sound_group(void)
 void patch_sound_interface(void)
 {
 	PATCH_PUSH_RET_POLY(0x004CED70, sound_interface::sound_interface, "??0sound_interface@@QAE@PAVentity@@@Z");
-
 	PATCH_PUSH_RET(0x004CEEF0, sound_interface::create_emitter_if_we_havent_already);
-
 	PATCH_PUSH_RET_POLY(0x004D02C0, sound_interface::frame_advance, "?frame_advance@sound_interface@@UAEXM@Z");
+
+	PATCH_PUSH_RET(0x004CF060, sound_interface::copy);
 }
 
 void patch_shared_sound_group(void)
