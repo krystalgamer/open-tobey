@@ -48,6 +48,8 @@ protected:
   // @Ok
   // @Matching
   EXPORT shared_sound_group *add_ref()         { ++ref_count; return(this); }
+  // @Ok
+  // @Matching
   EXPORT void del_ref()                        { --ref_count; if(ref_count == 0) delete this; }
 };
 
