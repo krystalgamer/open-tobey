@@ -72,6 +72,8 @@ protected:
   void add_voice(unsigned int id);
 
 public:
+  static bool sound_interfaces_enabled;
+
 	EXPORT sound_interface(entity* _my_entity);
 	EXPORT virtual ~sound_interface();
 

@@ -30,3 +30,40 @@ nslSoundStatusEnum nslGetSoundStatus( nslSoundId whichSound )
 	func_ptr func = (func_ptr)0x0081E4A0;
 	return func(whichSound);
 }
+
+void nslPlaySound( nslSoundId soundToPlay )
+{
+	typedef void (*func_ptr)(nslSoundId);
+	func_ptr func = (func_ptr)0x0081E240;
+	func(soundToPlay);
+}
+
+nslSourceId	nslGetSource( const char* name, bool fatal )
+{
+	typedef nslSourceId (*func_ptr)(const char*, bool);
+	func_ptr func = (func_ptr)0x0081F6A0;
+
+	return func(name, fatal);
+}
+
+nslSoundId  nslXAddSound( nslSourceId soundSource )
+{
+	typedef nslSourceId (*func_ptr)(nslSourceId);
+	func_ptr func = (func_ptr)0x007ED8C0;
+
+	return func(soundSource);
+}
+
+void nslSetSoundParam( nslSoundId soundToSet, nslSoundParamEnum whichParam, float newVal )
+{
+	typedef void (*func_ptr)( nslSoundId soundToSet, nslSoundParamEnum whichParam, float newVal );
+	func_ptr func = (func_ptr)0x0081E9D0;
+	func(soundToSet, whichParam, newVal);
+}
+
+void nslSetSoundEmitter( nslEmitterId soundEmitter, nslSoundId soundInstance )
+{
+	typedef void (*func_ptr)( nslEmitterId soundEmitter, nslSoundId soundInstance);
+	func_ptr func = (func_ptr)0x0081D4C0;
+	func(soundEmitter, soundInstance);
+}

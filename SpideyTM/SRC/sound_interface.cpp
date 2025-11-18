@@ -7,6 +7,12 @@
 #include "entity.h"
 #include "pstring.h"
 
+
+// @TODO
+bool sound_interface::sound_interfaces_enabled;
+// #define GET_SOUND_INTERFACES_ENABLED sound_interface::sound_interfaces_enabled
+#define GET_SOUND_INTERFACES_ENABLED (*reinterpret_cast<bool*>(0x8C3DF0))
+
 // @Ok
 // @Matching
 sound_interface::sound_interface(entity* _my_entity)
@@ -89,10 +95,39 @@ sg_entry *sound_interface::play_sound_grp(const pstring &snd_grp, rational_t vol
 
 
 
+// @Ok
+// @Matching
 unsigned int sound_interface::play_3d_sound(const stringx &snd, rational_t volume, rational_t pitch)
 {
-	//return(emitter->play_sound( snd, volume, pitch*ENTITY_TIME_DILATION(my_entity) ));
-  return 1;
+	if (!GET_SOUND_INTERFACES_ENABLED)
+	{
+		return 0;
+	}
+
+	filespec spec(snd);
+
+	unsigned int source = nslGetSource(spec.name.c_str(), false);
+	unsigned int soundId = nslXAddSound(source);
+
+	
+	if (nslGetSoundStatus(soundId))
+	{
+		nslSetSoundParam(soundId, NSL_SOUNDPARAM_VOLUME, volume);
+		nslSetSoundParam(soundId, NSL_SOUNDPARAM_PITCH, pitch);
+
+		if ( !this->emitter )
+		{
+			this->emitter = nslCreateEmitter(TO_NLVECTOR3D(this->my_entity->get_abs_position()));
+		}
+
+		nslSetSoundEmitter(this->emitter, soundId);
+		nslPlaySound(soundId);
+	}
+
+
+
+	return soundId;
+
 }
 
 unsigned int sound_interface::play_3d_sound(sound_id_t snd, rational_t volume, rational_t pitch)
@@ -284,6 +319,8 @@ void patch_sound_interface(void)
 	PATCH_PUSH_RET_POLY(0x004D02C0, sound_interface::frame_advance, "?frame_advance@sound_interface@@UAEXM@Z");
 
 	PATCH_PUSH_RET(0x004CF060, sound_interface::copy);
+
+	PATCH_PUSH_RET_POLY(0x004CF4E0, sound_interface::play_3d_sound, "?play_3d_sound@sound_interface@@QAEIABVstringx@@MM@Z");
 }
 
 void patch_shared_sound_group(void)

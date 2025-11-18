@@ -383,6 +383,8 @@ bool nslGetReverb(nslSourceId whichSource);
 // (pitch would go above 1, in the case of increasing
 // pitch above it's natural, base pitch)
 nslSoundId  nslAddSound( nslSourceId soundSource );
+// @Patch - add
+nslSoundId  nslXAddSound( nslSourceId soundSource );
 nslSoundId  nslStreamAddSound( nslSourceId soundSource, int streamOffset, int streamSamples );
 nslSoundId  nslAddSoundWithOffset( nslSourceId soundSource, float seconds );
 void        nslPlaySound( nslSoundId soundToPlay );
