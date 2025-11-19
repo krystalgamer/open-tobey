@@ -1399,8 +1399,8 @@ public:
   */
 
 
-  // @Patch - remove ECULL
-  sound_emitter* get_emitter();
+  // @Patch - remove ECULL, changed type too
+  unsigned int get_emitter();
 
 /////////////////////////////////////////////////////////////////////////////
 // Graphics interface

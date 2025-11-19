@@ -1586,7 +1586,7 @@ void entity::deactivate_motion_blur()
 }
 
 // @Patch - removed ECULL
-sound_emitter* entity::get_emitter()
+unsigned int entity::get_emitter()
 {
 /*
   if ( !emitter )

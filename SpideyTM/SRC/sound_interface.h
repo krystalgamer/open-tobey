@@ -82,7 +82,9 @@ public:
 
  EXPORT void copy(sound_interface *b);
 
- EXPORT sound_emitter *get_emitter() const { PANIC; return NULL; }
+ // @Ok
+ // @Matching
+ EXPORT nslEmitterId get_emitter() { return this->create_emitter_if_we_havent_already(); }
 
  EXPORT virtual void frame_advance(time_value_t t);
 
