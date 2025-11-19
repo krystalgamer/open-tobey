@@ -1417,6 +1417,8 @@ public:
 public:
 
   // EFLAG_MISC_GRAPHICS
+  // @Ok
+  // @Matching
   EXPORT virtual time_value_t get_visrep_ending_time() const { assert(my_visrep); return my_visrep->get_ending_time(); }
 
   EXPORT virtual vector3d get_visual_center() const;

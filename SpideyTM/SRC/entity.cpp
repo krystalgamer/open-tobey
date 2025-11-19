@@ -3930,6 +3930,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A1140, entity::phys_render, "?phys_render@entity@@UAEXM_N@Z");
 	PATCH_PUSH_RET_POLY(0x004A1120, entity::is_picked_up, "?is_picked_up@entity@@UAE_NXZ");
+
+	PATCH_PUSH_RET_POLY(0x004A1160, entity::get_visrep_ending_time, "?get_visrep_ending_time@entity@@UBEMXZ");
 }
 
 void patch_entity_id(void)

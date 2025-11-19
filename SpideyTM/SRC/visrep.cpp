@@ -144,10 +144,13 @@ void validate_visual_rep(void)
 {
 	VALIDATE(visual_rep, type, 4);
 
+	VALIDATE_VTABLE(visual_rep, get_ending_time, 6);
+
 	VALIDATE_VTABLE(visual_rep, get_distance_fade_ok, 14);
 
 	VALIDATE_VTABLE(visual_rep, get_anim_length, 15);
 	VALIDATE_VTABLE(visual_rep, is_uv_animated, 16);
+
 }
 
 #include "my_patch.h"
