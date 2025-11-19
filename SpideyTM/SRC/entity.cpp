@@ -1253,9 +1253,20 @@ vector3d entity::get_visual_center() const
 }
 
 
+// @Ok
+// @Matching
 rational_t entity::get_visual_radius() const
 {
-  return my_visrep ? my_visrep->get_radius(get_age()) : 0;
+	nglMesh *pMesh = this->get_mesh();
+
+	if (pMesh)
+	{
+		// @TODO - understand nglMesh
+		unsigned char *tmp = reinterpret_cast<unsigned char*>(pMesh);
+		return *reinterpret_cast<rational_t*>(&tmp[0x60]);
+	}
+
+	return 0;
 }
 
 void entity::compute_visual_xz_radius_rel_center()
@@ -3932,6 +3943,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A1120, entity::is_picked_up, "?is_picked_up@entity@@UAE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x004A1160, entity::get_visrep_ending_time, "?get_visrep_ending_time@entity@@UBEMXZ");
+	PATCH_PUSH_RET_POLY(0x004EC3D0, entity::get_visual_radius, "?get_visual_radius@entity@@UBEMXZ");
 }
 
 void patch_entity_id(void)
