@@ -18,23 +18,24 @@ private:
   static float ifl_frame_rate;
 
 public:
-  frame_info();
-  static void set_frame_rate(float);
-  static float get_frame_rate ();
-  time_value_t get_age() const;
+  EXPORT frame_info();
+  EXPORT static void set_frame_rate(float);
+  EXPORT static float get_frame_rate ();
+  EXPORT time_value_t get_age() const;
+
   // @Ok
   // @Matching
-  void set_age(time_value_t a) { age = a; }
-  int get_ifl_frame_boost () const;
-  void set_ifl_frame_boost( int boost ) { ifl_frame_boost = boost; }
-  int get_ifl_frame_locked () const;
+  EXPORT void set_age(time_value_t a) { age = a; }
+  EXPORT int get_ifl_frame_boost () const;
+  EXPORT void set_ifl_frame_boost( int boost ) { ifl_frame_boost = boost; }
+  EXPORT int get_ifl_frame_locked () const;
 
-  void set_ifl_frame_locked(int);
-  void operator=(const frame_info &source);
+  EXPORT void set_ifl_frame_locked(int);
+  EXPORT void operator=(const frame_info &source);
 
-  void compute_boost_for_play(int period);
-  int time_to_frame_locked (int period = 0) const;
-  int time_to_frame (int period = 0) const;
+  EXPORT void compute_boost_for_play(int period);
+  EXPORT int time_to_frame_locked (int period = 0) const;
+  EXPORT int time_to_frame (int period = 0) const;
 };
 
 

@@ -19,6 +19,8 @@ int frame_info::get_ifl_frame_locked() const
 }
 
 
+// @Ok
+// @Matching
 void frame_info::set_ifl_frame_locked(int frame_to_lock) 
 {
   ifl_frame_locked=frame_to_lock;
@@ -102,6 +104,8 @@ void frame_info::compute_boost_for_play(int period)
 void validate_frame_info(void)
 {
 	VALIDATE(frame_info, age, 0);
+
+	VALIDATE(frame_info, ifl_frame_locked, 8);
 }
 
 #include "my_patch.h"
