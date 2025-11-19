@@ -1199,14 +1199,26 @@ bool entity::get_distance_fade_ok() const
 
 void entity::copy_flags( const entity& b )
 {
-  flags |= (b.flags & EFLAG_COPY_MASK);
-  flags &= (b.flags | ~EFLAG_COPY_MASK);
   ext_flags |= (b.ext_flags & EFLAG_EXT_COPY_MASK);
   ext_flags &= (b.ext_flags | ~EFLAG_EXT_COPY_MASK);
 
-  if(is_ext_flagged(EFLAG_EXT_ENX_WALKABLE))
-    set_walkable( true );
+  field_68 |= b.field_68 & 1;
+  field_68 &= b.field_68 | ~1;
 
+  copy_flags_from_flags(b.flags);
+}
+
+// @Ok
+// @Matching
+INLINE void entity::copy_flags_from_flags(unsigned int f)
+{
+	flags |= (f & EFLAG_COPY_MASK);
+	flags &= (f | ~EFLAG_COPY_MASK);
+
+	if (is_ext_flagged(EFLAG_EXT_ENX_WALKABLE))
+	{
+		this->set_walkable(true);
+	}
 }
 
 
@@ -1242,14 +1254,17 @@ int random_ifl_frame_boost_table[256];
 
 vector3d entity::get_visual_center() const
 {
+	nglMesh *pMesh = this->get_mesh();
+	if (!pMesh)
+	{
+		return get_abs_position();
+	}
 
-  if (!my_visrep)
-    return get_abs_position();
-//  return get_abs_po().slow_xform(my_visrep->get_center(get_age()));
-  //return get_abs_po().fast_8byte_xform(my_visrep->get_center(get_age()));
-  vector3d ctr=my_visrep->get_center(get_age());
-  assert(ctr.y>-1e9F && ctr.y<1e9F);
-  return get_abs_po().fast_8byte_xform(ctr);
+	unsigned char *tmp = reinterpret_cast<unsigned char*>(pMesh);
+	rational_t *pTmp = reinterpret_cast<rational_t*>(&tmp[20*4]);
+
+	vector3d v(pTmp[0], pTmp[1], pTmp[2]);
+	return get_abs_po().slow_xform(v);
 }
 
 
@@ -3497,6 +3512,8 @@ void validate_entity(void)
 	VALIDATE(entity, flags, 0x60);
 	VALIDATE(entity, ext_flags, 0x64);
 
+	VALIDATE(entity, field_68, 0x68);
+
 	VALIDATE(entity, flavor, 0x6C);
 	VALIDATE(entity, id, 0x70);
 
@@ -3752,6 +3769,8 @@ void validate_entity(void)
 	VALIDATE_VAL(EFLAG_EXT_PRELOADED, 0x80000);
 
 	VALIDATE_VAL(EFLAG_PHYSENT_EXTERNALLY_CONTROLLED, 0x100000);
+
+	VALIDATE_VAL(EFLAG_COPY_MASK, 0xA0080300);
 }
 
 void validate_movement_info(void)
@@ -3944,6 +3963,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET_POLY(0x004A1160, entity::get_visrep_ending_time, "?get_visrep_ending_time@entity@@UBEMXZ");
 	PATCH_PUSH_RET_POLY(0x004EC3D0, entity::get_visual_radius, "?get_visual_radius@entity@@UBEMXZ");
+
+	PATCH_PUSH_RET(0x004EC2F0, entity::copy_flags_from_flags);
 }
 
 void patch_entity_id(void)

@@ -381,7 +381,9 @@ enum entity_flag_t
   EFLAG_MEMBER_HIDDEN                        = 0x80000000, // if true, ready for pool re-use
 
   // this is a mask that specifies which of the above flags get copied on a make_instance()
-  EFLAG_COPY_MASK = EFLAG_GRAPHICS|EFLAG_GRAPHICS_VISIBLE|EFLAG_MISC_CAST_SHADOW|EFLAG_COLGEOM_INSTANCED,
+  //EFLAG_COPY_MASK = EFLAG_GRAPHICS|EFLAG_GRAPHICS_VISIBLE|EFLAG_MISC_CAST_SHADOW|EFLAG_COLGEOM_INSTANCED,
+  // @TODO - figure out the proper values
+  EFLAG_COPY_MASK = 0xA0080300,
 };
 
 enum entity_ext_flag_t
@@ -514,7 +516,8 @@ class entity : public bone
 	  // @Patch - moved closer to flags
 	  unsigned int ext_flags;
 
-	PADDING(4);
+	  // @TODO - figure name
+	  unsigned int field_68;
     entity_flavor_t flavor;
 
 
@@ -829,6 +832,9 @@ public:
   EXPORT virtual void set_ext_flag_recursive(register unsigned int f, register bool set) { set_ext_flag(f, set); }
 
   EXPORT void copy_flags( const entity& b );
+
+  // @Patch - added
+  EXPORT void copy_flags_from_flags(unsigned int);
 
 
 /////////////////////////////////////////////////////////////////////////////
