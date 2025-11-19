@@ -67,3 +67,11 @@ void nslSetSoundEmitter( nslEmitterId soundEmitter, nslSoundId soundInstance )
 	func_ptr func = (func_ptr)0x0081D4C0;
 	func(soundEmitter, soundInstance);
 }
+
+void nslReleaseEmitter( nslEmitterId emitterToRelease )
+{
+	typedef void (*func_ptr)(nslEmitterId);
+	func_ptr func = (func_ptr)0x0081D2B0;
+
+	func(emitterToRelease);
+}

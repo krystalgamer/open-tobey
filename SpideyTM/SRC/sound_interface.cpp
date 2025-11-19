@@ -30,18 +30,23 @@ sound_interface::sound_interface(entity* _my_entity)
   max_voices = -1;*/
 }
 
+// @Ok
+// @PartialMatching - stl stuff
 sound_interface::~sound_interface()
-{/*
-	emitter->release();
+{
+	if (this->emitter)
+	{
+		nslReleaseEmitter(this->emitter);
+	}
 
-  delete emitter;
+	this->emitter = 0;
 
-  if(snd_grp)
-  {
 
-    snd_grp->del_ref();
-    snd_grp = NULL;
-  }*/
+	if(snd_grp)
+	{
+		snd_grp->del_ref();
+		snd_grp = NULL;
+	}
 }
 
 // @Ok
