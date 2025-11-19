@@ -1367,6 +1367,8 @@ public:
 //  virtual void add_acceleration_factor( const vector3d& v )	{ assert(0); }
 
 
+  // @Ok
+  // @Matching
   virtual void phys_render( time_value_t t=0.0f, bool shadow = false ){} // this is proper.  Meaningful for actors
 //  virtual rational_t compute_energy() { assert(false); return 0; }
 
