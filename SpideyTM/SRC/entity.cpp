@@ -1197,6 +1197,8 @@ bool entity::get_distance_fade_ok() const
   return my_visrep->get_distance_fade_ok();
 }
 
+// @Ok
+// @Matching
 void entity::copy_flags( const entity& b )
 {
   ext_flags |= (b.ext_flags & EFLAG_EXT_COPY_MASK);
@@ -3771,6 +3773,7 @@ void validate_entity(void)
 	VALIDATE_VAL(EFLAG_PHYSENT_EXTERNALLY_CONTROLLED, 0x100000);
 
 	VALIDATE_VAL(EFLAG_COPY_MASK, 0xA0080300);
+	VALIDATE_VAL(EFLAG_EXT_COPY_MASK, 0xFFF3F0FF);
 }
 
 void validate_movement_info(void)
@@ -3965,6 +3968,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EC3D0, entity::get_visual_radius, "?get_visual_radius@entity@@UBEMXZ");
 
 	PATCH_PUSH_RET(0x004EC2F0, entity::copy_flags_from_flags);
+	PATCH_PUSH_RET(0x004EC250, entity::copy_flags);
 }
 
 void patch_entity_id(void)
