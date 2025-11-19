@@ -1585,8 +1585,10 @@ void entity::deactivate_motion_blur()
   set_flag(EFLAG_GRAPHICS_MOTION_BLUR,false);
 }
 
+// @Ok
+// @Matching
 // @Patch - removed ECULL
-unsigned int entity::get_emitter()
+nslEmitterId entity::get_emitter()
 {
 /*
   if ( !emitter )
@@ -3920,6 +3922,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET(0x004EFB00 , entity::get_updated_closest_point_along_dir);
 
 	PATCH_PUSH_RET(0x004E2E20, entity::create_sound_ifc);
+
+	PATCH_PUSH_RET(0x004EF5B0, entity::get_emitter);
 }
 
 void patch_entity_id(void)

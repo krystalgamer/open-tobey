@@ -34,6 +34,9 @@
 #include <map>
 
 
+// @Patch
+#include "..\..\NSL\COMMON\nsl.h"
+
 class entity;
 class entity_manager;
 class world_dynamics_system;
@@ -1400,7 +1403,7 @@ public:
 
 
   // @Patch - remove ECULL, changed type too
-  unsigned int get_emitter();
+  nslEmitterId get_emitter();
 
 /////////////////////////////////////////////////////////////////////////////
 // Graphics interface
