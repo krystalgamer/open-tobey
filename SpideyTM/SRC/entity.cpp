@@ -3918,6 +3918,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004EFAE0 , entity::get_closest_point_along_dir, "?get_closest_point_along_dir@entity@@UBEXPAVvector3d@@ABV2@@Z");
 
 	PATCH_PUSH_RET(0x004EFB00 , entity::get_updated_closest_point_along_dir);
+
+	PATCH_PUSH_RET(0x004E2E20, entity::create_sound_ifc);
 }
 
 void patch_entity_id(void)
