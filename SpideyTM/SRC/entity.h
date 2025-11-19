@@ -1218,6 +1218,8 @@ public:
   // @Patch - not virtual
   EXPORT void deactivate_motion_trail();
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool get_externally_controlled() const
     { return flags & EFLAG_PHYSENT_EXTERNALLY_CONTROLLED; }
 

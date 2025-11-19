@@ -1426,7 +1426,6 @@ void entity::delete_visrep()
 {
   if (my_visrep)
   {
-
     unload_visual_rep(my_visrep);
     my_visrep = NULL;
   }
@@ -3740,6 +3739,8 @@ void validate_entity(void)
 	VALIDATE_VAL(EFLAG_MISC_SUSPENDED, 0x40000000);
 
 	VALIDATE_VAL(EFLAG_EXT_PRELOADED, 0x80000);
+
+	VALIDATE_VAL(EFLAG_PHYSENT_EXTERNALLY_CONTROLLED, 0x100000);
 }
 
 void validate_movement_info(void)
@@ -3924,6 +3925,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET(0x004E2E20, entity::create_sound_ifc);
 
 	PATCH_PUSH_RET(0x004EF5B0, entity::get_emitter);
+
+	PATCH_PUSH_RET_POLY(0x004A0ED0, entity::get_externally_controlled, "?get_externally_controlled@entity@@UBE_NXZ");
 }
 
 void patch_entity_id(void)
