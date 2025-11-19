@@ -1352,7 +1352,9 @@ public:
 //  virtual bool get_collided_last_frame()          { assert(false); return false; }
 //  virtual void set_collided_last_frame( bool c )  {}
 
-  virtual bool is_picked_up() { assert(false); return false; }
+  // @Ok
+  // @Matching
+  EXPORT virtual bool is_picked_up() { assert(false); return false; }
 
   // Note:  loc has no effect on physical_entity version of this function,
   // which assumes the force is applied to the center of mass.
@@ -1369,7 +1371,7 @@ public:
 
   // @Ok
   // @Matching
-  virtual void phys_render( time_value_t t=0.0f, bool shadow = false ){} // this is proper.  Meaningful for actors
+  EXPORT virtual void phys_render( time_value_t t=0.0f, bool shadow = false ){} // this is proper.  Meaningful for actors
 //  virtual rational_t compute_energy() { assert(false); return 0; }
 
   void change_visrep( const stringx& new_visrep_name );

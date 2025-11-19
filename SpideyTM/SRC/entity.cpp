@@ -3929,6 +3929,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET_POLY(0x004A0ED0, entity::get_externally_controlled, "?get_externally_controlled@entity@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x004A1140, entity::phys_render, "?phys_render@entity@@UAEXM_N@Z");
+	PATCH_PUSH_RET_POLY(0x004A1120, entity::is_picked_up, "?is_picked_up@entity@@UAE_NXZ");
 }
 
 void patch_entity_id(void)
