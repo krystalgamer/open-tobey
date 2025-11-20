@@ -500,7 +500,8 @@ void region::remove( entity* e )
 
 void region::update_poss_active( entity* e )
 {
-  START_PROF_TIMER(proftimer_update_poss_active);
+   // @Patch
+  // START_PROF_TIMER(proftimer_update_poss_active);
   if(e)
 
   {
@@ -530,7 +531,8 @@ void region::update_poss_active( entity* e )
         *ei = NULL;
     }
   }
-  STOP_PROF_TIMER(proftimer_update_poss_active);
+   // @Patch
+  //STOP_PROF_TIMER(proftimer_update_poss_active);
 }
 
 
@@ -859,6 +861,8 @@ void validate_region(void)
 
 	VALIDATE(region, cam_coll_ents, 0x34);
 
+	VALIDATE(region, possible_active_ents, 0x40);
+
 	VALIDATE(region, lights, 0x70);
 	VALIDATE(region, triggers, 0x7C);
 
@@ -870,6 +874,7 @@ void validate_region(void)
 	VALIDATE(region, num_affect_terrain_lights, 0xD8);
 
 	VALIDATE(region, region_ambient_sound_name, 0xDC);
+
 
 }
 
@@ -896,4 +901,6 @@ void patch_region(void)
 
 	PATCH_PUSH_RET(0x0050F090, region::remove_cam_coll_ent);
 	PATCH_PUSH_RET(0x0050EF20, region::add_cam_coll_ent);
+
+	PATCH_PUSH_RET(0x0050EAC0, region::update_poss_active);
 }
