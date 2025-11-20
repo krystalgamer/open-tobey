@@ -1194,13 +1194,14 @@ public:
   //EXPORT virtual void render_trail(float, unsigned int, float) { PANIC; }
 
   PADDING_VIRTUAL();
-  EXPORT virtual bool is_motion_blurred() const      { return flags & EFLAG_GRAPHICS_MOTION_BLUR; }
 
   EXPORT void         allocate_motion_info();
   EXPORT virtual void activate_motion_blur(  int _blur_min_alpha,
                                       int _blur_max_alpha,
                                       int _num_blur_images,
                                       float _blur_spread );
+  EXPORT virtual bool is_motion_blurred() const      { return flags & EFLAG_GRAPHICS_MOTION_BLUR; }
+
   // @TODO
   EXPORT virtual void render_trail(vector3d,vector3d,vector3d,color32,color32,color32,bool) { PANIC; }
 

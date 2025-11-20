@@ -3597,8 +3597,8 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, set_visible, 49);
 	VALIDATE_VTABLE(entity, is_still_visible, 50);
 	//VALIDATE_VTABLE(entity, render_trail, 51);
-	VALIDATE_VTABLE(entity, is_motion_blurred, 52);
-	VALIDATE_VTABLE(entity, activate_motion_blur, 53);
+	VALIDATE_VTABLE(entity, activate_motion_blur, 52);
+	VALIDATE_VTABLE(entity, is_motion_blurred, 53);
 	//VALIDATE_VTABLE(entity, render_trail, 54);
 	VALIDATE_VTABLE(entity, is_motion_trailed, 55);
 	/*

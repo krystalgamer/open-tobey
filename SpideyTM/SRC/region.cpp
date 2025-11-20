@@ -109,9 +109,11 @@ void const cface_replacement::verify_integrity() const
 unsigned int region::visit_key = 0;
 
 region::region( const stringx& region_name )
+	/*
   : name( region_name ),
     ambient( 1.0f, 1.0f, 1.0f, 1.0f ),
     region_ambient_sound_volume( 1.0f )
+	*/
 {
 
 	// @Patch - remove
@@ -537,49 +539,56 @@ void region::update_poss_active( entity* e )
 
 
 
-#if USE_POSS_RENDER_LIST
+// @Patch - remove USE_POSS_RENDER_LIST
+//#if USE_POSS_RENDER_LIST
 
-  void region::update_poss_render( entity* e )
+void region::update_poss_render( entity* e )
+{
+	// @Patch
+	//START_PROF_TIMER(proftimer_update_poss_render);
+	if(e)
+	{                                                           // WTB - removed, isn't EFLAG_GRAPHICS enough here?
+		if(e->is_still_visible() && e->is_flagged(EFLAG_GRAPHICS) /*&& (e->get_vrep() || e->has_mesh() || e->get_flavor() == ENTITY_POLYTUBE)*/)
+		{
+			if (!e->is_motion_blurred() && !e->is_motion_trailed())
+			{
+				entity_list::iterator ei_begin = possible_render_ents.begin();
+				entity_list::iterator ei_end = possible_render_ents.end();
 
-  {
-    START_PROF_TIMER(proftimer_update_poss_render);
-    if(e)
-
-    {                                                           // WTB - removed, isn't EFLAG_GRAPHICS enough here?
-      if(e->is_still_visible() && e->is_flagged(EFLAG_GRAPHICS) /*&& (e->get_vrep() || e->has_mesh() || e->get_flavor() == ENTITY_POLYTUBE)*/)
-      {
-        entity_list::iterator ei_begin = possible_render_ents.begin();
-        entity_list::iterator ei_end = possible_render_ents.end();
-
-        entity_list::iterator ei = std::find( ei_begin, ei_end, e );
-        if ( ei == ei_end )
-
-        {
-          ei = std::find( ei_begin, ei_end, (entity*)NULL );
-          if ( ei != ei_end )
-            *ei = e;
-          else
-          {
-            possible_render_ents.push_back( e );
-          }
-        }
-      }
-      else
-      {
-        entity_list::iterator ei_end = possible_render_ents.end();
-        entity_list::iterator ei = std::find( possible_render_ents.begin(), ei_end, e );
-        if ( ei != ei_end )
-          *ei = NULL;
-      }
-    }
-    STOP_PROF_TIMER(proftimer_update_poss_render);
+				entity_list::iterator ei = std::find( ei_begin, ei_end, e );
+				if ( ei == ei_end )
+				{
+					ei = std::find( ei_begin, ei_end, (entity*)NULL );
+					if ( ei != ei_end )
+						*ei = e;
+					else
+					{
+						possible_render_ents.push_back( e );
+					}
+				}
+			}
+		}
+		else
+		{
+			if (!e->is_motion_blurred() && !e->is_motion_trailed())
+			{
+				entity_list::iterator ei_end = possible_render_ents.end();
+				entity_list::iterator ei = std::find( possible_render_ents.begin(), ei_end, e );
+				if ( ei != ei_end )
+					*ei = NULL;
+			}
+		}
+	}
+	// @Patch
+	//STOP_PROF_TIMER(proftimer_update_poss_render);
   }
-#endif
+//#endif
 
 
 void region::update_poss_collide( entity* e )
 {
-  START_PROF_TIMER(proftimer_update_poss_collide);
+	// @Patch
+  //START_PROF_TIMER(proftimer_update_poss_collide);
   if(e)
   {
     if(e->get_colgeom() && e->are_collisions_active())
@@ -611,7 +620,8 @@ void region::update_poss_collide( entity* e )
         *ei = NULL;
     }
   }
-  STOP_PROF_TIMER(proftimer_update_poss_collide);
+  // @Patch
+  //STOP_PROF_TIMER(proftimer_update_poss_collide);
 }
 
 
@@ -862,6 +872,7 @@ void validate_region(void)
 	VALIDATE(region, cam_coll_ents, 0x34);
 
 	VALIDATE(region, possible_active_ents, 0x40);
+	VALIDATE(region, possible_collide_ents, 0x58);
 
 	VALIDATE(region, lights, 0x70);
 	VALIDATE(region, triggers, 0x7C);

@@ -170,11 +170,7 @@ public:
   EXPORT void add( entity* e );
   EXPORT void remove( entity* e );
   EXPORT void update_poss_active( entity* e );
-#if USE_POSS_RENDER_LIST
   EXPORT void update_poss_render( entity* e );
-#else
-  EXPORT inline void update_poss_render( entity* e ) {}
-#endif
 
   EXPORT void update_poss_collide( entity* e );
 
@@ -266,6 +262,12 @@ private:
   // @Patch - moved around
   entity_list possible_active_ents;  // shadow list of entities That can be considered for activation
 
+  PADDING(0x58-0x4C);
+
+  // @Patch - shifted around
+  entity_list possible_collide_ents;  // shadow list of entities That can be considered for collision
+
+
 #if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC)
   typedef std::vector<nglMesh*> ps2_mesh_list;
   ps2_mesh_list ps2_meshes;
@@ -275,18 +277,13 @@ private:
   //VisRepList visreps;
 #endif
 
+  PADDING(0xC);
 
 // USED AS A TEMPORARY DURING CONSTRUCTION
 // THEN QUICKLY DESTROYED
 // ick. --Sean
 // @Patch - comment above
   //cg_mesh * my_cg_mesh;
-
-  stringx name;
-  color ambient;
-
-  entity_list entities;  // list of entities in the region
-
 
   // @Patch - shifted around
   light_list lights;     // list of light_sources attached to region
@@ -295,21 +292,25 @@ private:
   trigger_list triggers; // list of triggers attached to region
 
 
-#if USE_POSS_RENDER_LIST
+
   entity_list possible_render_ents;  // shadow list of entities That can be considered for rendering
-#endif
   // @Patch - shifted around
   crawl_list crawls;
 
   // @Patch - shifted around
   pathcell_list pathcells;
 
-  entity_list possible_collide_ents;  // shadow list of entities That can be considered for collision
-
 
   hull view_frustum;
+  entity_list entities;  // list of entities in the region
 
-  PADDING(0xD0-0xB0);
+
+  stringx name;
+  color ambient;
+
+
+
+  PADDING(0xD0-0xC8);
 
   // @Patch - shifted around
   unsigned short flags;
