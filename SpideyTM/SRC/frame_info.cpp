@@ -55,6 +55,8 @@ void frame_info::set_frame_rate(float new_frame_rate)
 
 
 
+// @Ok
+// @Matching
 void frame_info::operator= (const frame_info &source) 
 {
   ifl_frame_locked=source.ifl_frame_locked;
@@ -123,4 +125,5 @@ void patch_frame_info(void)
 	PATCH_PUSH_RET(0x007A7D60, frame_info::get_ifl_frame_locked);
 
 	PATCH_PUSH_RET_POLY(0x007A7D30, frame_info::frame_info, "??0frame_info@@QAE@XZ");
+	PATCH_PUSH_RET_POLY(0x007A7E20, frame_info::operator=, "??4frame_info@@QAEXABV0@@Z");
 }
