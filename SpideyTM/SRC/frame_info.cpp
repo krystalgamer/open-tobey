@@ -31,6 +31,8 @@ void frame_info::set_ifl_frame_locked(int frame_to_lock)
 }
 
 
+// @Ok
+// @Matching
 int frame_info::get_ifl_frame_boost() const 
 {
   return ifl_frame_boost;
@@ -138,4 +140,6 @@ void patch_frame_info(void)
 	PATCH_PUSH_RET(0x007A7E50, frame_info::time_to_frame_locked);
 
 	PATCH_PUSH_RET(0x007A7EF0, frame_info::compute_boost_for_play);
+
+	PATCH_PUSH_RET(0x007A7DA0, frame_info::get_ifl_frame_boost);
 }
