@@ -3,6 +3,7 @@
 #include "frame_info.h"
 
 
+// @Ok
 float frame_info::ifl_frame_rate = 30.0f;
 
 // @Ok
@@ -77,6 +78,8 @@ int frame_info::time_to_frame_locked(int period) const
 }
 
 
+// @Ok
+// @Matching
 int frame_info::time_to_frame(int period) const 
 {
 
@@ -126,4 +129,6 @@ void patch_frame_info(void)
 
 	PATCH_PUSH_RET_POLY(0x007A7D30, frame_info::frame_info, "??0frame_info@@QAE@XZ");
 	PATCH_PUSH_RET_POLY(0x007A7E20, frame_info::operator=, "??4frame_info@@QAEXABV0@@Z");
+
+	PATCH_PUSH_RET(0x007A7EA0, frame_info::time_to_frame);
 }
