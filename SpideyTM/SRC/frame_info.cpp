@@ -5,6 +5,8 @@
 
 float frame_info::ifl_frame_rate = 30.0f;
 
+// @Ok
+// @Matching
 frame_info::frame_info() 
 {
   ifl_frame_locked = -1; //-1 initially meaning no frame is locked for rendering
@@ -107,7 +109,7 @@ void frame_info::compute_boost_for_play(int period)
 void validate_frame_info(void)
 {
 	VALIDATE(frame_info, age, 0);
-
+	VALIDATE(frame_info, ifl_frame_boost, 4);
 	VALIDATE(frame_info, ifl_frame_locked, 8);
 }
 
@@ -119,4 +121,6 @@ void patch_frame_info(void)
 
 	PATCH_PUSH_RET(0x007A7D80, frame_info::set_ifl_frame_locked);
 	PATCH_PUSH_RET(0x007A7D60, frame_info::get_ifl_frame_locked);
+
+	PATCH_PUSH_RET_POLY(0x007A7D30, frame_info::frame_info, "??0frame_info@@QAE@XZ");
 }
