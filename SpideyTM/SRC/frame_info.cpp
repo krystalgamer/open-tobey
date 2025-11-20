@@ -99,6 +99,8 @@ INLINE int frame_info::time_to_frame(int period) const
 }
 
 
+// @Ok
+// @Matching
 void frame_info::compute_boost_for_play(int period) 
 { 
   if (ifl_frame_locked >= 0) 
@@ -134,4 +136,6 @@ void patch_frame_info(void)
 
 	PATCH_PUSH_RET(0x007A7EA0, frame_info::time_to_frame);
 	PATCH_PUSH_RET(0x007A7E50, frame_info::time_to_frame_locked);
+
+	PATCH_PUSH_RET(0x007A7EF0, frame_info::compute_boost_for_play);
 }
