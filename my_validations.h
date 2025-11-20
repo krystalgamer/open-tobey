@@ -41,6 +41,8 @@ void validate_entity_interface(void);
 void validate_shared_sound_group(void);
 void validate_sound_group(void);
 void validate_sg_entry(void);
+void validate_game(void);
+void validate_app(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -79,4 +81,6 @@ void patch_sound_interface(void);
 void patch_shared_sound_group(void);
 void patch_sound_group(void);
 void patch_sg_entry(void);
+void patch_game(void);
+void patch_app(void);
 #endif

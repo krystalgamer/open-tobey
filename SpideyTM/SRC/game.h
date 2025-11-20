@@ -153,6 +153,8 @@ public:
 
 class game
 {
+	friend void validate_game(void);
+	friend void patch_game(void);
 public:
 	enum { MAX_SNAPSHOTS = 3 };
 

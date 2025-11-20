@@ -30,33 +30,36 @@ class instance_render_info;
 
 class app : public singleton, public signaller
 {
+	friend void validate_app(void);
+	friend void patch_app(void);
   public:
     // initializes rasterizer
-    app();
+    EXPORT app();
 
     // cleans up
-    ~app();
+    EXPORT ~app();
 
-    static void cleanup();
-    static void bomb(); // shuts down everything and calls exit(), or may reboot a console
+    EXPORT static void cleanup();
+    EXPORT static void bomb(); // shuts down everything and calls exit(), or may reboot a console
 
 
-		static void cleanup_stl_memory_dregs( void );
+	EXPORT static void cleanup_stl_memory_dregs( void );
 
     // the application's main update loop.
-    void tick();
+    EXPORT void tick();
 
     // returns a pointer to the single instance of app
 
     DECLARE_SINGLETON(app)
 
-    game* get_game() { return the_game; }
+    EXPORT game* get_game() { return the_game; }
 
   private:
     game* the_game;
 
     instance_render_info* viri;  // moved from a global into app for memory-leak removal purposes --GT 4/17/01
 
+	PADDING(4);
 
 #ifdef TARGET_XBOX
 	float reboot_timer; // keeps track of whether the reboot key combo has been pressed for the appropriate amount of time
@@ -85,12 +88,12 @@ class app : public singleton, public signaller
 
     // signal_manager.  This call must be performed before any signal objects are
     // actually created for this class (via signaller::signal_ptr(); see signal.h).
-    static void register_signals();
+    EXPORT static void register_signals();
 
-    static unsigned short get_signal_id( const char *name );
+    EXPORT static unsigned short get_signal_id( const char *name );
 
-    instance_render_info* get_viri();
-    void set_viri(instance_render_info* new_viri);
+    EXPORT instance_render_info* get_viri();
+    EXPORT void set_viri(instance_render_info* new_viri);
 
 
   private:
@@ -98,12 +101,12 @@ class app : public singleton, public signaller
     // defined its own local list of signal ids should implement this virtual
     // function for the construction of the signal list, so that it will reserve
     // exactly the number of signal pointers required, on demand.
-    virtual signal_list* construct_signal_list() { return NEW signal_list( N_SIGNALS, (signal*)NULL ); }
+    EXPORT virtual signal_list* construct_signal_list() { return NEW signal_list( N_SIGNALS, (signal*)NULL ); }
 
   protected:
     // This virtual function, used only for debugging purposes, returns the
     // name of the given local signal
-    virtual const char* get_signal_name( unsigned idx ) const;
+    EXPORT virtual const char* get_signal_name( unsigned idx ) const;
 };
 
 

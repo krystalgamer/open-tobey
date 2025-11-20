@@ -152,6 +152,8 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_sg_entry();
 
+	validate_game();
+	validate_app();
 
 	return FAIL_VALIDATION;
 }
@@ -249,6 +251,9 @@ void game_patches()
 	patch_sound_group();
 
 	patch_sg_entry();
+
+	patch_game();
+	patch_app();
 }
 
 #pragma pack(push,1)
