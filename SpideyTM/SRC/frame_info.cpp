@@ -32,6 +32,8 @@ int frame_info::get_ifl_frame_boost() const
   return ifl_frame_boost;
 }
 
+// @Ok
+// @Matching
 time_value_t frame_info::get_age() const 
 {
   return age;
@@ -112,4 +114,6 @@ void validate_frame_info(void)
 
 void patch_frame_info(void)
 {
+	PATCH_PUSH_RET(0x007A7DC0, frame_info::get_age);
+	PATCH_PUSH_RET(0x007A7D80, frame_info::set_ifl_frame_locked);
 }
