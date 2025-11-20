@@ -12,10 +12,11 @@ frame_info::frame_info()
   ifl_frame_boost = 0;
 }
 
+// @Ok
+// @Matching
 int frame_info::get_ifl_frame_locked() const 
 {
   return ifl_frame_locked;
-
 }
 
 
@@ -115,5 +116,7 @@ void validate_frame_info(void)
 void patch_frame_info(void)
 {
 	PATCH_PUSH_RET(0x007A7DC0, frame_info::get_age);
+
 	PATCH_PUSH_RET(0x007A7D80, frame_info::set_ifl_frame_locked);
+	PATCH_PUSH_RET(0x007A7D60, frame_info::get_ifl_frame_locked);
 }
