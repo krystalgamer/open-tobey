@@ -262,7 +262,9 @@ private:
   // @Patch - moved around
   entity_list possible_active_ents;  // shadow list of entities That can be considered for activation
 
-  PADDING(0x58-0x4C);
+  // @Patch - shifted around
+  entity_list possible_render_ents;
+
 
   // @Patch - shifted around
   entity_list possible_collide_ents;  // shadow list of entities That can be considered for collision
@@ -292,8 +294,6 @@ private:
   trigger_list triggers; // list of triggers attached to region
 
 
-
-  entity_list possible_render_ents;  // shadow list of entities That can be considered for rendering
   // @Patch - shifted around
   crawl_list crawls;
 

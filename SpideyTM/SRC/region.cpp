@@ -542,41 +542,40 @@ void region::update_poss_active( entity* e )
 // @Patch - remove USE_POSS_RENDER_LIST
 //#if USE_POSS_RENDER_LIST
 
+// @Ok
+// @Matching
+// @Patch - had to re-write most of the logic
 void region::update_poss_render( entity* e )
 {
 	// @Patch
 	//START_PROF_TIMER(proftimer_update_poss_render);
 	if(e)
 	{                                                           // WTB - removed, isn't EFLAG_GRAPHICS enough here?
-		if(e->is_still_visible() && e->is_flagged(EFLAG_GRAPHICS) /*&& (e->get_vrep() || e->has_mesh() || e->get_flavor() == ENTITY_POLYTUBE)*/)
+		if(e->is_still_visible() && e->is_flagged(EFLAG_GRAPHICS) /*&& (e->get_vrep() || e->has_mesh() || e->get_flavor() == ENTITY_POLYTUBE)*/ ||
+				e->is_motion_blurred() || e->is_motion_trailed())
 		{
-			if (!e->is_motion_blurred() && !e->is_motion_trailed())
-			{
-				entity_list::iterator ei_begin = possible_render_ents.begin();
-				entity_list::iterator ei_end = possible_render_ents.end();
+			entity_list::iterator ei_begin = possible_render_ents.begin();
+			entity_list::iterator ei_end = possible_render_ents.end();
 
-				entity_list::iterator ei = std::find( ei_begin, ei_end, e );
-				if ( ei == ei_end )
+			entity_list::iterator ei = std::find( ei_begin, ei_end, e );
+			if ( ei == ei_end )
+			{
+				ei = std::find( ei_begin, ei_end, (entity*)NULL );
+				if ( ei != ei_end )
+					*ei = e;
+				else
 				{
-					ei = std::find( ei_begin, ei_end, (entity*)NULL );
-					if ( ei != ei_end )
-						*ei = e;
-					else
-					{
-						possible_render_ents.push_back( e );
-					}
+					possible_render_ents.push_back( e );
 				}
 			}
+
 		}
 		else
 		{
-			if (!e->is_motion_blurred() && !e->is_motion_trailed())
-			{
-				entity_list::iterator ei_end = possible_render_ents.end();
-				entity_list::iterator ei = std::find( possible_render_ents.begin(), ei_end, e );
-				if ( ei != ei_end )
-					*ei = NULL;
-			}
+			entity_list::iterator ei_end = possible_render_ents.end();
+			entity_list::iterator ei = std::find( possible_render_ents.begin(), ei_end, e );
+			if ( ei != ei_end )
+				*ei = NULL;
 		}
 	}
 	// @Patch
@@ -872,6 +871,7 @@ void validate_region(void)
 	VALIDATE(region, cam_coll_ents, 0x34);
 
 	VALIDATE(region, possible_active_ents, 0x40);
+	VALIDATE(region, possible_render_ents, 0x4C);
 	VALIDATE(region, possible_collide_ents, 0x58);
 
 	VALIDATE(region, lights, 0x70);
@@ -914,4 +914,5 @@ void patch_region(void)
 	PATCH_PUSH_RET(0x0050EF20, region::add_cam_coll_ent);
 
 	PATCH_PUSH_RET(0x0050EAC0, region::update_poss_active);
+	PATCH_PUSH_RET(0x0050EBD0, region::update_poss_render);
 }
