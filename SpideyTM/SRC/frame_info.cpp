@@ -66,6 +66,8 @@ void frame_info::operator= (const frame_info &source)
   age = source.age;
 }
 
+// @Ok
+// @Matching
 int frame_info::time_to_frame_locked(int period) const 
 {
 
@@ -80,7 +82,7 @@ int frame_info::time_to_frame_locked(int period) const
 
 // @Ok
 // @Matching
-int frame_info::time_to_frame(int period) const 
+INLINE int frame_info::time_to_frame(int period) const 
 {
 
   if (period==1)
@@ -131,4 +133,5 @@ void patch_frame_info(void)
 	PATCH_PUSH_RET_POLY(0x007A7E20, frame_info::operator=, "??4frame_info@@QAEXABV0@@Z");
 
 	PATCH_PUSH_RET(0x007A7EA0, frame_info::time_to_frame);
+	PATCH_PUSH_RET(0x007A7E50, frame_info::time_to_frame_locked);
 }
