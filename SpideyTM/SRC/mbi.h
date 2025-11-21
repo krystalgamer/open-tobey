@@ -59,6 +59,7 @@ class motion_trail_info
 
 	public:
 		EXPORT motion_trail_info(int);
+		EXPORT ~motion_trail_info();
 	
 	private:
 		int field_0;

@@ -57,9 +57,8 @@ public:
 // the future, perhaps on another project if this engine gets used again
 
 
-//typedef list< region_node*
-//	,malloc_alloc
-//  > region_node_list;
+// @TODO - not sure if right
+typedef std::list< region_node* /*,malloc_alloc*/ > region_node_list;
 
 
 

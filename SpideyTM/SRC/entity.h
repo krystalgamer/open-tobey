@@ -697,7 +697,6 @@ protected:
    ENTITY_INTERFACE(animation)
    ENTITY_INTERFACE(hard_attrib)
    ENTITY_INTERFACE(owner)
-   ENTITY_INTERFACE(physical)
    ENTITY_INTERFACE(render)
 #ifdef ECULL
    ENTITY_INTERFACE(script_data)
@@ -1980,6 +1979,7 @@ protected:
 	// @Patch - moved around
   light_manager* my_light_mgr;
 
+   ENTITY_INTERFACE(physical);
 /////////////////////////////////////////////////////////////////////////////
 // entity_maker interface
 private:

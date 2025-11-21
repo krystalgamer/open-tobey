@@ -112,9 +112,7 @@ protected:
   friend void serial_in( chunk_file& cf, light_properties* lp );
 };
 
-// @TODO - removed entity for now
-//class light_source : public entity
-class light_source
+class light_source : public entity
 {
 
 public:

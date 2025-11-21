@@ -2569,6 +2569,10 @@ motion_trail_info::motion_trail_info(int a2)
 	this->field_0 = a2;
 }
 
+motion_trail_info::~motion_trail_info()
+{
+	delete[] this->field_C;
+}
 
 vm_thread* entity::spawn_entity_script_function( const stringx& function_name ) const
 {

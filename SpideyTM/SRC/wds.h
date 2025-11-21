@@ -26,6 +26,13 @@
 #include <vector>
 
 
+// @Patch
+#include "entity_maker.h"
+
+// @TODO - is this needed?
+#define MAX_PLAYERS 2
+
+
 //#include "kellyslater_controller.h"
 
 /*
@@ -292,26 +299,23 @@ class world_dynamics_system
     particle_generator *add_particle_generator( const stringx& filename,
                                 bool invisible, bool nonstatic,
                                 entity_id &_id );
-
-	// @Patch
-	/*
+		/*
     light_source* add_light_source( entity_id id,
                                     po const & loc,
                                     const light_properties& props,
-                                    //const list<region_node*>* forced_regions,
-                                    const region_node_list* forced_regions,
+                                    const region_node_list forced_regions,
                                     unsigned int scene_flags = entity::ACTIVE );
 
     light_source* add_light_source( const stringx& filename,
                                     bool invisible, bool nonstatic,
                                     entity_id &_id );
+	*/
     entity* add_box_trigger( entity_id id,
                              const po& loc,
                              const convex_box& binfo,
                              //const list<region_node*>* forced_regions,
                              const region_node_list* forced_regions,
                              unsigned int scene_flags = entity::ACTIVE );
-							 */
     void add_box_trigger( entity* e );
 
     void add_marker( entity_id& _id );
@@ -351,22 +355,20 @@ class world_dynamics_system
     void reload_particle_generators();  // option for developers
 
     void recompute_all_sectors(); // calls compute_sector for each entity
-
-	// @Patch
-	/*
     entity* get_hero_ptr(int n){return hero_ptr[n];}
 
     void    set_hero_ptr(int n, entity *hptr) {hero_ptr[n]=hptr;}
+	/*
     kellyslater_controller *get_ks_controller(int n)  {return ks_controller[n];}
 
 	kellyslater_controller ** get_ks_controllers(void) { return ks_controller; }
     kellyslater_controller *get_ai_controller()  { return (g_game_ptr->get_num_ai_players()?ks_controller[1]:NULL);}
-
+	*/
 	
     void    set_ks_controller(int n, kellyslater_controller *ksc_ptr);
-    entity *get_board_ptr(int n) {assert(ks_controller[n]); return ks_controller[n]->GetBoard();}
-    entity *get_board_model_ptr(int n) {assert(ks_controller[n]); return ks_controller[n]->GetBoardModel();}
-	*/
+    entity *get_board_ptr(int n) {PANIC; return NULL;}
+    entity *get_board_model_ptr(int n) {PANIC; return NULL;}
+
     //
     void load_ai_hero(device_id_t joystick_num, int surfer_index, bool pers);
 
@@ -511,13 +513,9 @@ class world_dynamics_system
     surfaceinfo_list_t surfaceinfo_list;
 
     terrain * the_terrain;
-
-	// @Patch
-	/*
     entity * hero_ptr[MAX_PLAYERS];
-    kellyslater_controller * ks_controller[MAX_PLAYERS];
 
-	*/
+    //kellyslater_controller * ks_controller[MAX_PLAYERS];
     // file instancing
     entfile_map entfiles;
 

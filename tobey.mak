@@ -25,10 +25,6 @@ NULL=
 NULL=nul
 !ENDIF 
 
-CPP=cl.exe
-MTL=midl.exe
-RSC=rc.exe
-
 !IF  "$(CFG)" == "tobey - Win32 Release"
 
 OUTDIR=.\Release
@@ -126,8 +122,42 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
+CPP=cl.exe
 CPP_PROJ=/nologo /MT /W3 /Zi /O2 /I "SpideyTM\SRC\sgistl" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+
+.c{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.c{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+MTL=midl.exe
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
+RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
 BSC32_SBRS= \
@@ -150,6 +180,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\trees.obj" \
 	"$(INTDIR)\uncompr.obj" \
 	"$(INTDIR)\zutil.obj" \
+	"$(INTDIR)\pc_audio.obj" \
+	"$(INTDIR)\nsl_pc_emitter.obj" \
 	"$(INTDIR)\ai_interface.obj" \
 	"$(INTDIR)\ai_locomotion.obj" \
 	"$(INTDIR)\ai_polypath.obj" \
@@ -194,6 +226,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\signal.obj" \
 	"$(INTDIR)\singleton.obj" \
 	"$(INTDIR)\so_data_block.obj" \
+	"$(INTDIR)\sound_group.obj" \
+	"$(INTDIR)\sound_interface.obj" \
 	"$(INTDIR)\stringx.obj" \
 	"$(INTDIR)\textfile.obj" \
 	"$(INTDIR)\visrep.obj" \
@@ -206,11 +240,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\pc_audio.obj" \
-	"$(INTDIR)\sound_interface.obj" \
-	"$(INTDIR)\nsl_pc_emitter.obj" \
-	"$(INTDIR)\sound_group.obj"
+	"$(INTDIR)\zip_filter.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -316,8 +346,42 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
+CPP=cl.exe
 CPP_PROJ=/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+
+.c{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.c{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+MTL=midl.exe
 MTL_PROJ=/nologo /D "_DEBUG" /mktyplib203 /win32 
+RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
 BSC32_SBRS= \
@@ -340,6 +404,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\trees.obj" \
 	"$(INTDIR)\uncompr.obj" \
 	"$(INTDIR)\zutil.obj" \
+	"$(INTDIR)\pc_audio.obj" \
+	"$(INTDIR)\nsl_pc_emitter.obj" \
 	"$(INTDIR)\ai_interface.obj" \
 	"$(INTDIR)\ai_locomotion.obj" \
 	"$(INTDIR)\ai_polypath.obj" \
@@ -384,6 +450,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\signal.obj" \
 	"$(INTDIR)\singleton.obj" \
 	"$(INTDIR)\so_data_block.obj" \
+	"$(INTDIR)\sound_group.obj" \
+	"$(INTDIR)\sound_interface.obj" \
 	"$(INTDIR)\stringx.obj" \
 	"$(INTDIR)\textfile.obj" \
 	"$(INTDIR)\visrep.obj" \
@@ -396,11 +464,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\pc_audio.obj" \
-	"$(INTDIR)\sound_interface.obj" \
-	"$(INTDIR)\nsl_pc_emitter.obj" \
-	"$(INTDIR)\sound_group.obj"
+	"$(INTDIR)\zip_filter.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -408,36 +472,6 @@ LINK32_OBJS= \
 <<
 
 !ENDIF 
-
-.c{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.c{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
 
 
 !IF "$(NO_EXTERNAL_DEPS)" != "1"
