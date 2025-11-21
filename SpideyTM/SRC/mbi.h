@@ -16,6 +16,10 @@ struct qt {
     vector3d     t;
 };
 
+struct mt
+{
+	PADDING(0x18);
+};
 
 class motion_blur_info
   {
@@ -45,6 +49,39 @@ class motion_blur_info
 
     time_value_t last_motion_recording;
   };
+
+// @Patch - added, not a fan of the pack though
+#pragma pack(push,1)
+class motion_trail_info
+{
+	friend void patch_motion_trail_info(void);
+	friend void validate_motion_trail_info(void);
+
+	public:
+		EXPORT motion_trail_info(int);
+	
+	private:
+		int field_0;
+
+		PADDING(8);
+
+		mt *field_C;
+
+		PADDING(0xA);
+
+		int field_1A;
+		int field_1E;
+
+		PADDING(0x24-0x1E-4);
+
+		int field_24;
+		int field_28;
+
+		PADDING(0x38 - 0x28 - 4);
+
+		float field_38;
+};
+#pragma pack(pop)
 
 
 #endif

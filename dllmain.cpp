@@ -155,6 +155,9 @@ extern "C" EXPORT int run_assertions(void)
 	validate_game();
 	validate_app();
 
+	validate_motion_trail_info();
+	validate_mt();
+
 	return FAIL_VALIDATION;
 }
 
@@ -254,6 +257,8 @@ void game_patches()
 
 	patch_game();
 	patch_app();
+
+	patch_motion_trail_info();
 }
 
 #pragma pack(push,1)

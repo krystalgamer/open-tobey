@@ -23,6 +23,7 @@
 #include "controller.h"
 #include "entity_interface.h"
 #include "vm_thread.h"
+#include "mbi.h"
 
 
 // @Patch
@@ -2552,6 +2553,23 @@ void destroyable_info::preload()
 }
 
 
+// motion trail stuff
+// @Ok
+// @AlmostMatching - the prologue is in a slightly different order but the same
+// I believe the packing might have something to do with it
+motion_trail_info::motion_trail_info(int a2)
+{
+	this->field_1A = 0;
+	this->field_1E = 0;
+	this->field_24 = 0;
+	this->field_28 = 0;
+	this->field_38 = 0.0;
+
+	this->field_C = new mt[a2];
+	this->field_0 = a2;
+}
+
+
 vm_thread* entity::spawn_entity_script_function( const stringx& function_name ) const
 {
 	PANIC;
@@ -3786,7 +3804,33 @@ void validate_movement_info(void)
 	VALIDATE(entity::movement_info, frame_delta, 0x18);
 }
 
+void validate_motion_trail_info(void)
+{
+	VALIDATE_SIZE(motion_trail_info, 0x3C);
+
+	VALIDATE(motion_trail_info, field_0, 0x0);
+	VALIDATE(motion_trail_info, field_C, 0xC);
+
+	VALIDATE(motion_trail_info, field_1A, 0x1A);
+	VALIDATE(motion_trail_info, field_1E, 0x1E);
+
+	VALIDATE(motion_trail_info, field_24, 0x24);
+	VALIDATE(motion_trail_info, field_28, 0x28);
+
+	VALIDATE(motion_trail_info, field_38, 0x38);
+}
+
+void validate_mt(void)
+{
+	VALIDATE_SIZE(mt, 0x18);
+}
+
 #include "my_patch.h"
+
+void patch_motion_trail_info(void)
+{
+	PATCH_PUSH_RET_POLY(0x4F2700, motion_trail_info::motion_trail_info, "??0motion_trail_info@@QAE@H@Z");
+}
 
 void patch_movement_info(void)
 {
