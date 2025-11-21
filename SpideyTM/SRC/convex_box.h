@@ -11,8 +11,8 @@ public:
   vector4d planes[6];
   bounding_box bbox;
 
-  convex_box( ) { }
-  convex_box( const convex_box& );
+  convex_box( ) { PANIC; }
+  convex_box( const convex_box& ) { PANIC; }
   ~convex_box( ) { }
 
   friend void serial_in( chunk_file& fs, convex_box* box );

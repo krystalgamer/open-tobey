@@ -280,7 +280,9 @@ public:
 	int			  get_num_active_players(void) { return num_active_players; }
 	bool		  is_splitscreen(void) { return num_active_players > 1 && num_ai_players == 0; }
 	int           get_active_player(void) { return active_player; }
-	const recti & get_player_viewport(const int playerIdx);
+
+	// @Patch
+	//const recti & get_player_viewport(const int playerIdx);
 
 	// @Patch
 	/*
@@ -357,7 +359,7 @@ public:
   	bool was_goal_completed() {return flag.goal_completed;}
 
 
-    void enable_marky_cam( bool enable = true, bool sync = true, rational_t priority = MIN_CAMERA_PRIORITY );
+    void enable_marky_cam( bool enable = true, bool sync = true, rational_t priority = MIN_CAMERA_PRIORITY ) { PANIC; }
     void load_new_level( const stringx &new_level_name );
 
     game_info &get_game_info() { return(info); }

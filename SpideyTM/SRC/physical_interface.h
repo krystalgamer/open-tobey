@@ -184,7 +184,7 @@ public:
                                                                                               
   vector3d get_last_collision_normal() const                                                  { return last_collision_normal;}
 
-  void set_last_collision_normal( const vector3d& v );
+  void set_last_collision_normal( const vector3d& v ) { PANIC; }
                                                                                               
 
   rational_t get_effective_collision_mass( const vector3d& loc, const vector3d& dir ) const   { return get_mass(); }
@@ -233,7 +233,7 @@ public:
   virtual bool set_ifc_vec(const pstring &att, const vector3d &val);
 
 
-  void manage_standing(bool force = false);
+  void manage_standing(bool force = false) { PANIC; }
   void compute_elevation();
   rational_t get_floor_offset();
 
@@ -246,9 +246,9 @@ public:
 
 
   // Static collision Methods
-  static void resolve_collision( entity * e1, entity * e2, time_value_t t, bool terrain_collision );
+  static void resolve_collision( entity * e1, entity * e2, time_value_t t, bool terrain_collision ) { PANIC; }
 
-  static bool resolve_collision_with_terrain( entity * e1, time_value_t t, po const & velocity_po, const vector3d& abs_base_point );
+  static bool resolve_collision_with_terrain( entity * e1, time_value_t t, po const & velocity_po, const vector3d& abs_base_point ) {PANIC; return false; }
 };
 
 

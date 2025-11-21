@@ -6,6 +6,7 @@
 
 
 #include "entity.h"
+#include "lightmgr.h"
 #include "refptr.h"
 
 

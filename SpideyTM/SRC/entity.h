@@ -695,13 +695,11 @@ protected:
 	   // @Patch -comment because this is too big
   /*
    ENTITY_INTERFACE(animation)
-   ENTITY_INTERFACE(hard_attrib)
    ENTITY_INTERFACE(owner)
    ENTITY_INTERFACE(render)
 #ifdef ECULL
    ENTITY_INTERFACE(script_data)
 #endif
-   ENTITY_INTERFACE(skeleton)
    ENTITY_INTERFACE(slave)
    ENTITY_INTERFACE(soft_attrib)
 
@@ -1980,6 +1978,9 @@ protected:
   light_manager* my_light_mgr;
 
    ENTITY_INTERFACE(physical);
+   ENTITY_INTERFACE(skeleton);
+   ENTITY_INTERFACE(hard_attrib);
+   ENTITY_INTERFACE(soft_attrib);
 /////////////////////////////////////////////////////////////////////////////
 // entity_maker interface
 private:

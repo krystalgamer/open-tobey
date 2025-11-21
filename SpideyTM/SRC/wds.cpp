@@ -200,270 +200,7 @@ extern void destroy_script_lists();
 
 world_dynamics_system::~world_dynamics_system()
 {
-	debug_render_done();
-
-	// BETH: for front end purposes
-	//if(FEDone())
-	//{
-	// unload scene animations
-
-	scene_anim_map_t::iterator angel_of_death;
-	for( angel_of_death = scene_anim_map.begin(); angel_of_death != scene_anim_map.end(); angel_of_death++ )
-	{
-		scene_anim* falls_under_the_scythe = (*angel_of_death).second;
-		delete falls_under_the_scythe;
-	}
-	scene_anim_map.clear();
-	//}
-
-
-
-	//  script_manager* scriptman = get_script_manager();
-	//  scriptman->check_all_objects();
-
-	{
-		std::vector<controller*>::const_iterator i = controllers.begin();
-		std::vector<controller*>::const_iterator i_end = controllers.end();
-		for ( ; i!=i_end; ++i )
-			delete *i;
-		controllers.resize(0);
-	}
-
-	{
-
-		std::vector<force_generator*>::const_iterator i = generators.begin();
-		std::vector<force_generator*>::const_iterator i_end = generators.end();
-		for ( ; i!=i_end; ++i )
-			delete *i;
-		generators.resize(0);
-	}
-
-	{
-		std::vector<force_control_system*>::const_iterator i = fcs_list.begin();
-
-		std::vector<force_control_system*>::const_iterator i_end = fcs_list.end();
-		for ( ; i!=i_end; ++i )
-
-			delete *i;
-		fcs_list.resize(0);
-	}
-
-	{
-		std::vector<motion_control_system*>::const_iterator i = mcs_list.begin();
-		std::vector<motion_control_system*>::const_iterator i_end = mcs_list.end();
-		for ( ; i!=i_end; ++i )
-
-			delete *i;
-		mcs_list.resize(0);
-	}
-
-	{
-		surfaceinfo_list_t::const_iterator i = surfaceinfo_list.begin();
-
-		surfaceinfo_list_t::const_iterator i_end = surfaceinfo_list.end();
-
-		for ( ; i!=i_end; ++i )
-			delete (*i).second;
-		surfaceinfo_list.clear();
-	}
-
-
-	// destroy conglomerates first!
-	{
-		entity_list::const_iterator i = entities.begin();
-		entity_list::const_iterator i_end = entities.end();
-		for ( ; i!=i_end; )
-		{
-
-			entity* e = *i;
-			if ( e && e->is_a_conglomerate() && remove_entity(e) )
-			{
-				delete e;
-				i = entities.begin();
-				i_end = entities.end();
-
-			}
-
-			else
-			{
-				++i;
-			}
-		}
-	}
-	//  scriptman->check_all_objects();
-
-
-
-	{
-		entity_list::const_iterator i = entities.begin();
-
-		entity_list::const_iterator i_end = entities.end();
-		for ( ; i!=i_end; ++i )
-		{
-
-			entity* e = *i;
-			if ( e )
-			{
-				// if this assertion fails then the entity has already been deleted
-				assert(e->get_flavor() != 0x13131313);
-				if ( e->is_an_item() || e->is_a_limb_body() )
-
-					continue;
-				else if ( e->is_a_light_source() )
-				{
-					PANIC;
-					// @TODO
-					//remove_light_source( static_cast<light_source*>(e) );
-				}
-				else if ( remove_entity(e) )
-				{
-					delete e;
-				}
-			}
-		}
-		entities.resize(0);
-	}
-
-	{
-		std::vector<item*>::const_iterator i = items.begin();
-		std::vector<item*>::const_iterator i_end = items.end();
-		for ( ; i!=i_end; ++i )
-			delete *i;
-		items.resize(0);
-	}
-
-	{
-		crawl_box_list::const_iterator i = crawl_boxes.begin( );
-		crawl_box_list::const_iterator i_end = crawl_boxes.end( );
-
-		for( ; i != i_end; i++ ) {
-			delete *i;
-		}
-
-		crawl_boxes.clear( );
-	}
-	//  scriptman->check_all_objects();
-
-	// terrain must be deleted after ents and items, since they remove
-	// themselves from their associated region when destroyed
-	if ( the_terrain )
-	{
-		delete the_terrain;
-	}
-	delete origin_entity;
-
-	// these lists contain duplicate pointers, owned elsewhere
-	lights.resize(0);
-
-	active_entities.clear();
-	entfiles.clear();
-
-	// clear all the path_graphs
-
-	{
-		std::vector<path_graph*>::iterator i = path_graph_list.begin();
-		for ( ; i!=path_graph_list.end(); )
-		{
-			path_graph* pg = *i;
-			if ( pg != NULL )
-
-			{
-
-				i = path_graph_list.erase( i );
-				delete pg;
-			}
-			else
-				++i;
-		}
-		path_graph_list.resize(0);
-	}
-	//  scriptman->check_all_objects();
-
-	/*
-
-	if ( dread_network )
-	{
-    delete dread_network;
-    dread_network = NULL;
-	}
-	*/
-
-	if (collision_dummy != NULL)
-	{
-		delete collision_dummy;
-		collision_dummy=NULL;
-	}
-
-	entity_track_bank.purge(); // PEH BETA (including variants. sequence below)
-
-#if 0 // BIGCULL
-	if ( ai_cue_mgr )
-	{
-		delete ai_cue_mgr;
-		ai_cue_mgr = NULL;
-	}
-#endif
-
-	while( material_sets.size() )
-		delete_material_set( *material_sets.begin() );
-
-	material_sets.resize(0);
-	// I put this in to fix a memory leaking hero, but it crashes....hmmm.  what to do GT-4/17/01
-	// if (hero_ptr != NULL)
-	//    delete hero_ptr;
-
-	// <<<< shouldn't there be a delete hero entities stuff here?  -DL
-	for(int i=0;i<MAX_PLAYERS;i++)
-		hero_ptr[i] = NULL;
-
-	// BIGCULL   g_spiderman_ptr = NULL;
-
-	//  element_manager::inst()->purge(); // PEH BETA LOCK
-
-	// BIGCULL  g_spiderman_ptr = NULL;
-
-	// BIGCULL  g_spiderman_controller_ptr = NULL;
-	// BIGCULL   g_spiderman_camera_ptr = NULL;
-
-
-	if(world_path)
-	{
-		delete world_path;
-		world_path = NULL;
-	}
-
-
-	//  scriptman->check_all_objects();
-	script::destroy();
-
-#ifdef KSCULL
-
-	destroy_script_lists();
-#endif
-
-	/*
-	if ( m_pLipSync )
-	delete m_pLipSync;
-	*/
-
-
-	path_graph_system_destruct();
-
-#ifdef TARGET_PS2
-	// No longer needed now that we have the heap system
-
-	// This actually causes problems with sprintf
-	//
-
-	//FreeBallocMem();
-#endif
-
-
-  if( ett_mgr )
-  {
-    delete ett_mgr;
-    ett_mgr = NULL;
-  }
+	PANIC;
 }
 
 void system_idle(); // in w32_main or sy_main
@@ -644,69 +381,20 @@ bool world_dynamics_system::wds_releasefile( unsigned char **buf )
 stringx world_dynamics_system::wds_open( chunk_file& fs, const stringx& filename, const stringx& extension, int io_flags )
 
 {
-	stringx fname;
-#ifdef EVAN
-	char damnopaquestringclass[256];
-	strcpy(damnopaquestringclass,(filename+extension).c_str());
-#endif
-	if ( file_finder_exists( filename, extension, &fname ) )
-		//if ( wds_exists( filename, extension ) )
-	{
-		fs.open( fname, io_flags );
-		return fname;
-	}
-	else
-	{
-		error( "Couldn't open \"" + filename + extension + "\"" );
-
-		return stringx();
-	}
+	PANIC;
+	return stringx();
 }
 
 stringx world_dynamics_system::wds_open( app_file& fs, const stringx& filename, const stringx& extension, int io_flags )
 {
-#ifdef EVAN
-	char damnopaquestringclass[256];
-	strcpy(damnopaquestringclass,(filename+extension).c_str());
-#endif
-	stringx fname;
-	if ( file_finder_exists( filename, extension, &fname ) )
-		//if ( wds_exists( filename, extension ) )
-	{
-		fs.open( fname.c_str(), io_flags );
-		return fname;
-	}
-	else
-	{
-		error( "Couldn't open \"" + filename + extension + "\"" );
-
-		return stringx();
-
-	}
+	PANIC;
+	return stringx();
 }
 
 bool world_dynamics_system::wds_exists( const stringx& filename, const stringx& extension, int io_flags )
 {
-#ifdef EVAN
-	char damnopaquestringclass[256];
-
-	strcpy(damnopaquestringclass,(filename+extension).c_str());
-	//strcpy(damnopaquestringclass,filename.c_str());
-#endif
-	stringx fname;
-	if ( file_finder_exists( filename, extension, &fname ) )
-
-	{
-		return true;
-	}
-	else
-	{
-#ifdef EVAN
-		nglPrintf("unable to open %s\n",damnopaquestringclass);
-
-#endif
-		return false;
-	}
+	PANIC;
+	return true;
 }
 
 
@@ -2991,44 +2679,8 @@ beam* world_dynamics_system::add_beam( const entity_id& _id, unsigned int _flags
 entity* world_dynamics_system::create_preloaded_entity_or_subclass( const stringx& entity_name,
 																   const stringx& entity_dir )
 {
-	entity* e;
-	filespec spec( entity_name );
-	spec.name.to_upper();
-	entfile_map::const_iterator fi = get_entfiles().find( spec.name );
-
-
-	po loc( po_identity_matrix );
-	loc.set_translate( vector3d(-9000,-9000,-9000) );
-
-	if ( fi == get_entfiles().end() )
-	{
-		if ( entity_dir.size() > 0 )
-			g_file_finder->push_path_back( entity_dir );
-			/*P
-
-			int alloc0 = memtrack::get_total_alloced();
-			int script_mem = membudget()->get_usage( membudget_t::SCRIPTS );
-			int anim_mem = membudget()->get_usage( membudget_t::ANIMS );
-			int sound_mem = membudget()->get_usage( membudget_t::SOUNDS );
-			g_memory_context.push_context( "ENTPRELOADS" );
-		P*/
-		e = g_entity_maker->create_entity_or_subclass( entity_name,  entity_id::make_unique_id(), loc, empty_string, 0 );
-		/*P
-		g_memory_context.pop_context();
-		script_mem = membudget()->get_usage( membudget_t::SCRIPTS ) - script_mem;
-		anim_mem = membudget()->get_usage( membudget_t::ANIMS ) - anim_mem;
-		sound_mem = membudget()->get_usage( membudget_t::SOUNDS ) - sound_mem;
-		int non_entity_mem = script_mem + anim_mem + sound_mem;
-		membudget()->use( membudget_t::ENTPRELOADS, memtrack::get_total_alloced()-alloc0-non_entity_mem );
-		P*/
-		remove_entity_from_world_processing( e );
-		if ( entity_dir.size() > 0 )
-			g_file_finder->pop_path_back();
-
-	}
-	else
-		e = (*fi).second;
-	return e;
+	PANIC;
+	return NULL;
 }
 
 float world_dynamics_system::get_surface_effect_duration( int surf_index )
@@ -3145,17 +2797,8 @@ entity* world_dynamics_system::add_time_limited_effect( const char* name,
 													   const po& loc,
 													   time_value_t duration )
 {
-	entity* e = g_entity_maker->create_entity_or_subclass( name, entity_id::make_unique_id(), loc, "fx\\", ACTIVE_FLAG|NONSTATIC_FLAG );
-
-	assert(e != NULL);
-
-	time_limited_entities.push_back( ent_time_limit(e,duration) );
-
-	e->set_time_limited(true);
-
-	// this needs to be called to set up last-frame info
-	e->frame_done();
-	return e;
+	PANIC;
+	return NULL;
 }
 
 
@@ -4206,7 +3849,6 @@ world_dynamics_system::add_polytube( chunk_file& fs,
 }
 
 lensflare*
-
 world_dynamics_system::add_lensflare( chunk_file& fs,
 
 									 const entity_id& id,

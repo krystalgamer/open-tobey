@@ -1,7 +1,9 @@
 #ifndef D3D_TEXTUREMGR_H
 #define D3D_TEXTUREMGR_H
 
-#include "refptr.h"
+#include "..\refptr.h"
+#include "..\stringx.h"
+#include "w32_file.h"
 
 // Texel bit organization.
 enum texture_format_t

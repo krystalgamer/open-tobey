@@ -1,6 +1,8 @@
+#include "game.h"
 #include "random.h"
 Random *g_random_ptr;
 
+entity_maker *g_entity_maker = NULL;
 void skip_intros(void)
 {
 	// @TODO

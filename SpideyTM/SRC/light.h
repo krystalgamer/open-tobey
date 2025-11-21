@@ -34,10 +34,7 @@ public:
 	friend void validate_light_properties(void);
 	friend void patch_light_properties(void);
 
-  light_properties()
-  {
-	  PANIC;
-  }
+  light_properties();
 
   light_properties( light_flavor_t _flavor,
                 color _color,

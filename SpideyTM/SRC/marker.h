@@ -14,7 +14,7 @@ public:
   }
 
   virtual entity* make_instance( const entity_id& _id,
-                                 unsigned int _flags ) const;
+                                 unsigned int _flags ) const { PANIC; }
 
   void copy_instance_data( const marker& b ) { entity::copy_instance_data(b); }
 

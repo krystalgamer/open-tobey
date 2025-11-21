@@ -7,6 +7,8 @@
 class region;
 class portal;
 
+#include "graph.h"
+
 typedef graph< stringx, region*, portal*
 ,	std::less<stringx>
 //	,	malloc_alloc

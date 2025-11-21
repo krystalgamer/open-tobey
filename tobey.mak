@@ -25,6 +25,10 @@ NULL=
 NULL=nul
 !ENDIF 
 
+CPP=cl.exe
+MTL=midl.exe
+RSC=rc.exe
+
 !IF  "$(CFG)" == "tobey - Win32 Release"
 
 OUTDIR=.\Release
@@ -38,32 +42,40 @@ ALL : "$(OUTDIR)\tobey.dll"
 
 CLEAN :
 	-@erase "$(INTDIR)\adler32.obj"
+	-@erase "$(INTDIR)\aggvertbuf.obj"
 	-@erase "$(INTDIR)\ai_interface.obj"
 	-@erase "$(INTDIR)\ai_locomotion.obj"
 	-@erase "$(INTDIR)\ai_polypath.obj"
 	-@erase "$(INTDIR)\anim_flavor.obj"
 	-@erase "$(INTDIR)\app.obj"
+	-@erase "$(INTDIR)\beam.obj"
 	-@erase "$(INTDIR)\billboard.obj"
 	-@erase "$(INTDIR)\bone.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\colgeom.obj"
 	-@erase "$(INTDIR)\collide.obj"
 	-@erase "$(INTDIR)\compress.obj"
+	-@erase "$(INTDIR)\conglom.obj"
 	-@erase "$(INTDIR)\controller.obj"
 	-@erase "$(INTDIR)\crc32.obj"
+	-@erase "$(INTDIR)\d3d_rasterize.obj"
 	-@erase "$(INTDIR)\damage_interface.obj"
 	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\deflate.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
 	-@erase "$(INTDIR)\entity.obj"
 	-@erase "$(INTDIR)\entity_anim.obj"
+	-@erase "$(INTDIR)\entity_maker.obj"
 	-@erase "$(INTDIR)\errorcontext.obj"
+	-@erase "$(INTDIR)\file.obj"
 	-@erase "$(INTDIR)\file_manager.obj"
 	-@erase "$(INTDIR)\filespec.obj"
 	-@erase "$(INTDIR)\frame_info.obj"
 	-@erase "$(INTDIR)\game.obj"
+	-@erase "$(INTDIR)\geomgr.obj"
 	-@erase "$(INTDIR)\global.obj"
 	-@erase "$(INTDIR)\gzio.obj"
+	-@erase "$(INTDIR)\hull.obj"
 	-@erase "$(INTDIR)\infblock.obj"
 	-@erase "$(INTDIR)\infcodes.obj"
 	-@erase "$(INTDIR)\inffast.obj"
@@ -71,10 +83,14 @@ CLEAN :
 	-@erase "$(INTDIR)\inftrees.obj"
 	-@erase "$(INTDIR)\infutil.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
+	-@erase "$(INTDIR)\item.obj"
+	-@erase "$(INTDIR)\lensflare.obj"
 	-@erase "$(INTDIR)\light.obj"
 	-@erase "$(INTDIR)\lightmgr.obj"
 	-@erase "$(INTDIR)\link_interface.obj"
 	-@erase "$(INTDIR)\maketree.obj"
+	-@erase "$(INTDIR)\material.obj"
+	-@erase "$(INTDIR)\matfac.obj"
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
@@ -86,18 +102,22 @@ CLEAN :
 	-@erase "$(INTDIR)\pmesh.obj"
 	-@erase "$(INTDIR)\po.obj"
 	-@erase "$(INTDIR)\po_anim.obj"
+	-@erase "$(INTDIR)\polytube.obj"
 	-@erase "$(INTDIR)\pstring.obj"
 	-@erase "$(INTDIR)\region.obj"
+	-@erase "$(INTDIR)\scene_anim.obj"
 	-@erase "$(INTDIR)\script_lib.obj"
 	-@erase "$(INTDIR)\script_library_class.obj"
 	-@erase "$(INTDIR)\script_object.obj"
 	-@erase "$(INTDIR)\semaphores.obj"
 	-@erase "$(INTDIR)\signal.obj"
 	-@erase "$(INTDIR)\singleton.obj"
+	-@erase "$(INTDIR)\sky.obj"
 	-@erase "$(INTDIR)\so_data_block.obj"
 	-@erase "$(INTDIR)\sound_group.obj"
 	-@erase "$(INTDIR)\sound_interface.obj"
 	-@erase "$(INTDIR)\stringx.obj"
+	-@erase "$(INTDIR)\terrain.obj"
 	-@erase "$(INTDIR)\textfile.obj"
 	-@erase "$(INTDIR)\trees.obj"
 	-@erase "$(INTDIR)\uncompr.obj"
@@ -122,42 +142,8 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP=cl.exe
 CPP_PROJ=/nologo /MT /W3 /Zi /O2 /I "SpideyTM\SRC\sgistl" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
-
-.c{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.c{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-MTL=midl.exe
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
-RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
 BSC32_SBRS= \
@@ -240,7 +226,23 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\zip_filter.obj"
+	"$(INTDIR)\zip_filter.obj" \
+	"$(INTDIR)\terrain.obj" \
+	"$(INTDIR)\aggvertbuf.obj" \
+	"$(INTDIR)\file.obj" \
+	"$(INTDIR)\item.obj" \
+	"$(INTDIR)\entity_maker.obj" \
+	"$(INTDIR)\conglom.obj" \
+	"$(INTDIR)\lensflare.obj" \
+	"$(INTDIR)\geomgr.obj" \
+	"$(INTDIR)\polytube.obj" \
+	"$(INTDIR)\matfac.obj" \
+	"$(INTDIR)\hull.obj" \
+	"$(INTDIR)\beam.obj" \
+	"$(INTDIR)\material.obj" \
+	"$(INTDIR)\sky.obj" \
+	"$(INTDIR)\scene_anim.obj" \
+	"$(INTDIR)\d3d_rasterize.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -260,32 +262,40 @@ ALL : "$(OUTDIR)\tobey.dll"
 
 CLEAN :
 	-@erase "$(INTDIR)\adler32.obj"
+	-@erase "$(INTDIR)\aggvertbuf.obj"
 	-@erase "$(INTDIR)\ai_interface.obj"
 	-@erase "$(INTDIR)\ai_locomotion.obj"
 	-@erase "$(INTDIR)\ai_polypath.obj"
 	-@erase "$(INTDIR)\anim_flavor.obj"
 	-@erase "$(INTDIR)\app.obj"
+	-@erase "$(INTDIR)\beam.obj"
 	-@erase "$(INTDIR)\billboard.obj"
 	-@erase "$(INTDIR)\bone.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\colgeom.obj"
 	-@erase "$(INTDIR)\collide.obj"
 	-@erase "$(INTDIR)\compress.obj"
+	-@erase "$(INTDIR)\conglom.obj"
 	-@erase "$(INTDIR)\controller.obj"
 	-@erase "$(INTDIR)\crc32.obj"
+	-@erase "$(INTDIR)\d3d_rasterize.obj"
 	-@erase "$(INTDIR)\damage_interface.obj"
 	-@erase "$(INTDIR)\debugutil.obj"
 	-@erase "$(INTDIR)\deflate.obj"
 	-@erase "$(INTDIR)\dllmain.obj"
 	-@erase "$(INTDIR)\entity.obj"
 	-@erase "$(INTDIR)\entity_anim.obj"
+	-@erase "$(INTDIR)\entity_maker.obj"
 	-@erase "$(INTDIR)\errorcontext.obj"
+	-@erase "$(INTDIR)\file.obj"
 	-@erase "$(INTDIR)\file_manager.obj"
 	-@erase "$(INTDIR)\filespec.obj"
 	-@erase "$(INTDIR)\frame_info.obj"
 	-@erase "$(INTDIR)\game.obj"
+	-@erase "$(INTDIR)\geomgr.obj"
 	-@erase "$(INTDIR)\global.obj"
 	-@erase "$(INTDIR)\gzio.obj"
+	-@erase "$(INTDIR)\hull.obj"
 	-@erase "$(INTDIR)\infblock.obj"
 	-@erase "$(INTDIR)\infcodes.obj"
 	-@erase "$(INTDIR)\inffast.obj"
@@ -293,10 +303,14 @@ CLEAN :
 	-@erase "$(INTDIR)\inftrees.obj"
 	-@erase "$(INTDIR)\infutil.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
+	-@erase "$(INTDIR)\item.obj"
+	-@erase "$(INTDIR)\lensflare.obj"
 	-@erase "$(INTDIR)\light.obj"
 	-@erase "$(INTDIR)\lightmgr.obj"
 	-@erase "$(INTDIR)\link_interface.obj"
 	-@erase "$(INTDIR)\maketree.obj"
+	-@erase "$(INTDIR)\material.obj"
+	-@erase "$(INTDIR)\matfac.obj"
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
@@ -308,18 +322,22 @@ CLEAN :
 	-@erase "$(INTDIR)\pmesh.obj"
 	-@erase "$(INTDIR)\po.obj"
 	-@erase "$(INTDIR)\po_anim.obj"
+	-@erase "$(INTDIR)\polytube.obj"
 	-@erase "$(INTDIR)\pstring.obj"
 	-@erase "$(INTDIR)\region.obj"
+	-@erase "$(INTDIR)\scene_anim.obj"
 	-@erase "$(INTDIR)\script_lib.obj"
 	-@erase "$(INTDIR)\script_library_class.obj"
 	-@erase "$(INTDIR)\script_object.obj"
 	-@erase "$(INTDIR)\semaphores.obj"
 	-@erase "$(INTDIR)\signal.obj"
 	-@erase "$(INTDIR)\singleton.obj"
+	-@erase "$(INTDIR)\sky.obj"
 	-@erase "$(INTDIR)\so_data_block.obj"
 	-@erase "$(INTDIR)\sound_group.obj"
 	-@erase "$(INTDIR)\sound_interface.obj"
 	-@erase "$(INTDIR)\stringx.obj"
+	-@erase "$(INTDIR)\terrain.obj"
 	-@erase "$(INTDIR)\textfile.obj"
 	-@erase "$(INTDIR)\trees.obj"
 	-@erase "$(INTDIR)\uncompr.obj"
@@ -346,42 +364,8 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP=cl.exe
 CPP_PROJ=/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
-
-.c{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.c{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-MTL=midl.exe
 MTL_PROJ=/nologo /D "_DEBUG" /mktyplib203 /win32 
-RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
 BSC32_SBRS= \
@@ -464,7 +448,23 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\zip_filter.obj"
+	"$(INTDIR)\zip_filter.obj" \
+	"$(INTDIR)\terrain.obj" \
+	"$(INTDIR)\aggvertbuf.obj" \
+	"$(INTDIR)\file.obj" \
+	"$(INTDIR)\item.obj" \
+	"$(INTDIR)\entity_maker.obj" \
+	"$(INTDIR)\conglom.obj" \
+	"$(INTDIR)\lensflare.obj" \
+	"$(INTDIR)\geomgr.obj" \
+	"$(INTDIR)\polytube.obj" \
+	"$(INTDIR)\matfac.obj" \
+	"$(INTDIR)\hull.obj" \
+	"$(INTDIR)\beam.obj" \
+	"$(INTDIR)\material.obj" \
+	"$(INTDIR)\sky.obj" \
+	"$(INTDIR)\scene_anim.obj" \
+	"$(INTDIR)\d3d_rasterize.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -472,6 +472,36 @@ LINK32_OBJS= \
 <<
 
 !ENDIF 
+
+.c{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.c{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
 
 !IF "$(NO_EXTERNAL_DEPS)" != "1"
@@ -574,6 +604,12 @@ SOURCE=.\SpideyTM\SRC\zlib\zutil.c
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\HWOSPC\d3d_rasterize.cpp
+
+"$(INTDIR)\d3d_rasterize.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\HWOSPC\pc_audio.cpp
 
 "$(INTDIR)\pc_audio.obj" : $(SOURCE) "$(INTDIR)"
@@ -583,6 +619,12 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\pc_audio.cpp
 SOURCE=.\NSL\PC\nsl_pc_emitter.cpp
 
 "$(INTDIR)\nsl_pc_emitter.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\aggvertbuf.cpp
+
+"$(INTDIR)\aggvertbuf.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
@@ -616,6 +658,12 @@ SOURCE=.\SpideyTM\SRC\app.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\beam.cpp
+
+"$(INTDIR)\beam.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\billboard.cpp
 
 "$(INTDIR)\billboard.obj" : $(SOURCE) "$(INTDIR)"
@@ -643,6 +691,12 @@ SOURCE=.\SpideyTM\SRC\colgeom.cpp
 SOURCE=.\SpideyTM\SRC\collide.cpp
 
 "$(INTDIR)\collide.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\conglom.cpp
+
+"$(INTDIR)\conglom.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
@@ -681,9 +735,21 @@ SOURCE=.\SpideyTM\SRC\entity_anim.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\entity_maker.cpp
+
+"$(INTDIR)\entity_maker.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\errorcontext.cpp
 
 "$(INTDIR)\errorcontext.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\file.cpp
+
+"$(INTDIR)\file.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
@@ -711,15 +777,39 @@ SOURCE=.\SpideyTM\SRC\game.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\geomgr.cpp
+
+"$(INTDIR)\geomgr.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\global.cpp
 
 "$(INTDIR)\global.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\hull.cpp
+
+"$(INTDIR)\hull.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\ini_parser.cpp
 
 "$(INTDIR)\ini_parser.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\item.cpp
+
+"$(INTDIR)\item.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\lensflare.cpp
+
+"$(INTDIR)\lensflare.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
@@ -738,6 +828,18 @@ SOURCE=.\SpideyTM\SRC\lightmgr.cpp
 SOURCE=.\SpideyTM\SRC\link_interface.cpp
 
 "$(INTDIR)\link_interface.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\material.cpp
+
+"$(INTDIR)\material.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\matfac.cpp
+
+"$(INTDIR)\matfac.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
@@ -795,6 +897,12 @@ SOURCE=.\SpideyTM\SRC\po_anim.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\polytube.cpp
+
+"$(INTDIR)\polytube.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\pstring.cpp
 
 "$(INTDIR)\pstring.obj" : $(SOURCE) "$(INTDIR)"
@@ -804,6 +912,12 @@ SOURCE=.\SpideyTM\SRC\pstring.cpp
 SOURCE=.\SpideyTM\SRC\region.cpp
 
 "$(INTDIR)\region.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\scene_anim.cpp
+
+"$(INTDIR)\scene_anim.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
@@ -843,6 +957,12 @@ SOURCE=.\SpideyTM\SRC\singleton.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\sky.cpp
+
+"$(INTDIR)\sky.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\so_data_block.cpp
 
 "$(INTDIR)\so_data_block.obj" : $(SOURCE) "$(INTDIR)"
@@ -864,6 +984,12 @@ SOURCE=.\SpideyTM\SRC\sound_interface.cpp
 SOURCE=.\SpideyTM\SRC\stringx.cpp
 
 "$(INTDIR)\stringx.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\terrain.cpp
+
+"$(INTDIR)\terrain.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

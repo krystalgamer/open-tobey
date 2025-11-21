@@ -66,7 +66,7 @@ public:
 
   static bool collides(collision_geometry* g1, collision_geometry* g2,
                        vectorvector* hit_list, vectorvector* normal_list1, vectorvector * normal_list2,
-                       unsigned int ct, const vector3d & rel_vel, cface * hitFace = NULL);
+                       unsigned int ct, const vector3d & rel_vel, cface * hitFace = NULL) { PANIC; return false; }
   static bool collides_with_region(collision_geometry* g1, region* t,
 	  vectorvector* hit_list, std::vector <vector3d>* normal_list1, std::vector <vector3d>* normal_list2,
                                 unsigned int ct,const vector3d& rel_vel);

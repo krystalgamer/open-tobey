@@ -19,7 +19,7 @@ class text_file
     EXPORT text_file(); 
     EXPORT ~text_file();
 
-    EXPORT void open(const stringx & name, int _flags=os_file::FILE_READ);
+    EXPORT void open(const stringx & name, int _flags=os_file::FILE_READ) { PANIC; }
 
     EXPORT void close();
 

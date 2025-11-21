@@ -1,6 +1,8 @@
 #include "warnlvl.h"
 #include "app.h"
 
+#include "bp_tree.h"
+
 bool g_master_clock_is_up = false;
 
 DEFINE_SINGLETON(app)
@@ -73,6 +75,17 @@ void app::set_viri(instance_render_info* new_viri)
 	assert (new_viri == NULL || (viri == NULL && new_viri != NULL));
 	viri = new_viri;
 }
+
+//-----------------------------------------------------------------------------
+// Declare the application globals
+//-----------------------------------------------------------------------------
+
+bp_tree<partition3,vector3d>::plane_list_t bp_tree<partition3,vector3d>::plane_list(100);
+bp_tree<partition3,vector3d>::plane_list_t bp_tree<partition3,vector3d>::show_plane_list(100);
+bp_tree<partition3,vector3d>::hit_list_t bp_tree<partition3,vector3d>::hit_list(100);
+bp_tree<partition3,vector3d>::hit_dir_list_t bp_tree<partition3,vector3d>::hit_dir_list(100);
+
+game *g_game_ptr;
 
 #include "my_assertions.h"
 

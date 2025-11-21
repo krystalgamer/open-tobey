@@ -208,7 +208,7 @@ public:
 
 #endif
   }
-  inline void set_xvert_unxform_diffuse(int i,color32 c) { xverts[i].diffuse = c; }
+  inline void set_xvert_unxform_diffuse(int i,color32 c) {PANIC;}
 
   inline int get_num_verts()     const { return verts ? verts->size() : 0; }
   //int get_min_faces()     const { return min_faces; }

@@ -73,6 +73,102 @@ char* retstr;
   strcpy( retstr, str );
   return retstr;
 }
+
+
+///////////////////////////////////////////////////////////////////////////////
+//  anim_id_t
+
+///////////////////////////////////////////////////////////////////////////////
+
+void anim_id_manager::stl_prealloc(void)
+{
+  anim_id_manager::create_inst();
+	static anim_id_manager *aman=anim_id_manager::inst();
+	char tmp[32];
+
+	for ( int i=0; i<1024; i++ )
+	{
+		sprintf(tmp,"STL_PRE_%4.4u",i);
+		/*anim_id_t stanim=*/aman->anim_id(tmp);
+	}
+	aman->purge();
+
+	//static anim_id_t stanim=aman->anim_id("STL_INIT");
+	//static entity tentity=entity(teid,0);
+	//static entity *e=&tentity;
+	//static entity_manager *eman=entity_manager::inst();
+	//eman->register_entity(e);
+}
+
+
+anim_id_manager::anim_id_manager() : NO_ID_label( "NO_ID" )
+//  : labels()
+{
+	PANIC;
+}
+
+anim_id_t anim_id_manager::anim_id( const char* _label )
+{
+	stringx _l=_label;
+  return anim_id( _l );
+}
+
+anim_id_t anim_id_manager::anim_id( const stringx& _label )
+{
+  label_map_t::iterator lm = label_map.find(_label);
+  if (lm==label_map.end())
+  {
+
+    labels.push_back( _label );
+    label_map.insert(label_map_t::value_type(_label,labels.size() - 1));
+    return labels.size() - 1;
+  }
+  else
+
+    return (*lm).second;
+}
+
+anim_id_t anim_id_manager::anim_id( const char* _label, short id )
+{
+	stringx _l=_label;
+  return anim_id( _l, id );
+}
+
+anim_id_t anim_id_manager::anim_id( const stringx& _label, short id )
+
+{
+  label_map_t::iterator lm = label_map.find(_label);
+  if (lm==label_map.end())
+  {
+    label_map.insert( label_map_t::value_type(_label,id) );
+    return (anim_id_t)id;
+  }
+  else
+    return (*lm).second;
+}
+
+anim_id_t anim_id_manager::find_id( const stringx& _label )
+{
+  label_map_t::iterator lm = label_map.find(_label);
+  if (lm==label_map.end())
+    return NO_ID;
+  else
+    return (*lm).second;
+}
+
+
+void anim_id_manager::stl_dealloc()
+
+{
+  labels.resize(0);
+  label_map.clear();
+}
+
+void anim_id_manager::purge()
+{
+	PANIC;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //  Globals
 ////////////////////////////////////////////////////////////////////////////////

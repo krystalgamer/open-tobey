@@ -26,8 +26,10 @@ extern rational_t PROJ_RECIP_ZOOM;   // 1.0f / PROJ_ZOOM, used for particles and
 // This stuff was found all over the place so I refactored it here.
 // We can precompute these per frame later and save some work!
 #define PROJ_FOV_ZOOM_HALF  (PROJ_FIELD_OF_VIEW*PROJ_ZOOM*0.5F)
-#define PROJ_COS_FOV  ((float)fast_cos(PROJ_FOV_ZOOM_HALF))
-#define PROJ_SIN_FOV  ((float)fast_sin(PROJ_FOV_ZOOM_HALF))
+
+// @TODO
+#define PROJ_COS_FOV  69.0f
+#define PROJ_SIN_FOV  420.0f
 
 extern float field_of_view_fudge;
 
