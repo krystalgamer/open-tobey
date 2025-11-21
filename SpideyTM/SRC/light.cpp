@@ -193,7 +193,7 @@ void serial_in( chunk_file& fs, light_properties* lp )
 ////////////////////////////////////////////////////////////////////////////////
 
 light_source::light_source( const entity_id& _id, unsigned int _flags )
-  :   entity( _id, ENTITY_LIGHT_SOURCE, _flags )
+  //:   entity( _id, ENTITY_LIGHT_SOURCE, _flags )
 {
   properties = NEW light_properties;
 }
@@ -203,7 +203,7 @@ light_source::light_source( const entity_id& _id,
 
                             entity_flavor_t _flavor,
                             unsigned int _flags )
-  :   entity( _id, _flavor, _flags )
+  //:   entity( _id, _flavor, _flags )
 {
   properties = NEW light_properties;
 }
@@ -213,27 +213,16 @@ light_source::light_source( const entity_id& _id,
 light_source::light_source( const light_properties& _properties,
                             entity* _parent,
                             const entity_id& _id )
-  :   entity( _id, ENTITY_LIGHT_SOURCE )
+  //:   entity( _id, ENTITY_LIGHT_SOURCE )
 {
-  properties = NEW light_properties( _properties );
-  if (_parent != NULL)
-    link_ifc()->set_parent( _parent );
+	PANIC;
 }
 
 
 
 light_source::~light_source()
 {
-  // any descendant of entity that overloads add_me_to_region() and
-  // remove_me_from_region() (see entity.h) needs to call this cleanup method
-  // in its destructor; the reason for this is that if we wait and let the
-  // parent class (e.g., entity) call this method, it will end up using the
-  // parent's version of remove_me_from_region() (which makes sense when you
-  // think about it, since by that point the descendant class has already been
-  // destroyed)
-  remove_from_terrain();
-  if ( properties )
-    delete properties; // remove_from_terrain needs this
+	PANIC;
 }
 
 
@@ -245,14 +234,9 @@ light_source::light_source( chunk_file& fs,
                             const entity_id& _id,
                             entity_flavor_t _flavor,
                             unsigned int _flags )
-  :   entity( _id, _flavor, _flags )
+  //:   entity( _id, _flavor, _flags )
 {
-  chunk_flavor cf;
-  properties = NEW light_properties;
-  serial_in( fs, properties );
-  serial_in( fs, &cf );
-  if ( cf != CHUNK_END )
-    error( fs.get_name() + ": unexpected chunk '" + cf.to_stringx() + "' in light node" );
+	PANIC;
 }
 
 
@@ -267,7 +251,7 @@ light_source::light_source( const stringx& filename,
 
                             const entity_id& _id,
                             unsigned int _flags )
-  :   entity( _id, ENTITY_LIGHT_SOURCE, _flags )
+  //:   entity( _id, ENTITY_LIGHT_SOURCE, _flags )
 
 {
   load( filename + ".ent" );
@@ -383,22 +367,15 @@ void light_source::load( const stringx& filename )
 entity* light_source::make_instance( const entity_id& _id,
                                      unsigned int _flags ) const
 {
-  light_source* newls = NEW light_source( _id, _flags );
-  newls->copy_instance_data( *this );
-  return (entity*)newls;
+	PANIC;
+	return NULL;
 }
 
 
 
 void light_source::copy_instance_data( const light_source& b )
 {
-  entity::copy_instance_data( b );
-
-  if ( b.properties )
-    if (!properties)
-      properties = NEW light_properties( b.get_properties() );
-    else
-      *properties = b.get_properties();
+	PANIC;
 }
 
 
@@ -432,21 +409,13 @@ rational_t light_source::terrain_radius() const
 
 rational_t light_source::get_dist(const vector3d& apos) const
 {
-  if( get_properties().get_flavor() != LIGHT_FLAVOR_DIRECTIONAL )
-    return (apos-get_abs_position()).length();
-  return 0.0F;
+	PANIC;
+	return 0.0f;
 }
 
 rational_t light_source::get_dist(const sphere& abound) const
 {
-  if( get_properties().get_flavor() != LIGHT_FLAVOR_DIRECTIONAL )
-  {
-
-    float d2 = (abound.get_center()-get_abs_position()).length2();
-
-    if (d2 > sqr(abound.get_radius()))
-      return __fsqrt(d2) - abound.get_radius();
-  }
+	PANIC;
   return 0.0f;
 }
 

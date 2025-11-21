@@ -109,7 +109,8 @@ protected:
   friend void serial_in( chunk_file& cf, light_properties* lp );
 };
 
-class light_source : public entity
+// @Patch - while entity is too big
+class light_source /*: public entity*/
 {
 
 public:

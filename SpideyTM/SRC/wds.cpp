@@ -2724,7 +2724,8 @@ void world_dynamics_system::load_scene_anim( const stringx &filename )
 
 void world_dynamics_system::add_light_source( light_source* ls )
 {
-	g_entity_maker->create_entity( ls );
+	// @Patch
+	g_entity_maker->create_entity( reinterpret_cast<entity*>(ls) );
 	lights.push_back( ls );
 }
 
@@ -2734,7 +2735,8 @@ void world_dynamics_system::remove_light_source( light_source* ls )
 	lit = std::find( lights.begin(), lights.end(), ls );
 	if (lit!=lights.end())
 		lights.erase( lit );
-	if ( remove_entity( ls ) )
+	// @Patch
+	if ( remove_entity( reinterpret_cast<entity*>(ls) ) )
 
 		delete ls;
 }
@@ -3087,7 +3089,8 @@ void world_dynamics_system::destroy_entity( entity* e )
 		error( "Unsupported flavor for destruction: %s", entity_flavor_names[e->get_flavor()] );
 
     case ENTITY_LIGHT_SOURCE:
-		remove_light_source( static_cast<light_source*>(e) );
+		// @Patch
+		remove_light_source( reinterpret_cast<light_source*>(e) );
 		break;
 
     default:
