@@ -463,6 +463,7 @@ class world_dynamics_system
     bool entity_entity_collision(entity * p1,entity * p2, time_value_t t);
 
   private:
+	PADDING(0x20-0xC);
 	  std::vector<force_generator *> generators;
     std::vector<force_control_system *> fcs_list;
     std::vector<motion_control_system *> mcs_list;
@@ -477,8 +478,6 @@ class world_dynamics_system
 
     pentity_anim_tree_vector anims;
     ett_manager *ett_mgr;
-
-	PADDING(0x14);
 
     entity_list entities;
 

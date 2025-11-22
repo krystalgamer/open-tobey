@@ -2908,6 +2908,8 @@ int world_dynamics_system::add_fcs(force_control_system * new_fcs)
 }
 
 
+// @Ok
+// @AlmostMatching - different inlining
 // these are created elsewhere.  Will need to become like add_joint if
 // we add a remove_generator.  Also in frame_advance.
 int world_dynamics_system::add_generator(force_generator * new_generator)
@@ -4548,6 +4550,8 @@ void validate_wds(void)
 {
 	VALIDATE_SIZE(world_dynamics_system, 0x444);
 
+	VALIDATE(world_dynamics_system, generators, 0x20);
+
 	VALIDATE(world_dynamics_system, entities, 0x78);
 
 	VALIDATE(world_dynamics_system, the_terrain, 0x124);
@@ -4607,4 +4611,6 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x0062BBA0, world_dynamics_system::add_to_entities);
 
 	PATCH_PUSH_RET(0x0062BB10, world_dynamics_system::enable_marky_cam);
+
+	PATCH_PUSH_RET(0x002B9F0, world_dynamics_system::add_generator);
 }
