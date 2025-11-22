@@ -2814,6 +2814,8 @@ void world_dynamics_system::make_time_limited( entity* e, time_value_t duration 
 
 
 
+// @Ok
+// @Matching
 // The world assumes responsibility for deleting anims that get added here.
 // NOTE: this function assumes the given anim has not previously been added
 void world_dynamics_system::add_anim( entity_anim_tree* new_anim )
@@ -4625,4 +4627,5 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x0062B8D0, world_dynamics_system::add_fcs);
 
 	PATCH_PUSH_RET(0x0062B420, world_dynamics_system::kill_anim);
+	PATCH_PUSH_RET(0x0062B2B0, world_dynamics_system::add_anim);
 }
