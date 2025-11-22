@@ -23,7 +23,6 @@
 #include "controller.h"
 #include "entity_interface.h"
 #include "vm_thread.h"
-#include "mbi.h"
 
 
 // @Patch
@@ -371,10 +370,7 @@ entity::entity( const entity_id& _id, unsigned int _flags )
 entity::entity( const entity_id& _id, unsigned int _flags, const po & last_po_init_val )
   : bone()
 {
-  _construct( _id, ENTITY_ENTITY, NO_ID, _flags );
-  last_po = NEW po;
-
-  *last_po = last_po_init_val;
+	PANIC;
 }
 
 
@@ -450,12 +446,14 @@ void entity::signal_error(unsigned int a2, const stringx& parm)
 			"\n");
 }
 
+/*
 int entity::get_hero_id( void )
 {
 	// @TODO
 	PANIC;
 	return 0;
 }
+*/
 
 void entity::initialize()
 {
@@ -880,72 +878,7 @@ static std::vector<region_node*> new_regions(32);  // permanent
 void entity::compute_sector( terrain& ter, bool use_high_res_intersect )
 
 {
-#ifndef REGIONCULL
-  START_PROF_TIMER(proftimer_compute_sector);
-
-  set_needs_compute_sector(false);
-
-  // while forced to region(s), sector is irrelevant;
-  // also, we're not allowing limbs to compute their sector
-
-  if ( !is_flagged(EFLAG_REGION_FORCED) && !is_a_limb_body() )
-  {
-    vector3d curpos = get_abs_position();
-    rational_t poshash = POSHASH(curpos);
-    if ( poshash != last_compute_sector_position_hash )
-    {
-      last_compute_sector_position_hash = poshash;
-      sector* sec = ter.find_sector( curpos ); //terrain_position() );
-      if (sec)
-      {
-        assert( sec->get_region() );
-        if ( terrain_radius() > 0 )
-        {
-          // store region of origin
-          center_region = sec->get_region();
-          // entity obviously intersects the region he currently belongs to;
-          // adjacent regions will be checked recursively
-
-          // NOTE: new_regions is a local workspace for listing the regions he intersects
-          new_regions.resize(0);
-
-          region::prepare_for_visiting();
-          _intersect( sec->get_region(), use_high_res_intersect );
-          // now remove entity from regions he has departed and add him to regions he has entered
-          _update_regions();
-
-        }
-        else
-        {
-          // entity with zero radius
-
-          if ( !in_regions.empty() )
-          {
-            if ( sec->get_region() != *in_regions.begin() )
-            {
-              // entity moved from one region to another
-              remove_from_regions();
-              center_region = sec->get_region();
-              add_region( sec->get_region() );
-            }
-          }
-          else
-          {
-            center_region = sec->get_region();
-            add_region( sec->get_region() );
-
-          }
-        }
-      }
-//      set_flag(EFLAG_MISC_COMP_SECT_THIS_FRAME,true);
-      my_sector = sec;
-    }
-  }
-
-
-  ADD_PROF_COUNT(profcounter_compute_sector, 1);
-  STOP_PROF_TIMER(proftimer_compute_sector);
-#endif
+	PANIC;
 }
 
 
@@ -1001,9 +934,12 @@ void entity::remove_from_regions()
 void entity::remove_from_terrain()
 {
 
+	/*
   remove_from_regions();
   my_sector = NULL;
   center_region = NULL;
+  */
+	PANIC;
 }
 
 
@@ -1124,19 +1060,15 @@ void entity::set_created_entity_default_active_status()
 void entity::set_last_po( const po& the_po )
 
 {
-  if (last_po)
-    *last_po = the_po; //get_colgeom_root_po();
+	PANIC;
 }
 
 
 
 const po& entity::get_last_po()
 {
-  if (last_po)
-
-    return *last_po;
-  else
-    return get_abs_po();
+	PANIC;
+	return po();
 }
 
 void entity::set_family_visible( bool _vis, bool _cur_variant_only )
@@ -1386,12 +1318,7 @@ rational_t entity::get_visual_radius() const
 
 void entity::compute_visual_xz_radius_rel_center()
 {
-  if ( is_flagged( EFLAG_MISC_NONSTATIC ) )
-
-    vis_xz_rad_rel_center = get_visual_radius();
-  else if ( my_visrep )
-
-    vis_xz_rad_rel_center = my_visrep->compute_xz_radius_rel_center( get_abs_po() );
+	PANIC;
 }
 
 
@@ -1483,26 +1410,8 @@ void entity::force_regions( entity* e )
 
 int entity::is_in_active_region()
 {
-#ifndef REGIONCULL
-  if(my_sector)
-    return(my_sector->get_region()->get_data()->is_active());
-  else
-  {
-    region_node_pset::const_iterator i;
-
-    for ( i=in_regions.begin(); i!=in_regions.end(); ++i )
-
-    {
-      if((*i)->get_data()->is_active())
-
-#endif
-        return 1;
-#ifndef REGIONCULL
-    }
-  }
-
-  return 0;
-#endif
+	PANIC;
+	return 1;
 }
 
 bool entity::has_entity_collision() const
@@ -1656,22 +1565,7 @@ void entity::record_motion()
 void entity::allocate_motion_info()
 
 {
-  assert( mbi == NULL );
-
-  // CTT 07/22/00: for the Max Steel project, the NONSTATIC flag only matters
-
-  // for walkable entities
-  // guard against dynamic allocation in static entity
-  assert( !is_walkable() || is_flagged(EFLAG_MISC_NONSTATIC) );
-
-  // allocate the mbi the first time the user turns on motion blur or trail
-
-  mbi = NEW motion_blur_info(MAX_TRAIL_LENGTH);
-  // need to be frame advancing henceforth
-//!  if ( flavor!=ENTITY_ACTOR && flavor!=ENTITY_CHARACTER &&
-//!  if (flavor!=ENTITY_LIMB_BODY)
-    set_flag( EFLAG_ACTIVE, true );
-
+	PANIC;
 }
 
 
@@ -1680,28 +1574,7 @@ void entity::activate_motion_blur(int _blur_min_alpha,
                                   int _num_blur_images,
                                   float _blur_spread)
 {
-  set_flag(EFLAG_GRAPHICS_MOTION_BLUR, true);
-  if ( is_motion_blurred() )
-  {
-    assert( mbi );
-    // note that we have no initial motion blurred copies
-    mbi->motion_trail_start = 0;
-    mbi->motion_trail_end   = 0;
-    mbi->motion_trail_count = 0;
-
-    mbi->blur_min_alpha = _blur_min_alpha;
-    mbi->blur_max_alpha = _blur_max_alpha;
-
-/*!    if(g_world_ptr->get_num_active_characters() > 2)
-
-      mbi->num_blur_images = (int) ( (rational_t)_num_blur_images / (rational_t)(g_world_ptr->get_num_active_characters() - 1) + 0.5f );
-    else
-!*/
-      mbi->num_blur_images = _num_blur_images;
-
-
-    mbi->blur_spread = _blur_spread;
-  }
+	PANIC;
 }
 
 void entity::deactivate_motion_blur()
@@ -1760,20 +1633,7 @@ void entity::activate_motion_trail( int _trail_length,
                                     const vector3d& tip
                                     )
 {
-  set_flag(EFLAG_GRAPHICS_MOTION_TRAIL, true);
-  assert( mbi );
-  mbi->motion_trail_length = _trail_length;
-  assert( mbi->motion_trail_length <= mbi->buffer_size );
-  mbi->trail_color = _trail_color;
-  mbi->trail_min_alpha = _trail_min_alpha;
-  mbi->trail_max_alpha = _trail_max_alpha;
-  // note that we have no initial motion trail copies
-  mbi->motion_trail_start = 0;
-
-  mbi->motion_trail_end   = 0;
-  mbi->motion_trail_count = 0;
-
-  mbi->motion_trail_head = tip;
+	PANIC;
 }
 
 void entity::deactivate_motion_trail()
@@ -1856,6 +1716,7 @@ void entity::rebirth()
 
 render_flavor_t entity::render_passes_needed() const
 {
+	/*
   if ( !my_visrep )
     return 0;
 
@@ -1868,6 +1729,9 @@ render_flavor_t entity::render_passes_needed() const
       passes |= RENDER_TRANSLUCENT_PORTION;
   }
   return passes;
+  */
+	PANIC;
+	return 2;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2226,32 +2090,7 @@ void entity::detach_anim()
 
 void entity::compute_bounding_box()
 {
-  if ( get_colgeom() && get_colgeom()->get_type()==collision_geometry::MESH )
-  {
-    if ( !has_bounding_box() )
-      bbi = NEW bounding_box;
-    cg_mesh* m = static_cast<cg_mesh*>( get_colgeom() );
-    int i;
-    for ( i=0; i<m->get_num_verts(); ++i )
-    {
-//      vector3d v = get_abs_po().slow_xform( m->get_vert_ptr(i)->get_point() );
-      vector3d v = get_abs_po().fast_8byte_xform( m->get_vert_ptr(i)->get_point() );
-
-      if ( v.x < bbi->vmin.x )
-        bbi->vmin.x = v.x;
-      if ( v.x > bbi->vmax.x )
-        bbi->vmax.x = v.x;
-      if ( v.y < bbi->vmin.y )
-        bbi->vmin.y = v.y;
-      if ( v.y > bbi->vmax.y )
-        bbi->vmax.y = v.y;
-      if ( v.z < bbi->vmin.z )
-        bbi->vmin.z = v.z;
-      if ( v.z > bbi->vmax.z )
-
-        bbi->vmax.z = v.z;
-    }
-  }
+	PANIC;
 }
 
 
@@ -2536,51 +2375,13 @@ destroyable_info* destroyable_info::make_instance(entity *ent)
 
 void destroyable_info::copy_instance_data(destroyable_info* data)
 {
-  flags = data->flags;
-  destroy_lifetime = data->destroy_lifetime;
-
-#ifdef ECULL
-  destroy_sound = data->destroy_sound;
-#endif
-  destroy_fx = data->destroy_fx;
-  destroy_script = data->destroy_script;
-  preload_script = data->preload_script;
-  destroyed_visrep = data->destroyed_visrep;
-
-  hit_points = data->hit_points;
-
-
-//  dread_net_cue = data->dread_net_cue;
-
-  if(data->destroyed_mesh)
-    destroyed_mesh = new_visrep_instance(data->destroyed_mesh);
-
-  else
-    destroyed_mesh = NULL;
+	PANIC;
 }
 
 
 destroyable_info::destroyable_info(entity *ent)
 {
-  flags = 0;
-
-  destroy_lifetime = 1.0f;
-#ifdef ECULL
-  destroy_sound = empty_string;
-#endif
-  destroy_fx = empty_string;
-  destroy_script = empty_string;
-  preload_script = empty_string;
-  destroyed_visrep = empty_string;
-
-  destroyed_mesh = NULL;
-
-  hit_points = 0;
-
-//  dread_net_cue = dread_net::UNDEFINED_AV_CUE;
-
-  owner = ent;
-  assert(owner);
+	PANIC;
 }
 
 destroyable_info::~destroyable_info()
@@ -2641,12 +2442,7 @@ int destroyable_info::apply_damage(int damage, const vector3d &pos, const vector
 
 void destroyable_info::preload()
 {
-  if(!has_preload_script_run())
-  {
-    set_has_preload_script_run(true);
-    entity::exec_preload_function(get_preload_script());
-
-  }
+	PANIC;
 }
 
 
@@ -2764,10 +2560,8 @@ bool entity::add_item( item* it )
 // returns NULL if index is out-of=range
 item* entity::get_item( unsigned int n ) const
 {
-  if ( is_container() && n<(unsigned)get_num_items() )
-    return coninfo->items[n];
-  else
-    return NULL;
+	PANIC;
+	return NULL;
 }
 
 
@@ -2781,20 +2575,8 @@ item* entity::find_like_item( item* it ) const
 // returns null pointer if no like item found
 item* entity::find_item_by_name( const stringx &name ) const
 {
-  if ( is_container() )
-  {
-    item_list_t::const_iterator i = coninfo->items.begin();
-    item_list_t::const_iterator i_end = coninfo->items.end();
-    for ( ; i!=i_end; ++i )
-    {
-
-      item* lit = *i;
-      if ( lit && lit->get_name() == name )
-
-        return lit;
-    }
-  }
-  return NULL;
+	PANIC;
+	return NULL;
 }
 
 #if 0 // BIGCULL
@@ -2819,19 +2601,8 @@ handheld_item* entity::find_item_by_id( const stringx &id ) const
 // returns -1 if item is not found in list
 int entity::get_item_index( item* it ) const
 {
-  if ( is_container() )
-  {
-
-    item_list_t::const_iterator i = coninfo->items.begin();
-    item_list_t::const_iterator i_end = coninfo->items.end();
-    int index = 0;
-    for ( ; i!=i_end; ++i,++index )
-    {
-      if ( *i == it )
-        return index;
-    }
-  }
-  return -1;
+	PANIC;
+	return 0;
 }
 
 
@@ -2946,14 +2717,7 @@ error("Disgorge_items not supported in KS.");
 
 void entity::use_item(item *it)
 {
-  if(it != NULL)
-  {
-    last_item_used = it;
-
-    it->apply_effects( this );
-
-    raise_signal(entity::USE_ITEM);
-  }
+	PANIC;
 }
 
 void entity::copy_visrep(entity *ent)
@@ -3206,14 +2970,7 @@ void entity::unsuspend()
 
 void entity::set_controller(entity_controller * c)
 {
-
-  assert(my_controller == NULL);
-
-  my_controller = c;
-
-
-  if ( c )
-    c->set_active( is_active()/* || c->is_a_brain()*/ );
+	PANIC;
 }
 
 

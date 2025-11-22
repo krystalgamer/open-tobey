@@ -129,6 +129,7 @@ void polytube::copy_instance_data( const polytube& b )
 
 render_flavor_t polytube::render_passes_needed() const
 {
+	/*
   render_flavor_t passes = 0;
 
   if ( (my_material && my_material->is_translucent()) || render_color.get_alpha() < 0xFF)
@@ -137,7 +138,9 @@ render_flavor_t polytube::render_passes_needed() const
     passes |= RENDER_OPAQUE_PORTION;
 
   return passes;
-
+  */
+	PANIC;
+	return 0;
 }
 
 void polytube::set_material( const stringx& file )
@@ -175,13 +178,5 @@ void polytube::set_material(mat_fac *mat)
 
 void polytube::render( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct )
 {
-#ifdef NGL
-
-  my_material->get_ngl_material()->MapBlendMode = NGLBM_BLEND;
-  my_material->get_ngl_material()->Flags |= NGLMAT_ALPHA;
-  my_material->get_ngl_material()->Flags |= NGLMAT_ANTIALIAS;
-
-#endif
-
-  render_polytube(use_spline ? spline.get_curve_pts() : spline.get_control_pts(), tube_radius, num_sides, render_color, my_material, tiles_per_meter, get_abs_po().get_matrix(), max_length);
+	PANIC;
 }

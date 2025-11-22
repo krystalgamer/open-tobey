@@ -731,78 +731,7 @@ void conglomerate::updatelighting( time_value_t t, const int playerID )
 void conglomerate::frame_advance(time_value_t t)
 
 {
-#if defined(TARGET_XBOX)
-  assert( t > 0.0f );
-#endif /* TARGET_XBOX JIV DEBUG */
-
-	int heroNum = 0;
-	heroNum = get_hero_id();
-	updatelighting(t,heroNum);
-
-  entity::frame_advance(t);
-
-#if 0
-
-
-  if(0 && get_colgeom() && get_colgeom()->get_type() == collision_geometry::CAPSULE)
-  {
-    capsule rel_cap;
-    entity *ent = this;
-    entity *waist = this;
-    entity *neck = NULL;
-
-    pentity_vector::iterator it = members.begin();
-
-    while( it != members.end() )
-
-    {
-
-/*
-      entity *member = (*it);
-
-      if(member->get_anim_id() == anim_id_manager::inst()->anim_id( "HEAD" ))
-
-        rel_cap.end = member->get_abs_position() - get_abs_position();
-      if(member->get_anim_id() == anim_id_manager::inst()->anim_id( "LEFT_FOOT" ))
-        rel_cap.base += -(member->get_abs_position() - get_abs_position());
-      if(member->get_anim_id() == anim_id_manager::inst()->anim_id( "RIGHT_FOOT" ))
-        rel_cap.base += -(member->get_abs_position() - get_abs_position());
-*/
-//      if((*it)->get_anim_id() == anim_id_manager::inst()->anim_id( "WAIST" ))
-
-//        waist = ent = (*it);
-      if((*it)->get_anim_id() == anim_id_manager::inst()->anim_id( "HEAD" ))
-        neck = (*it);
-
-      ++it;
-    }
-
-/*
-    rel_cap.base *= 0.5f;
-
-    vector3d dir = rel_cap.end - rel_cap.base;
-
-    assert(dir.length() > 0);
-    dir.normalize();
-
-    rel_cap.base -= dir * 0.4f;
-    rel_cap.end += dir * 0.4f;
-*/
-
-    vector3d dir = (neck != NULL && waist != NULL) ? neck->get_abs_position() - waist->get_abs_position() : YVEC;
-
-    dir.normalize();
-    rel_cap.base = dir * -0.25f;
-    rel_cap.end = dir * 0.4f;
-
-
-    rel_cap.radius = 0.5f;
-
-    collision_capsule *cap = (collision_capsule *)get_colgeom();
-
-    cap->set_capsule(rel_cap);
-  }
-#endif
+	PANIC;
 }
 
 

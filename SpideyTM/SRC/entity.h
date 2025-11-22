@@ -987,8 +987,8 @@ public:
   // set entity orientation such that it is facing the given world-coordinate point
   EXPORT void look_at( const vector3d& abs_pos );
 
-  EXPORT short get_bone_idx() const           { return bone_idx; }
-  EXPORT void set_bone_idx( short _bone_idx ) { bone_idx = _bone_idx; }
+  EXPORT short get_bone_idx() const           {PANIC; return 0;}
+  EXPORT void set_bone_idx( short _bone_idx ) {PANIC;}
 
   // @Ok
   // @Matching
@@ -1169,7 +1169,8 @@ public:
   EXPORT virtual bool is_visible() const             { return flags & EFLAG_GRAPHICS_VISIBLE; }
   EXPORT virtual void set_visible( bool a );
 
-  EXPORT unsigned get_max_lights() const             { return max_lights; }
+  // @Patch
+  //EXPORT unsigned get_max_lights() const             { return max_lights; }
   EXPORT void set_max_lights(unsigned ml);
 
 
@@ -1267,7 +1268,7 @@ public:
   }
 
   // EFLAG_PHYSICS
-  EXPORT virtual collision_geometry * get_colgeom() const    { return colgeom; }
+  EXPORT virtual collision_geometry * get_colgeom() const    { PANIC; return NULL;}
 
   EXPORT bool has_entity_collision() const;
   EXPORT bool has_camera_collision() const;
@@ -1285,7 +1286,7 @@ public:
 
   // special function support for entity-entity collision algorithm
 
-  EXPORT void set_colgeom(collision_geometry * const _colgeom) { colgeom = _colgeom; }
+  EXPORT void set_colgeom(collision_geometry * const _colgeom) {PANIC;}
 
   // This gets a special collsion capsule for purposes of being damaged.
   EXPORT virtual collision_capsule* get_damage_capsule()           { assert(false); return 0; }
@@ -1548,19 +1549,19 @@ public:
   EXPORT stringx get_name() const { return id.get_val(); }
   EXPORT entity_flavor_t get_flavor() const {return flavor;}
 
-  anim_id_t get_anim_id() const { return anim_id; }
+  //anim_id_t get_anim_id() const { return anim_id; }
   void set_anim_id( const char* _anim_id )
   {
-    anim_id = anim_id_manager::inst()->anim_id( _anim_id );
+	  PANIC;
   }
   void set_anim_id( const stringx& _anim_id )
   {
-    anim_id = anim_id_manager::inst()->anim_id( _anim_id );
+	  PANIC;
   }
 
-  EXPORT void set_anim_id( anim_id_t _anim_id ) { anim_id = _anim_id; }
+  EXPORT void set_anim_id( anim_id_t _anim_id ) { PANIC; }
 
-  EXPORT int get_min_detail() const { return min_detail; }
+  //EXPORT int get_min_detail() const { return min_detail; }
 
 public:
   // @Ok
@@ -1758,12 +1759,11 @@ public:
 
   bool has_valid_sector() const
   {
-  /*if (pi && pi->parent) return pi->parent->has_valid_sector();
-
-    else */return my_sector? true : false;
+	  PANIC;
+	  return false;
   }
 
-  sector* get_sector() const { return my_sector; }
+  sector* get_sector() const { PANIC; return NULL;}
 
   // @Ok
   // @Matching
@@ -1937,8 +1937,10 @@ public:
   // @Patch - removed
   // virtual time_value_t get_programmed_cell_death() const { return programmed_cell_death; }
 
+  /*
   void set_programmed_cell_death( time_value_t t )
   { programmed_cell_death = t; }
+  */
 
 
 public:
@@ -1966,7 +1968,10 @@ protected:
   // @Patch - moved around
    ENTITY_INTERFACE(sound);
 
-	PADDING(0xD0-0xC4-4);
+   // @Patch - wrong palce but it fits
+   ENTITY_INTERFACE(physical);
+   ENTITY_INTERFACE(skeleton);
+
   // @Patch - moved around
 public:
   frame_info frame_time_info;
@@ -1984,31 +1989,35 @@ public:
   rational_t last_compute_sector_position_hash;
 
 protected:
-   ENTITY_INTERFACE(physical);
-   ENTITY_INTERFACE(skeleton);
    ENTITY_INTERFACE(hard_attrib);
    ENTITY_INTERFACE(soft_attrib);
    ENTITY_INTERFACE(time);
 
+// DUMP - anything moved here is set to be deleted
+
 /////////////////////////////////////////////////////////////////////////////
 // entity_maker interface
+
 private:
+   // @Patch
+   /*
   entity_widget *owning_widget;
   entity_pool* my_entity_pool;
+  */
 
 public:
   // if owned by a widget, assume this entity and its animations are not in world
-  void set_owning_widget( entity_widget *_owning_widget ) { owning_widget = _owning_widget; }
-  entity_widget *get_owning_widget() const { return owning_widget; }
+  void set_owning_widget( entity_widget *_owning_widget ) { PANIC; }
+  entity_widget *get_owning_widget() const { PANIC; return NULL;}
 
-  void set_entity_pool( entity_pool* ep ) { my_entity_pool = ep; }
+  void set_entity_pool( entity_pool* ep ) {PANIC;}
 
-  entity_pool* get_entity_pool() const { return my_entity_pool; }
+  entity_pool* get_entity_pool() const {PANIC; return NULL;}
 
   // this function will be called when an entity is acquired from the entity_maker cache
-  virtual void acquire( unsigned int _flags );
+  EXPORT virtual void acquire( unsigned int _flags );
   // this function will be called when the entity is released to the entity_maker cache
-  virtual void release();
+  EXPORT virtual void release();
 
 
 
@@ -2029,16 +2038,16 @@ private:
   {
     item_list_t items;
   };
-  container_info* coninfo;
+  //container_info* coninfo;
 public:
 
-  bool is_container() const { return coninfo? true : false; }
+  bool is_container() const {PANIC; return true;}
 
   // returns false if already in list (item's quantity will be incremented)
   virtual bool add_item( item* it );
 
 
-  int get_num_items() const { return coninfo? coninfo->items.size() : 0; }
+  int get_num_items() const {PANIC; return 0;}
 
   // returns NULL if index is out-of=range
   item* get_item( unsigned int n ) const;
@@ -2068,7 +2077,8 @@ public:
   virtual void use_item( item* it );
 
 
-  item *get_last_item_used() const { return last_item_used; }
+  //  @Patch
+  // item *get_last_item_used() const { return last_item_used; }
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -2077,11 +2087,12 @@ public:
 /////////////////////////////////////////////////////////////////////////////
 protected:
 
-  bounding_box* bbi;
+  //bounding_box* bbi;
 public:
   EXPORT virtual void compute_bounding_box();
-  bool has_bounding_box() const { return bbi != NULL; }
-  const bounding_box& get_bounding_box() const { return *bbi; }
+  bool has_bounding_box() const { PANIC; return false; }
+
+  const bounding_box& get_bounding_box() const { PANIC; return *reinterpret_cast<const bounding_box*>(this);}
 
 /*
 /////////////////////////////////////////////////////////////////////////////
@@ -2128,20 +2139,20 @@ protected:
 //  unsigned int flags;
 
 //  entity_id  id;
-  anim_id_t  anim_id;
+  //anim_id_t  anim_id;
 
 #if defined(TARGET_PS2) || defined(TARGET_XBOX) || defined(TARGET_GC) || defined(TARGET_PC)
-  nglMesh *shadow_mesh;
-  nglMesh *lores_mesh;
-	bool     usezbias;
-	float    zbias;
-	bool force_hi_res;
+//  nglMesh *shadow_mesh;
+//  nglMesh *lores_mesh;
+//	bool     usezbias;
+//	float    zbias;
+//	bool force_hi_res;
 
 
 #endif
-  rational_t vis_xz_rad_rel_center;
+  //rational_t vis_xz_rad_rel_center;
 
-  collision_geometry* colgeom;
+  //collision_geometry* colgeom;
 
     // parent/children info
 
@@ -2150,19 +2161,14 @@ protected:
 
 
     // motion blur;
-  motion_blur_info * mbi;
+  //motion_blur_info * mbi;
 
 
-  // sound
-
-  sound_emitter * emitter;
-
-
-  int min_detail;
+  //int min_detail;
 
 
   // terrain locale data
-  sector*          my_sector;
+  //sector*          my_sector;
 #ifndef REGIONCULL
   region_node_pset in_regions;
 
@@ -2176,12 +2182,13 @@ protected:
 
 
   // for trailing capsules.  We use this only for capsule-colgeom having entities.
-  po * last_po;
+  //po * last_po;
 
 	// portal which door affects (if entity is flagged IS_DOOR)
-	portal *door_portal;
+	//portal *door_portal;
 
 //  damage_info dmg_info;
+	/*
   rational_t  target_timer;
   rational_t  damage_resist_modifier;
 
@@ -2193,23 +2200,27 @@ protected:
   entity_controller * my_controller;
 
   unsigned max_lights;
+  */
 
 private:
 //  rational_t radius;
 
   //    time_value_t        age;
-  time_value_t programmed_cell_death;
-  unsigned short bone_idx;
+  //time_value_t programmed_cell_death;
+  //unsigned short bone_idx;
 
 
-  destroyable_info *destroy_info;
+  //destroyable_info *destroy_info;
 
+  // @Patch
+  /*
   stringx character_action_anim;
   entity *action_character;
 
   entity* current_target;  // pointer to current combat target (gun or melee); can be NULL
   vector3d current_target_pos;
   vector3d current_target_norm;
+  */
 
 public:
 //! begin stuff from physent
@@ -2222,14 +2233,14 @@ public:
 //! end stuff from physent
 
   // pointer to current combat target (gun or melee); can be NULL
-  vector3d get_current_target_pos() const { return current_target_pos; }
-  void set_current_target_pos( const vector3d &c ) { current_target_pos = c; }
+  vector3d get_current_target_pos() const {PANIC; return vector3d(); }
+  void set_current_target_pos( const vector3d &c ) {PANIC;}
 
-  entity* get_current_target() const { return current_target; }
-  void set_current_target( entity* c ) { current_target = c; if(current_target) set_current_target_pos(current_target->get_abs_position());}
+  entity* get_current_target() const {PANIC; return NULL;}
+  void set_current_target( entity* c ) {PANIC;}
 
-  vector3d get_current_target_norm() const { return current_target_norm; }
-  void set_current_target_norm( const vector3d &c ) { current_target_norm = c; }
+  vector3d get_current_target_norm() const {PANIC; return vector3d();}
+  void set_current_target_norm( const vector3d &c ) {PANIC;}
 
   // @Patch - remove
   /*
@@ -2262,8 +2273,10 @@ public:
   void set_damage_push_death(bool p)    { dmg_info.push_death = p; }
 
 */
+  /*
   rational_t get_damage_resist_mod() const { return(damage_resist_modifier); }
   void set_damage_resist_mod(rational_t mod = 1.0f) { damage_resist_modifier = mod; if(damage_resist_modifier < 0) damage_resist_modifier = 0.0f; if(damage_resist_modifier > 1.0f) damage_resist_modifier = 1.0f; }
+  */
 
 public:
 
@@ -2291,16 +2304,20 @@ public:
 
   region_node * update_region(bool parent_computed = false);
 
-  rational_t get_target_timer() const { return(target_timer); }
+  // @Ok
+  // @Matching
+  //rational_t get_target_timer() const { return(target_timer); }
 
-  void inc_target_timer(rational_t inc) { target_timer += inc; }
-  void set_target_timer(rational_t val) { target_timer = val; }
+  //void inc_target_timer(rational_t inc) { target_timer += inc; }
+  //void set_target_timer(rational_t val) { target_timer = val; }
 
   EXPORT virtual void suspend();
   EXPORT virtual void unsuspend();
-  bool is_suspended(){return suspended;}
+  // @Patch
+  // bool is_suspended(){return suspended;}
 
-  entity_controller * get_controller(){return my_controller;}
+  // @Patch
+  //entity_controller * get_controller(){return my_controller;}
   void set_controller(entity_controller * c);
 //  brain * get_brain();
 
@@ -2349,25 +2366,27 @@ public:
   EXPORT void process_extra_scene_flags(unsigned int scn_flags);
 
 protected:
+  /*
   color32       render_color;
   vector3d      render_scale;
+  */
 private:
-  material_set  *alternative_materials;
+  //material_set  *alternative_materials;
 
 public:
   void set_alternative_materials( material_set *arg );
   void set_alternative_materials( const stringx& alt_mat_name );
-  material_set *get_alternative_material_set() const { return alternative_materials; }
-  material_list *get_alternative_materials() const { return alternative_materials ? alternative_materials->data : NULL; }
+  material_set *get_alternative_material_set() const { PANIC; return NULL;}
+  material_list *get_alternative_materials() const {PANIC; return NULL;}
 
   // @Patch - virtual
-  virtual void set_render_color(const color32 new_color ) { render_color = new_color; }
+  virtual void set_render_color(const color32 new_color ) {PANIC;}
   // @Patch - removed for now
   // void set_render_color(const uint8 _r, const uint8 _g, const uint8 _b, const uint8 _a) { render_color.c.r = _r; render_color.c.g = _g; render_color.c.b = _b; render_color.c.a = _a; }
-  color32 get_render_color() const { return render_color; }
+  color32 get_render_color() const {PANIC;  return color32();}
 
-  EXPORT virtual void set_render_scale( const vector3d& s ) { render_scale = s; }
-  vector3d get_render_scale() const { return render_scale; }
+  EXPORT virtual void set_render_scale( const vector3d& s ) {PANIC;}
+  vector3d get_render_scale() const {PANIC; return vector3d();}
 
   // @TODO
   EXPORT virtual void set_render_zbias(void) { PANIC; }
@@ -2378,6 +2397,7 @@ public:
 	typedef std::list<entity*> entity_search_list;
   static entity_search_list found_entities;
 
+  /*
   enum
 
   {
@@ -2399,6 +2419,7 @@ public:
     _FIND_ENT_ACTIVE_RGN   = 0x00400000,
     _FIND_ENT_INACTIVE_RGN = 0x00800000,
   } eEntitySearchFlags;
+  */
 
   inline bool match_search_flags(int flags)
   {
@@ -2418,20 +2439,24 @@ public:
 
 	// weird multi-hero thing to try to fix the lights
 	private:
+  /*
 	int which_hero;
 
 	public:
 	int get_hero_id( void );
 	void set_hero_id( int heroId ) { which_hero=heroId; }
+	*/
 
 	// daaaaaaang that IS huge
 
 	// This is a weird kelly slater specific multiple scene thingy
 	private:
+	/*
 	bool in_underwater_scene;
 	public:
 	void put_in_underwater_scene( bool onOff=true ) { in_underwater_scene=onOff; }
 	bool is_in_underwater_scene( void ) { return in_underwater_scene; }
+	*/
 
 }; // class entity (huge isn't it?)
 
@@ -2447,10 +2472,12 @@ protected:
 
   stringx destroy_sound;
 #endif
+  /*
   stringx destroy_fx;
   stringx destroy_script;
   stringx destroyed_visrep;
   stringx preload_script;
+  */
 
 
   visual_rep *destroyed_mesh;
@@ -2521,10 +2548,12 @@ public:
 #ifdef ECULL
   const stringx& get_destroy_sound()       const { return destroy_sound; }
 #endif
+  /*
   const stringx& get_destroy_fx()          const { return destroy_fx; }
   const stringx& get_destroy_script()      const { return destroy_script; }
   const stringx& get_preload_script()      const { return preload_script; }
   const stringx& get_destroyed_visrep()    const { return destroyed_visrep; }
+  */
 
   void set_hit_points(int hp)               { if(hp > 0) { set_flag(_HIT_POINTS, true); hit_points = hp; } else set_flag(_HIT_POINTS, false); }
   void set_has_hit_points(bool val)         { set_flag(_HIT_POINTS, val); }
@@ -2546,11 +2575,12 @@ public:
 #ifdef ECULL
   void set_destroy_sound(const stringx& val)    { if(val.length() > 0) { set_flag(_DESTROY_SOUND, true); destroy_sound = val; } else set_flag(_DESTROY_SOUND, false); }
 #endif
+  /*
   void set_destroy_fx(const stringx& val)       { if(val.length() > 0) { set_flag(_DESTROY_FX, true); destroy_fx = val; } else set_flag(_DESTROY_FX, false); }
   void set_destroy_script(const stringx& val)   { if(val.length() > 0) { set_flag(_DESTROY_SCRIPT, true); destroy_script = val; } else set_flag(_DESTROY_SCRIPT, false); }
   void set_preload_script(const stringx& val)   { if(val.length() > 0) { set_flag(_PRELOAD_SCRIPT, true); destroy_script = val; } else set_flag(_PRELOAD_SCRIPT, false); set_flag(_PRELOAD_SCRIPT_RAN, false); }
   void set_destroyed_visrep(const stringx& val) { if(val.length() > 0) { set_flag(_DESTROYED_VISREP, true); destroyed_visrep = val; } else set_flag(_DESTROYED_VISREP, false); }
-
+  */
 
   visual_rep *get_destroyed_mesh()   const { return destroyed_mesh; }
   entity *get_owner()                const { return owner; }
