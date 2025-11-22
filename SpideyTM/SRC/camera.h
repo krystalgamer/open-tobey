@@ -131,31 +131,31 @@ public:
 	// entity class identification
 
 public:
-    virtual bool is_a_marky_camera() const { return true; }
+    EXPORT virtual bool is_a_marky_camera() const { return true; }
 
 	
 public:
-    virtual void frame_advance( time_value_t t );
+    EXPORT virtual void frame_advance( time_value_t t );
 
-    virtual void sync( camera& b );
+    EXPORT virtual void sync( camera& b );
 	
-    virtual void camera_set_target( const vector3d& pos );
-    virtual vector3d camera_get_target( );
-    virtual void camera_set_roll( rational_t angle );
-    virtual void camera_set_collide_with_world( bool v ) { do_collide_with_world = v; }
+    EXPORT virtual void camera_set_target( const vector3d& pos );
+    EXPORT virtual vector3d camera_get_target( );
+    EXPORT virtual void camera_set_roll( rational_t angle );
+    EXPORT virtual void camera_set_collide_with_world( bool v ) { do_collide_with_world = v; }
 	
     // logarithmically transitions to the target parameters.  returns true when there.
-    virtual bool camera_slide_to( const vector3d& new_pos, const vector3d& new_target, rational_t new_roll, rational_t speed );
+    EXPORT virtual bool camera_slide_to( const vector3d& new_pos, const vector3d& new_target, rational_t new_roll, rational_t speed );
 	
     // places the camera somewhere in a circle around the center, looking at the center.
-    virtual bool camera_slide_to_orbit( const vector3d& center, rational_t range, rational_t theta, rational_t psi, rational_t speed );
-    virtual void camera_orbit( const vector3d& center, rational_t range, rational_t theta, rational_t psi );
+    EXPORT virtual bool camera_slide_to_orbit( const vector3d& center, rational_t range, rational_t theta, rational_t psi, rational_t speed );
+    EXPORT virtual void camera_orbit( const vector3d& center, rational_t range, rational_t theta, rational_t psi );
 	
     rational_t get_roll()             { return(roll); }
 	
-    rational_t get_priority()         { return(current_priority); }
-    void reset_priority()             { current_priority = (MIN_CAMERA_PRIORITY - 1.0f); }
-    void set_priority(rational_t pr)  { current_priority = pr; }
+    EXPORT rational_t get_priority()         { return(current_priority); }
+    EXPORT void reset_priority()             { current_priority = (MIN_CAMERA_PRIORITY - 1.0f); }
+    EXPORT void set_priority(rational_t pr)  { current_priority = pr; }
 
 	
 private:

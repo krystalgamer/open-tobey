@@ -129,6 +129,7 @@ typedef std::vector<entity_anim_tree*,pentity_anim_tree_allocator> pentity_anim_
 class world_dynamics_system
 {
 	friend void validate_wds(void);
+	friend void validate_entity_preload_pair(void);
 	friend void patch_wds(void);
 
   public:

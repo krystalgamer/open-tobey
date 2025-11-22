@@ -2943,6 +2943,8 @@ void world_dynamics_system::enable_marky_cam( bool enable, rational_t priority )
 
 
 
+// @Ok
+// @Matching
 void world_dynamics_system::add_to_entities( entity *e )
 {
 	std::vector<entity*>::iterator it;
@@ -4567,10 +4569,10 @@ void validate_wds(void)
 
 void validate_entity_preload_pair(void)
 {
-	VALIDATE_SIZE(entity_preload_pair, 0xC);
+	VALIDATE_SIZE(world_dynamics_system::entity_preload_pair, 0xC);
 
-	VALIDATE(entity_preload_pair, ent, 0x0);
-	VALIDATE(entity_preload_pair, name, 0x4);
+	VALIDATE(world_dynamics_system::entity_preload_pair, ent, 0x0);
+	VALIDATE(world_dynamics_system::entity_preload_pair, name, 0x4);
 }
 
 
@@ -4596,4 +4598,6 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x00636A30, world_dynamics_system::is_scene_anim_playing);
 	PATCH_PUSH_RET_POLY(0x00636750, world_dynamics_system::is_entity_valid, "?is_entity_valid@world_dynamics_system@@QAE_NPAVentity@@@Z");
 	PATCH_PUSH_RET(0x00636150, world_dynamics_system::add_entity_preload_script);
+
+	PATCH_PUSH_RET(0x0062BBA0, world_dynamics_system::add_to_entities);
 }
