@@ -421,8 +421,19 @@ class input_mgr : public singleton
 public:
 	// Auto-singleton support.  Use input_mgr::inst()->function_name( parameters);
 	//static input_mgr * inst();
-	DECLARE_SINGLETON(input_mgr)
+	// @Patch
+	//DECLARE_SINGLETON(input_mgr)
 		
+  private:
+    friend class singleton_ptr<input_mgr>;
+    static singleton_ptr<input_mgr> instance;
+public:
+	static inline input_mgr* inst()
+	{
+		// @Harcoded
+		return *reinterpret_cast<input_mgr**>(0x009473A8);
+	}
+
 		enum
 
 	{

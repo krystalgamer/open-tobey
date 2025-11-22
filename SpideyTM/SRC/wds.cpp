@@ -4404,6 +4404,15 @@ void world_dynamics_system::kill_scene_anim( scene_anim_handle_t handle )
 
 // @Ok
 // @Matching
+bool world_dynamics_system::is_scene_anim_playing(void) const
+{
+	// @TODO - fix with proper type
+	bool* tmp = reinterpret_cast<bool*>(input_mgr::inst());
+	return tmp[0x24];
+}
+
+// @Ok
+// @Matching
 void world_dynamics_system::add_region_ambient_sound( stringx &id, stringx &id2, rational_t volume )
 {
 	region_node* fr = the_terrain->find_region( id );
@@ -4538,4 +4547,6 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x00636DC0, world_dynamics_system::recompute_all_sectors);
 
 	PATCH_PUSH_RET(0x00636A50, world_dynamics_system::add_region_ambient_sound);
+
+	PATCH_PUSH_RET(0x00636A30, world_dynamics_system::is_scene_anim_playing);
 }

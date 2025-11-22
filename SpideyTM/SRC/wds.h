@@ -729,6 +729,7 @@ class world_dynamics_system
 
 	EXPORT void set_fog_color(color);
 
+	EXPORT bool is_scene_anim_playing(void) const;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
