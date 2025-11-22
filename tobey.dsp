@@ -228,6 +228,10 @@ SOURCE=.\SpideyTM\SRC\collide.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\color.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\conglom.cpp
 # End Source File
 # Begin Source File

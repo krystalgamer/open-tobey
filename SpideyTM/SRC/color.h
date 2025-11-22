@@ -167,6 +167,8 @@ color32 saturated_add(color32 c1,color32 c2);  //
 
 class color
 {
+	friend void validate_color(void);
+	friend void patch_color(void);
 public:
   rational_t r, g, b, a;
 

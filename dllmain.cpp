@@ -160,6 +160,8 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_wds();
 
+	validate_color();
+
 	return FAIL_VALIDATION;
 }
 
@@ -263,6 +265,7 @@ void game_patches()
 	patch_motion_trail_info();
 
 	patch_wds();
+	patch_color();
 }
 
 #pragma pack(push,1)

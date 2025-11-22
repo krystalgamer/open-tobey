@@ -54,6 +54,7 @@ CLEAN :
 	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\colgeom.obj"
 	-@erase "$(INTDIR)\collide.obj"
+	-@erase "$(INTDIR)\color.obj"
 	-@erase "$(INTDIR)\compress.obj"
 	-@erase "$(INTDIR)\conglom.obj"
 	-@erase "$(INTDIR)\controller.obj"
@@ -166,34 +167,46 @@ LINK32_OBJS= \
 	"$(INTDIR)\trees.obj" \
 	"$(INTDIR)\uncompr.obj" \
 	"$(INTDIR)\zutil.obj" \
+	"$(INTDIR)\d3d_rasterize.obj" \
 	"$(INTDIR)\pc_audio.obj" \
 	"$(INTDIR)\nsl_pc_emitter.obj" \
+	"$(INTDIR)\aggvertbuf.obj" \
 	"$(INTDIR)\ai_interface.obj" \
 	"$(INTDIR)\ai_locomotion.obj" \
 	"$(INTDIR)\ai_polypath.obj" \
 	"$(INTDIR)\anim_flavor.obj" \
 	"$(INTDIR)\app.obj" \
+	"$(INTDIR)\beam.obj" \
 	"$(INTDIR)\billboard.obj" \
 	"$(INTDIR)\bone.obj" \
 	"$(INTDIR)\chunkfile.obj" \
 	"$(INTDIR)\colgeom.obj" \
 	"$(INTDIR)\collide.obj" \
+	"$(INTDIR)\conglom.obj" \
 	"$(INTDIR)\controller.obj" \
 	"$(INTDIR)\damage_interface.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
 	"$(INTDIR)\entity.obj" \
 	"$(INTDIR)\entity_anim.obj" \
+	"$(INTDIR)\entity_maker.obj" \
 	"$(INTDIR)\errorcontext.obj" \
+	"$(INTDIR)\file.obj" \
 	"$(INTDIR)\file_manager.obj" \
 	"$(INTDIR)\filespec.obj" \
 	"$(INTDIR)\frame_info.obj" \
 	"$(INTDIR)\game.obj" \
+	"$(INTDIR)\geomgr.obj" \
 	"$(INTDIR)\global.obj" \
+	"$(INTDIR)\hull.obj" \
 	"$(INTDIR)\ini_parser.obj" \
+	"$(INTDIR)\item.obj" \
+	"$(INTDIR)\lensflare.obj" \
 	"$(INTDIR)\light.obj" \
 	"$(INTDIR)\lightmgr.obj" \
 	"$(INTDIR)\link_interface.obj" \
+	"$(INTDIR)\material.obj" \
+	"$(INTDIR)\matfac.obj" \
 	"$(INTDIR)\mustash.obj" \
 	"$(INTDIR)\my_assertions.obj" \
 	"$(INTDIR)\ngl_pc.obj" \
@@ -203,18 +216,22 @@ LINK32_OBJS= \
 	"$(INTDIR)\pmesh.obj" \
 	"$(INTDIR)\po.obj" \
 	"$(INTDIR)\po_anim.obj" \
+	"$(INTDIR)\polytube.obj" \
 	"$(INTDIR)\pstring.obj" \
 	"$(INTDIR)\region.obj" \
+	"$(INTDIR)\scene_anim.obj" \
 	"$(INTDIR)\script_lib.obj" \
 	"$(INTDIR)\script_library_class.obj" \
 	"$(INTDIR)\script_object.obj" \
 	"$(INTDIR)\semaphores.obj" \
 	"$(INTDIR)\signal.obj" \
 	"$(INTDIR)\singleton.obj" \
+	"$(INTDIR)\sky.obj" \
 	"$(INTDIR)\so_data_block.obj" \
 	"$(INTDIR)\sound_group.obj" \
 	"$(INTDIR)\sound_interface.obj" \
 	"$(INTDIR)\stringx.obj" \
+	"$(INTDIR)\terrain.obj" \
 	"$(INTDIR)\textfile.obj" \
 	"$(INTDIR)\visrep.obj" \
 	"$(INTDIR)\vm_executable.obj" \
@@ -227,22 +244,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\terrain.obj" \
-	"$(INTDIR)\aggvertbuf.obj" \
-	"$(INTDIR)\file.obj" \
-	"$(INTDIR)\item.obj" \
-	"$(INTDIR)\entity_maker.obj" \
-	"$(INTDIR)\conglom.obj" \
-	"$(INTDIR)\lensflare.obj" \
-	"$(INTDIR)\geomgr.obj" \
-	"$(INTDIR)\polytube.obj" \
-	"$(INTDIR)\matfac.obj" \
-	"$(INTDIR)\hull.obj" \
-	"$(INTDIR)\beam.obj" \
-	"$(INTDIR)\material.obj" \
-	"$(INTDIR)\sky.obj" \
-	"$(INTDIR)\scene_anim.obj" \
-	"$(INTDIR)\d3d_rasterize.obj"
+	"$(INTDIR)\color.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -274,6 +276,7 @@ CLEAN :
 	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\colgeom.obj"
 	-@erase "$(INTDIR)\collide.obj"
+	-@erase "$(INTDIR)\color.obj"
 	-@erase "$(INTDIR)\compress.obj"
 	-@erase "$(INTDIR)\conglom.obj"
 	-@erase "$(INTDIR)\controller.obj"
@@ -388,34 +391,46 @@ LINK32_OBJS= \
 	"$(INTDIR)\trees.obj" \
 	"$(INTDIR)\uncompr.obj" \
 	"$(INTDIR)\zutil.obj" \
+	"$(INTDIR)\d3d_rasterize.obj" \
 	"$(INTDIR)\pc_audio.obj" \
 	"$(INTDIR)\nsl_pc_emitter.obj" \
+	"$(INTDIR)\aggvertbuf.obj" \
 	"$(INTDIR)\ai_interface.obj" \
 	"$(INTDIR)\ai_locomotion.obj" \
 	"$(INTDIR)\ai_polypath.obj" \
 	"$(INTDIR)\anim_flavor.obj" \
 	"$(INTDIR)\app.obj" \
+	"$(INTDIR)\beam.obj" \
 	"$(INTDIR)\billboard.obj" \
 	"$(INTDIR)\bone.obj" \
 	"$(INTDIR)\chunkfile.obj" \
 	"$(INTDIR)\colgeom.obj" \
 	"$(INTDIR)\collide.obj" \
+	"$(INTDIR)\conglom.obj" \
 	"$(INTDIR)\controller.obj" \
 	"$(INTDIR)\damage_interface.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
 	"$(INTDIR)\entity.obj" \
 	"$(INTDIR)\entity_anim.obj" \
+	"$(INTDIR)\entity_maker.obj" \
 	"$(INTDIR)\errorcontext.obj" \
+	"$(INTDIR)\file.obj" \
 	"$(INTDIR)\file_manager.obj" \
 	"$(INTDIR)\filespec.obj" \
 	"$(INTDIR)\frame_info.obj" \
 	"$(INTDIR)\game.obj" \
+	"$(INTDIR)\geomgr.obj" \
 	"$(INTDIR)\global.obj" \
+	"$(INTDIR)\hull.obj" \
 	"$(INTDIR)\ini_parser.obj" \
+	"$(INTDIR)\item.obj" \
+	"$(INTDIR)\lensflare.obj" \
 	"$(INTDIR)\light.obj" \
 	"$(INTDIR)\lightmgr.obj" \
 	"$(INTDIR)\link_interface.obj" \
+	"$(INTDIR)\material.obj" \
+	"$(INTDIR)\matfac.obj" \
 	"$(INTDIR)\mustash.obj" \
 	"$(INTDIR)\my_assertions.obj" \
 	"$(INTDIR)\ngl_pc.obj" \
@@ -425,18 +440,22 @@ LINK32_OBJS= \
 	"$(INTDIR)\pmesh.obj" \
 	"$(INTDIR)\po.obj" \
 	"$(INTDIR)\po_anim.obj" \
+	"$(INTDIR)\polytube.obj" \
 	"$(INTDIR)\pstring.obj" \
 	"$(INTDIR)\region.obj" \
+	"$(INTDIR)\scene_anim.obj" \
 	"$(INTDIR)\script_lib.obj" \
 	"$(INTDIR)\script_library_class.obj" \
 	"$(INTDIR)\script_object.obj" \
 	"$(INTDIR)\semaphores.obj" \
 	"$(INTDIR)\signal.obj" \
 	"$(INTDIR)\singleton.obj" \
+	"$(INTDIR)\sky.obj" \
 	"$(INTDIR)\so_data_block.obj" \
 	"$(INTDIR)\sound_group.obj" \
 	"$(INTDIR)\sound_interface.obj" \
 	"$(INTDIR)\stringx.obj" \
+	"$(INTDIR)\terrain.obj" \
 	"$(INTDIR)\textfile.obj" \
 	"$(INTDIR)\visrep.obj" \
 	"$(INTDIR)\vm_executable.obj" \
@@ -449,22 +468,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\terrain.obj" \
-	"$(INTDIR)\aggvertbuf.obj" \
-	"$(INTDIR)\file.obj" \
-	"$(INTDIR)\item.obj" \
-	"$(INTDIR)\entity_maker.obj" \
-	"$(INTDIR)\conglom.obj" \
-	"$(INTDIR)\lensflare.obj" \
-	"$(INTDIR)\geomgr.obj" \
-	"$(INTDIR)\polytube.obj" \
-	"$(INTDIR)\matfac.obj" \
-	"$(INTDIR)\hull.obj" \
-	"$(INTDIR)\beam.obj" \
-	"$(INTDIR)\material.obj" \
-	"$(INTDIR)\sky.obj" \
-	"$(INTDIR)\scene_anim.obj" \
-	"$(INTDIR)\d3d_rasterize.obj"
+	"$(INTDIR)\color.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -691,6 +695,12 @@ SOURCE=.\SpideyTM\SRC\colgeom.cpp
 SOURCE=.\SpideyTM\SRC\collide.cpp
 
 "$(INTDIR)\collide.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\color.cpp
+
+"$(INTDIR)\color.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
