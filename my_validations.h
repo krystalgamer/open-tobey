@@ -48,6 +48,8 @@ void validate_mt(void);
 void validate_wds(void);
 void validate_color(void);
 void validate_entity_preload_pair(void);
+void validate_camera(void);
+void validate_marky_camera(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -92,4 +94,6 @@ void patch_motion_trail_info(void);
 void patch_wds(void);
 void patch_color(void);
 void patch_entity_preload_pair(void);
+void patch_camera(void);
+void patch_marky_camera(void);
 #endif

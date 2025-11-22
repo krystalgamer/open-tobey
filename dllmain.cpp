@@ -163,6 +163,9 @@ extern "C" EXPORT int run_assertions(void)
 	validate_color();
 	validate_entity_preload_pair();
 
+	validate_camera();
+	validate_marky_camera();
+
 	return FAIL_VALIDATION;
 }
 
@@ -269,6 +272,9 @@ void game_patches()
 	patch_color();
 
 	patch_entity_preload_pair();
+	patch_camera();
+
+	patch_marky_camera();
 }
 
 #pragma pack(push,1)

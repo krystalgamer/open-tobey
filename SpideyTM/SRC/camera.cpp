@@ -712,3 +712,25 @@ vector3d marky_camera::camera_get_target( )
   assert(0);
   return vector3d(0,0,0);
 }
+
+#include "my_assertions.h"
+
+void validate_camera(void)
+{
+	VALIDATE_SIZE(camera, 0xF8);
+}
+
+void validate_marky_camera(void)
+{
+	VALIDATE_SIZE(marky_camera, 0x1D4);
+}
+
+#include "my_patch.h"
+
+void patch_marky_camera(void)
+{
+}
+
+void patch_camera(void)
+{
+}

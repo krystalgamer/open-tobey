@@ -25,6 +25,8 @@ class kellyslater_controller;
 // the basic camera, which stays relative to its parent entity
 class camera : public entity
 {
+	friend void validate_camera(void);
+	friend void patch_camera(void);
 protected:
     mic *microphone;
 	
@@ -170,6 +172,8 @@ private:
     vector3d last_frame_pos;
 
     rational_t current_priority;
+
+	PADDING(0x1D4-0x1CC);
 
 	friend void validate_marky_camera(void);
 	friend void patch_marky_camera(void);
