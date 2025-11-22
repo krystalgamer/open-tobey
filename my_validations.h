@@ -45,6 +45,7 @@ void validate_game(void);
 void validate_app(void);
 void validate_motion_trail_info(void);
 void validate_mt(void);
+void validate_wds(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -86,4 +87,5 @@ void patch_sg_entry(void);
 void patch_game(void);
 void patch_app(void);
 void patch_motion_trail_info(void);
+void patch_wds(void);
 #endif

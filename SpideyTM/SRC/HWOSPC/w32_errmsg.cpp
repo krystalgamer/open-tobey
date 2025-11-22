@@ -10,6 +10,9 @@ void error(const stringx& str)
 // @TODO
 void error(const char* fmtp, ...)
 {
+	OutputDebugStringA("ERROR RIGHT NOW");
+	OutputDebugStringA(fmtp);
+	exit(-1);
 }
 
 // @TODO

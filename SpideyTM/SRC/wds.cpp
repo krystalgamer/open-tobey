@@ -4522,3 +4522,33 @@ bool world_dynamics_system::is_loading_from_scn_file() const
 {
 	return loading_from_scn_file;
 }
+
+void world_dynamics_system::set_global_time_dilation(rational_t a2)
+{
+	if (this->field_3F0 == this->field_3F4)
+	{
+		this->time_dilation = a2;
+		return;
+	}
+
+	error("Cannot set time dilation during a scene anim.");
+}
+
+#include "my_assertions.h"
+
+void validate_wds(void)
+{
+	VALIDATE_SIZE(world_dynamics_system, 0x444);
+
+	VALIDATE(world_dynamics_system, field_3F0, 0x3F0);
+	VALIDATE(world_dynamics_system, field_3F4, 0x3F4);
+
+	VALIDATE(world_dynamics_system, time_dilation, 0x440);
+}
+
+#include "my_patch.h"
+
+void patch_wds(void)
+{
+	PATCH_PUSH_RET(0x00637A20, world_dynamics_system::set_global_time_dilation);
+}

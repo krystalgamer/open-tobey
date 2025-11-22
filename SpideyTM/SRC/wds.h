@@ -128,9 +128,14 @@ typedef std::vector<entity_anim_tree*,pentity_anim_tree_allocator> pentity_anim_
 ////////////////////////////////////////////////////////////////////////////////
 class world_dynamics_system
 {
+	friend void validate_wds(void);
+	friend void patch_wds(void);
+
   public:
     friend class view_frustrum_projection;
     friend class KSReplay;
+
+	EXPORT void set_global_time_dilation(rational_t);
 
 	typedef std::vector<entity*> entity_list;
     typedef std::vector<entity*> entity_archetype_list;
@@ -138,34 +143,34 @@ class world_dynamics_system
     typedef std::vector<material_set*> material_set_list;
     typedef std::vector<crawl_box*> crawl_box_list;
 
-    world_dynamics_system();
-    ~world_dynamics_system();
+    EXPORT world_dynamics_system();
+    EXPORT ~world_dynamics_system();
 
-    int get_num_generators() const { return generators.size(); }
-    force_generator * get_generator(int i) const { return generators[i]; }
+    EXPORT int get_num_generators() const { return generators.size(); }
+    EXPORT force_generator * get_generator(int i) const { return generators[i]; }
 
-    int get_num_entities() const { return entities.size(); }
-    bool is_entity_valid(int i) const { return entities[i]!=NULL; }
-    bool is_entity_valid(entity *ent);
+    EXPORT int get_num_entities() const { return entities.size(); }
+    EXPORT bool is_entity_valid(int i) const { return entities[i]!=NULL; }
+    EXPORT bool is_entity_valid(entity *ent);
 
-	replay_camera* get_replay_cam_ptr(void) { return replay_cam_ptr; }
+	EXPORT replay_camera* get_replay_cam_ptr(void) { return replay_cam_ptr; }
 
-	entity* get_usercam_ptr() { return usercam; }
+	EXPORT entity* get_usercam_ptr() { return usercam; }
 
-	void start_usercam();
+	EXPORT void start_usercam();
 
-    int get_num_path_graphs() const { return path_graph_list.size(); }
-    path_graph *get_path_graph(int i) const { assert(i >= 0 && i < (int)path_graph_list.size()); return path_graph_list[i]; }
-    path_graph *get_path_graph(stringx id);
-    void add_path_graph(path_graph *pg);
-    void remove_path_graph(path_graph *pg);
+    EXPORT int get_num_path_graphs() const { return path_graph_list.size(); }
+    EXPORT path_graph *get_path_graph(int i) const { assert(i >= 0 && i < (int)path_graph_list.size()); return path_graph_list[i]; }
+    EXPORT path_graph *get_path_graph(stringx id);
+    EXPORT void add_path_graph(path_graph *pg);
+    EXPORT void remove_path_graph(path_graph *pg);
 
-    void add_region_ambient_sound( stringx &regname, stringx &sndname, rational_t volume );
+    EXPORT void add_region_ambient_sound( stringx &regname, stringx &sndname, rational_t volume );
 
-    void add_crawl_box( int type, bool forced, const vector3d& where, const convex_box& binfo );
+    EXPORT void add_crawl_box( int type, bool forced, const vector3d& where, const convex_box& binfo );
 
-    int get_num_crawl_boxes( void ) const { return crawl_boxes.size( ); }
-    crawl_box* get_crawl_box( int i ) { return crawl_boxes[i]; }
+    EXPORT int get_num_crawl_boxes( void ) const { return crawl_boxes.size( ); }
+    EXPORT crawl_box* get_crawl_box( int i ) { return crawl_boxes[i]; }
 
 //    dread_net *get_dread_net() const { return dread_network; }
 // BIGCULL     ai_cue_manager *get_ai_cue_mgr() const { return ai_cue_mgr; }
@@ -689,6 +694,17 @@ class world_dynamics_system
 	void process_kelly_slater_debugmenus ();
 
 #endif // PROJECT_KELLYSLATER
+
+	// @Patch - added this section
+  private:
+	PADDING(0x3F0-0x3A0);
+
+	int field_3F0;
+	int field_3F4;
+
+	PADDING(0x440-0x3F4-4);
+
+	rational_t time_dilation;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
