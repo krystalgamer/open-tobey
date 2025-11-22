@@ -3657,6 +3657,8 @@ void validate_entity(void)
 
 	VALIDATE(entity, my_light_mgr, 0xDC);
 
+	VALIDATE(entity, last_compute_sector_position_hash, 0xE4);
+
 	//VALIDATE(entity, colgeom, 0x100);
 
 	// @Temp
@@ -3800,6 +3802,7 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, get_colgeom_root, 132);
 	VALIDATE_VTABLE(entity, add_me_to_region, 133);
 	VALIDATE_VTABLE(entity, remove_me_from_region, 134);
+	// @Ok
 	VALIDATE_VTABLE(entity, compute_sector, 135);
 	VALIDATE_VTABLE(entity, get_region, 136);
 

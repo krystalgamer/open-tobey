@@ -477,6 +477,8 @@ class world_dynamics_system
     pentity_anim_tree_vector anims;
     ett_manager *ett_mgr;
 
+	PADDING(0x14);
+
     entity_list entities;
 
 	std::vector<path_graph *> path_graph_list;
@@ -515,6 +517,8 @@ class world_dynamics_system
     typedef std::map<int, surface_type_info*> surfaceinfo_list_t;
     surfaceinfo_list_t surfaceinfo_list;
 
+	PADDING(0x24);
+
     terrain * the_terrain;
     entity * hero_ptr[MAX_PLAYERS];
 
@@ -528,7 +532,7 @@ class world_dynamics_system
 
     script_object::instance* cur_global_so_inst;
 
-	PADDING(0x1B0-0x13C);
+	PADDING(0x1B0-0x174);
 
     // This flag is useful for filtering operations that we only wish to perform
     // during the initial load of the scene.  Note that this flag will be FALSE

@@ -1977,10 +1977,19 @@ protected:
 	// @Patch - moved around
   light_manager* my_light_mgr;
 
+  PADDING(0x4);
+
+public:
+  // @Patch - moved around
+  // used by wds to determine when compute_sector() is needed
+  rational_t last_compute_sector_position_hash;
+
+protected:
    ENTITY_INTERFACE(physical);
    ENTITY_INTERFACE(skeleton);
    ENTITY_INTERFACE(hard_attrib);
    ENTITY_INTERFACE(soft_attrib);
+
 /////////////////////////////////////////////////////////////////////////////
 // entity_maker interface
 private:
@@ -2277,9 +2286,6 @@ public:
   EXPORT virtual void add_signal_callbacks();
 
   // position at start of frame (in world coords);
-
-  // used by wds to determine when compute_sector() is needed
-  rational_t last_compute_sector_position_hash;
 
   EXPORT virtual bool get_distance_fade_ok() const;
 

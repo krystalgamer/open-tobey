@@ -2842,7 +2842,6 @@ void world_dynamics_system::kill_anim( entity_anim_tree* the_anim )
 ett_manager *world_dynamics_system::get_ett_manager()
 {
   return ett_mgr;
-
 }
 
 
@@ -4434,18 +4433,19 @@ void world_dynamics_system::add_crawl_box( int type, bool forced, const vector3d
 }
 
 
+// @Ok
+// @Matching
 void world_dynamics_system::recompute_all_sectors() // calls compute_sector for each entity
 {
-	for (entity_list::iterator i = entities.begin();
-
-	i != entities.end();
-	++i)
+	for (
+		entity_list::iterator i = entities.begin();
+		i != entities.end();
+		++i)
 	{
-		if (*i != NULL) // We do this since destroying an entity leaves this pointer null
-		{
-			(*i)->last_compute_sector_position_hash*=2.0f; // should make this a member of entity, such as invalidate_last_sector_position_hash()
-			(*i)->compute_sector(*the_terrain,true);
-		}
+		// @Patch - removed null check
+
+		(*i)->last_compute_sector_position_hash*=2.0f; // should make this a member of entity, such as invalidate_last_sector_position_hash()
+		(*i)->compute_sector(*the_terrain,true);
 	}
 
 }
@@ -4503,6 +4503,10 @@ void validate_wds(void)
 {
 	VALIDATE_SIZE(world_dynamics_system, 0x444);
 
+	VALIDATE(world_dynamics_system, entities, 0x78);
+
+	VALIDATE(world_dynamics_system, the_terrain, 0x124);
+
 	VALIDATE(world_dynamics_system, loading_from_scn_file, 0x1B0);
 
 	VALIDATE(world_dynamics_system, field_3F0, 0x3F0);
@@ -4529,4 +4533,5 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x006378C0, world_dynamics_system::set_fog_color);
 
 	PATCH_PUSH_RET(0x00636E10, world_dynamics_system::is_loading_from_scn_file);
+	PATCH_PUSH_RET(0x00636DC0, world_dynamics_system::recompute_all_sectors);
 }
