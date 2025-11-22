@@ -369,7 +369,6 @@ class world_dynamics_system
     kellyslater_controller *get_ai_controller()  { return (g_game_ptr->get_num_ai_players()?ks_controller[1]:NULL);}
 	*/
 	
-    void    set_ks_controller(int n, kellyslater_controller *ksc_ptr);
     entity *get_board_ptr(int n) {PANIC; return NULL;}
     entity *get_board_model_ptr(int n) {PANIC; return NULL;}
 
@@ -476,8 +475,8 @@ class world_dynamics_system
 
 	  std::vector<entity*> moved_ents;
 
-    pentity_anim_tree_vector anims;
     ett_manager *ett_mgr;
+    pentity_anim_tree_vector anims;
 
     entity_list entities;
 

@@ -2826,6 +2826,8 @@ void world_dynamics_system::add_anim( entity_anim_tree* new_anim )
 		(*i) = new_anim;
 }
 
+// @Ok
+// @Matching
 // This deconstructs the given anim.
 void world_dynamics_system::kill_anim( entity_anim_tree* the_anim )
 {
@@ -2868,12 +2870,6 @@ bool world_dynamics_system::eligible_for_frame_advance( entity_anim_tree* anm ) 
 		|| !anm->is_done_tween()
 		)
         );
-}
-
-
-void world_dynamics_system::set_ks_controller(int hero_num, kellyslater_controller * new_controller)
-{
-	PANIC;
 }
 
 
@@ -4561,6 +4557,8 @@ void validate_wds(void)
 	VALIDATE(world_dynamics_system, mcs_list, 0x38);
 	VALIDATE(world_dynamics_system, controllers, 0x44);
 
+	VALIDATE(world_dynamics_system, anims, 0x6C);
+
 	VALIDATE(world_dynamics_system, entities, 0x78);
 
 	VALIDATE(world_dynamics_system, the_terrain, 0x124);
@@ -4625,4 +4623,6 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x0062B670, world_dynamics_system::add_controller);
 	PATCH_PUSH_RET(0x0062B7B0, world_dynamics_system::add_mcs);
 	PATCH_PUSH_RET(0x0062B8D0, world_dynamics_system::add_fcs);
+
+	PATCH_PUSH_RET(0x0062B420, world_dynamics_system::kill_anim);
 }
