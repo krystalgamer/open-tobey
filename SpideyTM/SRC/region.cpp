@@ -866,6 +866,9 @@ void region::optimize()
 
 void validate_region(void)
 {
+	// @TODO - trim this guy
+	//VALIDATE_SIZE(region, 0xE8);
+
 	VALIDATE(region, local_thread_list, 0x0);
 
 	VALIDATE(region, cam_coll_ents, 0x34);
@@ -886,7 +889,7 @@ void validate_region(void)
 
 	VALIDATE(region, region_ambient_sound_name, 0xDC);
 
-
+	VALIDATE(region, region_ambient_sound_volume, 0xE4);
 }
 
 #include "my_patch.h"

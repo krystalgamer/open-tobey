@@ -234,6 +234,8 @@ public:
   EXPORT void remove_local_thread(vm_thread * thr);
 
   EXPORT void set_region_ambient_sound( stringx &sndname );
+  // @Ok
+  // @Matching
   EXPORT void set_region_ambient_sound_volume( rational_t vol ){ region_ambient_sound_volume = vol; }
   EXPORT stringx &get_region_ambient_sound_name(){ return region_ambient_sound_name; }
   EXPORT rational_t get_region_ambient_sound_volume(){ return region_ambient_sound_volume; }
@@ -323,6 +325,10 @@ private:
   // @Patch - shifted around
   stringx region_ambient_sound_name;
 
+  // @Patch - moved around
+  rational_t region_ambient_sound_volume;
+
+
 
   // lists of entities sorted in X axis based on bounding box info
   entity_list x_sorted_entities;
@@ -335,8 +341,6 @@ private:
   static unsigned int visit_key;
   unsigned int visited;
 
-
-  rational_t region_ambient_sound_volume;
 
   // @Patch - moved lower because they don't seem to be spidey related
   std::vector<cface_replacement> sorted;
