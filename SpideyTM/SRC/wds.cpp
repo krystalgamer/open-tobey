@@ -4531,6 +4531,14 @@ bool world_dynamics_system::is_loading_from_scn_file() const
 
 // @Ok
 // @Matching
+void world_dynamics_system::set_fog_color(color f_color)
+{
+	this->fog_color = f_color;
+	nglSetFogColor(f_color.r, f_color.g, f_color.b);
+}
+
+// @Ok
+// @Matching
 void world_dynamics_system::set_fog_range(rational_t f_min, rational_t f_max)
 {
 	this->fog_min = f_min;
@@ -4568,6 +4576,8 @@ void validate_wds(void)
 	VALIDATE(world_dynamics_system, field_3F0, 0x3F0);
 	VALIDATE(world_dynamics_system, field_3F4, 0x3F4);
 
+	VALIDATE(world_dynamics_system, fog_color, 0x420);
+
 	VALIDATE(world_dynamics_system, fog_near, 0x430);
 	VALIDATE(world_dynamics_system, fog_far , 0x434);
 	VALIDATE(world_dynamics_system, fog_min , 0x438);
@@ -4584,4 +4594,5 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x00637A60, get_level_time);
 
 	PATCH_PUSH_RET(0x006379D0, world_dynamics_system::set_fog_range);
+	PATCH_PUSH_RET(0x006378C0, world_dynamics_system::set_fog_color);
 }

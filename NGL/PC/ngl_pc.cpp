@@ -19,3 +19,12 @@ void nglSetFogRange(float Near, float Far, float Min, float Max)
 	func_ptr func = (func_ptr)0x008033B0;
 	func(Near, Far, Min, Max);
 }
+
+// @TODO
+void nglSetFogColor(float R, float G, float B)
+{
+	typedef void (*func_ptr)(float, float, float);
+	func_ptr func = (func_ptr)0x00803310;
+
+	func(R, G, B);
+}

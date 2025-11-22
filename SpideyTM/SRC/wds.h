@@ -700,7 +700,9 @@ class world_dynamics_system
 	int field_3F0;
 	int field_3F4;
 
-	PADDING(0x430-0x3F4-4);
+	PADDING(0x420-0x3F4-4);
+
+	color fog_color;
 
 	rational_t fog_near;
 	rational_t fog_far;
@@ -715,6 +717,7 @@ class world_dynamics_system
 	EXPORT void set_global_time_dilation(rational_t);
 	EXPORT void set_fog_range(rational_t, rational_t);
 
+	EXPORT void set_fog_color(color);
 
 };
 
