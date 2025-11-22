@@ -714,6 +714,9 @@ class world_dynamics_system
 
         entity *ent;
         stringx name;
+
+		friend void validate_entity_preload_pair(void);
+		friend void patch_entity_preload_pair(void);
     };
 
 	// @Patch - moved around

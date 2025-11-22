@@ -161,6 +161,7 @@ extern "C" EXPORT int run_assertions(void)
 	validate_wds();
 
 	validate_color();
+	validate_entity_preload_pair();
 
 	return FAIL_VALIDATION;
 }
@@ -266,6 +267,8 @@ void game_patches()
 
 	patch_wds();
 	patch_color();
+
+	patch_entity_preload_pair();
 }
 
 #pragma pack(push,1)

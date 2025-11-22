@@ -4565,7 +4565,20 @@ void validate_wds(void)
 	VALIDATE(world_dynamics_system, time_dilation, 0x440);
 }
 
+void validate_entity_preload_pair(void)
+{
+	VALIDATE_SIZE(entity_preload_pair, 0xC);
+
+	VALIDATE(entity_preload_pair, ent, 0x0);
+	VALIDATE(entity_preload_pair, name, 0x4);
+}
+
+
 #include "my_patch.h"
+
+void patch_entity_preload_pair(void)
+{
+}
 
 void patch_wds(void)
 {
