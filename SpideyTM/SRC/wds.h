@@ -131,6 +131,7 @@ class world_dynamics_system
 	friend void validate_wds(void);
 	friend void validate_entity_preload_pair(void);
 	friend void patch_wds(void);
+	friend void validate_ent_time_limit(void);
 
   public:
     friend class view_frustrum_projection;
@@ -502,8 +503,6 @@ class world_dynamics_system
       ent_time_limit() : ent(0) {}
       ent_time_limit( entity* _ent, time_value_t _duration ) : ent(_ent), duration(_duration) {}
     };
-    std::vector<ent_time_limit> time_limited_entities;
-
     struct surface_type_info
     {
       stringx sound_name;
@@ -516,7 +515,13 @@ class world_dynamics_system
     typedef std::map<int, surface_type_info*> surfaceinfo_list_t;
     surfaceinfo_list_t surfaceinfo_list;
 
-	PADDING(0x24);
+	PADDING(0x10C-0xF4);
+
+	// @Patch - moved around
+    std::vector<ent_time_limit> time_limited_entities;
+
+
+	PADDING(0x124-0x10C-0xC);
 
     terrain * the_terrain;
     entity * hero_ptr[MAX_PLAYERS];

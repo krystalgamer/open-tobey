@@ -2804,6 +2804,8 @@ entity* world_dynamics_system::add_time_limited_effect( const char* name,
 }
 
 
+// @Ok
+// @Matching
 void world_dynamics_system::make_time_limited( entity* e, time_value_t duration )
 {
 	assert(e != NULL);
@@ -4563,9 +4565,12 @@ void validate_wds(void)
 
 	VALIDATE(world_dynamics_system, entities, 0x78);
 
+	VALIDATE(world_dynamics_system, time_limited_entities, 0x10C);
+
 	VALIDATE(world_dynamics_system, the_terrain, 0x124);
 
 	VALIDATE(world_dynamics_system, loading_from_scn_file, 0x1B0);
+
 
 	VALIDATE(world_dynamics_system, marky_cam, 0x1E4);
 	VALIDATE(world_dynamics_system, marky_cam_enabled, 0x1E8);
@@ -4591,6 +4596,14 @@ void validate_entity_preload_pair(void)
 
 	VALIDATE(world_dynamics_system::entity_preload_pair, ent, 0x0);
 	VALIDATE(world_dynamics_system::entity_preload_pair, name, 0x4);
+}
+
+void validate_ent_time_limit(void)
+{
+	VALIDATE_SIZE(world_dynamics_system::ent_time_limit, 0x8);
+
+	VALIDATE(world_dynamics_system::ent_time_limit, ent, 0x0);
+	VALIDATE(world_dynamics_system::ent_time_limit, duration, 0x4);
 }
 
 
@@ -4628,4 +4641,5 @@ void patch_wds(void)
 
 	PATCH_PUSH_RET(0x0062B420, world_dynamics_system::kill_anim);
 	PATCH_PUSH_RET(0x0062B2B0, world_dynamics_system::add_anim);
+	PATCH_PUSH_RET(0x0062B120, world_dynamics_system::make_time_limited);
 }

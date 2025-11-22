@@ -52,6 +52,7 @@ void validate_camera(void);
 void validate_marky_camera(void);
 void validate_entity_anim(void);
 void validate_entity_anim_tree(void);
+void validate_ent_time_limit(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);

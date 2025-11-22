@@ -168,6 +168,7 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_entity_anim();
 	validate_entity_anim_tree();
+	validate_ent_time_limit();
 
 	return FAIL_VALIDATION;
 }
