@@ -161,6 +161,8 @@ public:
 	// @Ok
 	// @Matching
     EXPORT void reset_priority()             { current_priority = (MIN_CAMERA_PRIORITY - 1.0f); }
+	// @Ok
+	// @Matching
     EXPORT void set_priority(rational_t pr)  { current_priority = pr; }
 
 	
