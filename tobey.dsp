@@ -216,6 +216,10 @@ SOURCE=.\SpideyTM\SRC\bone.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\camera.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\chunkfile.cpp
 # End Source File
 # Begin Source File
@@ -301,6 +305,10 @@ SOURCE=.\SpideyTM\SRC\hull.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\ini_parser.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\inputmgr.cpp
 # End Source File
 # Begin Source File
 
@@ -433,6 +441,10 @@ SOURCE=.\SpideyTM\SRC\terrain.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\textfile.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\time_interface.cpp
 # End Source File
 # Begin Source File
 
@@ -1257,6 +1269,10 @@ SOURCE=.\SpideyTM\SRC\item.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\item_signals.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\keyboard.h
 # End Source File
 # Begin Source File
 

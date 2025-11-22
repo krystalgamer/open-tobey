@@ -703,7 +703,6 @@ protected:
    ENTITY_INTERFACE(slave)
    ENTITY_INTERFACE(soft_attrib)
 
-   ENTITY_INTERFACE(time)
 #ifdef ECULL
    ENTITY_INTERFACE(box_trigger)
 #endif
@@ -1989,6 +1988,7 @@ protected:
    ENTITY_INTERFACE(skeleton);
    ENTITY_INTERFACE(hard_attrib);
    ENTITY_INTERFACE(soft_attrib);
+   ENTITY_INTERFACE(time);
 
 /////////////////////////////////////////////////////////////////////////////
 // entity_maker interface

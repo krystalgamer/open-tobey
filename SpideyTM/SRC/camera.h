@@ -170,6 +170,9 @@ private:
     vector3d last_frame_pos;
 
     rational_t current_priority;
+
+	friend void validate_marky_camera(void);
+	friend void patch_marky_camera(void);
 };
 
 class beach_camera;

@@ -30,6 +30,7 @@
 #include "ai_interface.h"
 #include "damage_interface.h"
 #include "sound_interface.h"
+#include "time_interface.h"
 
 
 //ENTITY_INTERFACE_CPP(entity, ai);
@@ -54,7 +55,7 @@ ENTITY_INTERFACE_CPP(entity, sound);
 #undef MACRO_INLINE
 #define MACRO_INLINE
 
-//ENTITY_INTERFACE_CPP(entity, time);
+ENTITY_INTERFACE_CPP(entity, time);
 #ifdef ECULL
 //ENTITY_INTERFACE_CPP(entity, box_trigger);
 #endif
@@ -3626,8 +3627,7 @@ void validate_entity_id(void)
 
 void validate_entity(void)
 {
-	// @TODO - it's way too big to uncomment this now
-	//VALIDATE_SIZE(entity, 0xF4);
+	VALIDATE_SIZE(entity, 0xF4);
 
 	VALIDATE(entity, flags, 0x60);
 	VALIDATE(entity, ext_flags, 0x64);

@@ -51,6 +51,7 @@ CLEAN :
 	-@erase "$(INTDIR)\beam.obj"
 	-@erase "$(INTDIR)\billboard.obj"
 	-@erase "$(INTDIR)\bone.obj"
+	-@erase "$(INTDIR)\camera.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\colgeom.obj"
 	-@erase "$(INTDIR)\collide.obj"
@@ -84,6 +85,7 @@ CLEAN :
 	-@erase "$(INTDIR)\inftrees.obj"
 	-@erase "$(INTDIR)\infutil.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
+	-@erase "$(INTDIR)\inputmgr.obj"
 	-@erase "$(INTDIR)\item.obj"
 	-@erase "$(INTDIR)\lensflare.obj"
 	-@erase "$(INTDIR)\light.obj"
@@ -120,6 +122,7 @@ CLEAN :
 	-@erase "$(INTDIR)\stringx.obj"
 	-@erase "$(INTDIR)\terrain.obj"
 	-@erase "$(INTDIR)\textfile.obj"
+	-@erase "$(INTDIR)\time_interface.obj"
 	-@erase "$(INTDIR)\trees.obj"
 	-@erase "$(INTDIR)\uncompr.obj"
 	-@erase "$(INTDIR)\vc60.idb"
@@ -244,7 +247,10 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\color.obj"
+	"$(INTDIR)\color.obj" \
+	"$(INTDIR)\inputmgr.obj" \
+	"$(INTDIR)\camera.obj" \
+	"$(INTDIR)\time_interface.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -273,6 +279,7 @@ CLEAN :
 	-@erase "$(INTDIR)\beam.obj"
 	-@erase "$(INTDIR)\billboard.obj"
 	-@erase "$(INTDIR)\bone.obj"
+	-@erase "$(INTDIR)\camera.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\colgeom.obj"
 	-@erase "$(INTDIR)\collide.obj"
@@ -306,6 +313,7 @@ CLEAN :
 	-@erase "$(INTDIR)\inftrees.obj"
 	-@erase "$(INTDIR)\infutil.obj"
 	-@erase "$(INTDIR)\ini_parser.obj"
+	-@erase "$(INTDIR)\inputmgr.obj"
 	-@erase "$(INTDIR)\item.obj"
 	-@erase "$(INTDIR)\lensflare.obj"
 	-@erase "$(INTDIR)\light.obj"
@@ -342,6 +350,7 @@ CLEAN :
 	-@erase "$(INTDIR)\stringx.obj"
 	-@erase "$(INTDIR)\terrain.obj"
 	-@erase "$(INTDIR)\textfile.obj"
+	-@erase "$(INTDIR)\time_interface.obj"
 	-@erase "$(INTDIR)\trees.obj"
 	-@erase "$(INTDIR)\uncompr.obj"
 	-@erase "$(INTDIR)\vc60.idb"
@@ -468,7 +477,10 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\color.obj"
+	"$(INTDIR)\color.obj" \
+	"$(INTDIR)\inputmgr.obj" \
+	"$(INTDIR)\camera.obj" \
+	"$(INTDIR)\time_interface.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -680,6 +692,12 @@ SOURCE=.\SpideyTM\SRC\bone.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\camera.cpp
+
+"$(INTDIR)\camera.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\chunkfile.cpp
 
 "$(INTDIR)\chunkfile.obj" : $(SOURCE) "$(INTDIR)"
@@ -808,6 +826,12 @@ SOURCE=.\SpideyTM\SRC\hull.cpp
 SOURCE=.\SpideyTM\SRC\ini_parser.cpp
 
 "$(INTDIR)\ini_parser.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\inputmgr.cpp
+
+"$(INTDIR)\inputmgr.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
@@ -1006,6 +1030,12 @@ SOURCE=.\SpideyTM\SRC\terrain.cpp
 SOURCE=.\SpideyTM\SRC\textfile.cpp
 
 "$(INTDIR)\textfile.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\time_interface.cpp
+
+"$(INTDIR)\time_interface.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
