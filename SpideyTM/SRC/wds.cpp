@@ -4331,6 +4331,8 @@ rational_t world_dynamics_system::compute_total_energy()
 
 
 
+// @Ok
+// @Matching
 bool world_dynamics_system::is_entity_valid(entity *ent)
 {
 	std::vector<entity*>::iterator it;
@@ -4549,4 +4551,5 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x00636A50, world_dynamics_system::add_region_ambient_sound);
 
 	PATCH_PUSH_RET(0x00636A30, world_dynamics_system::is_scene_anim_playing);
+	PATCH_PUSH_RET(0x00636750, world_dynamics_system::is_entity_valid);
 }
