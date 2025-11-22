@@ -4302,9 +4302,37 @@ vm_thread* nt = NULL;
 			}
 */
 
+// @Ok
+// @AlmostMatching - can't get the preload pair thing to inline
 void world_dynamics_system::add_entity_preload_script(entity *e, const stringx &entity_name)
 {
-	PANIC;
+	switch(e->get_flavor())
+	{
+
+		case ENTITY_CAMERA:
+
+		case ENTITY_MARKER:
+
+		case ENTITY_MIC:
+		case ENTITY_LIGHT_SOURCE:
+		case ENTITY_PARTICLE_GENERATOR:
+		case ENTITY_LIGHT:
+		//    case ENTITY_BEAM:
+		//    case ENTITY_SCANNER:
+		case ENTITY_BOX_TRIGGER:
+		break;
+
+		default:
+		{
+			stringx name = entity_name;
+			name.to_lower();
+			filespec spec(name);
+
+			entity_preloads.push_back(entity_preload_pair(e, spec.name));
+		}
+		break;
+
+	}
 }
 
 // this function is called immediately after a level load, to run any required
@@ -4525,6 +4553,8 @@ void validate_wds(void)
 	VALIDATE(world_dynamics_system, field_3F0, 0x3F0);
 	VALIDATE(world_dynamics_system, field_3F4, 0x3F4);
 
+	VALIDATE(world_dynamics_system, entity_preloads, 0x408);
+
 	VALIDATE(world_dynamics_system, fog_color, 0x420);
 
 	VALIDATE(world_dynamics_system, fog_near, 0x430);
@@ -4551,5 +4581,6 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x00636A50, world_dynamics_system::add_region_ambient_sound);
 
 	PATCH_PUSH_RET(0x00636A30, world_dynamics_system::is_scene_anim_playing);
-	PATCH_PUSH_RET(0x00636750, world_dynamics_system::is_entity_valid);
+	PATCH_PUSH_RET_POLY(0x00636750, world_dynamics_system::is_entity_valid, "?is_entity_valid@world_dynamics_system@@QAE_NPAVentity@@@Z");
+	PATCH_PUSH_RET(0x00636150, world_dynamics_system::add_entity_preload_script);
 }

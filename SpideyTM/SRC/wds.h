@@ -658,36 +658,6 @@ class world_dynamics_system
   public:
     void add_entity_preload_script(entity *e, const stringx &entity_name);
 
-  private:
-    class entity_preload_pair
-    {
-      public:
-				#ifdef TARGET_GC
-        entity_preload_pair()   { ent = NULL; name = stringx(""); }
-				#endif
-        entity_preload_pair(entity *e, const stringx &ent_name)   { ent = e; name = ent_name; }
-
-        inline void copy(const entity_preload_pair &b)
-        {
-          ent = b.ent;
-          name = b.name;
-        }
-
-        entity_preload_pair(const entity_preload_pair &b)         { copy(b); }
-
-        inline entity_preload_pair & operator=(const entity_preload_pair &b)
-        {
-
-          copy(b);
-          return(*this);
-        }
-
-        entity *ent;
-        stringx name;
-    };
-
-	// @Patch - removed for now
-    //std::vector<entity_preload_pair> entity_preloads;
 
   private:
     ai_polypath *world_path;
@@ -710,7 +680,46 @@ class world_dynamics_system
 	int field_3F0;
 	int field_3F4;
 
-	PADDING(0x420-0x3F4-4);
+	PADDING(0x408-0x3F4-4);
+
+    class entity_preload_pair
+    {
+      public:
+				#ifdef TARGET_GC
+        entity_preload_pair()   { ent = NULL; name = stringx(""); }
+				#endif
+        INLINE entity_preload_pair(entity *e, const stringx &ent_name)   {
+			puts("wow");
+			ent = e; name = ent_name;
+		}
+
+        inline void copy(const entity_preload_pair &b)
+        {
+			puts("bro");
+          ent = b.ent;
+          name = b.name;
+        }
+
+        inline entity_preload_pair(const entity_preload_pair &b)
+		{
+			copy(b);
+		}
+
+        entity_preload_pair & operator=(const entity_preload_pair &b)
+        {
+
+          copy(b);
+          return(*this);
+        }
+
+        entity *ent;
+        stringx name;
+    };
+
+	// @Patch - moved around
+   std::vector<entity_preload_pair> entity_preloads;
+
+	PADDING(0x420-0x408-0xC);
 
 	color fog_color;
 
