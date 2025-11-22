@@ -2902,6 +2902,8 @@ int world_dynamics_system::add_mcs(motion_control_system * new_mcs)
 
 
 
+// @Ok
+// @AlmostMatching - different inlining
 // these are created elsewhere.  Will need to become like add_joint if
 // we add a remove_fcs.  Also in frame_advance.
 int world_dynamics_system::add_fcs(force_control_system * new_fcs)
@@ -4555,6 +4557,7 @@ void validate_wds(void)
 	VALIDATE_SIZE(world_dynamics_system, 0x444);
 
 	VALIDATE(world_dynamics_system, generators, 0x20);
+	VALIDATE(world_dynamics_system, fcs_list, 0x2C);
 	VALIDATE(world_dynamics_system, mcs_list, 0x38);
 	VALIDATE(world_dynamics_system, controllers, 0x44);
 
@@ -4621,4 +4624,5 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x0062B9F0, world_dynamics_system::add_generator);
 	PATCH_PUSH_RET(0x0062B670, world_dynamics_system::add_controller);
 	PATCH_PUSH_RET(0x0062B7B0, world_dynamics_system::add_mcs);
+	PATCH_PUSH_RET(0x0062B8D0, world_dynamics_system::add_fcs);
 }
