@@ -1854,3 +1854,23 @@ void entity_anim_tree::debug_print_PRS_to_file(void)
 	host_fclose( outfile );
 }
 
+
+#include "my_assertions.h"
+
+void validate_entity_anim_tree(void)
+{
+}
+
+void validate_entity_anim(void)
+{
+	VALIDATE(entity_anim, ent, 8);
+}
+
+#include "my_patch.h"
+void patch_entity_anim(void)
+{
+}
+
+void patch_entity_anim_tree(void)
+{
+}

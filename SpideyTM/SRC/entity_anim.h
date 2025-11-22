@@ -226,6 +226,8 @@ class ett_manager
 
 class entity_anim : public anim<entity*>
 {
+	friend void validate_entity_anim(void);
+	friend void patch_entity_anim(void);
   // Data
   protected:
     friend class entity_anim_tree;
@@ -298,6 +300,8 @@ class entity_anim : public anim<entity*>
       }
 
 
+	// @Ok
+	// @Matching
     inline entity* get_entity() const { return ent; }
 
     inline int get_priority() const { return priority; }
@@ -355,6 +359,9 @@ typedef vector<entity_anim*,pentity_anim_allocator> pentity_anim_vector;
 class entity_anim_tree : public entity_anim
   {
   // Types
+
+	friend void validate_entity_anim_tree(void);
+	friend void patch_entity_anim_tree(void);
 
   public:
 
