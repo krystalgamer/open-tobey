@@ -696,14 +696,10 @@ class world_dynamics_system
 				#ifdef TARGET_GC
         entity_preload_pair()   { ent = NULL; name = stringx(""); }
 				#endif
-        INLINE entity_preload_pair(entity *e, const stringx &ent_name)   {
-			puts("wow");
-			ent = e; name = ent_name;
-		}
+        INLINE entity_preload_pair(entity *e, const stringx &ent_name)   { ent = e; name = ent_name; }
 
         inline void copy(const entity_preload_pair &b)
         {
-			puts("bro");
           ent = b.ent;
           name = b.name;
         }

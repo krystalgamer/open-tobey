@@ -1995,6 +1995,14 @@ bool entity::anim_finished( int slot ) const
 // This function should ONLY be called when the world kills an entity_anim_tree.
 void entity::clear_anim( entity_anim_tree* a )
 {
+	// @TODO
+	typedef void (__fastcall *func_ptr)(entity*, int, entity_anim_tree*);
+	func_ptr func = (func_ptr)0x004F12F0;
+
+	func(this,0, a);
+	return;
+
+
 //  assert( anim_trees != NULL );
   int slot;
   for ( slot=0; slot<MAX_ANIM_SLOTS; ++slot )
