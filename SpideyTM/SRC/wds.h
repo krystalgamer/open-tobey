@@ -135,8 +135,6 @@ class world_dynamics_system
     friend class view_frustrum_projection;
     friend class KSReplay;
 
-	EXPORT void set_global_time_dilation(rational_t);
-
 	typedef std::vector<entity*> entity_list;
     typedef std::vector<entity*> entity_archetype_list;
     //typedef vector<entity_anim_tree*> anim_list;
@@ -702,14 +700,21 @@ class world_dynamics_system
 	int field_3F0;
 	int field_3F4;
 
-	PADDING(0x440-0x3F4-4);
+	PADDING(0x430-0x3F4-4);
+
+	rational_t fog_near;
+	rational_t fog_far;
+	rational_t fog_min;
+	rational_t fog_max;
 
 	rational_t time_dilation;
 	
 
 	// @Patch - added this too
   public:
-	rational_t get_level_time(void);
+	EXPORT void set_global_time_dilation(rational_t);
+	EXPORT void set_fog_range(rational_t, rational_t);
+
 
 };
 
@@ -726,5 +731,8 @@ bool visibility_check( const vector3d& p1, const vector3d& p2, entity *ent );
 extern bool g_screenshot;	
 extern const char *g_screenshot_filename;	
 extern int g_render_cube_map;	
+
+// @Patch - added
+EXPORT rational_t get_level_time(void);
 
 #endif

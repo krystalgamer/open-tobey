@@ -4531,6 +4531,16 @@ bool world_dynamics_system::is_loading_from_scn_file() const
 
 // @Ok
 // @Matching
+void world_dynamics_system::set_fog_range(rational_t f_min, rational_t f_max)
+{
+	this->fog_min = f_min;
+	this->fog_max = f_max;
+
+	nglSetFogRange(this->fog_near, this->fog_far, this->fog_min, this->fog_max);
+}
+
+// @Ok
+// @Matching
 void world_dynamics_system::set_global_time_dilation(rational_t a2)
 {
 	if (this->field_3F0 == this->field_3F4)
@@ -4558,6 +4568,11 @@ void validate_wds(void)
 	VALIDATE(world_dynamics_system, field_3F0, 0x3F0);
 	VALIDATE(world_dynamics_system, field_3F4, 0x3F4);
 
+	VALIDATE(world_dynamics_system, fog_near, 0x430);
+	VALIDATE(world_dynamics_system, fog_far , 0x434);
+	VALIDATE(world_dynamics_system, fog_min , 0x438);
+	VALIDATE(world_dynamics_system, fog_max , 0x43C);
+
 	VALIDATE(world_dynamics_system, time_dilation, 0x440);
 }
 
@@ -4566,5 +4581,7 @@ void validate_wds(void)
 void patch_wds(void)
 {
 	PATCH_PUSH_RET(0x00637A20, world_dynamics_system::set_global_time_dilation);
-	PATCH_PUSH_RET(0x00637A60, world_dynamics_system::get_level_time);
+	PATCH_PUSH_RET(0x00637A60, get_level_time);
+
+	PATCH_PUSH_RET(0x006379D0, world_dynamics_system::set_fog_range);
 }

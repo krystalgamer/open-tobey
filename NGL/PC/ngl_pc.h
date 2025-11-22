@@ -102,4 +102,5 @@ enum
 
 EXPORT void nglPrintf(const char *Format, ...);
 
+EXPORT void nglSetFogRange(float Near, float Far, float Min, float Max);
 #endif
