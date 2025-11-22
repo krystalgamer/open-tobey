@@ -585,14 +585,18 @@ class world_dynamics_system
 
     // marky_camera - script language controlled game camera.
 
-    marky_camera* marky_cam;
-    bool marky_cam_enabled;
+
+	  // List of all active entities for frame_advance
+	  std::vector<entity *> active_entities;
 
     // this is to provide a fake parent to colgeoms and visreps who are already in world space.
     entity * origin_entity;
 
-	  // List of all active entities for frame_advance
-	  std::vector<entity *> active_entities;
+	// @Patch - moved around
+    marky_camera* marky_cam;
+    bool marky_cam_enabled;
+
+
 	  std::vector<entity *> collision_entities;
 
     // this is the last value passed to frame_advance, representing the duration of the current time_slice.

@@ -171,9 +171,10 @@ private:
     bool do_collide_with_world;
     vector3d last_frame_pos;
 
+	PADDING(4);
     rational_t current_priority;
 
-	PADDING(0x1D4-0x1CC);
+	PADDING(4);
 
 	friend void validate_marky_camera(void);
 	friend void patch_marky_camera(void);

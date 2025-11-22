@@ -723,6 +723,10 @@ void validate_camera(void)
 void validate_marky_camera(void)
 {
 	VALIDATE_SIZE(marky_camera, 0x1D4);
+
+	VALIDATE(marky_camera, current_priority, 0x1CC);
+
+	VALIDATE_VTABLE(marky_camera, camera_set_roll, 143);
 }
 
 #include "my_patch.h"

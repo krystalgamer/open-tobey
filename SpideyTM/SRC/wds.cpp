@@ -2918,6 +2918,8 @@ int world_dynamics_system::add_generator(force_generator * new_generator)
 
 
 
+// @Ok
+// @Matching
 void world_dynamics_system::enable_marky_cam( bool enable, rational_t priority )
 {
 	assert(marky_cam);
@@ -4552,6 +4554,9 @@ void validate_wds(void)
 
 	VALIDATE(world_dynamics_system, loading_from_scn_file, 0x1B0);
 
+	VALIDATE(world_dynamics_system, marky_cam, 0x1E4);
+	VALIDATE(world_dynamics_system, marky_cam_enabled, 0x1E8);
+
 	VALIDATE(world_dynamics_system, field_3F0, 0x3F0);
 	VALIDATE(world_dynamics_system, field_3F4, 0x3F4);
 
@@ -4600,4 +4605,6 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x00636150, world_dynamics_system::add_entity_preload_script);
 
 	PATCH_PUSH_RET(0x0062BBA0, world_dynamics_system::add_to_entities);
+
+	PATCH_PUSH_RET(0x0062BB10, world_dynamics_system::enable_marky_cam);
 }
