@@ -2871,6 +2871,14 @@ bool world_dynamics_system::eligible_for_frame_advance( entity_anim_tree* anm ) 
 }
 
 
+void world_dynamics_system::set_ks_controller(int hero_num, kellyslater_controller * new_controller)
+{
+	PANIC;
+}
+
+
+// @Ok
+// @AlmostMatching - different inlined for size stuff
 // these are created elsewhere.  Will need to become like add_joint if
 // we add a remove_controller.  Also in frame_advance.
 int world_dynamics_system::add_controller(controller * new_controller)
@@ -2880,12 +2888,6 @@ int world_dynamics_system::add_controller(controller * new_controller)
 	return controllers.size();
 }
 
-
-
-void world_dynamics_system::set_ks_controller(int hero_num, kellyslater_controller * new_controller)
-{
-	PANIC;
-}
 
 // these are created elsewhere.  Will need to become like add_joint if
 // we add a remove_mcs.  Also in frame_advance.
@@ -4552,6 +4554,8 @@ void validate_wds(void)
 
 	VALIDATE(world_dynamics_system, generators, 0x20);
 
+	VALIDATE(world_dynamics_system, controllers, 0x44);
+
 	VALIDATE(world_dynamics_system, entities, 0x78);
 
 	VALIDATE(world_dynamics_system, the_terrain, 0x124);
@@ -4612,5 +4616,6 @@ void patch_wds(void)
 
 	PATCH_PUSH_RET(0x0062BB10, world_dynamics_system::enable_marky_cam);
 
-	PATCH_PUSH_RET(0x002B9F0, world_dynamics_system::add_generator);
+	PATCH_PUSH_RET(0x0062B9F0, world_dynamics_system::add_generator);
+	PATCH_PUSH_RET(0x0062B670, world_dynamics_system::add_controller);
 }
