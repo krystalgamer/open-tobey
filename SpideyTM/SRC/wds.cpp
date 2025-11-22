@@ -188,7 +188,13 @@ int g_render_cube_map = 0;
 ////////////////////////////////////////////////////////////////////////////////
 // File reading classes
 ////////////////////////////////////////////////////////////////////////////////
+
+// @TODO - change when done
 rational_t g_level_time;
+//#define GET_LEVEL_TIME (g_level_time)
+#define GET_LEVEL_TIME (*reinterpret_cast<rational_t*>(0x00929880))
+
+
 ////////////////////////////////////////////////////////////////////////////////
 world_dynamics_system::world_dynamics_system()
 {
@@ -4523,6 +4529,8 @@ bool world_dynamics_system::is_loading_from_scn_file() const
 	return loading_from_scn_file;
 }
 
+// @Ok
+// @Matching
 void world_dynamics_system::set_global_time_dilation(rational_t a2)
 {
 	if (this->field_3F0 == this->field_3F4)
@@ -4532,6 +4540,13 @@ void world_dynamics_system::set_global_time_dilation(rational_t a2)
 	}
 
 	error("Cannot set time dilation during a scene anim.");
+}
+
+// @Ok
+// @Matching
+rational_t get_level_time(void)
+{
+	return GET_LEVEL_TIME;
 }
 
 #include "my_assertions.h"
@@ -4551,4 +4566,5 @@ void validate_wds(void)
 void patch_wds(void)
 {
 	PATCH_PUSH_RET(0x00637A20, world_dynamics_system::set_global_time_dilation);
+	PATCH_PUSH_RET(0x00637A60, world_dynamics_system::get_level_time);
 }

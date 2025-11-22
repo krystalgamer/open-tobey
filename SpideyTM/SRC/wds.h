@@ -705,6 +705,12 @@ class world_dynamics_system
 	PADDING(0x440-0x3F4-4);
 
 	rational_t time_dilation;
+	
+
+	// @Patch - added this too
+  public:
+	rational_t get_level_time(void);
+
 };
 
 ////////////////////////////////////////////////////////////////////////////////
