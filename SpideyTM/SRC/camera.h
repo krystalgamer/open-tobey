@@ -155,6 +155,8 @@ public:
 	
     rational_t get_roll()             { return(roll); }
 	
+	// @Ok
+	// @Matching
     EXPORT rational_t get_priority()         { return(current_priority); }
     EXPORT void reset_priority()             { current_priority = (MIN_CAMERA_PRIORITY - 1.0f); }
     EXPORT void set_priority(rational_t pr)  { current_priority = pr; }
