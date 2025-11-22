@@ -2535,13 +2535,7 @@ void world_dynamics_system::usercam_frame_advance(time_value_t t)
 
 void world_dynamics_system::scene_analyzer_frame_advance(time_value_t t)
 {
-	if ( geometry_manager::inst()->is_scene_analyzer_enabled() )
-	{
-		scene_analyzer_controller->frame_advance(t);
-		scene_analyzer_cam->frame_advance(t);
-		scene_analyzer_move_mcs->frame_advance(t);
-		scene_analyzer_orient_mcs->frame_advance(t);
-	}
+	PANIC;
 }
 
 
@@ -4318,73 +4312,7 @@ void world_dynamics_system::add_entity_preload_script(entity *e, const stringx &
 // item preload scripts
 void world_dynamics_system::spawn_misc_preload_scripts()
 {
-
-	// because it is possible for an entity/item preload script to load a NEW entity/item
-	// (for example, the detpack item), we must traverse the entities/items list by index
-	// rather than iterator
-
-	/*
-	// there might be a script function for preloading additional assets needed by item
-	stringx preload_func_name = "preload_max_inventory()";
-	script_object* gso = get_current_level_global_script_object();
-
-	assert( gso );
-	int fidx = gso->find_func( preload_func_name );
-	if ( fidx >= 0 )
-	{
-    script_object::instance* gsoi = get_current_level_global_script_object_instance();
-    assert( gsoi );
-    // spawn thread for function
-    vm_thread* newt = gsoi->add_thread( &gso->get_func(fidx) );
-    // run the NEW thread immediately
-    gsoi->run_single_thread( newt, false );
-	}
-	*/
-
-	script_object* gso = get_current_level_global_script_object();
-
-	script_object::instance* gsoi = get_current_level_global_script_object_instance();
-	assert( gso && gsoi );
-
-	while(!entity_preloads.empty())
-	{
-		std::vector<entity_preload_pair>::iterator epi = entity_preloads.begin();
-		stringx preload_func_name = (*epi).name + "_auto_preload(entity)";
-		const entity* e = (*epi).ent;
-		entity_preloads.erase(epi);
-
-
-		int fidx = gso->find_func( preload_func_name );
-		if ( fidx >= 0 )
-		{
-			vm_thread *nt = gsoi->add_thread( &gso->get_func(fidx) );
-			nt->get_data_stack().push( (char*)&e, 4 );
-			gsoi->run_single_thread( nt, false );
-		}
-
-	}
-
-	entity_preloads.clear();
-
-
-	/*
-	unsigned i = 0;
-
-
-	  for ( i=0; i<items.size(); ++i )
-	  {
-	  if(items[i] != NULL)
-      items[i]->preload();
-	  }
-
-		for ( i=0; i<entities.size(); ++i )
-
-		{
-		if(entities[i] != NULL && !entities[i]->is_an_item())
-
-		entities[i]->preload();
-		}
-	*/
+	PANIC;
 }
 
 
@@ -4524,6 +4452,8 @@ void world_dynamics_system::recompute_all_sectors() // calls compute_sector for 
 
 
 
+// @Ok
+// @Matching
 bool world_dynamics_system::is_loading_from_scn_file() const
 {
 	return loading_from_scn_file;
@@ -4573,6 +4503,8 @@ void validate_wds(void)
 {
 	VALIDATE_SIZE(world_dynamics_system, 0x444);
 
+	VALIDATE(world_dynamics_system, loading_from_scn_file, 0x1B0);
+
 	VALIDATE(world_dynamics_system, field_3F0, 0x3F0);
 	VALIDATE(world_dynamics_system, field_3F4, 0x3F4);
 
@@ -4595,4 +4527,6 @@ void patch_wds(void)
 
 	PATCH_PUSH_RET(0x006379D0, world_dynamics_system::set_fog_range);
 	PATCH_PUSH_RET(0x006378C0, world_dynamics_system::set_fog_color);
+
+	PATCH_PUSH_RET(0x00636E10, world_dynamics_system::is_loading_from_scn_file);
 }

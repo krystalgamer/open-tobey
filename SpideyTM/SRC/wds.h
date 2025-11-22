@@ -528,6 +528,8 @@ class world_dynamics_system
 
     script_object::instance* cur_global_so_inst;
 
+	PADDING(0x1B0-0x13C);
+
     // This flag is useful for filtering operations that we only wish to perform
     // during the initial load of the scene.  Note that this flag will be FALSE
     // during the load of the .sin file.
@@ -568,9 +570,12 @@ class world_dynamics_system
 	replay_camera* replay_cam_ptr;
 
     // these pointers allow us to update the scene_analyzer when the game is paused.
+	// @Patch - removed for now
+	/*
     motion_control_system * scene_analyzer_move_mcs;
     motion_control_system * scene_analyzer_orient_mcs;
     controller * scene_analyzer_controller;
+	*/
     entity * scene_analyzer_cam;
 
     // marky_camera - script language controlled game camera.
@@ -592,7 +597,8 @@ class world_dynamics_system
     // used to optimize rendering of many small particle systems
     aggregate_vert_buf_list matvertbufs;
 
-    std::vector<entity*> dead_ents;
+	// @Patch - removed
+    //std::vector<entity*> dead_ents;
 
 	// @Patch
 	//nglLightContext *current_light_context;
@@ -601,9 +607,9 @@ class world_dynamics_system
 
     game_clock_t world_clock;
 
-    void apply_radius_damage(vector3d center, rational_t radius, int bio_damage, int mechanical_damage);
-    aggregate_vert_buf_list &get_matvertbufs() { return matvertbufs; }
-    bool is_loading_from_scn_file() const;
+    EXPORT void apply_radius_damage(vector3d center, rational_t radius, int bio_damage, int mechanical_damage);
+    EXPORT aggregate_vert_buf_list &get_matvertbufs() { return matvertbufs; }
+    EXPORT bool is_loading_from_scn_file() const;
 
 	// @Patch
 	/*
@@ -676,7 +682,8 @@ class world_dynamics_system
         stringx name;
     };
 
-    std::vector<entity_preload_pair> entity_preloads;
+	// @Patch - removed for now
+    //std::vector<entity_preload_pair> entity_preloads;
 
   private:
     ai_polypath *world_path;
@@ -695,7 +702,6 @@ class world_dynamics_system
 
 	// @Patch - added this section
   private:
-	PADDING(0x3F0-0x3A0);
 
 	int field_3F0;
 	int field_3F4;
