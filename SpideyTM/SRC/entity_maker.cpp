@@ -98,10 +98,18 @@ entity* entity_maker::create_entity_or_subclass( const stringx& entity_name,
                    const region_node_list *forced_regions)
 {
 	// @TODO
-	typedef entity* (__fastcall *func_ptr)(const entity_maker*, int, entity_id, const po&, const stringx&, unsigned int, const region_node_list*);
+	typedef entity* (__fastcall *func_ptr)(
+			const entity_maker*,
+			int,
+			const stringx& entity_name,
+                   entity_id id,
+                   po const & loc,
+                   const stringx& scene_root,
+                   unsigned int scene_flags,
+                   const region_node_list *forced_regions);
 	func_ptr func = (func_ptr)0x004FA960;
 	return func(this, 0,
-			id, loc, scene_root, scene_flags, forced_regions);
+			entity_name, id, loc, scene_root, scene_flags, forced_regions);
 }
 
 

@@ -323,6 +323,10 @@ stringx entity_id::get_val() const
 
 #define UNIQUE_ENTITY_ID_BASE "_ENTID_"
 static int unique_entity_id_idx=0;
+//#define GET_UNIQUE_ENTITY_ID unique_entity_id_idx
+#define GET_UNIQUE_ENTITY_ID (*reinterpret_cast<int*>(0x00910E8C))
+
+
 #ifdef DEBUG
 //int agorra;
 #endif
@@ -337,7 +341,7 @@ entity_id &entity_id::make_unique_id()
 
     //agorra = 1;
 #endif
-  name += itos( unique_entity_id_idx++ ); //name_to_number.size() );
+  name += itos( GET_UNIQUE_ENTITY_ID++ ); //name_to_number.size() );
   ret.set_entity_id(name.c_str());
   return ret;
 }
@@ -3899,9 +3903,7 @@ void patch_entity_id(void)
 
 	PATCH_PUSH_RET(0x004E3EB0, entity_id::delete_entity_id);
 
-	// @TODO - can't patch yet because it was inlined in other places
-	// and it references a static variable
-	//PATCH_PUSH_RET(0x004E4060, entity_id::make_unique_id);
+	PATCH_PUSH_RET(0x004E4060, entity_id::make_unique_id);
 
 	PATCH_PUSH_RET_POLY(0x004E4200, serial_in, "?serial_in@@YAXAAVchunk_file@@PAVentity_id@@@Z");
 }
