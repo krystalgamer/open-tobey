@@ -2728,7 +2728,7 @@ void world_dynamics_system::load_scene_anim( const stringx &filename )
 void world_dynamics_system::add_light_source( light_source* ls )
 {
 	// @Patch
-	g_entity_maker->create_entity( reinterpret_cast<entity*>(ls) );
+	GET_ENTITY_MAKER->create_entity(ls);
 	lights.push_back( ls );
 }
 
@@ -2748,29 +2748,31 @@ void world_dynamics_system::remove_light_source( light_source* ls )
 void world_dynamics_system::add_marker( marker* e )
 
 {
-	g_entity_maker->create_entity( e );
+	GET_ENTITY_MAKER->create_entity( e );
 }
 
 void world_dynamics_system::add_beam( beam* e )
 {
-	g_entity_maker->create_entity( e );
+	GET_ENTITY_MAKER->create_entity( e );
 }
 
 void world_dynamics_system::add_camera( camera* e )
 {
-	g_entity_maker->create_entity( e );
+	GET_ENTITY_MAKER->create_entity( e );
 }
 
 void world_dynamics_system::add_mic( mic* e )
 {
-	g_entity_maker->create_entity( e );
+	GET_ENTITY_MAKER->create_entity( e );
 
 }
 
 
+// @Ok
+// @Matching
 void world_dynamics_system::add_particle_generator( particle_generator* pg )
 {
-	g_entity_maker->create_entity( pg );
+	GET_ENTITY_MAKER->create_entity( pg );
 }
 
 // @Ok
@@ -4676,4 +4678,5 @@ void patch_wds(void)
 	PATCH_PUSH_RET_POLY(0x0062AEF0, world_dynamics_system::add_turret, "?add_turret@world_dynamics_system@@QAEXPAVturret@@@Z");
 	PATCH_PUSH_RET(0x0062ACD0, world_dynamics_system::add_neolight);
 	PATCH_PUSH_RET_POLY(0x0062ACB0, world_dynamics_system::add_lensflare, "?add_lensflare@world_dynamics_system@@QAEXPAVlensflare@@@Z");
+	PATCH_PUSH_RET_POLY(0x0062AC90, world_dynamics_system::add_particle_generator, "?add_particle_generator@world_dynamics_system@@QAEXPAVparticle_generator@@@Z");
 }
