@@ -2773,10 +2773,11 @@ void world_dynamics_system::add_particle_generator( particle_generator* pg )
 	g_entity_maker->create_entity( pg );
 }
 
+// @Ok
+// @Matching
 void world_dynamics_system::add_lensflare( lensflare* e )
-
 {
-	g_entity_maker->create_entity( e );
+	GET_ENTITY_MAKER->create_entity( e );
 }
 
 // @Ok
@@ -4674,4 +4675,5 @@ void patch_wds(void)
 
 	PATCH_PUSH_RET_POLY(0x0062AEF0, world_dynamics_system::add_turret, "?add_turret@world_dynamics_system@@QAEXPAVturret@@@Z");
 	PATCH_PUSH_RET(0x0062ACD0, world_dynamics_system::add_neolight);
+	PATCH_PUSH_RET_POLY(0x0062ACB0, world_dynamics_system::add_lensflare, "?add_lensflare@world_dynamics_system@@QAEXPAVlensflare@@@Z");
 }
