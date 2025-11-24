@@ -91,6 +91,12 @@ class bone : public signaller
       return my_abs_po;
     }
 
+
+	// @Patch - added
+    EXPORT void update_abs_po(void)
+	{
+	}
+
 	// @Patch - arg
     EXPORT void update_abs_po(bool);
 
@@ -157,11 +163,14 @@ class bone : public signaller
 
     EXPORT const vector3d& get_rel_position() const { return my_rel_po.get_position(); }
 
+	// @Ok
+	// @Note - can't find it but it seems like this through
+	// usage.
     EXPORT void set_rel_position(const vector3d &p)
     {
       my_rel_po.set_position(p);
-	  // @Patch - arg
-      update_abs_po(true);
+	  // @Patch - call dirty family
+	  dirty_family(false);
       po_changed();
     }
     EXPORT void set_rel_position_no_children(const vector3d &p)
