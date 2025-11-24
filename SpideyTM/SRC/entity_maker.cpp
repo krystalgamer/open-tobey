@@ -121,6 +121,13 @@ entity *entity_maker::create_entity( chunk_file& fs,
 
 void entity_maker::create_entity( entity* e )
 {
+	// @TODO
+	typedef void (__fastcall *func_ptr)(entity_maker*, int, entity*);
+	func_ptr func = (func_ptr)0x004FD3A0;
+	func(this, 0, e);
+	return;
+	PANIC;
+
   if ( owning_widget == NULL )
   {
     g_world_ptr->add_to_entities( e );

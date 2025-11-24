@@ -81,7 +81,7 @@
 #include "time_interface.h"
 #include "trigger.h"
 
-// BIGCULL #include "turret.h"
+#include "turret.h"
 #include "vm_thread.h"
 #include "box_trigger_interface.h"
 #include "script_access.h"
@@ -2785,12 +2785,12 @@ void world_dynamics_system::add_item( item* it )
 }
 
 
-#if 0 //BIGCULL
+// @Ok
+// @Matching
 void world_dynamics_system::add_turret( turret* cg )
 {
-	g_entity_maker->create_entity( cg );
+	GET_ENTITY_MAKER->create_entity( cg );
 }
-#endif
 
 // @Ok
 // @NotMatching - uses 4 more bytes of stack and the alloc is different
@@ -4661,4 +4661,6 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x0062B2B0, world_dynamics_system::add_anim);
 	PATCH_PUSH_RET(0x0062B120, world_dynamics_system::make_time_limited);
 	PATCH_PUSH_RET(0x0062AF10, world_dynamics_system::add_time_limited_effect);
+
+	PATCH_PUSH_RET(0x0062AEF0, world_dynamics_system::add_turret);
 }

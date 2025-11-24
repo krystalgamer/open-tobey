@@ -61,17 +61,17 @@ class mic;
 class beam;
 class game_camera;
 class marky_camera;
-//BIGCULL class turret;
+class turret;
 class variant_descriptor;
 //class dread_net;
 class render_data;
-//BIGCULL class scanner;
+class scanner;
 class sky;
-//BIGCULL class gun;
-//BIGCULL class thrown_item;
-//BIGCULL class melee_item;
-//BIGCULL class manip_obj;
-//BIGCULL class switch_obj;
+class gun;
+class thrown_item;
+class melee_item;
+class manip_obj;
+class switch_obj;
 class polytube;
 class lensflare;
 // BIGCULL class ai_cue_manager;
@@ -209,7 +209,7 @@ class world_dynamics_system
 
     lensflare* add_lensflare( chunk_file& fs, const entity_id& id, unsigned int flags );
 
-#if 0 //BIGCULL
+	// @Patch - remove cull
     gun* add_gun( chunk_file& fs,
                   const entity_id& id,
                   unsigned int flags );
@@ -239,7 +239,6 @@ class world_dynamics_system
 
                           unsigned int flags );
     void add_scanner( scanner* e );
-#endif //BIGCULL
 
 
     sky* add_sky( chunk_file& fs, const entity_id& id, unsigned int flags );
@@ -272,7 +271,7 @@ class world_dynamics_system
 
     void add_item( item* it );
 
-    //BIGCULL void add_turret( turret* cg );
+    void add_turret( turret* cg );
 
     // add given entity to the list of entities that are guaranteed to be active
     // independent of visibility, region status, etc.

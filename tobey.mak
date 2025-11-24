@@ -124,6 +124,7 @@ CLEAN :
 	-@erase "$(INTDIR)\textfile.obj"
 	-@erase "$(INTDIR)\time_interface.obj"
 	-@erase "$(INTDIR)\trees.obj"
+	-@erase "$(INTDIR)\turret.obj"
 	-@erase "$(INTDIR)\uncompr.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
@@ -183,9 +184,11 @@ LINK32_OBJS= \
 	"$(INTDIR)\beam.obj" \
 	"$(INTDIR)\billboard.obj" \
 	"$(INTDIR)\bone.obj" \
+	"$(INTDIR)\camera.obj" \
 	"$(INTDIR)\chunkfile.obj" \
 	"$(INTDIR)\colgeom.obj" \
 	"$(INTDIR)\collide.obj" \
+	"$(INTDIR)\color.obj" \
 	"$(INTDIR)\conglom.obj" \
 	"$(INTDIR)\controller.obj" \
 	"$(INTDIR)\damage_interface.obj" \
@@ -204,6 +207,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\hull.obj" \
 	"$(INTDIR)\ini_parser.obj" \
+	"$(INTDIR)\inputmgr.obj" \
 	"$(INTDIR)\item.obj" \
 	"$(INTDIR)\lensflare.obj" \
 	"$(INTDIR)\light.obj" \
@@ -237,6 +241,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\stringx.obj" \
 	"$(INTDIR)\terrain.obj" \
 	"$(INTDIR)\textfile.obj" \
+	"$(INTDIR)\time_interface.obj" \
 	"$(INTDIR)\visrep.obj" \
 	"$(INTDIR)\vm_executable.obj" \
 	"$(INTDIR)\vm_stack.obj" \
@@ -248,10 +253,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\color.obj" \
-	"$(INTDIR)\inputmgr.obj" \
-	"$(INTDIR)\camera.obj" \
-	"$(INTDIR)\time_interface.obj"
+	"$(INTDIR)\turret.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -353,6 +355,7 @@ CLEAN :
 	-@erase "$(INTDIR)\textfile.obj"
 	-@erase "$(INTDIR)\time_interface.obj"
 	-@erase "$(INTDIR)\trees.obj"
+	-@erase "$(INTDIR)\turret.obj"
 	-@erase "$(INTDIR)\uncompr.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
@@ -413,9 +416,11 @@ LINK32_OBJS= \
 	"$(INTDIR)\beam.obj" \
 	"$(INTDIR)\billboard.obj" \
 	"$(INTDIR)\bone.obj" \
+	"$(INTDIR)\camera.obj" \
 	"$(INTDIR)\chunkfile.obj" \
 	"$(INTDIR)\colgeom.obj" \
 	"$(INTDIR)\collide.obj" \
+	"$(INTDIR)\color.obj" \
 	"$(INTDIR)\conglom.obj" \
 	"$(INTDIR)\controller.obj" \
 	"$(INTDIR)\damage_interface.obj" \
@@ -434,6 +439,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\hull.obj" \
 	"$(INTDIR)\ini_parser.obj" \
+	"$(INTDIR)\inputmgr.obj" \
 	"$(INTDIR)\item.obj" \
 	"$(INTDIR)\lensflare.obj" \
 	"$(INTDIR)\light.obj" \
@@ -467,6 +473,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\stringx.obj" \
 	"$(INTDIR)\terrain.obj" \
 	"$(INTDIR)\textfile.obj" \
+	"$(INTDIR)\time_interface.obj" \
 	"$(INTDIR)\visrep.obj" \
 	"$(INTDIR)\vm_executable.obj" \
 	"$(INTDIR)\vm_stack.obj" \
@@ -478,10 +485,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\color.obj" \
-	"$(INTDIR)\inputmgr.obj" \
-	"$(INTDIR)\camera.obj" \
-	"$(INTDIR)\time_interface.obj"
+	"$(INTDIR)\turret.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -1037,6 +1041,12 @@ SOURCE=.\SpideyTM\SRC\textfile.cpp
 SOURCE=.\SpideyTM\SRC\time_interface.cpp
 
 "$(INTDIR)\time_interface.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\turret.cpp
+
+"$(INTDIR)\turret.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
