@@ -491,11 +491,17 @@ class world_dynamics_system
     crawl_box_list crawl_boxes;
 
     std::vector<item*> items;
-    std::vector<light_source*> lights;
     std::vector<entity*> guaranteed_active_entities;
 
+
     entity* collision_dummy;
-    render_data to_render;
+    //render_data to_render;
+	
+	PADDING(0x10);
+
+	// @Patch - moved around
+    std::vector<light_source*> lights;
+
 
     // parallel list allowing entities to be destroyed after a given amount of time
     struct ent_time_limit
@@ -517,7 +523,7 @@ class world_dynamics_system
     typedef std::map<int, surface_type_info*> surfaceinfo_list_t;
     surfaceinfo_list_t surfaceinfo_list;
 
-	PADDING(0x10C-0xF4);
+	PADDING(0x10C-0xE0);
 
 	// @Patch - moved around
     std::vector<ent_time_limit> time_limited_entities;

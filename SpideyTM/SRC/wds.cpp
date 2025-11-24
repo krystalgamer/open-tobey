@@ -2732,16 +2732,22 @@ void world_dynamics_system::add_light_source( light_source* ls )
 	lights.push_back( ls );
 }
 
+// @Ok
+// @Matching
 void world_dynamics_system::remove_light_source( light_source* ls )
 {
 	std::vector<light_source*>::iterator lit;
 	lit = std::find( lights.begin(), lights.end(), ls );
 	if (lit!=lights.end())
+	{
 		lights.erase( lit );
-	// @Patch
-	if ( remove_entity( reinterpret_cast<entity*>(ls) ) )
+	}
 
+	// @Patch
+	if (remove_entity(ls))
+	{
 		delete ls;
+	}
 }
 
 
@@ -3046,6 +3052,8 @@ void world_dynamics_system::add_dynamic_instanced_entity( entity* e )
 
 bool world_dynamics_system::remove_entity( unsigned int i )
 {
+	PANIC;
+	return true;
 	// remove it from file
 	assert( i < entities.size() );
 
@@ -3055,6 +3063,13 @@ bool world_dynamics_system::remove_entity( unsigned int i )
 
 bool world_dynamics_system::remove_entity( entity *e )
 {
+	typedef bool (__fastcall *func_ptr)(world_dynamics_system*, int, entity*);
+	func_ptr func = (func_ptr)0x0062C1D0;
+
+	return func(this, 0, e);
+	PANIC;
+	return true;
+
 	std::vector<entity*>::iterator it;
 
 	bool success = false;
@@ -4598,6 +4613,8 @@ void validate_wds(void)
 
 	VALIDATE(world_dynamics_system, entities, 0x78);
 
+	VALIDATE(world_dynamics_system, lights, 0xC8);
+
 	VALIDATE(world_dynamics_system, time_limited_entities, 0x10C);
 
 	VALIDATE(world_dynamics_system, the_terrain, 0x124);
@@ -4685,4 +4702,6 @@ void patch_wds(void)
 	PATCH_PUSH_RET_POLY(0x0062AC90, world_dynamics_system::add_particle_generator, "?add_particle_generator@world_dynamics_system@@QAEXPAVparticle_generator@@@Z");
 	PATCH_PUSH_RET_POLY(0x0062AC10, world_dynamics_system::add_beam, "?add_beam@world_dynamics_system@@QAEXPAVbeam@@@Z");
 	PATCH_PUSH_RET_POLY(0x0062ABF0, world_dynamics_system::add_marker, "?add_marker@world_dynamics_system@@QAEXPAVmarker@@@Z");
+
+	PATCH_PUSH_RET(0x0062AB60, world_dynamics_system::remove_light_source);
 }
