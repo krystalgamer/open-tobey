@@ -307,3 +307,14 @@ void joypad_usercam_controller::frame_advance(time_value_t time_inc)
 
 
 */
+
+#include "my_assertions.h"
+void validate_controller(void)
+{
+	VALIDATE_VTABLE(controller, frame_advance, 1);
+}
+
+#include "my_patch.h"
+void patch_controller(void)
+{
+}

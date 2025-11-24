@@ -341,6 +341,10 @@ SOURCE=.\SpideyTM\SRC\matfac.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\mcs.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\mustash.cpp
 # End Source File
 # Begin Source File

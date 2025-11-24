@@ -2533,9 +2533,14 @@ void world_dynamics_system::render(camera* camera_link)
 
 #endif
 
+// @Ok
+// @Matching
 void world_dynamics_system::usercam_frame_advance(time_value_t t)
 {
-	PANIC;
+	usercam_controller->frame_advance(t);
+	usercam->frame_advance(t);
+	usercam_move_mcs->frame_advance(t);
+	usercam_orient_mcs->frame_advance(t);
 }
 
 void world_dynamics_system::scene_analyzer_frame_advance(time_value_t t)
@@ -2715,7 +2720,7 @@ entity* world_dynamics_system::create_preloaded_entity_or_subclass( const string
 			g_memory_context.push_context( "ENTPRELOADS" );
 		P*/
 
-		e = g_entity_maker->create_entity_or_subclass( entity_name,  entity_id::make_unique_id(), loc, empty_string, 0 );
+		e = GET_ENTITY_MAKER->create_entity_or_subclass( entity_name,  entity_id::make_unique_id(), loc, empty_string, 0 );
 		/*P
 		g_memory_context.pop_context();
 
@@ -2817,6 +2822,11 @@ void world_dynamics_system::add_marker( marker* e )
 // @Ok
 // @Matching
 void world_dynamics_system::add_beam( beam* e )
+{
+	GET_ENTITY_MAKER->create_entity( e );
+}
+
+void world_dynamics_system::add_polytube(polytube *e)
 {
 	GET_ENTITY_MAKER->create_entity( e );
 }
@@ -3123,6 +3133,7 @@ bool world_dynamics_system::remove_entity( entity *e )
 
 	return func(this, 0, e);
 	PANIC;
+	/*
 	return true;
 
 	std::vector<entity*>::iterator it;
@@ -3161,6 +3172,7 @@ bool world_dynamics_system::remove_entity( entity *e )
 		}
 	}
 	return success;
+	*/
 
 }
 
@@ -3412,62 +3424,7 @@ extern profiler_timer proftimer_collide_entity_entity_int;
 
 void world_dynamics_system::do_all_collisions(time_value_t t)
 {
-	proftimer_collide.start();
-
-	// must go back and recalculate with NEW position
-	// This code is only being done on characters, so why not just use the 'active_characters' list? (JDB 9/7/00)
-
-	std::vector<entity *>::const_iterator ei = active_entities.begin();
-	std::vector<entity *>::const_iterator ei_end = active_entities.end();
-	for ( ; ei!=ei_end; ++ei )
-	{
-		if((*ei) && (*ei)->get_colgeom() && (*ei)->get_colgeom()->get_type()==collision_geometry::CAPSULE)
-		{
-			(*ei)->update_colgeom();
-
-			if((*ei)->has_physical_ifc())
-			{
-				if(!(*ei)->playing_scene_anim() && (*ei)->physical_ifc()->is_enabled() && !(*ei)->physical_ifc()->is_suspended()/* && !(*ei)->is_hero()*/)
-					(*ei)->physical_ifc()->manage_standing();
-
-					/*
-
-					if((*ei)->physical_ifc()->is_standing())
-					{
-					// cancel xz vel (manage standing used to do this when standing)
-					vector3d vel = (*ei)->physical_ifc()->get_velocity();
-					vel.x = vel.z = 0.0f;
-					(*ei)->physical_ifc()->set_velocity(vel);
-					}
-					else
-
-					{
-					//          if((*ei)->physical_ifc()->get_collided_last_frame())
-					//            (*ei)->physical_ifc()->set_standing(true);
-					}
-				*/
-
-			}
-
-		}
-	}
-
-
-	do_entity_to_entity_collisions(t);
-
-	// make sure characters don't tunnel through the world
-	do_entity_to_bsp_collisions(t);
-
-	//*
-	ei = active_entities.begin();
-	for ( ; ei!=ei_end; ++ei )
-	{
-		if((*ei) && (*ei)->get_colgeom() && (*ei)->get_colgeom()->get_type()==collision_geometry::CAPSULE && (*ei)->has_physical_ifc() && !(*ei)->playing_scene_anim() && (*ei)->physical_ifc()->is_enabled() && !(*ei)->physical_ifc()->is_suspended())
-			(*ei)->physical_ifc()->manage_standing((*ei)->physical_ifc()->is_effectively_standing());
-	}
-	//*/
-
-	proftimer_collide.stop();
+	PANIC;
 }
 
 
@@ -4679,6 +4636,11 @@ void validate_wds(void)
 	VALIDATE(world_dynamics_system, loading_from_scn_file, 0x1B0);
 
 
+	VALIDATE(world_dynamics_system, usercam_orient_mcs, 0x1C4);
+	VALIDATE(world_dynamics_system, usercam_move_mcs, 0x1C8);
+	VALIDATE(world_dynamics_system, usercam_controller, 0x1CC);
+	VALIDATE(world_dynamics_system, usercam, 0x1D0);
+
 	VALIDATE(world_dynamics_system, marky_cam, 0x1E4);
 	VALIDATE(world_dynamics_system, marky_cam_enabled, 0x1E8);
 
@@ -4765,4 +4727,6 @@ void patch_wds(void)
 
 	PATCH_PUSH_RET(0x00626550, world_dynamics_system::remove_entity_from_world_processing);
 	PATCH_PUSH_RET(0x0062A480, world_dynamics_system::create_preloaded_entity_or_subclass);
+
+	PATCH_PUSH_RET(0x00628080, world_dynamics_system::usercam_frame_advance);
 }

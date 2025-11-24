@@ -94,6 +94,7 @@ CLEAN :
 	-@erase "$(INTDIR)\maketree.obj"
 	-@erase "$(INTDIR)\material.obj"
 	-@erase "$(INTDIR)\matfac.obj"
+	-@erase "$(INTDIR)\mcs.obj"
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
@@ -253,7 +254,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\turret.obj"
+	"$(INTDIR)\turret.obj" \
+	"$(INTDIR)\mcs.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -325,6 +327,7 @@ CLEAN :
 	-@erase "$(INTDIR)\maketree.obj"
 	-@erase "$(INTDIR)\material.obj"
 	-@erase "$(INTDIR)\matfac.obj"
+	-@erase "$(INTDIR)\mcs.obj"
 	-@erase "$(INTDIR)\mustash.obj"
 	-@erase "$(INTDIR)\my_assertions.obj"
 	-@erase "$(INTDIR)\ngl_pc.obj"
@@ -485,7 +488,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\turret.obj"
+	"$(INTDIR)\turret.obj" \
+	"$(INTDIR)\mcs.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -879,6 +883,12 @@ SOURCE=.\SpideyTM\SRC\material.cpp
 SOURCE=.\SpideyTM\SRC\matfac.cpp
 
 "$(INTDIR)\matfac.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\mcs.cpp
+
+"$(INTDIR)\mcs.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

@@ -23,6 +23,8 @@ class crawl_marker;
 
 class controller
 {
+	friend void patch_controller(void);
+	friend void validate_controller(void);
 public:
   controller()
   {

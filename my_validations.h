@@ -53,6 +53,8 @@ void validate_marky_camera(void);
 void validate_entity_anim(void);
 void validate_entity_anim_tree(void);
 void validate_ent_time_limit(void);
+void validate_mcs(void);
+void validate_controller(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -101,4 +103,6 @@ void patch_camera(void);
 void patch_marky_camera(void);
 void patch_entity_anim(void);
 void patch_entity_anim_tree(void);
+void patch_mcs(void);
+void patch_controller(void);
 #endif

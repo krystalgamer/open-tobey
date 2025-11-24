@@ -169,6 +169,9 @@ extern "C" EXPORT int run_assertions(void)
 	validate_entity_anim();
 	validate_entity_anim_tree();
 	validate_ent_time_limit();
+	
+	validate_mcs();
+	validate_controller();
 
 	return FAIL_VALIDATION;
 }
@@ -281,6 +284,9 @@ void game_patches()
 	patch_marky_camera();
 	patch_entity_anim();
 	patch_entity_anim_tree();
+
+	patch_mcs();
+	patch_controller();
 }
 
 #pragma pack(push,1)

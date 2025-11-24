@@ -89,6 +89,7 @@ class ai_polypath;
 class camera;
 class replay_camera;
 
+class theta_and_psi_mcs;
 
 typedef std::map<stringx,entity*> entfile_map;
 
@@ -262,6 +263,7 @@ class world_dynamics_system
     EXPORT void remove_light_source( light_source* ls );
 
     EXPORT void add_marker( marker* e );
+    EXPORT void add_polytube( polytube* e );
     EXPORT void add_camera( camera* e );
     EXPORT void add_mic( mic* e );
 
@@ -424,7 +426,8 @@ class world_dynamics_system
     static bool wds_releasefile( unsigned char **buf );
 
 
-	std::vector<entity *> const & get_active_entities() const { return active_entities; }
+	// @Patch -for now
+	//std::vector<entity *> const & get_active_entities() const { return active_entities; }
 
     time_value_t get_cur_time_inc() const { return cur_time_inc; }
 
@@ -580,29 +583,26 @@ class world_dynamics_system
 
     // these pointers allow us to update the usercam when the game is paused.
     motion_control_system * usercam_orient_mcs;
-
-	// @Patch
-	/*
     theta_and_psi_mcs * usercam_move_mcs;
     controller * usercam_controller;
-	*/
     entity * usercam;
+
 	replay_camera* replay_cam_ptr;
 
     // these pointers allow us to update the scene_analyzer when the game is paused.
 	// @Patch - removed for now
-	/*
     motion_control_system * scene_analyzer_move_mcs;
     motion_control_system * scene_analyzer_orient_mcs;
+	/*
     controller * scene_analyzer_controller;
-	*/
     entity * scene_analyzer_cam;
+	*/
 
     // marky_camera - script language controlled game camera.
 
 
 	  // List of all active entities for frame_advance
-	  std::vector<entity *> active_entities;
+	  //std::vector<entity *> active_entities;
 
     // this is to provide a fake parent to colgeoms and visreps who are already in world space.
     entity * origin_entity;

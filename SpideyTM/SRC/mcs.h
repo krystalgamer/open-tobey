@@ -13,6 +13,8 @@ class entity_anim;
 
 class motion_control_system:public motion_object
   {
+	friend void patch_mcs(void);
+	friend void validate_mcs(void);
   public:
     motion_control_system();
     virtual ~motion_control_system();
