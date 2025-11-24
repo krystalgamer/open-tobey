@@ -335,6 +335,6 @@ void patch_bone(void)
 	PATCH_PUSH_RET(0x004E15C0, bone::update_abs_po_reverse);
 
 	PATCH_PUSH_RET(0x004E19B0, bone::get_abs_position);
-	PATCH_PUSH_RET(0x004E1730, bone::update_abs_po);
+	PATCH_PUSH_RET_POLY(0x004E1730, bone::update_abs_po, "?update_abs_po@bone@@QAEX_N@Z");
 	PATCH_PUSH_RET(0x004E1850, bone::get_abs_po);
 }

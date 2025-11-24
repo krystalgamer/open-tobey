@@ -499,7 +499,9 @@ bool world_dynamics_system::entity_is_preloaded(const stringx& entity_name)
 }
 
 
-void world_dynamics_system::remove_entity_from_world_processing( entity *e )
+// @Ok
+// @Matching
+INLINE void world_dynamics_system::remove_entity_from_world_processing( entity *e )
 {
 
 	e->remove_from_terrain();
@@ -2679,11 +2681,62 @@ beam* world_dynamics_system::add_beam( const entity_id& _id, unsigned int _flags
 }
 
 
+// @Ok
+// @Matching - with the inlined remove_entity_from_world_processing it's matching
+// also it references to get_entfiles in a different way, not sure way
+// the original adds to "this" while mine does a lea
 entity* world_dynamics_system::create_preloaded_entity_or_subclass( const stringx& entity_name,
 																   const stringx& entity_dir )
 {
-	PANIC;
-	return NULL;
+		entity* e;
+
+	filespec spec( entity_name );
+	spec.name.to_upper();
+
+	entfile_map::const_iterator fi = get_entfiles().find( spec.name );
+
+	po loc( po_identity_matrix );
+	loc.set_translate( vector3d(-9000,-9000,-9000) );
+
+	if ( fi == get_entfiles().end() )
+
+	{
+		// @Patch
+		/*
+		if ( entity_dir.size() > 0 )
+			g_file_finder->push_path_back( entity_dir );
+			*/
+			/*P
+			int alloc0 = memtrack::get_total_alloced();
+			int script_mem = membudget()->get_usage( membudget_t::SCRIPTS );
+
+			int anim_mem = membudget()->get_usage( membudget_t::ANIMS );
+			int sound_mem = membudget()->get_usage( membudget_t::SOUNDS );
+			g_memory_context.push_context( "ENTPRELOADS" );
+		P*/
+
+		e = g_entity_maker->create_entity_or_subclass( entity_name,  entity_id::make_unique_id(), loc, empty_string, 0 );
+		/*P
+		g_memory_context.pop_context();
+
+		script_mem = membudget()->get_usage( membudget_t::SCRIPTS ) - script_mem;
+
+		anim_mem = membudget()->get_usage( membudget_t::ANIMS ) - anim_mem;
+
+		sound_mem = membudget()->get_usage( membudget_t::SOUNDS ) - sound_mem;
+		int non_entity_mem = script_mem + anim_mem + sound_mem;
+		membudget()->use( membudget_t::ENTPRELOADS, memtrack::get_total_alloced()-alloc0-non_entity_mem );
+		P*/
+
+		remove_entity_from_world_processing( e );
+	}
+
+	else
+	{
+		e = (*fi).second;
+	}
+
+	return e;
 }
 
 float world_dynamics_system::get_surface_effect_duration( int surf_index )
@@ -4621,6 +4674,8 @@ void validate_wds(void)
 
 	VALIDATE(world_dynamics_system, the_terrain, 0x124);
 
+	VALIDATE(world_dynamics_system, entfiles, 0x164);
+
 	VALIDATE(world_dynamics_system, loading_from_scn_file, 0x1B0);
 
 
@@ -4706,5 +4761,8 @@ void patch_wds(void)
 	PATCH_PUSH_RET_POLY(0x0062ABF0, world_dynamics_system::add_marker, "?add_marker@world_dynamics_system@@QAEXPAVmarker@@@Z");
 
 	PATCH_PUSH_RET(0x0062AB60, world_dynamics_system::remove_light_source);
-	PATCH_PUSH_RET(0x0062A9F0, world_dynamics_system::add_light_source, "?add_light_source@world_dynamics_system@@QAEXPAVlight_source@@@Z");
+	PATCH_PUSH_RET_POLY(0x0062A9F0, world_dynamics_system::add_light_source, "?add_light_source@world_dynamics_system@@QAEXPAVlight_source@@@Z");
+
+	PATCH_PUSH_RET(0x00626550, world_dynamics_system::remove_entity_from_world_processing);
+	PATCH_PUSH_RET(0x0062A480, world_dynamics_system::create_preloaded_entity_or_subclass);
 }

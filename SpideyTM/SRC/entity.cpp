@@ -933,6 +933,11 @@ void entity::remove_from_regions()
 
 void entity::remove_from_terrain()
 {
+	typedef void (__fastcall *func_ptr)(entity*);
+	func_ptr func = (func_ptr)0x004EB320;
+
+	func(this);
+	return;
 
 	/*
   remove_from_regions();

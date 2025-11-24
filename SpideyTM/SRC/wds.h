@@ -428,6 +428,8 @@ class world_dynamics_system
 
     time_value_t get_cur_time_inc() const { return cur_time_inc; }
 
+	// @Ok
+	// @Matching
     entfile_map const & get_entfiles() const { return entfiles; }
 
     void insert_entfile( entfile_map::value_type v ) { entfiles.insert( v ); }
@@ -536,11 +538,13 @@ class world_dynamics_system
 
     //kellyslater_controller * ks_controller[MAX_PLAYERS];
     // file instancing
-    entfile_map entfiles;
 
     // scripting
     script_manager scriptman;
     script_object* cur_global_so;
+
+	// @Patch - moved around
+    entfile_map entfiles;
 
     script_object::instance* cur_global_so_inst;
 
