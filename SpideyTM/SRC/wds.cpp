@@ -2725,6 +2725,8 @@ void world_dynamics_system::load_scene_anim( const stringx &filename )
 }
 
 
+// @Ok
+// @AlmostMatching - stl goofyness
 void world_dynamics_system::add_light_source( light_source* ls )
 {
 	// @Patch
@@ -4704,4 +4706,5 @@ void patch_wds(void)
 	PATCH_PUSH_RET_POLY(0x0062ABF0, world_dynamics_system::add_marker, "?add_marker@world_dynamics_system@@QAEXPAVmarker@@@Z");
 
 	PATCH_PUSH_RET(0x0062AB60, world_dynamics_system::remove_light_source);
+	PATCH_PUSH_RET(0x0062A9F0, world_dynamics_system::add_light_source, "?add_light_source@world_dynamics_system@@QAEXPAVlight_source@@@Z");
 }
