@@ -522,10 +522,11 @@ entity* world_dynamics_system::add_box_trigger( entity_id id,
 	return NULL;
 }
 
+// @Ok
+// @Matching
 void world_dynamics_system::add_box_trigger( entity* e )
 {
-	g_entity_maker->create_entity( e );
-
+	GET_ENTITY_MAKER->create_entity( e );
 }
 
 
@@ -4729,4 +4730,6 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x0062A480, world_dynamics_system::create_preloaded_entity_or_subclass);
 
 	PATCH_PUSH_RET(0x00628080, world_dynamics_system::usercam_frame_advance);
+
+	PATCH_PUSH_RET_POLY(0x006267B0, world_dynamics_system::add_box_trigger, "?add_box_trigger@world_dynamics_system@@QAEXPAVentity@@@Z");
 }

@@ -325,7 +325,7 @@ class world_dynamics_system
                              //const list<region_node*>* forced_regions,
                              const region_node_list* forced_regions,
                              unsigned int scene_flags = entity::ACTIVE );
-    void add_box_trigger( entity* e );
+    EXPORT void add_box_trigger( entity* e );
 
     void add_marker( entity_id& _id );
 
