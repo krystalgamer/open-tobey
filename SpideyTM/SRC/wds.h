@@ -256,23 +256,23 @@ class world_dynamics_system
     bool remove_item( unsigned int i );
 
     // remove and delete entity if present; note that some flavors are disallowed
-    void destroy_entity( entity* e );
+    EXPORT void destroy_entity( entity* e );
 
-    void add_light_source( light_source* ls );
-    void remove_light_source( light_source* ls );
+    EXPORT void add_light_source( light_source* ls );
+    EXPORT void remove_light_source( light_source* ls );
 
-    void add_marker( marker* e );
-    void add_camera( camera* e );
-    void add_mic( mic* e );
+    EXPORT void add_marker( marker* e );
+    EXPORT void add_camera( camera* e );
+    EXPORT void add_mic( mic* e );
 
-    void add_beam( beam* e );
+    EXPORT void add_beam( beam* e );
 
-    void add_particle_generator( particle_generator* pg );
-    void add_lensflare( lensflare* e );
+    EXPORT void add_particle_generator( particle_generator* pg );
+    EXPORT void add_lensflare( lensflare* e );
 
-    void add_neolight( neolight* nl );
+    EXPORT void add_neolight( neolight* nl );
 
-    void add_item( item* it );
+    EXPORT void add_item( item* it );
 
     EXPORT void add_turret( turret* cg );
 

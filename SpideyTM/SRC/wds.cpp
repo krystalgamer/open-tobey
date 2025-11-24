@@ -2751,6 +2751,8 @@ void world_dynamics_system::add_marker( marker* e )
 	GET_ENTITY_MAKER->create_entity( e );
 }
 
+// @Ok
+// @Matching
 void world_dynamics_system::add_beam( beam* e )
 {
 	GET_ENTITY_MAKER->create_entity( e );
@@ -4679,4 +4681,5 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x0062ACD0, world_dynamics_system::add_neolight);
 	PATCH_PUSH_RET_POLY(0x0062ACB0, world_dynamics_system::add_lensflare, "?add_lensflare@world_dynamics_system@@QAEXPAVlensflare@@@Z");
 	PATCH_PUSH_RET_POLY(0x0062AC90, world_dynamics_system::add_particle_generator, "?add_particle_generator@world_dynamics_system@@QAEXPAVparticle_generator@@@Z");
+	PATCH_PUSH_RET_POLY(0x0062AC10, world_dynamics_system::add_beam, "?add_beam@world_dynamics_system@@QAEXPAVbeam@@@Z");
 }
