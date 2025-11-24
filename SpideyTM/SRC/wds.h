@@ -61,6 +61,7 @@ class mic;
 class beam;
 class game_camera;
 class marky_camera;
+class neolight;
 class turret;
 class variant_descriptor;
 //class dread_net;
@@ -269,9 +270,11 @@ class world_dynamics_system
     void add_particle_generator( particle_generator* pg );
     void add_lensflare( lensflare* e );
 
+    void add_neolight( neolight* nl );
+
     void add_item( item* it );
 
-    void add_turret( turret* cg );
+    EXPORT void add_turret( turret* cg );
 
     // add given entity to the list of entities that are guaranteed to be active
     // independent of visibility, region status, etc.

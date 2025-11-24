@@ -1377,6 +1377,10 @@ SOURCE=.\my_validations.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\neolight.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\ngl.h
 # End Source File
 # Begin Source File
