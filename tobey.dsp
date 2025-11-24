@@ -1045,6 +1045,10 @@ SOURCE=.\SpideyTM\SRC\conglom.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\console.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\constants.h
 # End Source File
 # Begin Source File

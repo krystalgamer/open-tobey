@@ -3458,6 +3458,7 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, set_radius, 25);
 	VALIDATE_VTABLE(entity, get_radius, 26);
 	VALIDATE_VTABLE(entity, is_time_limited, 27);
+	// @Ok
 	VALIDATE_VTABLE(entity, set_time_limited, 28);
 	VALIDATE_VTABLE(entity, is_active, 29);
 	VALIDATE_VTABLE(entity, set_active, 30);
@@ -3559,6 +3560,7 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, is_a_scanner, 124);
 	VALIDATE_VTABLE(entity, is_a_sky, 125);
 	VALIDATE_VTABLE(entity, advance_age, 126);
+	// @Ok
 	VALIDATE_VTABLE(entity, frame_done, 127);
 	VALIDATE_VTABLE(entity, add_position_increment, 128);
 	VALIDATE_VTABLE(entity, terrain_position, 129);

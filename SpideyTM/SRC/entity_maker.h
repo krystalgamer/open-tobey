@@ -76,8 +76,7 @@ public:
                    po const & loc,
                    const stringx& scene_root,
                    unsigned int scene_flags = entity::ACTIVE,
-				   // @Patch - void*
-                   const void *forced_regions = NULL );
+                   const region_node_list *forced_regions = NULL );
 
 
   entity* create_entity( chunk_file& fs,
@@ -127,7 +126,10 @@ public:
 };
 
 
+// @TODO
 extern entity_maker *g_entity_maker;
+//#define GET_ENTITY_MAKER (g_entity_maker)
+#define GET_ENTITY_MAKER (*reinterpret_cast<entity_maker**>(0x00924DF4))
 
 
 #endif // ENTITY_MAKER_H

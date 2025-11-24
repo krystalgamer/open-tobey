@@ -2792,6 +2792,8 @@ void world_dynamics_system::add_turret( turret* cg )
 }
 #endif
 
+// @Ok
+// @NotMatching - uses 4 more bytes of stack and the alloc is different
 // This creates an instance of the named effect (assumed to be an .ent file
 // located in the fx\ directory) and adds it to the list of effects to be
 // destroyed after expiration.
@@ -2799,8 +2801,22 @@ entity* world_dynamics_system::add_time_limited_effect( const char* name,
 													   const po& loc,
 													   time_value_t duration )
 {
-	PANIC;
-	return NULL;
+	entity* e = GET_ENTITY_MAKER->create_entity_or_subclass(
+			name,
+			entity_id::make_unique_id(),
+			loc,
+			"fx\\",
+			ACTIVE_FLAG|NONSTATIC_FLAG );
+
+	assert(e != NULL);
+
+
+	time_limited_entities.push_back( ent_time_limit(e,duration) );
+	e->set_time_limited(true);
+
+	// this needs to be called to set up last-frame info
+	e->frame_done();
+	return e;
 }
 
 
@@ -4588,6 +4604,8 @@ void validate_wds(void)
 	VALIDATE(world_dynamics_system, fog_max , 0x43C);
 
 	VALIDATE(world_dynamics_system, time_dilation, 0x440);
+	
+	VALIDATE_VAL(0x81, ACTIVE_FLAG|NONSTATIC_FLAG);
 }
 
 void validate_entity_preload_pair(void)
@@ -4642,4 +4660,5 @@ void patch_wds(void)
 	PATCH_PUSH_RET(0x0062B420, world_dynamics_system::kill_anim);
 	PATCH_PUSH_RET(0x0062B2B0, world_dynamics_system::add_anim);
 	PATCH_PUSH_RET(0x0062B120, world_dynamics_system::make_time_limited);
+	PATCH_PUSH_RET(0x0062AF10, world_dynamics_system::add_time_limited_effect);
 }
