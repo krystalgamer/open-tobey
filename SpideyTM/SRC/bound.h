@@ -10,6 +10,8 @@ public:
   vector3d vmax;
 
 
+  // @Ok
+  // @Matching
   EXPORT bounding_box() 
     : vmin(FLT_MAX,FLT_MAX,FLT_MAX), vmax(-FLT_MAX,-FLT_MAX,-FLT_MAX) 
   {}
