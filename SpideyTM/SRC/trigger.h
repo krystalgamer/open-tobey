@@ -46,6 +46,8 @@ public:
   EXPORT void set_use_any_char(bool u) { use_any_char = u; }
 
 
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_a_trigger() const { return(true); }
 
 
