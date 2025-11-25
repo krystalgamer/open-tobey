@@ -765,6 +765,10 @@ class world_dynamics_system
 ////////////////////////////////////////////////////////////////////////////////
 extern world_dynamics_system * g_world_ptr;
 
+// @TODO - fix when all cases are replaced
+//#define GET_WORLD_PTR (g_world_ptr)
+#define GET_WORLD_PTR (*reinterpret_cast<world_dynamics_system**>(0x00929D0C))
+
 void build_region_list_radius(std::vector<region_node*> *regs, region_node* rn, const vector3d& pos, rational_t rad, bool only_active_portals = true, std::vector<region_node*> *append = NULL);
 void build_region_list(std::vector<region_node*> *regs, region_node *r, const vector3d& o, const vector3d& d, std::vector<region_node*> *append = NULL);
 

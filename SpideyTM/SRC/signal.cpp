@@ -4,6 +4,8 @@
 #include "oserrmsg.h"
 #include "vm_thread.h"
 
+#include "wds.h"
+
 
 unsigned int signal_callback::id_counter = 0;
 
@@ -38,7 +40,7 @@ script_callback::~script_callback()
 	// fix up dangling pointers to me, change this code with care, it fixed a bug once.
 
 	// @Patch - add the g_world_ptr check
-	if (GET_G_WORLD_PTR)
+	if (GET_WORLD_PTR)
 	{
 		inst->clear_callback_references(this);
 	}

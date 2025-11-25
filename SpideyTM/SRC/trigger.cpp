@@ -206,14 +206,20 @@ void trigger::update()
 }
 
 
+// @Ok
+// @NotMatching - slightly different different inline
 void trigger::force_region( stringx id )
 {
 	region *r = NULL;
-	region_node *rn = g_world_ptr->get_the_terrain().find_region(id);
+	region_node *rn = GET_WORLD_PTR->get_the_terrain().find_region(id);
 	if (rn)
+	{
 		r = rn->get_data();
+	}
 	if (!r)
+	{
 		error( id + ": unknown region \"" + id + "\" in trigger parameters");
+	}
 
   add_region( r );
 	static_regions = true;
@@ -221,7 +227,7 @@ void trigger::force_region( stringx id )
 
 // @Ok
 // @Matching
-bool trigger::add_region( region* r )
+INLINE bool trigger::add_region( region* r )
 {
   if ( r && in_regions.insert(r).second )
   {
@@ -733,6 +739,7 @@ void validate_trigger(void)
 {
 	VALIDATE(trigger, in_regions, 0x24);
 
+	VALIDATE(trigger, static_regions, 0x30);
 	VALIDATE(trigger, active, 0x31);
 	VALIDATE(trigger, occupied, 0x32);
 
@@ -757,4 +764,5 @@ void patch_trigger(void)
 
 	PATCH_PUSH_RET(     0x0061A660, trigger::set_active);
 	PATCH_PUSH_RET(     0x0061A590, trigger::add_region);
+	PATCH_PUSH_RET(     0x0061A3B0, trigger::force_region);
 }

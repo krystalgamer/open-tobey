@@ -212,6 +212,8 @@ public:
 
   void optimize(); // optimizes visreps of all regions (only call after building colgeoms and such)
 
+  // @Ok
+  // @NotTested
   region_node* find_region( const stringx& name )
   {
     region_iterator rgi = regions_graph.find( name );

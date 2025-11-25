@@ -567,8 +567,6 @@ class stringx;
 #define sqrt(x) sqrtf(x)
 */
 
-#define GET_G_WORLD_PTR (*reinterpret_cast<void**>(0x00929D0C))
-
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
 #define PANIC_AT TOSTRING(__FILE__) ":" TOSTRING(__LINE__)
