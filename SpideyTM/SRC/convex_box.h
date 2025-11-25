@@ -11,13 +11,13 @@ public:
   vector4d planes[6];
   bounding_box bbox;
 
-  convex_box( ) { PANIC; }
-  convex_box( const convex_box& ) { PANIC; }
-  ~convex_box( ) { }
+  EXPORT convex_box( ) { }
+  EXPORT convex_box( const convex_box& );
+  EXPORT ~convex_box( ) { }
 
-  friend void serial_in( chunk_file& fs, convex_box* box );
+  EXPORT friend void serial_in( chunk_file& fs, convex_box* box );
 
-  inline bool point_inside(const vector3d &pt, const vector3d &box_pos) const
+  EXPORT inline bool point_inside(const vector3d &pt, const vector3d &box_pos) const
   {
     vector3d delta = pt - box_pos;
 

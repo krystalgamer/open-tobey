@@ -9,6 +9,8 @@
 
 class box_trigger_interface : public entity_interface
 {
+	friend void validate_box_trigger_interface(void);
+	friend void patch_box_trigger_interface(void);
 protected:
   convex_box box;
 

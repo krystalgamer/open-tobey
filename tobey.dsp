@@ -249,6 +249,10 @@ SOURCE=.\SpideyTM\SRC\controller.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\convex_box.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\damage_interface.cpp
 # End Source File
 # Begin Source File
