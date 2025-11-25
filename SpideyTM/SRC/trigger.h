@@ -47,6 +47,8 @@ public:
   EXPORT virtual bool is_a_trigger() const { return(true); }
 
 
+  // @Ok
+  // @Matching
   EXPORT virtual const vector3d& get_abs_position() const { return ZEROVEC; }
 
   EXPORT bool is_active() const { return active; }
