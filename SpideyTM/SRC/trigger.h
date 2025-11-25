@@ -34,6 +34,8 @@ public:
 	EXPORT virtual bool triggered(entity *) { return false; }
 
 	EXPORT void update();
+	// @Ok
+	// @Matching
 	EXPORT virtual void update_region() {}
 
 	EXPORT void force_region( stringx id );
