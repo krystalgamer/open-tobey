@@ -404,6 +404,8 @@ class world_dynamics_system
 
     void spawn_misc_preload_scripts();
 
+	// @Ok
+	// @Matching
     terrain& get_the_terrain() { return *the_terrain; }
 
     // teleport hero to next malor marker (if any)
