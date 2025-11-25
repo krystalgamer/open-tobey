@@ -219,6 +219,8 @@ void trigger::force_region( stringx id )
 	static_regions = true;
 }
 
+// @Ok
+// @Matching
 bool trigger::add_region( region* r )
 {
   if ( r && in_regions.insert(r).second )
@@ -729,6 +731,8 @@ void entity_trigger::_update_regions()
 
 void validate_trigger(void)
 {
+	VALIDATE(trigger, in_regions, 0x24);
+
 	VALIDATE(trigger, active, 0x31);
 	VALIDATE(trigger, occupied, 0x32);
 
@@ -752,4 +756,5 @@ void patch_trigger(void)
 	PATCH_PUSH_RET_POLY(0x00619690, trigger::construct_signal_list, "?construct_signal_list@trigger@@EAEPAV?$fast_vector@PAVsignal@@@@XZ");
 
 	PATCH_PUSH_RET(     0x0061A660, trigger::set_active);
+	PATCH_PUSH_RET(     0x0061A590, trigger::add_region);
 }

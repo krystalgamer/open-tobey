@@ -704,6 +704,14 @@ void region::remove( light_source* e )
 
 void region::add( trigger* e )
 {
+	// @TODO
+	typedef void (__fastcall *func_ptr)(region*, int, trigger*);
+	func_ptr func = (func_ptr)0x0050F2D0;
+
+	func(this, 0, e);
+	return;
+	PANIC;
+
   trigger_list::iterator ei_begin=triggers.begin(), ei_end=triggers.end();
   trigger_list::iterator ei = std::find( ei_begin, ei_end, e );
   if ( ei == ei_end )
