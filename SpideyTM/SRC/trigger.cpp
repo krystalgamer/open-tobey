@@ -727,6 +727,7 @@ void entity_trigger::_update_regions()
 
 void validate_trigger(void)
 {
+	VALIDATE_VTABLE(trigger, read, 7);
 	VALIDATE_VTABLE(trigger, triggered, 8);
 	VALIDATE_VTABLE(trigger, update_region, 9);
 	VALIDATE_VTABLE(trigger, get_abs_position, 10);
@@ -740,4 +741,5 @@ void patch_trigger(void)
 	PATCH_PUSH_RET_POLY(0x00619E30, trigger::triggered, "?triggered@trigger@@UAE_NPAVentity@@@Z");
 	PATCH_PUSH_RET_POLY(0x00619E50, trigger::update_region, "?update_region@trigger@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x00619670, trigger::get_abs_position, "?get_abs_position@trigger@@UBEABVvector3d@@XZ");
+	PATCH_PUSH_RET_POLY(0x00619E10, trigger::read, "?read@trigger@@UAEXAAVchunk_file@@@Z");
 }

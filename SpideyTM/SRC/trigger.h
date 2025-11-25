@@ -27,6 +27,8 @@ public:
 
 	EXPORT trigger( const stringx& _id );
 
+	// @Ok
+	// @Matching
   EXPORT virtual void read(chunk_file &fs) {}
 
   // @Ok
