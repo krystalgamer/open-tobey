@@ -583,6 +583,8 @@ public:
   T x,y,z,w;
 
   // constructors
+  // @Ok
+  // @Matching
   // @Patch - remove default
   inline vector4d() /* : x(0.0f), y(0.0f), z(0.0f), w(1.0f) */ {} // uninitialized default ctor
 
