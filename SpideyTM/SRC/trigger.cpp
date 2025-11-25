@@ -231,6 +231,8 @@ bool trigger::add_region( region* r )
 
 
 
+// @Ok
+// @Matching
 void trigger::set_active( bool torf )
 {
 
@@ -727,10 +729,15 @@ void entity_trigger::_update_regions()
 
 void validate_trigger(void)
 {
+	VALIDATE(trigger, active, 0x31);
+	VALIDATE(trigger, occupied, 0x32);
+
 	VALIDATE_VTABLE(trigger, read, 7);
 	VALIDATE_VTABLE(trigger, triggered, 8);
 	VALIDATE_VTABLE(trigger, update_region, 9);
 	VALIDATE_VTABLE(trigger, get_abs_position, 10);
+
+	VALIDATE_VAL(trigger::signal_id_t::LEAVE, 1);
 }
 
 #include "my_patch.h"
@@ -743,4 +750,6 @@ void patch_trigger(void)
 	PATCH_PUSH_RET_POLY(0x00619670, trigger::get_abs_position, "?get_abs_position@trigger@@UBEABVvector3d@@XZ");
 	PATCH_PUSH_RET_POLY(0x00619E10, trigger::read, "?read@trigger@@UAEXAAVchunk_file@@@Z");
 	PATCH_PUSH_RET_POLY(0x00619690, trigger::construct_signal_list, "?construct_signal_list@trigger@@EAEPAV?$fast_vector@PAVsignal@@@@XZ");
+
+	PATCH_PUSH_RET(     0x0061A660, trigger::set_active);
 }
