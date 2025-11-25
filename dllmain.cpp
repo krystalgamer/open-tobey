@@ -177,6 +177,8 @@ extern "C" EXPORT int run_assertions(void)
 	validate_convex_box();
 	validate_bounding_box();
 
+	validate_trigger();
+
 	return FAIL_VALIDATION;
 }
 
@@ -295,6 +297,7 @@ void game_patches()
 	patch_box_trigger_interface();
 	patch_convex_box();
 	patch_bounding_box();
+	patch_trigger();
 }
 
 #pragma pack(push,1)

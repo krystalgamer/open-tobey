@@ -1,14 +1,14 @@
 #include "global.h"
 #include "box_trigger_interface.h"
 
-#include "my_assertions.h"
-
 // @Ok
 // @Matching
 void box_trigger_interface::copy(box_trigger_interface* a2)
 {
 	this->box = a2->box;
 }
+
+#include "my_assertions.h"
 
 void validate_box_trigger_interface(void)
 {

@@ -35,7 +35,7 @@ public:
   // list of normals parallels pmesh faces
   vector3d get_normal( bool front ) const      { return front ? normal : -normal; }
   float get_non_planar_fudge_factor() const    { return nonplanarfudgefactor; }
-  bool touches_sphere( const sphere& s ) const;
+  bool touches_sphere( const sphere& s ) const { PANIC; return false; }
   bool touches_segment( const vector3d& p1, const vector3d& p2 ) const;
 
   bool is_active() const                       { return !inactive; }

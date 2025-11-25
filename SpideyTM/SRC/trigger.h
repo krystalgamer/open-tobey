@@ -4,6 +4,7 @@
 
 #include "signals.h"
 #include "region_graph.h"
+#include "algebra.h"
 
 class entity;
 class sector;
@@ -17,36 +18,38 @@ typedef std::set<region *> trig_region_pset;
 ///////////// trigger base class /////////////
 class trigger : public signaller
 {
+	friend void validate_trigger(void);
+	friend void patch_trigger(void);
 
 	friend class trigger_manager;
 
 public:
 
-	trigger( const stringx& _id );
+	EXPORT trigger( const stringx& _id );
 
-  virtual void read(chunk_file &fs) {}
+  EXPORT virtual void read(chunk_file &fs) {}
 
-	virtual bool triggered(entity *) { return false; }
+	EXPORT virtual bool triggered(entity *) { return false; }
 
-	void update();
-	virtual void update_region() {}
+	EXPORT void update();
+	EXPORT virtual void update_region() {}
 
-	void force_region( stringx id );
-	bool add_region( region* r );
+	EXPORT void force_region( stringx id );
+	EXPORT bool add_region( region* r );
 
-  void set_use_any_char(bool u) { use_any_char = u; }
-
-
-  virtual bool is_a_trigger() const { return(true); }
+  EXPORT void set_use_any_char(bool u) { use_any_char = u; }
 
 
-  virtual const vector3d& get_abs_position() const { return ZEROVEC; }
+  EXPORT virtual bool is_a_trigger() const { return(true); }
 
-  bool is_active() const { return active; }
 
-  void set_active( bool torf );
+  EXPORT virtual const vector3d& get_abs_position() const { return ZEROVEC; }
 
-  entity *get_triggered_ent() const { return(whodunnit); }
+  EXPORT bool is_active() const { return active; }
+
+  EXPORT void set_active( bool torf );
+
+  EXPORT entity *get_triggered_ent() const { return(whodunnit); }
 
 	//// Signals ////
   enum signal_id_t
@@ -59,10 +62,10 @@ public:
   };
 
 
-  static void register_signals();
+  EXPORT static void register_signals();
 
 private:
-  virtual signal_list* construct_signal_list() { return NEW signal_list( N_SIGNALS, (signal*)NULL ); }
+  EXPORT virtual signal_list* construct_signal_list() { return NEW signal_list( N_SIGNALS, (signal*)NULL ); }
 
 
 	//// end of signals ////

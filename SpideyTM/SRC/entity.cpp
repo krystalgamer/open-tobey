@@ -3894,6 +3894,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET(0x004EC2F0, entity::copy_flags_from_flags);
 	PATCH_PUSH_RET(0x004EC250, entity::copy_flags);
+
+	PATCH_PUSH_RET(0x004E2F50, entity::create_box_trigger_ifc);
 }
 
 void patch_entity_id(void)
