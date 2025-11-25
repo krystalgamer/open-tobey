@@ -30,6 +30,7 @@
 #include "damage_interface.h"
 #include "sound_interface.h"
 #include "time_interface.h"
+#include "box_trigger_interface.h"
 
 
 //ENTITY_INTERFACE_CPP(entity, ai);
@@ -55,9 +56,8 @@ ENTITY_INTERFACE_CPP(entity, sound);
 #define MACRO_INLINE
 
 ENTITY_INTERFACE_CPP(entity, time);
-#ifdef ECULL
-//ENTITY_INTERFACE_CPP(entity, box_trigger);
-#endif
+// @Patch - removed ecull
+ENTITY_INTERFACE_CPP(entity, box_trigger);
 
 
 // @TODO - REMOVE
@@ -3426,6 +3426,8 @@ void validate_entity(void)
 	VALIDATE(entity, my_ai_interface, 0xB0);
 	VALIDATE(entity, my_damage_interface, 0xB8);
 	VALIDATE(entity, my_sound_interface, 0xC4);
+
+	VALIDATE(entity, my_box_trigger_interface, 0xCC);
 
 	VALIDATE(entity, frame_time_info, 0xD0);
 

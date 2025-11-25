@@ -217,6 +217,10 @@ SOURCE=.\SpideyTM\SRC\bone.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\box_trigger_interface.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\camera.cpp
 # End Source File
 # Begin Source File

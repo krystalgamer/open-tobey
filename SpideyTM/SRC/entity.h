@@ -704,7 +704,6 @@ protected:
    ENTITY_INTERFACE(soft_attrib)
 
 #ifdef ECULL
-   ENTITY_INTERFACE(box_trigger)
 #endif
    */
 
@@ -1963,14 +1962,16 @@ protected:
    // @Patch - undo BIGCULL for damage
 	ENTITY_INTERFACE(damage);
 
-	PADDING(0xC4-0xB8-4);
+   // @Patch - wrong palce but it fits
+   ENTITY_INTERFACE(skeleton);
+	PADDING(0xC4-0xB8-8);
 
   // @Patch - moved around
    ENTITY_INTERFACE(sound);
 
    // @Patch - wrong palce but it fits
    ENTITY_INTERFACE(physical);
-   ENTITY_INTERFACE(skeleton);
+   ENTITY_INTERFACE(box_trigger)
 
   // @Patch - moved around
 public:

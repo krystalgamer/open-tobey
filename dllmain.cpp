@@ -173,6 +173,8 @@ extern "C" EXPORT int run_assertions(void)
 	validate_mcs();
 	validate_controller();
 
+	validate_box_trigger_interface();
+
 	return FAIL_VALIDATION;
 }
 
@@ -287,6 +289,8 @@ void game_patches()
 
 	patch_mcs();
 	patch_controller();
+
+	patch_box_trigger_interface();
 }
 
 #pragma pack(push,1)

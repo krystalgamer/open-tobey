@@ -25,10 +25,6 @@ NULL=
 NULL=nul
 !ENDIF 
 
-CPP=cl.exe
-MTL=midl.exe
-RSC=rc.exe
-
 !IF  "$(CFG)" == "tobey - Win32 Release"
 
 OUTDIR=.\Release
@@ -51,6 +47,7 @@ CLEAN :
 	-@erase "$(INTDIR)\beam.obj"
 	-@erase "$(INTDIR)\billboard.obj"
 	-@erase "$(INTDIR)\bone.obj"
+	-@erase "$(INTDIR)\box_trigger_interface.obj"
 	-@erase "$(INTDIR)\camera.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\colgeom.obj"
@@ -149,8 +146,42 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
+CPP=cl.exe
 CPP_PROJ=/nologo /MT /W3 /Zi /O2 /I "SpideyTM\SRC\sgistl" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /D "BUILD_BOOTABLE" /D "REGIONCULL" /D "TARGET_PC" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+
+.c{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.c{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+MTL=midl.exe
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
+RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
 BSC32_SBRS= \
@@ -216,6 +247,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\link_interface.obj" \
 	"$(INTDIR)\material.obj" \
 	"$(INTDIR)\matfac.obj" \
+	"$(INTDIR)\mcs.obj" \
 	"$(INTDIR)\mustash.obj" \
 	"$(INTDIR)\my_assertions.obj" \
 	"$(INTDIR)\ngl_pc.obj" \
@@ -243,6 +275,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\terrain.obj" \
 	"$(INTDIR)\textfile.obj" \
 	"$(INTDIR)\time_interface.obj" \
+	"$(INTDIR)\turret.obj" \
 	"$(INTDIR)\visrep.obj" \
 	"$(INTDIR)\vm_executable.obj" \
 	"$(INTDIR)\vm_stack.obj" \
@@ -254,8 +287,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\turret.obj" \
-	"$(INTDIR)\mcs.obj"
+	"$(INTDIR)\box_trigger_interface.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -284,6 +316,7 @@ CLEAN :
 	-@erase "$(INTDIR)\beam.obj"
 	-@erase "$(INTDIR)\billboard.obj"
 	-@erase "$(INTDIR)\bone.obj"
+	-@erase "$(INTDIR)\box_trigger_interface.obj"
 	-@erase "$(INTDIR)\camera.obj"
 	-@erase "$(INTDIR)\chunkfile.obj"
 	-@erase "$(INTDIR)\colgeom.obj"
@@ -383,8 +416,42 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
+CPP=cl.exe
 CPP_PROJ=/nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "TOBEY_EXPORTS" /Fp"$(INTDIR)\tobey.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+
+.c{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.c{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+MTL=midl.exe
 MTL_PROJ=/nologo /D "_DEBUG" /mktyplib203 /win32 
+RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\tobey.bsc" 
 BSC32_SBRS= \
@@ -450,6 +517,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\link_interface.obj" \
 	"$(INTDIR)\material.obj" \
 	"$(INTDIR)\matfac.obj" \
+	"$(INTDIR)\mcs.obj" \
 	"$(INTDIR)\mustash.obj" \
 	"$(INTDIR)\my_assertions.obj" \
 	"$(INTDIR)\ngl_pc.obj" \
@@ -477,6 +545,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\terrain.obj" \
 	"$(INTDIR)\textfile.obj" \
 	"$(INTDIR)\time_interface.obj" \
+	"$(INTDIR)\turret.obj" \
 	"$(INTDIR)\visrep.obj" \
 	"$(INTDIR)\vm_executable.obj" \
 	"$(INTDIR)\vm_stack.obj" \
@@ -488,8 +557,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\turret.obj" \
-	"$(INTDIR)\mcs.obj"
+	"$(INTDIR)\box_trigger_interface.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -497,36 +565,6 @@ LINK32_OBJS= \
 <<
 
 !ENDIF 
-
-.c{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.c{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
 
 
 !IF "$(NO_EXTERNAL_DEPS)" != "1"
@@ -698,6 +736,12 @@ SOURCE=.\SpideyTM\SRC\billboard.cpp
 SOURCE=.\SpideyTM\SRC\bone.cpp
 
 "$(INTDIR)\bone.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\box_trigger_interface.cpp
+
+"$(INTDIR)\box_trigger_interface.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

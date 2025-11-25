@@ -55,6 +55,7 @@ void validate_entity_anim_tree(void);
 void validate_ent_time_limit(void);
 void validate_mcs(void);
 void validate_controller(void);
+void validate_box_trigger_interface(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -105,4 +106,5 @@ void patch_entity_anim(void);
 void patch_entity_anim_tree(void);
 void patch_mcs(void);
 void patch_controller(void);
+void patch_box_trigger_interface(void);
 #endif

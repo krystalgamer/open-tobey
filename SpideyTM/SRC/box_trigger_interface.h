@@ -14,11 +14,11 @@ protected:
 
 public:
 
-  box_trigger_interface( entity* e ) : entity_interface( e ) { }
-  virtual ~box_trigger_interface( void ) { }
+  EXPORT box_trigger_interface( entity* e ) : entity_interface( e ) { }
+  EXPORT virtual ~box_trigger_interface( void ) { }
 
-  void set_box_info( const convex_box& _box ) { box = _box; }
-  convex_box& get_box_info( void ) { return box; }
+  EXPORT void set_box_info( const convex_box& _box ) { box = _box; }
+  EXPORT convex_box& get_box_info( void ) { return box; }
 };
 
 #endif
