@@ -19,6 +19,9 @@ public:
   EXPORT box_trigger_interface( entity* e ) : entity_interface( e ) { }
   EXPORT virtual ~box_trigger_interface( void ) { }
 
+  // @Patch - added
+  EXPORT virtual void copy(box_trigger_interface*);
+
   EXPORT void set_box_info( const convex_box& _box ) { box = _box; }
   EXPORT convex_box& get_box_info( void ) { return box; }
 };
