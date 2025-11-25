@@ -11,7 +11,10 @@ public:
   vector4d planes[6];
   bounding_box bbox;
 
+  // @Ok
+  // @Matching
   EXPORT convex_box( ) { }
+
   EXPORT convex_box( const convex_box& );
   EXPORT ~convex_box( ) { }
 
