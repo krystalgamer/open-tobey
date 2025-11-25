@@ -29,6 +29,8 @@ public:
 
   EXPORT virtual void read(chunk_file &fs) {}
 
+  // @Ok
+  // @Matching
 	EXPORT virtual bool triggered(entity *) { return false; }
 
 	EXPORT void update();

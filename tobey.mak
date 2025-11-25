@@ -127,6 +127,7 @@ CLEAN :
 	-@erase "$(INTDIR)\textfile.obj"
 	-@erase "$(INTDIR)\time_interface.obj"
 	-@erase "$(INTDIR)\trees.obj"
+	-@erase "$(INTDIR)\trigger.obj"
 	-@erase "$(INTDIR)\turret.obj"
 	-@erase "$(INTDIR)\uncompr.obj"
 	-@erase "$(INTDIR)\vc60.idb"
@@ -259,7 +260,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
 	"$(INTDIR)\box_trigger_interface.obj" \
-	"$(INTDIR)\convex_box.obj"
+	"$(INTDIR)\convex_box.obj" \
+	"$(INTDIR)\trigger.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -364,6 +366,7 @@ CLEAN :
 	-@erase "$(INTDIR)\textfile.obj"
 	-@erase "$(INTDIR)\time_interface.obj"
 	-@erase "$(INTDIR)\trees.obj"
+	-@erase "$(INTDIR)\trigger.obj"
 	-@erase "$(INTDIR)\turret.obj"
 	-@erase "$(INTDIR)\uncompr.obj"
 	-@erase "$(INTDIR)\vc60.idb"
@@ -497,7 +500,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
 	"$(INTDIR)\box_trigger_interface.obj" \
-	"$(INTDIR)\convex_box.obj"
+	"$(INTDIR)\convex_box.obj" \
+	"$(INTDIR)\trigger.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -1071,6 +1075,12 @@ SOURCE=.\SpideyTM\SRC\textfile.cpp
 SOURCE=.\SpideyTM\SRC\time_interface.cpp
 
 "$(INTDIR)\time_interface.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\trigger.cpp
+
+"$(INTDIR)\trigger.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

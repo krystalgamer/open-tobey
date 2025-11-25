@@ -461,6 +461,10 @@ SOURCE=.\SpideyTM\SRC\time_interface.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\trigger.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\turret.cpp
 # End Source File
 # Begin Source File
