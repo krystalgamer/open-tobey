@@ -73,6 +73,8 @@ public:
   EXPORT static void register_signals();
 
 private:
+  // @Ok
+  // @Matching
   EXPORT virtual signal_list* construct_signal_list() { return NEW signal_list( N_SIGNALS, (signal*)NULL ); }
 
 

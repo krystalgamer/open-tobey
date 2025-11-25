@@ -742,4 +742,5 @@ void patch_trigger(void)
 	PATCH_PUSH_RET_POLY(0x00619E50, trigger::update_region, "?update_region@trigger@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x00619670, trigger::get_abs_position, "?get_abs_position@trigger@@UBEABVvector3d@@XZ");
 	PATCH_PUSH_RET_POLY(0x00619E10, trigger::read, "?read@trigger@@UAEXAAVchunk_file@@@Z");
+	PATCH_PUSH_RET_POLY(0x00619690, trigger::construct_signal_list, "?construct_signal_list@trigger@@EAEPAV?$fast_vector@PAVsignal@@@@XZ");
 }
