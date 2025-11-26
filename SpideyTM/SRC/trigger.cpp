@@ -84,7 +84,9 @@ void trigger_manager::add( trigger* t )
 	list = t;
 }
 
-void trigger_manager::remove( trigger* trem )
+// @Ok
+// @Matching
+INLINE void trigger_manager::remove( trigger* trem )
 {
   trigger *tkill = 0;
 
@@ -846,6 +848,7 @@ void patch_trigger_manager(void)
 	PATCH_PUSH_RET(0x00619C00, trigger_manager::update);
 	PATCH_PUSH_RET(0x00619C30, trigger_manager::update_regions);
 	PATCH_PUSH_RET(0x006199D0, trigger_manager::add);
+	PATCH_PUSH_RET(0x006199F0, trigger_manager::remove);
 }
 
 void patch_point_trigger(void)
