@@ -319,6 +319,8 @@ bool point_trigger::triggered(entity *e)
 	return (v.length2() < radius*radius);
 }
 
+// @Ok
+// @Matching
 const vector3d& point_trigger::get_abs_position() const
 {
   return position;
@@ -803,6 +805,8 @@ void validate_point_trigger(void)
 
 	VALIDATE_VTABLE(point_trigger, read, 7);
 	VALIDATE_VTABLE(point_trigger, triggered, 8);
+
+	VALIDATE_VTABLE(point_trigger, get_abs_position, 10);
 }
 
 #include "my_patch.h"
@@ -815,6 +819,7 @@ void patch_point_trigger(void)
 
 	PATCH_PUSH_RET_POLY(0x0061A8B0, point_trigger::read, "??0point_trigger@@QAE@ABVstringx@@@Z");
 	PATCH_PUSH_RET_POLY(0x0061A900, point_trigger::triggered, "?triggered@point_trigger@@UAE_NPAVentity@@@Z");
+	PATCH_PUSH_RET_POLY(0x0061A980, point_trigger::get_abs_position, "?get_abs_position@point_trigger@@UBEABVvector3d@@XZ");
 }
 
 void patch_trigger(void)
