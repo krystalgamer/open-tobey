@@ -157,6 +157,27 @@ trigger::trigger( const stringx& _id )
 {
 }
 
+// @Ok
+// @Matching
+bool trigger::contained(entity *a2, bool a3) const
+{
+
+	if (field_34 || a3)
+	{
+
+		std::list<entity*>::const_iterator it = entity_list.begin();
+		for (; it != entity_list.end(); it++)
+		{
+			if (*it == a2)
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 
 void trigger::update()
 {
@@ -745,6 +766,9 @@ void validate_trigger(void)
 	VALIDATE(trigger, active, 0x31);
 	VALIDATE(trigger, occupied, 0x32);
 
+	VALIDATE(trigger, use_any_char, 0x33);
+	VALIDATE(trigger, field_34, 0x34);
+
 	VALIDATE(trigger, entity_list, 0x38);
 
 	VALIDATE_VTABLE(trigger, read, 7);
@@ -769,4 +793,5 @@ void patch_trigger(void)
 	PATCH_PUSH_RET(     0x0061A660, trigger::set_active);
 	PATCH_PUSH_RET(     0x0061A590, trigger::add_region);
 	PATCH_PUSH_RET(     0x0061A3B0, trigger::force_region);
+	PATCH_PUSH_RET(     0x00619FA0, trigger::contained);
 }

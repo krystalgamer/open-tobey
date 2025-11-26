@@ -27,6 +27,9 @@ public:
 
 	EXPORT trigger( const stringx& _id );
 
+	// @Patch - added
+	EXPORT bool contained(entity*, bool) const;
+
 	// @Ok
 	// @Matching
   EXPORT virtual void read(chunk_file &fs) {}
@@ -92,7 +95,8 @@ protected:
   bool occupied;
   bool use_any_char;
 
-  PADDING(0x4);
+  bool field_34;
+
   // @Patch - added and guessed name
   std::list<entity*> entity_list;
 };
