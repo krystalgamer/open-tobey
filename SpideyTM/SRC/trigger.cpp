@@ -146,6 +146,9 @@ trigger *trigger_manager::find_instance(const stringx &id)
 }
 
 
+// @Ok
+// @Matching
+// @Patch - added field_34
 trigger::trigger( const stringx& _id )
 : signaller(),
   id( _id ),
@@ -153,7 +156,8 @@ trigger::trigger( const stringx& _id )
   static_regions( false ),
   active( true ),
   occupied( false ),
-  use_any_char( false )
+  use_any_char( false ),
+  field_34( false )
 {
 }
 
@@ -760,6 +764,7 @@ void validate_trigger(void)
 {
 	VALIDATE(trigger, id, 0x18);
 
+	VALIDATE(trigger, next, 0x20);
 	VALIDATE(trigger, in_regions, 0x24);
 
 	VALIDATE(trigger, static_regions, 0x30);
@@ -794,4 +799,6 @@ void patch_trigger(void)
 	PATCH_PUSH_RET(     0x0061A590, trigger::add_region);
 	PATCH_PUSH_RET(     0x0061A3B0, trigger::force_region);
 	PATCH_PUSH_RET(     0x00619FA0, trigger::contained);
+
+	PATCH_PUSH_RET_POLY(0x00619CE0, trigger::trigger, "??0trigger@@QAE@ABVstringx@@@Z");
 }
