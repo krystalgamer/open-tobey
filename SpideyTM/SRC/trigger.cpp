@@ -282,7 +282,9 @@ void trigger::set_active( bool torf )
 
 
 
-point_trigger::point_trigger( const stringx& _id )
+// @Ok
+// @Matching
+INLINE point_trigger::point_trigger( const stringx& _id )
 : trigger( _id )
 {
 }
@@ -802,6 +804,7 @@ void patch_point_trigger(void)
 {
 	// @TODO - uncomment when all done
 	//PATCH_PUSH_RET_POLY(0x0061A860, point_trigger::point_trigger, "??0point_trigger@@QAE@ABVstringx@@ABVvector3d@@M@Z");
+	//PATCH_PUSH_RET_POLY(0x0061A6A0, point_trigger::point_trigger, "??0point_trigger@@QAE@ABVstringx@@@Z");
 }
 
 void patch_trigger(void)
