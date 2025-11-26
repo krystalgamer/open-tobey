@@ -105,27 +105,39 @@ protected:
 ///////////// trigger manager /////////////
 class trigger_manager : public singleton
 {
+	friend void validate_trigger_manager(void);
+	friend void patch_trigger_manager(void);
 public:
-	DECLARE_SINGLETON(trigger_manager)
-	trigger_manager() { list = NULL; }
+	// @Patch
+	//DECLARE_SINGLETON(trigger_manager)
+	static trigger_manager *inner_instance;
+	static inline trigger_manager* inst()
+	{
+		// @Hardcode
+		//return *reinterpret_cast<trigger_manager**>(0x009291E0);
+		return inner_instance;
+	}
 
-	trigger *new_trigger(stringx id, stringx type, chunk_file &fs);
+	EXPORT trigger_manager() { list = NULL; }
 
-	trigger *find_instance(const stringx &id);
+	EXPORT trigger *new_trigger(stringx id, stringx type, chunk_file &fs);
+
+	EXPORT trigger *find_instance(const stringx &id);
 
   // create a point-radius trigger
-  trigger* new_point_trigger( vector3d p, rational_t r );
+  EXPORT trigger* new_point_trigger( vector3d p, rational_t r );
   // create an entity-radius trigger
-  trigger* new_entity_trigger( entity* e, rational_t r );
+  EXPORT trigger* new_entity_trigger( entity* e, rational_t r );
   // create a convex box trigger
-  trigger* new_box_trigger( entity* e );
+  EXPORT trigger* new_box_trigger( entity* e );
 
-	void update();
-	void update_regions();
-  void purge();
+	EXPORT void update();
+	EXPORT void update_regions();
+	EXPORT void init();
+	EXPORT void purge();
 
 public:
-  std::vector<region*> new_regions;  // permanent
+  std::vector<region*>* new_regions;  // permanent
 
 protected:
   void add( trigger* t );

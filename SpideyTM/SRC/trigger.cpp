@@ -10,7 +10,8 @@
 #include "controller.h"
 
 
-DEFINE_SINGLETON(trigger_manager)
+//DEFINE_SINGLETON(trigger_manager)
+trigger_manager* trigger_manager::inner_instance;
 
 
 // local workspace for adding trigger to regions
@@ -111,6 +112,13 @@ void trigger_manager::remove( trigger* trem )
   }
 }
 
+// @Ok
+// @Matching
+void trigger_manager::init()
+{
+	this->new_regions = NEW std::vector<region*>;
+}
+
 void trigger_manager::purge()
 {
 
@@ -118,7 +126,7 @@ void trigger_manager::purge()
   {
     remove( list );
   }
-  new_regions.resize(0);
+  new_regions->resize(0);
 
 }
 
@@ -359,7 +367,7 @@ void point_trigger::_intersect( region_node* r )
   // add NEW region to temp list
   region* rg = r->get_data();
   rg->visit();
-  trigger_manager::inst()->new_regions.push_back( rg );
+  trigger_manager::inst()->new_regions->push_back( rg );
   sphere trig_sphere(position,radius);
   // check for intersection with portals leading from this region
   edge_iterator ei = r->begin();
@@ -392,8 +400,8 @@ void point_trigger::_update_regions()
 
   {
     region* r = *i;
-    if ( std::find( trigger_manager::inst()->new_regions.begin(), trigger_manager::inst()->new_regions.end(), r )
-         == trigger_manager::inst()->new_regions.end() )
+    if ( std::find( trigger_manager::inst()->new_regions->begin(), trigger_manager::inst()->new_regions->end(), r )
+         == trigger_manager::inst()->new_regions->end() )
 
     {
       r->remove( this );
@@ -406,7 +414,7 @@ void point_trigger::_update_regions()
       ++i;
   }
   std::vector<region*>::iterator k;
-  for ( k=trigger_manager::inst()->new_regions.begin(); k!=trigger_manager::inst()->new_regions.end(); ++k )
+  for ( k=trigger_manager::inst()->new_regions->begin(); k!=trigger_manager::inst()->new_regions->end(); ++k )
     add_region( *k );
 
 }
@@ -521,7 +529,7 @@ void box_trigger::_intersect( region_node* r )
 {
   region* rg = r->get_data( );
   rg->visit( );
-  trigger_manager::inst()->new_regions.push_back( rg );
+  trigger_manager::inst()->new_regions->push_back( rg );
 
   assert( box->has_box_trigger_ifc( ) );
 
@@ -558,7 +566,7 @@ void box_trigger::_update_regions()
     region* r = *i;
 
 
-    if( std::find( trigger_manager::inst()->new_regions.begin( ), trigger_manager::inst()->new_regions.end( ), r ) == trigger_manager::inst()->new_regions.end( ) ) {
+    if( std::find( trigger_manager::inst()->new_regions->begin( ), trigger_manager::inst()->new_regions->end( ), r ) == trigger_manager::inst()->new_regions->end( ) ) {
       r->remove( this );
       j = i;
 
@@ -576,7 +584,7 @@ void box_trigger::_update_regions()
 //#pragma fixme( "why do we iterate again? why not just add if !found? -mkv 4/6/01" )
   std::vector<region*>::iterator k;
 
-  for( k = trigger_manager::inst()->new_regions.begin( ); k != trigger_manager::inst()->new_regions.end( ); k++ ) {
+  for( k = trigger_manager::inst()->new_regions->begin( ); k != trigger_manager::inst()->new_regions->end( ); k++ ) {
     add_region( *k );
   }
 
@@ -672,7 +680,7 @@ void entity_trigger::update_region()
     if ( poshash != last_compute_sector_position_hash )
       {
       last_compute_sector_position_hash = poshash;
-      trigger_manager::inst()->new_regions.resize(0);
+      trigger_manager::inst()->new_regions->resize(0);
 		  // compare my radius to that of the entity I am attached to
       if ( radius <= ent->terrain_radius() )
       {
@@ -681,7 +689,7 @@ void entity_trigger::update_region()
 		    region_node_pset::const_iterator ri = ent->get_regions().begin();
 		    region_node_pset::const_iterator ri_end = ent->get_regions().end();
 		    for ( ; ri!=ri_end; ri++ )
-			    trigger_manager::inst()->new_regions.push_back( (*ri)->get_data() );
+			    trigger_manager::inst()->new_regions->push_back( (*ri)->get_data() );
       }
       else if ( ent->get_region() )
 
@@ -718,7 +726,7 @@ void entity_trigger::_intersect( region_node* r )
   // add NEW region to temp list
   region* rg = r->get_data();
   rg->visit();
-  trigger_manager::inst()->new_regions.push_back( rg );
+  trigger_manager::inst()->new_regions->push_back( rg );
   // check for intersection with portals leading from this region
   sphere trig_sphere( ent->terrain_position(), radius );
   edge_iterator ei = r->begin();
@@ -749,7 +757,7 @@ void entity_trigger::_update_regions()
     {
 
     region* r = *i;
-    if ( std::find( trigger_manager::inst()->new_regions.begin(), trigger_manager::inst()->new_regions.end(), r ) == trigger_manager::inst()->new_regions.end() )
+    if ( std::find( trigger_manager::inst()->new_regions->begin(), trigger_manager::inst()->new_regions->end(), r ) == trigger_manager::inst()->new_regions->end() )
       {
       r->remove( this );
       j = i;
@@ -761,7 +769,7 @@ void entity_trigger::_update_regions()
       i++;
     }
   std::vector<region*>::iterator k;
-  for ( k=trigger_manager::inst()->new_regions.begin(); k!=trigger_manager::inst()->new_regions.end(); k++ )
+  for ( k=trigger_manager::inst()->new_regions->begin(); k!=trigger_manager::inst()->new_regions->end(); k++ )
 
     add_region( *k );
   }
@@ -809,7 +817,20 @@ void validate_point_trigger(void)
 	VALIDATE_VTABLE(point_trigger, get_abs_position, 10);
 }
 
+void validate_trigger_manager(void)
+{
+	VALIDATE_SIZE(trigger_manager, 0xC);
+
+	VALIDATE(trigger_manager, new_regions, 0x4);
+	VALIDATE(trigger_manager, list, 0x8);
+}
+
 #include "my_patch.h"
+
+void patch_trigger_manager(void)
+{
+	PATCH_PUSH_RET(0x00619A60, trigger_manager::init);
+}
 
 void patch_point_trigger(void)
 {
