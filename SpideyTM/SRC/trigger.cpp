@@ -75,6 +75,8 @@ trigger* trigger_manager::new_box_trigger( entity* e )
 }
 
 
+// @Ok
+// @Matching
 void trigger_manager::add( trigger* t )
 {
 
@@ -843,6 +845,7 @@ void patch_trigger_manager(void)
 	PATCH_PUSH_RET(0x00619A60, trigger_manager::init);
 	PATCH_PUSH_RET(0x00619C00, trigger_manager::update);
 	PATCH_PUSH_RET(0x00619C30, trigger_manager::update_regions);
+	PATCH_PUSH_RET(0x006199D0, trigger_manager::add);
 }
 
 void patch_point_trigger(void)
