@@ -151,6 +151,8 @@ void trigger_manager::update_regions()
 		t->update_region();
 }
 
+// @Ok
+// @Matching
 trigger *trigger_manager::find_instance(const stringx &id)
 {
 	for (trigger *t = list; t; t = t->next)
@@ -849,6 +851,7 @@ void patch_trigger_manager(void)
 	PATCH_PUSH_RET(0x00619C30, trigger_manager::update_regions);
 	PATCH_PUSH_RET(0x006199D0, trigger_manager::add);
 	PATCH_PUSH_RET(0x006199F0, trigger_manager::remove);
+	PATCH_PUSH_RET(0x00619C60, trigger_manager::find_instance);
 }
 
 void patch_point_trigger(void)
