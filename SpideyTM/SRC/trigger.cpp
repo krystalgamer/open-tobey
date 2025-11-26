@@ -131,6 +131,8 @@ void trigger_manager::purge()
 }
 
 
+// @Ok
+// @Matching
 void trigger_manager::update()
 {
 	for (trigger *t = list; t; t = t->next)
@@ -191,8 +193,15 @@ bool trigger::contained(entity *a2, bool a3) const
 }
 
 
+// @TODO
 void trigger::update()
 {
+	typedef void (__fastcall *func_ptr)(trigger*);
+	func_ptr func = (func_ptr)0x00619FF0;
+	func(this);
+	return;
+
+	PANIC;
   if( is_active() )
   {
     // check the hero
@@ -830,6 +839,7 @@ void validate_trigger_manager(void)
 void patch_trigger_manager(void)
 {
 	PATCH_PUSH_RET(0x00619A60, trigger_manager::init);
+	PATCH_PUSH_RET(0x00619C00, trigger_manager::update);
 }
 
 void patch_point_trigger(void)
