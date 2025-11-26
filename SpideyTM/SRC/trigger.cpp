@@ -298,6 +298,8 @@ INLINE point_trigger::point_trigger( const stringx& _id, const vector3d& p, rati
 {
 }
 
+// @Ok
+// @Matching
 void point_trigger::read(chunk_file &fs)
 
 {
@@ -796,6 +798,8 @@ void validate_point_trigger(void)
 
 	VALIDATE(point_trigger, position, 0x3C);
 	VALIDATE(point_trigger, radius, 0x48);
+
+	VALIDATE_VTABLE(point_trigger, read, 7);
 }
 
 #include "my_patch.h"
@@ -805,6 +809,8 @@ void patch_point_trigger(void)
 	// @TODO - uncomment when all done
 	//PATCH_PUSH_RET_POLY(0x0061A860, point_trigger::point_trigger, "??0point_trigger@@QAE@ABVstringx@@ABVvector3d@@M@Z");
 	//PATCH_PUSH_RET_POLY(0x0061A6A0, point_trigger::point_trigger, "??0point_trigger@@QAE@ABVstringx@@@Z");
+
+	PATCH_PUSH_RET_POLY(0x0061A8B0, point_trigger::read, "??0point_trigger@@QAE@ABVstringx@@@Z");
 }
 
 void patch_trigger(void)
