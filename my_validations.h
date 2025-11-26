@@ -59,6 +59,7 @@ void validate_box_trigger_interface(void);
 void validate_convex_box(void);
 void validate_bounding_box(void);
 void validate_trigger(void);
+void validate_point_trigger(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -113,4 +114,5 @@ void patch_box_trigger_interface(void);
 void patch_convex_box(void);
 void patch_bounding_box(void);
 void patch_trigger(void);
+void patch_point_trigger(void);
 #endif

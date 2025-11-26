@@ -137,21 +137,23 @@ protected:
 ///////////// trigger within XZ cone /////////////
 class point_trigger : public trigger
 {
+	friend void validate_point_trigger(void);
+	friend void patch_point_trigger(void);
 public:
-	point_trigger( const stringx& _id );
-  point_trigger( const stringx& _id, const vector3d& p, rational_t r );
-	virtual void read(chunk_file &fs);
-	virtual bool triggered(entity *e);
-	virtual void update_region();
+	EXPORT point_trigger( const stringx& _id );
+	EXPORT point_trigger( const stringx& _id, const vector3d& p, rational_t r );
+	EXPORT virtual void read(chunk_file &fs);
+	EXPORT virtual bool triggered(entity *e);
+	EXPORT virtual void update_region();
 
-  virtual const vector3d& get_abs_position() const;
+	EXPORT virtual const vector3d& get_abs_position() const;
 
 
 // INTERNAL
 private:
   // add trigger to given region and recurse into any adjacent intersected regions
-  void _intersect( region_node* r );
-  void _update_regions();
+  EXPORT void _intersect( region_node* r );
+  EXPORT void _update_regions();
 
 protected:
 	vector3d position;

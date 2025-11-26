@@ -287,7 +287,9 @@ point_trigger::point_trigger( const stringx& _id )
 {
 }
 
-point_trigger::point_trigger( const stringx& _id, const vector3d& p, rational_t r )
+// @Ok
+// @Matching
+INLINE point_trigger::point_trigger( const stringx& _id, const vector3d& p, rational_t r )
 : trigger( _id ),
   position( p ),
   radius( r )
@@ -762,6 +764,8 @@ void entity_trigger::_update_regions()
 
 void validate_trigger(void)
 {
+	VALIDATE_SIZE(trigger, 0x3C);
+
 	VALIDATE(trigger, id, 0x18);
 
 	VALIDATE(trigger, next, 0x20);
@@ -784,7 +788,21 @@ void validate_trigger(void)
 	VALIDATE_VAL(trigger::signal_id_t::LEAVE, 1);
 }
 
+void validate_point_trigger(void)
+{
+	VALIDATE_SIZE(point_trigger, 0x4C);
+
+	VALIDATE(point_trigger, position, 0x3C);
+	VALIDATE(point_trigger, radius, 0x48);
+}
+
 #include "my_patch.h"
+
+void patch_point_trigger(void)
+{
+	// @TODO - uncomment when all done
+	//PATCH_PUSH_RET_POLY(0x0061A860, point_trigger::point_trigger, "??0point_trigger@@QAE@ABVstringx@@ABVvector3d@@M@Z");
+}
 
 void patch_trigger(void)
 {
