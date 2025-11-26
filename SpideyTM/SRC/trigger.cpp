@@ -737,11 +737,15 @@ void entity_trigger::_update_regions()
 
 void validate_trigger(void)
 {
+	VALIDATE(trigger, id, 0x18);
+
 	VALIDATE(trigger, in_regions, 0x24);
 
 	VALIDATE(trigger, static_regions, 0x30);
 	VALIDATE(trigger, active, 0x31);
 	VALIDATE(trigger, occupied, 0x32);
+
+	VALIDATE(trigger, entity_list, 0x38);
 
 	VALIDATE_VTABLE(trigger, read, 7);
 	VALIDATE_VTABLE(trigger, triggered, 8);

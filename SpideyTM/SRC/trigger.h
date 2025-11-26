@@ -91,6 +91,10 @@ protected:
 	bool active;
   bool occupied;
   bool use_any_char;
+
+  PADDING(0x4);
+  // @Patch - added and guessed name
+  std::list<entity*> entity_list;
 };
 
 
