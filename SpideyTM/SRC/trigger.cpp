@@ -309,6 +309,8 @@ void point_trigger::read(chunk_file &fs)
 	trigger::read(fs);
 }
 
+// @Ok
+// @Matching
 bool point_trigger::triggered(entity *e)
 {
 
@@ -800,6 +802,7 @@ void validate_point_trigger(void)
 	VALIDATE(point_trigger, radius, 0x48);
 
 	VALIDATE_VTABLE(point_trigger, read, 7);
+	VALIDATE_VTABLE(point_trigger, triggered, 8);
 }
 
 #include "my_patch.h"
@@ -811,6 +814,7 @@ void patch_point_trigger(void)
 	//PATCH_PUSH_RET_POLY(0x0061A6A0, point_trigger::point_trigger, "??0point_trigger@@QAE@ABVstringx@@@Z");
 
 	PATCH_PUSH_RET_POLY(0x0061A8B0, point_trigger::read, "??0point_trigger@@QAE@ABVstringx@@@Z");
+	PATCH_PUSH_RET_POLY(0x0061A900, point_trigger::triggered, "?triggered@point_trigger@@UAE_NPAVentity@@@Z");
 }
 
 void patch_trigger(void)
