@@ -139,6 +139,8 @@ void trigger_manager::update()
 		t->update();
 }
 
+// @Ok
+// @Matching
 void trigger_manager::update_regions()
 {
 	for (trigger *t = list; t; t = t->next)
@@ -840,6 +842,7 @@ void patch_trigger_manager(void)
 {
 	PATCH_PUSH_RET(0x00619A60, trigger_manager::init);
 	PATCH_PUSH_RET(0x00619C00, trigger_manager::update);
+	PATCH_PUSH_RET(0x00619C30, trigger_manager::update_regions);
 }
 
 void patch_point_trigger(void)
