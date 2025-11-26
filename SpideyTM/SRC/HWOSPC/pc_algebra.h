@@ -558,6 +558,8 @@ inline void serial_out(chunk_file& io, const vector3d& v )
 
 
 #if !defined(NO_SERIAL_IN)
+// @Ok
+// @Matching
 inline void serial_in(chunk_file& io, vector3d* v) 
 {
   serial_in(io,&v->x);
