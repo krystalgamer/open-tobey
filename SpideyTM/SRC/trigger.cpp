@@ -862,6 +862,7 @@ void validate_entity_trigger(void)
 	VALIDATE(entity_trigger, radius, 0x40);
 	VALIDATE(entity_trigger, last_compute_sector_position_hash, 0x44);
 
+	VALIDATE_VTABLE(entity_trigger, read, 7);
 	VALIDATE_VTABLE(entity_trigger, triggered, 8);
 	VALIDATE_VTABLE(entity_trigger, get_abs_position, 10);
 }
@@ -876,6 +877,7 @@ void patch_entity_trigger(void)
 
 	PATCH_PUSH_RET_POLY(0x0061C410, entity_trigger::triggered, "?triggered@entity_trigger@@UAE_NPAVentity@@@Z");
 	PATCH_PUSH_RET_POLY(0x0061C490, entity_trigger::get_abs_position, "?get_abs_position@entity_trigger@@UBEABVvector3d@@XZ");
+	PATCH_PUSH_RET_POLY(0x0061C380, entity_trigger::read, "?read@entity_trigger@@UAEXAAVchunk_file@@@Z");
 }
 
 void patch_region_trigger(void)
