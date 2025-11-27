@@ -671,6 +671,8 @@ void entity_trigger::read(chunk_file &fs)
 }
 
 
+// @Ok
+// @Matching
 bool entity_trigger::triggered(entity *e)
 {
 	vector3d v;
@@ -867,6 +869,8 @@ void patch_entity_trigger(void)
 	// @TODO - when done
 	//PATCH_PUSH_RET_POLY(0x0061C180, entity_trigger::entity_trigger(const stringx&), "??0entity_trigger@@QAE@ABVstringx@@@Z");
 	//PATCH_PUSH_RET_POLY(0x0061C340, entity_trigger::entity_trigger(const stringx&, entity*, rational_t), "??0entity_trigger@@QAE@ABVstringx@@PAVentity@@M@Z");
+
+	PATCH_PUSH_RET_POLY(0x0061C410, entity_trigger::triggered, "?triggered@entity_trigger@@UAE_NPAVentity@@@Z");
 }
 
 void patch_region_trigger(void)
