@@ -650,6 +650,8 @@ entity_trigger::entity_trigger( const stringx& _id )
 {
 }
 
+// @Ok
+// @Matching
 entity_trigger::entity_trigger( const stringx& _id, entity* e, rational_t r )
   : trigger(_id),
     ent( e ),
@@ -851,6 +853,11 @@ void validate_region_trigger(void)
 void validate_entity_trigger(void)
 {
 	VALIDATE_SIZE(entity_trigger, 0x48);
+
+	VALIDATE(entity_trigger, ent, 0x3C);
+	VALIDATE(entity_trigger, radius, 0x40);
+	VALIDATE(entity_trigger, last_compute_sector_position_hash, 0x44);
+
 }
 
 #include "my_patch.h"
@@ -858,7 +865,8 @@ void validate_entity_trigger(void)
 void patch_entity_trigger(void)
 {
 	// @TODO - when done
-	//PATCH_PUSH_RET_POLY(0x061C180, entity_trigger::entity_trigger(const stringx&), "??0entity_trigger@@QAE@ABVstringx@@@Z");
+	//PATCH_PUSH_RET_POLY(0x0061C180, entity_trigger::entity_trigger(const stringx&), "??0entity_trigger@@QAE@ABVstringx@@@Z");
+	//PATCH_PUSH_RET_POLY(0x0061C340, entity_trigger::entity_trigger(const stringx&, entity*, rational_t), "??0entity_trigger@@QAE@ABVstringx@@PAVentity@@M@Z");
 }
 
 void patch_region_trigger(void)
