@@ -180,6 +180,8 @@ extern "C" EXPORT int run_assertions(void)
 	validate_trigger();
 	validate_point_trigger();
 	validate_trigger_manager();
+	validate_region_trigger();
+	validate_entity_trigger();
 
 	return FAIL_VALIDATION;
 }
@@ -303,6 +305,8 @@ void game_patches()
 	patch_trigger();
 	patch_point_trigger();
 	patch_trigger_manager();
+	patch_region_trigger();
+	patch_entity_trigger();
 }
 
 #pragma pack(push,1)

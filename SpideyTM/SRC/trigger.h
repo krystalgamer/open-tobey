@@ -202,11 +202,13 @@ class region;
 
 class region_trigger : public trigger
 {
+	friend void validate_region_trigger(void);
+	friend void patch_region_trigger(void);
 public:
-	region_trigger( const stringx& _id );
-	virtual void read(chunk_file &fs);
-	virtual bool triggered(entity *e);
-	virtual void update_region();
+	EXPORT region_trigger( const stringx& _id );
+	EXPORT virtual void read(chunk_file &fs);
+	EXPORT virtual bool triggered(entity *e);
+	EXPORT virtual void update_region();
 };
 
 ///////////// trigger via proximity to an entity /////////////
@@ -214,22 +216,22 @@ public:
 
 class entity_trigger : public trigger
 {
+	friend void validate_entity_trigger(void);
+	friend void patch_entity_trigger(void);
 public:
-	entity_trigger( const stringx& _id );
-  entity_trigger( const stringx& _id, entity* p, rational_t r );
-	virtual void read(chunk_file &fs);
-	virtual bool triggered(entity *e);
-
-	virtual void update_region();
-
-  virtual const vector3d& get_abs_position() const;
+	EXPORT entity_trigger( const stringx& _id );
+	EXPORT entity_trigger( const stringx& _id, entity* p, rational_t r );
+	EXPORT virtual void read(chunk_file &fs);
+	EXPORT virtual bool triggered(entity *e);
+	EXPORT virtual void update_region();
+	EXPORT virtual const vector3d& get_abs_position() const;
 
 // INTERNAL
 private:
   // add trigger to given region and recurse into any adjacent intersected regions
-  void _intersect( region_node* r );
+  EXPORT void _intersect( region_node* r );
 
-  void _update_regions();
+  EXPORT void _update_regions();
 
 
 protected:

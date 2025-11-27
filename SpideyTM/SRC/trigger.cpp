@@ -642,6 +642,8 @@ void region_trigger::update_region()
 
 
 
+// @Ok
+// @Matching
 entity_trigger::entity_trigger( const stringx& _id )
   : trigger(_id),
     last_compute_sector_position_hash(FLT_MAX)
@@ -830,7 +832,7 @@ void validate_point_trigger(void)
 
 	VALIDATE_VTABLE(point_trigger, read, 7);
 	VALIDATE_VTABLE(point_trigger, triggered, 8);
-
+	VALIDATE_VTABLE(point_trigger, update_region, 9);
 	VALIDATE_VTABLE(point_trigger, get_abs_position, 10);
 }
 
@@ -842,7 +844,26 @@ void validate_trigger_manager(void)
 	VALIDATE(trigger_manager, list, 0x8);
 }
 
+void validate_region_trigger(void)
+{
+}
+
+void validate_entity_trigger(void)
+{
+	VALIDATE_SIZE(entity_trigger, 0x48);
+}
+
 #include "my_patch.h"
+
+void patch_entity_trigger(void)
+{
+	// @TODO - when done
+	//PATCH_PUSH_RET_POLY(0x061C180, entity_trigger::entity_trigger(const stringx&), "??0entity_trigger@@QAE@ABVstringx@@@Z");
+}
+
+void patch_region_trigger(void)
+{
+}
 
 void patch_trigger_manager(void)
 {
