@@ -1122,6 +1122,8 @@ void patch_stringx()
 
 	PATCH_PUSH_RET(0x007D9CF0, stringx::bogus_sum_ch_sx)
 	PATCH_PUSH_RET(0x007D9EA0, stringx::bogus_sum_sx_ch)
+
+	PATCH_PUSH_RET_POLY(0x00432400, string_buf::is_equal(const string_buf&), "?compare@string_buf@@QBEHPBD@Z");
 }
 
 

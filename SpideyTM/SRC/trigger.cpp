@@ -617,11 +617,17 @@ region_trigger::region_trigger( const stringx& _id )
 {
 }
 
+// @Ok
+// @AlmostMatching - parameters for != are passed in slightly different areas
+// all rest is same though
 void region_trigger::read(chunk_file &fs)
 {
 	stringx reg_id;
+	
 	for ( serial_in(fs,&reg_id); reg_id!=chunkend_label; serial_in(fs,&reg_id) )
-    force_region( reg_id );
+	{
+		force_region( reg_id );
+	}
 
 	trigger::read(fs);
 }
@@ -864,6 +870,10 @@ void validate_trigger_manager(void)
 void validate_region_trigger(void)
 {
 	VALIDATE_SIZE(region_trigger, 0x3C);
+
+	VALIDATE_VTABLE(point_trigger, read, 7);
+	VALIDATE_VTABLE(point_trigger, triggered, 8);
+	VALIDATE_VTABLE(point_trigger, update_region, 9);
 }
 
 void validate_entity_trigger(void)
@@ -894,10 +904,10 @@ void patch_entity_trigger(void)
 
 void patch_region_trigger(void)
 {
-	// @TODO - when full vtable done
-	//PATCH_PUSH_RET_POLY(0x0061BE40, region_trigger::region_trigger, "??0region_trigger@@QAE@ABVstringx@@@Z");
+	PATCH_PUSH_RET_POLY(0x0061BE40, region_trigger::region_trigger, "??0region_trigger@@QAE@ABVstringx@@@Z");
 	PATCH_PUSH_RET_POLY(0x0061C160, region_trigger::update_region, "?update_region@region_trigger@@UAEXXZ");
-	PATCH_PUSH_RET_POLY(0x0061C0C0, region_trigger::wtriggered, "?triggered@region_trigger@@UAE_NPAVentity@@@Z");
+	PATCH_PUSH_RET_POLY(0x0061C0C0, region_trigger::triggered, "?triggered@region_trigger@@UAE_NPAVentity@@@Z");
+	PATCH_PUSH_RET_POLY(0x0061C000, region_trigger::read, "?read@region_trigger@@UAEXAAVchunk_file@@@Z");
 }
 
 void patch_trigger_manager(void)

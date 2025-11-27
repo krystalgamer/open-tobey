@@ -84,7 +84,7 @@ protected:
   friend stringx operator+( const stringx& lhs, const char* rhs );
 
   friend inline bool operator==(const stringx& lhs, const stringx& rhs );
-  friend inline bool operator!=( const stringx& lhs, const stringx& rhs );
+  EXPORT friend inline bool operator!=( const stringx& lhs, const stringx& rhs );
 
   friend inline bool operator<( const stringx& lhs, const stringx& rhs );
 
@@ -215,20 +215,25 @@ public:
   }
 
   // Fast equality test. Uses big_int comparisons.
-  inline bool is_equal(const string_buf &buf) const
+  // @Ok
+  // @Matching
+  EXPORT inline bool is_equal(const string_buf &buf) const
   {
     assert(buf.data != NULL);
     assert(data != NULL);
 
+	// @Patch - skip the big int stuff and treat it as a regular string
+	/*
     if (buf.block_length != block_length) return false;
     for (int i = 0; i < block_length; i++) {
       if (!(buf.data[i] == data[i])) return false;
     }
+	*/
 
-    return true;
+    return (compare(reinterpret_cast<const char*>(buf.data)) == 0);
   }
 
-  inline bool is_equal(const char *str) const
+  EXPORT inline bool is_equal(const char *str) const
   {
     // can't use fast test here because we don't know the alignment
     // or surroundings of str
@@ -481,7 +486,7 @@ class stringx
 
     friend inline bool operator==(const stringx& lhs, const stringx& rhs );
     friend inline bool operator==(const stringx& lhs, const char *rhs );
-    friend inline bool operator!=( const stringx& lhs, const stringx& rhs );
+    EXPORT friend inline bool operator!=( const stringx& lhs, const stringx& rhs );
     friend inline bool operator!=(const stringx& lhs, const char *rhs );
     friend inline bool operator<( const stringx& lhs, const stringx& rhs );
 	
