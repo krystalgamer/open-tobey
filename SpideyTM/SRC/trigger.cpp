@@ -626,13 +626,20 @@ void region_trigger::read(chunk_file &fs)
 	trigger::read(fs);
 }
 
+// @Ok
+// @Matching
 bool region_trigger::triggered(entity *e)
 {
 	region_node *r = e->get_region();
-  if ( !r )
-    return false;
-  if ( in_regions.find( r->get_data() ) == in_regions.end() )
-    return false;
+	if ( !r )
+	{
+		return false;
+	}
+	if ( in_regions.find( r->get_data() ) == in_regions.end() )
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -890,6 +897,7 @@ void patch_region_trigger(void)
 	// @TODO - when full vtable done
 	//PATCH_PUSH_RET_POLY(0x0061BE40, region_trigger::region_trigger, "??0region_trigger@@QAE@ABVstringx@@@Z");
 	PATCH_PUSH_RET_POLY(0x0061C160, region_trigger::update_region, "?update_region@region_trigger@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x0061C0C0, region_trigger::wtriggered, "?triggered@region_trigger@@UAE_NPAVentity@@@Z");
 }
 
 void patch_trigger_manager(void)

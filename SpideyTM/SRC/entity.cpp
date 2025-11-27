@@ -3582,6 +3582,7 @@ void validate_entity(void)
 	VALIDATE_VTABLE(entity, remove_me_from_region, 134);
 	// @Ok
 	VALIDATE_VTABLE(entity, compute_sector, 135);
+	// @Ok
 	VALIDATE_VTABLE(entity, get_region, 136);
 
 	VALIDATE_VTABLE(entity, force_region, 137);
