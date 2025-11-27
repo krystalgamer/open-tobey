@@ -637,6 +637,8 @@ bool region_trigger::triggered(entity *e)
 }
 
 
+// @Ok
+// @Matching
 void region_trigger::update_region()
 
 {
@@ -887,6 +889,7 @@ void patch_region_trigger(void)
 {
 	// @TODO - when full vtable done
 	//PATCH_PUSH_RET_POLY(0x0061BE40, region_trigger::region_trigger, "??0region_trigger@@QAE@ABVstringx@@@Z");
+	PATCH_PUSH_RET_POLY(0x0061C160, region_trigger::update_region, "?update_region@region_trigger@@UAEXXZ");
 }
 
 void patch_trigger_manager(void)
