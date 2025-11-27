@@ -610,6 +610,8 @@ void box_trigger::_update_regions()
 
 #endif
 
+// @Ok
+// @Matching
 region_trigger::region_trigger( const stringx& _id )
   : trigger( _id )
 {
@@ -852,6 +854,7 @@ void validate_trigger_manager(void)
 
 void validate_region_trigger(void)
 {
+	VALIDATE_SIZE(region_trigger, 0x3C);
 }
 
 void validate_entity_trigger(void)
@@ -882,6 +885,8 @@ void patch_entity_trigger(void)
 
 void patch_region_trigger(void)
 {
+	// @TODO - when full vtable done
+	//PATCH_PUSH_RET_POLY(0x0061BE40, region_trigger::region_trigger, "??0region_trigger@@QAE@ABVstringx@@@Z");
 }
 
 void patch_trigger_manager(void)
