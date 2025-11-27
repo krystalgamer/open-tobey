@@ -173,7 +173,7 @@ public:
     memset((char *)data + len, 0, max_blocks * sizeof (big_int) - len);
   }
 
-  inline int compare(const char *str) const
+  EXPORT inline int compare(const char *str) const
   {
     assert(str != NULL);
 
