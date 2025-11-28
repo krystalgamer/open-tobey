@@ -251,6 +251,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual rational_t    get_width() { return ( 1 ); }
+  // @Ok
+  // @Matching
   EXPORT virtual rational_t    get_height() { return ( 1 ); }
 
 

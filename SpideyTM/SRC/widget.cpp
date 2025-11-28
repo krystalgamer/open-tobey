@@ -2538,4 +2538,5 @@ void patch_widget(void)
 	PATCH_PUSH_RET(0x007B15E0, widget::get_abs_y);
 
 	PATCH_PUSH_RET_POLY(0x007B1680, widget::get_width, "?get_width@widget@@UAEMXZ");
+	PATCH_PUSH_RET_POLY(0x007B16A0, widget::get_height, "?get_height@widget@@UAEMXZ");
 }
