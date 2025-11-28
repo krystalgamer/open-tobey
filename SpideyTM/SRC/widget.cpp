@@ -2569,4 +2569,5 @@ void patch_widget(void)
 
 	PATCH_PUSH_RET_POLY(0x007B1AD0, widget::obey_parent, "?obey_parent@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B1AF0, widget::ignoring_parent_showing, "?ignore_parent_showing@widget@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x007B1B10, widget::obey_parent_showing, "?obey_parent_showing@widget@@UAEXXZ");
 }

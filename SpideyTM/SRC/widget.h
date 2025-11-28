@@ -275,6 +275,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual void ignore_parent_showing() { set_flag( WFLAG_Ignore_Parent_Showing, true ); }
+  // @Ok
+  // @Matching
   EXPORT virtual void obey_parent_showing() { set_flag( WFLAG_Ignore_Parent_Showing, false ); }
 
   virtual void frame_advance( time_value_t time_inc );
