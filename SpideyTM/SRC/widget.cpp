@@ -384,7 +384,7 @@ void widget::frame_advance( time_value_t time_inc )
 }
 
 // @Ok
-// @AlmostMatching - using 32-bit registers on the 0x40 part
+// @Matching
 bool widget::is_shown() const
 {
 	if (this->flags & WFLAG_Shown)
@@ -394,8 +394,9 @@ bool widget::is_shown() const
 			return true;
 		}
 
-		return !(this->flags & 0x40);
-
+		// @Note - ugly but it matches (thanks dezgeg)
+		unsigned char f = this->flags;
+		return f & 0x40 ? false : true;
 	}
 
 	return false;
@@ -2545,6 +2546,8 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, is_shown, 1);
 	VALIDATE_VTABLE(widget, get_width, 2);
 	VALIDATE_VTABLE(widget, get_height, 3);
+
+	VALIDATE_VTABLE(widget, obey_parent, 8);
 }
 
 #include "my_patch.h"
@@ -2559,4 +2562,6 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B1680, widget::get_width, "?get_width@widget@@UAEMXZ");
 	PATCH_PUSH_RET_POLY(0x007B16A0, widget::get_height, "?get_height@widget@@UAEMXZ");
 	PATCH_PUSH_RET_POLY(0x007B14E0, widget::is_shown, "?is_shown@widget@@UBE_NXZ");
+
+	PATCH_PUSH_RET_POLY(0x007B1AD0, widget::obey_parent, "?obey_parent@widget@@UAEXXZ");
 }

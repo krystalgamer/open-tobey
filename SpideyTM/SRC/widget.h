@@ -264,12 +264,14 @@ public:
       flags &= ~f;
   }
 
-  virtual void show();
-  virtual void hide();
-  virtual void ignore_parent() { set_flag( WFLAG_Ignore_Parent, true ); }
-  virtual void obey_parent() { set_flag( WFLAG_Ignore_Parent, false ); }
-  virtual void ignore_parent_showing() { set_flag( WFLAG_Ignore_Parent_Showing, true ); }
-  virtual void obey_parent_showing() { set_flag( WFLAG_Ignore_Parent_Showing, false ); }
+  EXPORT virtual void show();
+  EXPORT virtual void hide();
+  EXPORT virtual void ignore_parent() { set_flag( WFLAG_Ignore_Parent, true ); }
+
+  PADDING_VIRTUAL();
+  EXPORT virtual void obey_parent() { set_flag( WFLAG_Ignore_Parent, false ); }
+  EXPORT virtual void ignore_parent_showing() { set_flag( WFLAG_Ignore_Parent_Showing, true ); }
+  EXPORT virtual void obey_parent_showing() { set_flag( WFLAG_Ignore_Parent_Showing, false ); }
 
   virtual void frame_advance( time_value_t time_inc );
   virtual void render();
@@ -393,7 +395,7 @@ public:
 
 protected:
   // @Patch - moved
-  unsigned char flags;
+  unsigned int flags;
 
   stringx widget_name;
   widget_type_e type;
