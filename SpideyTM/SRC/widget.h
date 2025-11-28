@@ -26,7 +26,8 @@ class widget;
 class wevent;
 class typeface_def;
 
-typedef std::list<widget *> widget_list_t;
+// @Patch - it was a list before
+typedef std::vector<widget *> widget_list_t;
 typedef std::list<wevent *> wevent_list_t;
 
 
@@ -256,6 +257,8 @@ public:
   EXPORT virtual rational_t    get_height() { return ( 1 ); }
 
 
+  // @Ok
+  // @Matching
   void set_flag( unsigned int f, bool v )
   {
     if ( v )
@@ -264,11 +267,12 @@ public:
       flags &= ~f;
   }
 
+  PADDING_VIRTUAL();
+
   EXPORT virtual void show();
   EXPORT virtual void hide();
   EXPORT virtual void ignore_parent() { set_flag( WFLAG_Ignore_Parent, true ); }
 
-  PADDING_VIRTUAL();
   // @Ok
   // @Matching
   EXPORT virtual void obey_parent() { set_flag( WFLAG_Ignore_Parent, false ); }
@@ -291,8 +295,12 @@ public:
 
   EXPORT virtual bool override_ignore_showing() const { return ( flags & WFLAG_Override_Ignore_Showing ); } // see note on flag, above
 
-  virtual void frame_advance( time_value_t time_inc );
-  virtual void render();
+  EXPORT virtual void frame_advance( time_value_t time_inc );
+  EXPORT virtual void render();
+
+  // @Patch - moved and changed type
+	EXPORT virtual void   move_to( float _x, float _y);
+
   virtual void message_handler( message_id_t message, message_id_t overflow = 0, rational_t parm0 = 0, rational_t parm1 = 0 );
   static void prepare_to_render();
   static void finish_render();
@@ -317,7 +325,6 @@ public:
   void set_use_proj_matrix( bool _use_proj_matrix ) { use_proj_matrix = _use_proj_matrix; }
 
   // animation and wevent functions
-	virtual void   move_to( short _x, short _y );
   virtual void   move_to( time_value_t wt, time_value_t d, short _x, short _y );
 	virtual void   scale_to( rational_t hs, rational_t vs );
   virtual void   scale_to( time_value_t wt, time_value_t d, rational_t hs, rational_t vs );
@@ -414,15 +421,13 @@ protected:
   stringx widget_name;
   widget_type_e type;
   widget *parent;
+  PADDING(4);
   widget_list_t children;
-	wevent_list_t wevent_run_list;      // list of currently running wevents (ordered by time of activation)
   bool linear_animation;   // Is animation linear or time active / time left?
   bool use_proj_matrix;   // use current projection matrix when rendering?
   widget_state_e next_state;
 
   time_value_t state_wait_time;
-
-  PADDING(0x8);
 
   // @Patch - type
   // base vals are those to be added to/multiplied by local vals to get final rendering vals ( abs_xxx )
@@ -430,6 +435,7 @@ protected:
   float x, y;             // local x, y (with reference to parent x, y)
   float abs_x, abs_y, base_x, base_y;
   short orig_x, orig_y;   // 2D origin offset
+	wevent_list_t wevent_run_list;      // list of currently running wevents (ordered by time of activation)
 
   // rotation
 	rational_t angle;            // 2D angle of rotation

@@ -279,9 +279,12 @@ widget::~widget()
 
 
 
+// @Ok
+// @Matching
 void widget::show()
 {
-  if ( !is_shown() )
+	// @Patch - it was calling is_shown
+  if (!(this->flags & WFLAG_Shown))
   {
     set_flag( WFLAG_Shown, true );
     if ( ignoring_parent_showing() )
@@ -523,7 +526,7 @@ void widget::add_child( widget *child )
 
 void widget::remove_child( widget *child )
 {
-  children.remove( child );
+	PANIC;
 }
 
 
@@ -713,27 +716,7 @@ widget *widget::get_prev_child( widget *start )
 
 widget *widget::get_next_child( widget *start )
 {
-  widget_list_t::iterator child;
-  widget *retval = NULL, *next = NULL;
-  children.reverse();
-  for( child = children.begin(); child != children.end(); ++child )
-  {
-    if ( start == *child )
-    {
-      if ( next )
-      {
-        retval = next;
-      }
-      else
-      {
-        retval = children.back();
-      }
-      break;
-    }
-    next = *child;
-  }
-  children.reverse();
-  return ( retval );
+	PANIC;
 }
 
 
@@ -754,7 +737,7 @@ widget *widget::find_child_by_name( stringx name )
 }
 
 
-void widget::move_to( short _x, short _y )
+void widget::move_to( float _x, float _y )
 {
   x = _x;
   y = _y;
@@ -2539,6 +2522,8 @@ void validate_widget(void)
 {
 	VALIDATE(widget, flags, 0x4);
 
+	VALIDATE(widget, children, 0x1C);
+
 	VALIDATE(widget, x, 0x34);
 	VALIDATE(widget, y, 0x38);
 	VALIDATE(widget, abs_x, 0x3C);
@@ -2548,6 +2533,8 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, get_width, 2);
 	VALIDATE_VTABLE(widget, get_height, 3);
 
+	VALIDATE_VTABLE(widget, show, 5);
+
 	VALIDATE_VTABLE(widget, obey_parent, 8);
 	VALIDATE_VTABLE(widget, ignore_parent_showing, 9);
 	VALIDATE_VTABLE(widget, obey_parent_showing, 10);
@@ -2556,6 +2543,9 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, ignoring_parent, 12);
 	VALIDATE_VTABLE(widget, ignoring_parent_showing, 13);
 	VALIDATE_VTABLE(widget, override_ignore_showing, 14);
+
+	VALIDATE_VTABLE(widget, frame_advance, 15);
+	VALIDATE_VTABLE(widget, render, 16);
 
 	VALIDATE_VAL(WFLAG_Ignore_Parent, 4);
 	VALIDATE_VAL(WFLAG_Ignore_Parent_Showing, 8);
@@ -2580,4 +2570,5 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B2260, widget::ignoring_parent, "?ignoring_parent@widget@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007B2280, widget::ignoring_parent_showing, "?ignoring_parent_showing@widget@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007B22A0, widget::override_ignore_showing, "?override_ignore_showing@widget@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x007B2730, widget::show, "?show@widget@@UAEXXZ");
 }
