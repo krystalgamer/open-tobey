@@ -319,10 +319,9 @@ public:
   const stringx& get_name() const { return ( widget_name ); }
   widget_type_e get_type() const { return ( type ); }
   // @Patch - return type and const ness
-
   float get_x();
+  float get_y();
 
-  short get_y() const { return( y ); }
   short get_abs_x() const { return( abs_x ); }
   short get_abs_y() const { return( abs_y ); }
   rational_t get_abs_scale( int i ) const { return( abs_S[i] ); }

@@ -391,6 +391,13 @@ float widget::get_x()
 	return( x );
 }
 
+// @Ok
+// @Matching
+float widget::get_y()
+{
+	return( y );
+}
+
 void widget::render()
 {
   /*
@@ -2498,6 +2505,7 @@ void layout_widget::update_rotation( short dax, short day, short daz )
 void validate_widget(void)
 {
 	VALIDATE(widget, x, 0x34);
+	VALIDATE(widget, y, 0x38);
 }
 
 #include "my_patch.h"
@@ -2505,4 +2513,5 @@ void validate_widget(void)
 void patch_widget(void)
 {
 	PATCH_PUSH_RET(0x007B1580, widget::get_x);
+	PATCH_PUSH_RET(0x007B15A0, widget::get_y);
 }
