@@ -285,6 +285,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual bool ignoring_parent() const { return ( flags & WFLAG_Ignore_Parent ); }
+  // @Ok
+  // @Matching
   EXPORT virtual bool ignoring_parent_showing() const { return ( flags & WFLAG_Ignore_Parent_Showing ); }
 
   virtual void frame_advance( time_value_t time_inc );

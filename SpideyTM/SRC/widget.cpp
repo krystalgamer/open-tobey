@@ -2574,7 +2574,8 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B14E0, widget::is_shown, "?is_shown@widget@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x007B1AD0, widget::obey_parent, "?obey_parent@widget@@UAEXXZ");
-	PATCH_PUSH_RET_POLY(0x007B1AF0, widget::ignoring_parent_showing, "?ignore_parent_showing@widget@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x007B1AF0, widget::ignore_parent_showing, "?ignore_parent_showing@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B1B10, widget::obey_parent_showing, "?obey_parent_showing@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B2260, widget::ignoring_parent, "?ignoring_parent@widget@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x007B2280, widget::ignoring_parent_showing, "?ignoring_parent_showing@widget@@UBE_NXZ");
 }
