@@ -392,7 +392,7 @@ bool widget::is_shown() const
 {
 	if (this->flags & WFLAG_Shown)
 	{
-		if (g_game_ptr->get_cur_state() != 4)
+		if (GET_GAME_PTR->get_cur_state() != 4)
 		{
 			return true;
 		}
