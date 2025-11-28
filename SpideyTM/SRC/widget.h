@@ -322,8 +322,9 @@ public:
   float get_x();
   float get_y();
 
-  short get_abs_x() const { return( abs_x ); }
-  short get_abs_y() const { return( abs_y ); }
+  float get_abs_x();
+  float get_abs_y();
+
   rational_t get_abs_scale( int i ) const { return( abs_S[i] ); }
 
   rational_t get_abs_angle() const { return( abs_angle ); }
@@ -402,7 +403,7 @@ protected:
   // base vals are those to be added to/multiplied by local vals to get final rendering vals ( abs_xxx )
   // position
   float x, y;             // local x, y (with reference to parent x, y)
-  short abs_x, abs_y, base_x, base_y;
+  float abs_x, abs_y, base_x, base_y;
   short orig_x, orig_y;   // 2D origin offset
 
   // rotation

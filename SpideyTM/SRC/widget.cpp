@@ -398,6 +398,20 @@ float widget::get_y()
 	return( y );
 }
 
+// @Ok
+// @Matching
+float widget::get_abs_x()
+{
+	return( abs_x );
+}
+
+// @Ok
+// @Matching
+float widget::get_abs_y()
+{
+	return( abs_y );
+}
+
 void widget::render()
 {
   /*
@@ -2506,6 +2520,8 @@ void validate_widget(void)
 {
 	VALIDATE(widget, x, 0x34);
 	VALIDATE(widget, y, 0x38);
+	VALIDATE(widget, abs_x, 0x3C);
+	VALIDATE(widget, abs_y, 0x40);
 }
 
 #include "my_patch.h"
@@ -2514,4 +2530,6 @@ void patch_widget(void)
 {
 	PATCH_PUSH_RET(0x007B1580, widget::get_x);
 	PATCH_PUSH_RET(0x007B15A0, widget::get_y);
+	PATCH_PUSH_RET(0x007B15C0, widget::get_abs_x);
+	PATCH_PUSH_RET(0x007B15E0, widget::get_abs_y);
 }
