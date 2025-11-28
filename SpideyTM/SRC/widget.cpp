@@ -2555,6 +2555,7 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, add_child, 11);
 	VALIDATE_VTABLE(widget, ignoring_parent, 12);
 	VALIDATE_VTABLE(widget, ignoring_parent_showing, 13);
+	VALIDATE_VTABLE(widget, override_ignore_showing, 14);
 
 	VALIDATE_VAL(WFLAG_Ignore_Parent, 4);
 	VALIDATE_VAL(WFLAG_Ignore_Parent_Showing, 8);
@@ -2578,4 +2579,5 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B1B10, widget::obey_parent_showing, "?obey_parent_showing@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B2260, widget::ignoring_parent, "?ignoring_parent@widget@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007B2280, widget::ignoring_parent_showing, "?ignoring_parent_showing@widget@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x007B22A0, widget::override_ignore_showing, "?override_ignore_showing@widget@@UBE_NXZ");
 }
