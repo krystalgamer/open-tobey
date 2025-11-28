@@ -242,7 +242,17 @@ public:
   };
 
   widget( const char *_widget_name, widget *_parent, short _x, short _y );
-  virtual ~widget();
+  EXPORT virtual ~widget();
+
+  // @Patch - made it virtual
+  virtual bool is_shown() const  { return ( flags & WFLAG_Shown ); }
+
+  // @Patch - moved up
+  // @Ok
+  // @Matching
+  EXPORT virtual rational_t    get_width() { return ( 1 ); }
+  EXPORT virtual rational_t    get_height() { return ( 1 ); }
+
 
   void set_flag( unsigned int f, bool v )
   {
@@ -276,7 +286,6 @@ public:
   virtual void   flush();
   bool           wevent_run_list_empty() const { return ( wevent_run_list.empty() ); }
 
-  bool is_shown() const  { return ( flags & WFLAG_Shown ); }
   bool ignoring_parent() const { return ( flags & WFLAG_Ignore_Parent ); }
   bool ignoring_parent_showing() const { return ( flags & WFLAG_Ignore_Parent_Showing ); }
   bool override_ignore_showing() const { return ( flags & WFLAG_Override_Ignore_Showing ); } // see note on flag, above
@@ -330,10 +339,6 @@ public:
   rational_t get_abs_angle() const { return( abs_angle ); }
 
   color get_abs_col( int i ) const { return( abs_col[i] ); }
-
-  virtual rational_t    get_width() { return ( 1 ); }
-
-  virtual rational_t    get_height() { return ( 1 ); }
 
   widget_list_t &get_children() { return children; }
   widget *get_first_child();

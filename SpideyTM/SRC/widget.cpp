@@ -2522,6 +2522,10 @@ void validate_widget(void)
 	VALIDATE(widget, y, 0x38);
 	VALIDATE(widget, abs_x, 0x3C);
 	VALIDATE(widget, abs_y, 0x40);
+
+	VALIDATE_VTABLE(widget, is_shown, 1);
+	VALIDATE_VTABLE(widget, get_width, 2);
+	VALIDATE_VTABLE(widget, get_height, 3);
 }
 
 #include "my_patch.h"
@@ -2532,4 +2536,6 @@ void patch_widget(void)
 	PATCH_PUSH_RET(0x007B15A0, widget::get_y);
 	PATCH_PUSH_RET(0x007B15C0, widget::get_abs_x);
 	PATCH_PUSH_RET(0x007B15E0, widget::get_abs_y);
+
+	PATCH_PUSH_RET_POLY(0x007B1680, widget::get_width, "?get_width@widget@@UAEMXZ");
 }
