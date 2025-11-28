@@ -2548,6 +2548,10 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, get_height, 3);
 
 	VALIDATE_VTABLE(widget, obey_parent, 8);
+	VALIDATE_VTABLE(widget, ignoring_parent_showing, 9);
+
+	VALIDATE_VAL(WFLAG_Ignore_Parent, 4);
+	VALIDATE_VAL(WFLAG_Ignore_Parent_Showing, 8);
 }
 
 #include "my_patch.h"
@@ -2564,4 +2568,5 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B14E0, widget::is_shown, "?is_shown@widget@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x007B1AD0, widget::obey_parent, "?obey_parent@widget@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x007B1AF0, widget::ignoring_parent_showing, "?ignore_parent_showing@widget@@UAEXXZ");
 }

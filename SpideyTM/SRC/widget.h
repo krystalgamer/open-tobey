@@ -269,7 +269,11 @@ public:
   EXPORT virtual void ignore_parent() { set_flag( WFLAG_Ignore_Parent, true ); }
 
   PADDING_VIRTUAL();
+  // @Ok
+  // @Matching
   EXPORT virtual void obey_parent() { set_flag( WFLAG_Ignore_Parent, false ); }
+  // @Ok
+  // @Matching
   EXPORT virtual void ignore_parent_showing() { set_flag( WFLAG_Ignore_Parent_Showing, true ); }
   EXPORT virtual void obey_parent_showing() { set_flag( WFLAG_Ignore_Parent_Showing, false ); }
 
