@@ -517,6 +517,7 @@ void widget::finish_render()
 
 void widget::add_child( widget *child )
 {
+	PANIC;
   children.push_back( child );
 }
 
@@ -2548,7 +2549,12 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, get_height, 3);
 
 	VALIDATE_VTABLE(widget, obey_parent, 8);
-	VALIDATE_VTABLE(widget, ignoring_parent_showing, 9);
+	VALIDATE_VTABLE(widget, ignore_parent_showing, 9);
+	VALIDATE_VTABLE(widget, obey_parent_showing, 10);
+
+	VALIDATE_VTABLE(widget, add_child, 11);
+	VALIDATE_VTABLE(widget, ignoring_parent, 12);
+	VALIDATE_VTABLE(widget, ignoring_parent_showing, 13);
 
 	VALIDATE_VAL(WFLAG_Ignore_Parent, 4);
 	VALIDATE_VAL(WFLAG_Ignore_Parent_Showing, 8);
@@ -2570,4 +2576,5 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B1AD0, widget::obey_parent, "?obey_parent@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B1AF0, widget::ignoring_parent_showing, "?ignore_parent_showing@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B1B10, widget::obey_parent_showing, "?obey_parent_showing@widget@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x007B2260, widget::ignoring_parent, "?ignoring_parent@widget@@UBE_NXZ");
 }

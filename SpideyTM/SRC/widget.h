@@ -279,6 +279,14 @@ public:
   // @Matching
   EXPORT virtual void obey_parent_showing() { set_flag( WFLAG_Ignore_Parent_Showing, false ); }
 
+  // @Patch - moved
+  EXPORT virtual void add_child( widget *child );
+
+  // @Ok
+  // @Matching
+  EXPORT virtual bool ignoring_parent() const { return ( flags & WFLAG_Ignore_Parent ); }
+  EXPORT virtual bool ignoring_parent_showing() const { return ( flags & WFLAG_Ignore_Parent_Showing ); }
+
   virtual void frame_advance( time_value_t time_inc );
   virtual void render();
   virtual void message_handler( message_id_t message, message_id_t overflow = 0, rational_t parm0 = 0, rational_t parm1 = 0 );
@@ -286,7 +294,6 @@ public:
   static void finish_render();
 
 
-  virtual void add_child( widget *child );
   void remove_child( widget *child );
 
   widget *get_parent() const { return ( parent ); }
@@ -296,8 +303,6 @@ public:
   virtual void   flush();
   bool           wevent_run_list_empty() const { return ( wevent_run_list.empty() ); }
 
-  bool ignoring_parent() const { return ( flags & WFLAG_Ignore_Parent ); }
-  bool ignoring_parent_showing() const { return ( flags & WFLAG_Ignore_Parent_Showing ); }
   bool override_ignore_showing() const { return ( flags & WFLAG_Override_Ignore_Showing ); } // see note on flag, above
   // a timed way to hide and show...
   void set_next_state( widget_state_e state, time_value_t wait_time ) { next_state = state; state_wait_time = wait_time; }
@@ -510,7 +515,6 @@ public:
 
   virtual void init();  // required before menu will work; do after all children added (also done by show)
 
-  virtual void add_child( widget *child ) { widget::add_child( child ); ++num_items; }
   virtual void show();
   virtual void message_handler( message_id_t message, message_id_t overflow = 0, rational_t parm0 = 0, rational_t parm1 = 0 );
 
