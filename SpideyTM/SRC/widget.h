@@ -185,6 +185,8 @@ typedef unsigned int message_id_t;
 
 class widget
 {
+	friend void validate_widget(void);
+	friend void patch_widget(void);
 public:
 
 

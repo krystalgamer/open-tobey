@@ -124,6 +124,7 @@ CLEAN :
 	-@erase "$(INTDIR)\sound_interface.obj"
 	-@erase "$(INTDIR)\stringx.obj"
 	-@erase "$(INTDIR)\terrain.obj"
+	-@erase "$(INTDIR)\text_font.obj"
 	-@erase "$(INTDIR)\textfile.obj"
 	-@erase "$(INTDIR)\time_interface.obj"
 	-@erase "$(INTDIR)\trees.obj"
@@ -141,6 +142,7 @@ CLEAN :
 	-@erase "$(INTDIR)\w32_errmsg.obj"
 	-@erase "$(INTDIR)\w32_file.obj"
 	-@erase "$(INTDIR)\wds.obj"
+	-@erase "$(INTDIR)\widget.obj"
 	-@erase "$(INTDIR)\x86_math.obj"
 	-@erase "$(INTDIR)\zip_filter.obj"
 	-@erase "$(INTDIR)\zutil.obj"
@@ -188,6 +190,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\beam.obj" \
 	"$(INTDIR)\billboard.obj" \
 	"$(INTDIR)\bone.obj" \
+	"$(INTDIR)\box_trigger_interface.obj" \
 	"$(INTDIR)\camera.obj" \
 	"$(INTDIR)\chunkfile.obj" \
 	"$(INTDIR)\colgeom.obj" \
@@ -195,6 +198,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\color.obj" \
 	"$(INTDIR)\conglom.obj" \
 	"$(INTDIR)\controller.obj" \
+	"$(INTDIR)\convex_box.obj" \
 	"$(INTDIR)\damage_interface.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
@@ -247,6 +251,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\terrain.obj" \
 	"$(INTDIR)\textfile.obj" \
 	"$(INTDIR)\time_interface.obj" \
+	"$(INTDIR)\trigger.obj" \
 	"$(INTDIR)\turret.obj" \
 	"$(INTDIR)\visrep.obj" \
 	"$(INTDIR)\vm_executable.obj" \
@@ -259,9 +264,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\box_trigger_interface.obj" \
-	"$(INTDIR)\convex_box.obj" \
-	"$(INTDIR)\trigger.obj"
+	"$(INTDIR)\widget.obj" \
+	"$(INTDIR)\text_font.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -363,6 +367,7 @@ CLEAN :
 	-@erase "$(INTDIR)\sound_interface.obj"
 	-@erase "$(INTDIR)\stringx.obj"
 	-@erase "$(INTDIR)\terrain.obj"
+	-@erase "$(INTDIR)\text_font.obj"
 	-@erase "$(INTDIR)\textfile.obj"
 	-@erase "$(INTDIR)\time_interface.obj"
 	-@erase "$(INTDIR)\trees.obj"
@@ -380,6 +385,7 @@ CLEAN :
 	-@erase "$(INTDIR)\w32_errmsg.obj"
 	-@erase "$(INTDIR)\w32_file.obj"
 	-@erase "$(INTDIR)\wds.obj"
+	-@erase "$(INTDIR)\widget.obj"
 	-@erase "$(INTDIR)\x86_math.obj"
 	-@erase "$(INTDIR)\zip_filter.obj"
 	-@erase "$(INTDIR)\zutil.obj"
@@ -428,6 +434,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\beam.obj" \
 	"$(INTDIR)\billboard.obj" \
 	"$(INTDIR)\bone.obj" \
+	"$(INTDIR)\box_trigger_interface.obj" \
 	"$(INTDIR)\camera.obj" \
 	"$(INTDIR)\chunkfile.obj" \
 	"$(INTDIR)\colgeom.obj" \
@@ -435,6 +442,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\color.obj" \
 	"$(INTDIR)\conglom.obj" \
 	"$(INTDIR)\controller.obj" \
+	"$(INTDIR)\convex_box.obj" \
 	"$(INTDIR)\damage_interface.obj" \
 	"$(INTDIR)\debugutil.obj" \
 	"$(INTDIR)\dllmain.obj" \
@@ -487,6 +495,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\terrain.obj" \
 	"$(INTDIR)\textfile.obj" \
 	"$(INTDIR)\time_interface.obj" \
+	"$(INTDIR)\trigger.obj" \
 	"$(INTDIR)\turret.obj" \
 	"$(INTDIR)\visrep.obj" \
 	"$(INTDIR)\vm_executable.obj" \
@@ -499,9 +508,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\box_trigger_interface.obj" \
-	"$(INTDIR)\convex_box.obj" \
-	"$(INTDIR)\trigger.obj"
+	"$(INTDIR)\widget.obj" \
+	"$(INTDIR)\text_font.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -1066,6 +1074,12 @@ SOURCE=.\SpideyTM\SRC\terrain.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
+SOURCE=.\SpideyTM\SRC\text_font.cpp
+
+"$(INTDIR)\text_font.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
 SOURCE=.\SpideyTM\SRC\textfile.cpp
 
 "$(INTDIR)\textfile.obj" : $(SOURCE) "$(INTDIR)"
@@ -1141,6 +1155,12 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\w32_file.cpp
 SOURCE=.\SpideyTM\SRC\wds.cpp
 
 "$(INTDIR)\wds.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\widget.cpp
+
+"$(INTDIR)\widget.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

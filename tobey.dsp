@@ -453,6 +453,10 @@ SOURCE=.\SpideyTM\SRC\terrain.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\text_font.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\textfile.cpp
 # End Source File
 # Begin Source File
@@ -502,6 +506,10 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\w32_file.cpp
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\wds.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\widget.cpp
 # End Source File
 # Begin Source File
 
@@ -1325,6 +1333,10 @@ SOURCE=.\SpideyTM\SRC\link_interface.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\localize.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\map_e.h
 # End Source File
 # Begin Source File
@@ -1646,6 +1658,10 @@ SOURCE=.\SpideyTM\SRC\switch_obj_signals.h
 # Begin Source File
 
 SOURCE=.\SpideyTM\SRC\terrain.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\text_font.h
 # End Source File
 # Begin Source File
 
