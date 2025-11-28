@@ -710,4 +710,7 @@ extern game* g_game_ptr;
 extern Random *g_random_ptr;
 extern Random *g_random_r_ptr;
 
+//#define GET_GAME_PTR (g_game_ptr)
+#define GET_GAME_PTR (*reinterpret_cast<game**>(0x00920690))
+
 #endif  // GAME_H

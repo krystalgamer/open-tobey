@@ -383,6 +383,23 @@ void widget::frame_advance( time_value_t time_inc )
   }
 }
 
+// @Ok
+// @AlmostMatching - using 32-bit registers on the 0x40 part
+bool widget::is_shown() const
+{
+	if (this->flags & WFLAG_Shown)
+	{
+		if (g_game_ptr->get_cur_state() != 4)
+		{
+			return true;
+		}
+
+		return !(this->flags & 0x40);
+
+	}
+
+	return false;
+}
 
 // @Ok
 // @Matching
@@ -2518,6 +2535,8 @@ void layout_widget::update_rotation( short dax, short day, short daz )
 
 void validate_widget(void)
 {
+	VALIDATE(widget, flags, 0x4);
+
 	VALIDATE(widget, x, 0x34);
 	VALIDATE(widget, y, 0x38);
 	VALIDATE(widget, abs_x, 0x3C);
@@ -2539,4 +2558,5 @@ void patch_widget(void)
 
 	PATCH_PUSH_RET_POLY(0x007B1680, widget::get_width, "?get_width@widget@@UAEMXZ");
 	PATCH_PUSH_RET_POLY(0x007B16A0, widget::get_height, "?get_height@widget@@UAEMXZ");
+	PATCH_PUSH_RET_POLY(0x007B14E0, widget::is_shown, "?is_shown@widget@@UBE_NXZ");
 }

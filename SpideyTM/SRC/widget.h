@@ -245,7 +245,7 @@ public:
   EXPORT virtual ~widget();
 
   // @Patch - made it virtual
-  virtual bool is_shown() const  { return ( flags & WFLAG_Shown ); }
+  EXPORT virtual bool is_shown() const;
 
   // @Patch - moved up
   // @Ok
@@ -392,11 +392,13 @@ public:
   static rational_t get_pc_z( rational_t _rhw );
 
 protected:
+  // @Patch - moved
+  unsigned char flags;
+
   stringx widget_name;
   widget_type_e type;
   widget *parent;
   widget_list_t children;
-  unsigned int flags;
 	wevent_list_t wevent_run_list;      // list of currently running wevents (ordered by time of activation)
   bool linear_animation;   // Is animation linear or time active / time left?
   bool use_proj_matrix;   // use current projection matrix when rendering?

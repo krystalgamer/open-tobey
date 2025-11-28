@@ -76,6 +76,7 @@ CLEAN :
 	-@erase "$(INTDIR)\filespec.obj"
 	-@erase "$(INTDIR)\frame_info.obj"
 	-@erase "$(INTDIR)\game.obj"
+	-@erase "$(INTDIR)\game_process.obj"
 	-@erase "$(INTDIR)\geomgr.obj"
 	-@erase "$(INTDIR)\global.obj"
 	-@erase "$(INTDIR)\gzio.obj"
@@ -265,7 +266,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
 	"$(INTDIR)\widget.obj" \
-	"$(INTDIR)\text_font.obj"
+	"$(INTDIR)\text_font.obj" \
+	"$(INTDIR)\game_process.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -319,6 +321,7 @@ CLEAN :
 	-@erase "$(INTDIR)\filespec.obj"
 	-@erase "$(INTDIR)\frame_info.obj"
 	-@erase "$(INTDIR)\game.obj"
+	-@erase "$(INTDIR)\game_process.obj"
 	-@erase "$(INTDIR)\geomgr.obj"
 	-@erase "$(INTDIR)\global.obj"
 	-@erase "$(INTDIR)\gzio.obj"
@@ -509,7 +512,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
 	"$(INTDIR)\widget.obj" \
-	"$(INTDIR)\text_font.obj"
+	"$(INTDIR)\text_font.obj" \
+	"$(INTDIR)\game_process.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -843,6 +847,12 @@ SOURCE=.\SpideyTM\SRC\frame_info.cpp
 SOURCE=.\SpideyTM\SRC\game.cpp
 
 "$(INTDIR)\game.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\game_process.cpp
+
+"$(INTDIR)\game_process.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

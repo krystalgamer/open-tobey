@@ -301,6 +301,10 @@ SOURCE=.\SpideyTM\SRC\game.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\game_process.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\geomgr.cpp
 # End Source File
 # Begin Source File
