@@ -318,7 +318,10 @@ public:
 
   const stringx& get_name() const { return ( widget_name ); }
   widget_type_e get_type() const { return ( type ); }
-  short get_x() const { return( x ); }
+  // @Patch - return type and const ness
+
+  float get_x();
+
   short get_y() const { return( y ); }
   short get_abs_x() const { return( abs_x ); }
   short get_abs_y() const { return( abs_y ); }
@@ -394,9 +397,12 @@ protected:
 
   time_value_t state_wait_time;
 
+  PADDING(0x8);
+
+  // @Patch - type
   // base vals are those to be added to/multiplied by local vals to get final rendering vals ( abs_xxx )
   // position
-  short x, y;             // local x, y (with reference to parent x, y)
+  float x, y;             // local x, y (with reference to parent x, y)
   short abs_x, abs_y, base_x, base_y;
   short orig_x, orig_y;   // 2D origin offset
 

@@ -384,6 +384,13 @@ void widget::frame_advance( time_value_t time_inc )
 }
 
 
+// @Ok
+// @Matching
+float widget::get_x()
+{
+	return( x );
+}
+
 void widget::render()
 {
   /*
@@ -2490,10 +2497,12 @@ void layout_widget::update_rotation( short dax, short day, short daz )
 
 void validate_widget(void)
 {
+	VALIDATE(widget, x, 0x34);
 }
 
 #include "my_patch.h"
 
 void patch_widget(void)
 {
+	PATCH_PUSH_RET(0x007B1580, widget::get_x);
 }
