@@ -65,6 +65,8 @@ public:
 
 class rectf
 {
+	friend void validate_rectf(void);
+	friend void patch_rectf(void);
 public:
 	vector2d tl;
 	vector2d br;

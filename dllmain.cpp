@@ -186,6 +186,8 @@ extern "C" EXPORT int run_assertions(void)
 	validate_widget();
 	validate_text_font();
 
+	validate_rectf();
+
 	return FAIL_VALIDATION;
 }
 
@@ -313,6 +315,8 @@ void game_patches()
 
 	patch_widget();
 	patch_text_font();
+
+	patch_rectf();
 }
 
 #pragma pack(push,1)

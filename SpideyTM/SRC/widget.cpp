@@ -2556,6 +2556,14 @@ void layout_widget::update_rotation( short dax, short day, short daz )
 
 #include "my_assertions.h"
 
+void validate_rectf(void)
+{
+	VALIDATE_SIZE(rectf, 0x10);
+
+	VALIDATE(rectf, tl, 0x0);
+	VALIDATE(rectf, br, 0x8);
+}
+
 void validate_widget(void)
 {
 	VALIDATE(widget, flags, 0x4);
@@ -2587,6 +2595,8 @@ void validate_widget(void)
 	VALIDATE(widget, abs_S, 0x138);
 	VALIDATE(widget, base_S, 0x140);
 
+	VALIDATE(widget, subrect, 0x148);
+
 	VALIDATE(widget, layer, 0x15C);
 
 	VALIDATE_VTABLE(widget, is_shown, 1);
@@ -2610,7 +2620,9 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
 
+	VALIDATE_VTABLE(widget, set_subrect, 35);
 	VALIDATE_VTABLE(widget, set_origin, 36);
+
 	VALIDATE_VTABLE(widget, transform, 37);
 
 	VALIDATE_VTABLE(widget, update_pos, 38);
@@ -2660,5 +2672,11 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B2B20, widget::update_scale, "?update_scale@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B2AA0, widget::update_pos, "?update_pos@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B3100, widget::transform, "?transform@widget@@UAEXQAMAAVcolor@@H@Z");
+
 	PATCH_PUSH_RET_POLY(0x007B3220, widget::set_origin, "?set_origin@widget@@UAEXMM@Z");
+	PATCH_PUSH_RET_POLY(0x007B31E0, widget::set_subrect, "?set_subrect@widget@@UAEXMMMM@Z");
+}
+
+void patch_rectf(void)
+{
 }

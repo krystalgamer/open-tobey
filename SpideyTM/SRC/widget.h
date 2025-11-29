@@ -351,8 +351,6 @@ public:
   bool is_faded() const;
 
 
-	virtual void   set_subrect( int x0, int y0, int x1, int y1 ) { subrect = rectf( x0, y0, x1, y1 ); }
-
   void           ndc( rational_t v[2] );
 
 
@@ -421,6 +419,10 @@ public:
 
   PADDING_VIRTUAL();
   PADDING_VIRTUAL();
+  //@Ok
+  //@Matching
+	EXPORT virtual void   set_subrect( float x0, float y0, float x1, float y1 ) { subrect = rectf( x0, y0, x1, y1 ); }
+
   // @Ok
   // @Matching
 	EXPORT virtual void   set_origin( float ox, float oy ) { orig_x = ox; orig_y = oy; }
@@ -614,7 +616,7 @@ public:
   virtual void  scale_to( time_value_t wt, time_value_t d, rational_t s ) { widget::scale_to( wt, d, s, s ); }
   void          set_tc();
   void          resize( rational_t width, rational_t height );
-	virtual void  set_subrect(int x0, int y0, int x1, int y1) { subrect = rectf(x0, y0, x1, y1); set_tc(); }
+	virtual void  set_subrect(float x0, float y0, float x1, float y1) { subrect = rectf(x0, y0, x1, y1); set_tc(); }
   void          play();
   void          pause();
 
