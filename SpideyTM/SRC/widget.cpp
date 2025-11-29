@@ -622,6 +622,8 @@ void widget::update_pos()
 }
 
 
+// @Ok
+// @Matching
 void widget::update_scale()
 {
   if ( parent && !ignoring_parent() )
@@ -2572,6 +2574,9 @@ void validate_widget(void)
 	VALIDATE(widget, abs_col, 0xB0);
 	VALIDATE(widget, base_col, 0xF0);
 
+	VALIDATE(widget, S, 0x130);
+	VALIDATE(widget, abs_S, 0x138);
+	VALIDATE(widget, base_S, 0x140);
 
 	VALIDATE(widget, layer, 0x15C);
 
@@ -2596,6 +2601,8 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
 
+	VALIDATE_VTABLE(widget, update_pos, 38);
+	VALIDATE_VTABLE(widget, update_scale, 39);
 	VALIDATE_VTABLE(widget, update_rot, 40);
 	VALIDATE_VTABLE(widget, update_col, 41);
 
@@ -2638,4 +2645,6 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x0049C2D0, widget::is_entity, "?is_entity@widget@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007B2C50, widget::update_col, "?update_col@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B2BC0, widget::update_rot, "?update_rot@widget@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x007B2B20, widget::update_scale, "?update_scale@widget@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x007B2AA0, widget::update_pos, "?update_pos@widget@@UAEXXZ");
 }
