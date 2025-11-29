@@ -315,7 +315,8 @@ public:
   static void finish_render();
 
 
-  EXPORT virtual void ignore_parent() { set_flag( WFLAG_Ignore_Parent, true ); }
+  // @Patch - removed
+  //EXPORT virtual void ignore_parent() { set_flag( WFLAG_Ignore_Parent, true ); }
   void remove_child( widget *child );
 
   widget *get_parent() const { return ( parent ); }
@@ -412,6 +413,9 @@ public:
 
   // for pc sorting:  convert DC rhw to PC z
   static rational_t get_pc_z( rational_t _rhw );
+
+  // @Patch - added
+  EXPORT virtual void rotate_along_axis(float, float, float);
 
   EXPORT virtual void set_shear_angle(float);
   EXPORT virtual float get_shear_angle(void) const;

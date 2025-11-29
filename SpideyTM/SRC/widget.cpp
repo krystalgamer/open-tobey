@@ -821,6 +821,13 @@ void widget::rotate_to( time_value_t wt, time_value_t d, rational_t a )
 
 // @Ok
 // @Matching
+void widget::rotate_along_axis(float, float, float)
+{
+	this->update_rot();
+}
+
+// @Ok
+// @Matching
 void widget::set_shear_angle(float)
 {
 }
@@ -2647,6 +2654,8 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
 
+	VALIDATE_VTABLE(widget, rotate_along_axis, 25);
+
 	VALIDATE_VTABLE(widget, set_shear_angle, 26);
 	VALIDATE_VTABLE(widget, get_shear_angle, 27);
 
@@ -2728,6 +2737,8 @@ void patch_widget(void)
 
 	PATCH_PUSH_RET_POLY(0x007B30E0, widget::get_shear_angle, "?get_shear_angle@widget@@UBEMXZ");
 	PATCH_PUSH_RET_POLY(0x007B30C0, widget::set_shear_angle, "?set_shear_angle@widget@@UAEXM@Z");
+
+	PATCH_PUSH_RET_POLY(0x007B30A0, widget::rotate_along_axis, "?rotate_along_axis@widget@@UAEXMMM@Z");
 }
 
 void patch_rectf(void)
