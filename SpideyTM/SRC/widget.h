@@ -342,6 +342,8 @@ public:
 	// @Matching
 	EXPORT virtual void   scale_to( rational_t s ) { scale_to( s, s ); }
 
+	// @Ok
+	// @Matching
   EXPORT virtual void   scale_to( time_value_t wt, time_value_t d, rational_t s ) { scale_to( wt, d, s, s ); }
 
 	EXPORT virtual void   rotate_to( rational_t a );

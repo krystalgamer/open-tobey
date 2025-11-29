@@ -2767,6 +2767,7 @@ void patch_widget(void)
 
 	PATCH_PUSH_RET_POLY(0x007B2F10, widget::scale_to(rational_t, rational_t), "?scale_to@widget@@UAEXMM@Z");
 	PATCH_PUSH_RET_POLY(0x0049C2B0, widget::scale_to(rational_t), "?scale_to@widget@@UAEXM@Z");
+	PATCH_PUSH_RET_POLY(0x007B2FC0, widget::scale_to(time_value_t, time_value_t, rational_t), "?scale_to@widget@@UAEXMMM@Z");
 }
 
 void patch_rectf(void)
