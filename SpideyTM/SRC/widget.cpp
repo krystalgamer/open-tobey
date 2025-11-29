@@ -819,6 +819,8 @@ void widget::rotate_to( time_value_t wt, time_value_t d, rational_t a )
   add_wevent( e );
 }
 
+// @Ok
+// @Matching
 void widget::set_shear_angle(float)
 {
 }
@@ -2725,6 +2727,7 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B1A70, widget::set_color(rational_t, rational_t, rational_t), "?set_color@widget@@UAEXMMM@Z");
 
 	PATCH_PUSH_RET_POLY(0x007B30E0, widget::get_shear_angle, "?get_shear_angle@widget@@UBEMXZ");
+	PATCH_PUSH_RET_POLY(0x007B30C0, widget::set_shear_angle, "?set_shear_angle@widget@@UAEXM@Z");
 }
 
 void patch_rectf(void)
