@@ -373,7 +373,7 @@ public:
 
   // @Ok
   // @Matching
-  color get_abs_col( int i ) const { return( abs_col[i] ); }
+  EXPORT color get_abs_col( int i ) const { return( abs_col[i] ); }
 
   widget_list_t &get_children() { return children; }
   widget *get_first_child();
@@ -441,8 +441,8 @@ protected:
   unsigned int flags;
 
   stringx widget_name;
-  widget_type_e type;
   widget *parent;
+  widget_type_e type;
   PADDING(4);
   widget_list_t children;
   bool linear_animation;   // Is animation linear or time active / time left?

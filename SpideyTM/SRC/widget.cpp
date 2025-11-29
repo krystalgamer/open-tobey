@@ -649,6 +649,8 @@ void widget::update_rot()
 }
 
 
+// @Ok
+// @Matching
 void widget::update_col()
 {
   int i;
@@ -2528,6 +2530,7 @@ void validate_widget(void)
 {
 	VALIDATE(widget, flags, 0x4);
 
+	VALIDATE(widget, parent, 0x10);
 	VALIDATE(widget, children, 0x1C);
 
 	VALIDATE(widget, x, 0x34);
@@ -2601,4 +2604,5 @@ void patch_widget(void)
 
 	PATCH_PUSH_RET_POLY(0x007B1780, widget::set_layer, "?set_layer@widget@@UAEXW4widget_layer_e@1@@Z");
 	PATCH_PUSH_RET_POLY(0x0049C2D0, widget::is_entity, "?is_entity@widget@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x007B2C50, widget::update_col, "?update_col@widget@@UAEXXZ");
 }
