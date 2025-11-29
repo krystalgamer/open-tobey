@@ -2570,6 +2570,9 @@ void validate_widget(void)
 	VALIDATE(widget, base_x, 0x44);
 	VALIDATE(widget, base_y, 0x48);
 
+	VALIDATE(widget, orig_x, 0x4C);
+	VALIDATE(widget, orig_y, 0x50);
+
 	VALIDATE(widget, angle, 0x54);
 	VALIDATE(widget, abs_angle, 0x58);
 	VALIDATE(widget, base_angle, 0x5C);
@@ -2607,6 +2610,7 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
 
+	VALIDATE_VTABLE(widget, set_origin, 36);
 	VALIDATE_VTABLE(widget, transform, 37);
 
 	VALIDATE_VTABLE(widget, update_pos, 38);
@@ -2656,4 +2660,5 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B2B20, widget::update_scale, "?update_scale@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B2AA0, widget::update_pos, "?update_pos@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B3100, widget::transform, "?transform@widget@@UAEXQAMAAVcolor@@H@Z");
+	PATCH_PUSH_RET_POLY(0x007B3220, widget::set_origin, "?set_origin@widget@@UAEXMM@Z");
 }

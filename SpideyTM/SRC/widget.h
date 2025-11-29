@@ -352,7 +352,6 @@ public:
 
 
 	virtual void   set_subrect( int x0, int y0, int x1, int y1 ) { subrect = rectf( x0, y0, x1, y1 ); }
-	virtual void   set_origin( short ox, short oy ) { orig_x = ox; orig_y = oy; }
 
   void           ndc( rational_t v[2] );
 
@@ -422,6 +421,9 @@ public:
 
   PADDING_VIRTUAL();
   PADDING_VIRTUAL();
+  // @Ok
+  // @Matching
+	EXPORT virtual void   set_origin( float ox, float oy ) { orig_x = ox; orig_y = oy; }
   // @Patch - moved down
 	EXPORT virtual void   transform( rational_t v[2], color &c, int index );
 
@@ -461,8 +463,8 @@ protected:
   // position
   float x, y;             // local x, y (with reference to parent x, y)
   float abs_x, abs_y, base_x, base_y;
-  short orig_x, orig_y;   // 2D origin offset
-	wevent_list_t wevent_run_list;      // list of currently running wevents (ordered by time of activation)
+  // @Patch - short to float
+  float orig_x, orig_y;   // 2D origin offset
 
   // rotation
 	rational_t angle;            // 2D angle of rotation
@@ -484,6 +486,10 @@ protected:
 
 	PADDING(4);
 	widget_layer_e layer;
+
+	// @Patch - moved down here
+	wevent_list_t wevent_run_list;      // list of currently running wevents (ordered by time of activation)
+
 
   // rhw stuff
   // For the DC, widgets are assigned an rhw layer to determine where they sort.
