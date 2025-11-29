@@ -104,4 +104,8 @@ EXPORT void nglPrintf(const char *Format, ...);
 
 EXPORT void nglSetFogRange(float Near, float Far, float Min, float Max);
 EXPORT void nglSetFogColor(float R, float G, float B);
+
+// Returns the screen width and height in pixels.
+EXPORT int nglGetScreenWidth();
+EXPORT int nglGetScreenHeight();
 #endif

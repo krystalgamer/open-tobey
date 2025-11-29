@@ -28,3 +28,16 @@ void nglSetFogColor(float R, float G, float B)
 
 	func(R, G, B);
 }
+int nglGetScreenWidth()
+{
+	typedef int (*func_ptr)();
+	func_ptr func = (func_ptr)0x00801E30;
+	return func();
+}
+
+int nglGetScreenHeight()
+{
+	typedef int (*func_ptr)();
+	func_ptr func = (func_ptr)0x00801E50;
+	return func();
+}

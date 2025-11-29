@@ -887,6 +887,8 @@ bool widget::is_faded() const
 
 
 
+// @Ok
+// @Matching
 void widget::transform(rational_t v[2], color &c, int index)
 {
   assert(index < 4);
@@ -901,21 +903,21 @@ void widget::transform(rational_t v[2], color &c, int index)
   v[0] = xt;
   v[1] = yt;
   // translate them
-  v[0] += abs_x - orig_x;
-  v[1] += abs_y - orig_y;
+  // @Patch - remove orig_*
+  v[0] += abs_x;
+  v[1] += abs_y;
 
   c.r *= abs_col[index].r;
   c.g *= abs_col[index].g;
   c.b *= abs_col[index].b;
   c.a *= abs_col[index].a;
 
-/*
 #ifdef NGL
   // transform to target platform coordinate
-  v[0] *= nglGetScreenWidth()/nglGetScreenWidth();
-  v[1] *= nglGetScreenHeight()/nglGetScreenHeight();
+  // @Patch - remove division
+  v[0] *= nglGetScreenWidth();
+  v[1] *= nglGetScreenHeight();
 #endif
-*/
 }
 
 
@@ -2605,6 +2607,8 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
 
+	VALIDATE_VTABLE(widget, transform, 37);
+
 	VALIDATE_VTABLE(widget, update_pos, 38);
 	VALIDATE_VTABLE(widget, update_scale, 39);
 	VALIDATE_VTABLE(widget, update_rot, 40);
@@ -2651,4 +2655,5 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B2BC0, widget::update_rot, "?update_rot@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B2B20, widget::update_scale, "?update_scale@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B2AA0, widget::update_pos, "?update_pos@widget@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x007B3100, widget::transform, "?transform@widget@@UAEXQAMAAVcolor@@H@Z");
 }

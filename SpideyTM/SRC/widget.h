@@ -354,7 +354,6 @@ public:
 	virtual void   set_subrect( int x0, int y0, int x1, int y1 ) { subrect = rectf( x0, y0, x1, y1 ); }
 	virtual void   set_origin( short ox, short oy ) { orig_x = ox; orig_y = oy; }
 
-	virtual void   transform( rational_t v[2], color &c, int index );
   void           ndc( rational_t v[2] );
 
 
@@ -423,6 +422,8 @@ public:
 
   PADDING_VIRTUAL();
   PADDING_VIRTUAL();
+  // @Patch - moved down
+	EXPORT virtual void   transform( rational_t v[2], color &c, int index );
 
   // @Patch - moved down
   EXPORT virtual void update_pos();
