@@ -369,6 +369,8 @@ public:
 
   rational_t get_abs_scale( int i ) const { return( abs_S[i] ); }
 
+  // @Ok
+  // @Matching
   rational_t get_abs_angle() const { return( abs_angle ); }
 
   // @Ok
@@ -381,10 +383,6 @@ public:
   widget *get_next_child( widget *start );
 
   widget *find_child_by_name( stringx name ); // uses match with widget_name
-
-  virtual void update_pos();
-  virtual void update_scale();
-  virtual void update_rot();
 
   static void reset_rhw_2d_val() { rhw_2d_val[rhw_2d_layer] = rhw_layer_ranges[rhw_2d_layer][0]; }
   static void set_rhw_2d_layer( rhw_layer_e rhw_layer )
@@ -423,7 +421,11 @@ public:
 
   PADDING_VIRTUAL();
   PADDING_VIRTUAL();
+
   // @Patch - moved down
+  EXPORT virtual void update_pos();
+  EXPORT virtual void update_scale();
+  EXPORT virtual void update_rot();
   EXPORT virtual void update_col();
 
   // @Ok
