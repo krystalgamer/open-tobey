@@ -832,6 +832,8 @@ void widget::set_color( color c )
 
 
 
+// @Ok
+// @Matching
 void widget::set_color( color c[4] )
 {
   for ( int i = 0; i < 4; ++i )
@@ -2700,6 +2702,7 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B28F0, widget::fade_to(rational_t), "?fade_to@widget@@UAEXM@Z");
 
 	PATCH_PUSH_RET_POLY(0x007B1890, widget::set_color(color), "?set_color@widget@@UAEXVcolor@@@Z");
+	PATCH_PUSH_RET_POLY(0x007B18E0, widget::set_color(color[4]), "?set_color@widget@@UAEXQAVcolor@@@Z");
 }
 
 void patch_rectf(void)
