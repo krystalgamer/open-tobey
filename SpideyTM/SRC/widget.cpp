@@ -245,7 +245,7 @@ void widget::show()
 void widget::hide()
 {
 	// @Patch - it was calling is_shown
-  if (!(this->flags & WFLAG_Shown))
+  if (this->flags & WFLAG_Shown)
   {
     flush();
 
@@ -2693,8 +2693,8 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B2280, widget::ignoring_parent_showing, "?ignoring_parent_showing@widget@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007B22A0, widget::override_ignore_showing, "?override_ignore_showing@widget@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007B2730, widget::show, "?show@widget@@UAEXXZ");
-	PATCH_PUSH_RET_POLY(0x007B27B0, widget::hide, "?hide@widget@@UAEXXZ");
 
+	PATCH_PUSH_RET_POLY(0x007B27B0, widget::hide, "?hide@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x0049C2F0, widget::focus, "?focus@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x0049C310, widget::unfocus, "?unfocus@widget@@UAEXXZ");
 
