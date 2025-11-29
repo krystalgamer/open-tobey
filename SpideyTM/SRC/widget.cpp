@@ -2558,6 +2558,7 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
 
+	VALIDATE_VTABLE(widget, is_entity, 42);
 	VALIDATE_VTABLE(widget, set_layer, 43);
 
 	VALIDATE_VTABLE(widget, focus, 44);
@@ -2593,4 +2594,5 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x0049C310, widget::unfocus, "?unfocus@widget@@UAEXXZ");
 
 	PATCH_PUSH_RET_POLY(0x007B1780, widget::set_layer, "?set_layer@widget@@UAEXW4widget_layer_e@1@@Z");
+	PATCH_PUSH_RET_POLY(0x0049C2D0, widget::is_entity, "?is_entity@widget@@UBE_NXZ");
 }

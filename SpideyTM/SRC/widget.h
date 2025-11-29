@@ -422,7 +422,9 @@ public:
 
   PADDING_VIRTUAL();
   PADDING_VIRTUAL();
-  PADDING_VIRTUAL();
+  // @Ok
+  // @Matching
+  EXPORT virtual bool is_entity(void) const { return (false); }
   // @Patch - changed the type
   EXPORT virtual void set_layer( widget_layer_e layer );
 
