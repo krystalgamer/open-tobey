@@ -475,6 +475,7 @@ void widget::render()
 
 
 
+/*
 void widget::message_handler( message_id_t message, message_id_t overflow, rational_t parm0, rational_t parm1 )
 {
   // children
@@ -487,6 +488,7 @@ void widget::message_handler( message_id_t message, message_id_t overflow, ratio
     }
   }
 }
+*/
 
 
 void widget::prepare_to_render()
@@ -817,6 +819,16 @@ void widget::rotate_to( time_value_t wt, time_value_t d, rational_t a )
   add_wevent( e );
 }
 
+void widget::set_shear_angle(float)
+{
+}
+
+// @Ok
+// @Matching
+float widget::get_shear_angle(void) const
+{
+	return 0.0f;
+}
 
 
 // @Ok
@@ -1152,6 +1164,7 @@ void menu_widget::show()
 }
 
 
+/*
 void menu_widget::message_handler( message_id_t message, message_id_t overflow, rational_t parm0, rational_t parm1 )
 {
   if ( !sel_item ) return;
@@ -1188,6 +1201,7 @@ void menu_widget::message_handler( message_id_t message, message_id_t overflow, 
     }
   }
 }
+*/
 
 
 menu_item_widget *menu_widget::get_prev_item() const
@@ -2631,6 +2645,9 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
 
+	VALIDATE_VTABLE(widget, set_shear_angle, 26);
+	VALIDATE_VTABLE(widget, get_shear_angle, 27);
+
 	void (widget::*ptr_set_color_rrr)(rational_t, rational_t, rational_t) = &widget::set_color;
 	VALIDATE_VTABLE_POLY(widget, set_color(color), ptr_set_color_rrr, 29);
 
@@ -2706,6 +2723,8 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B1890, widget::set_color(color), "?set_color@widget@@UAEXVcolor@@@Z");
 	PATCH_PUSH_RET_POLY(0x007B18E0, widget::set_color(color[4]), "?set_color@widget@@UAEXQAVcolor@@@Z");
 	PATCH_PUSH_RET_POLY(0x007B1A70, widget::set_color(rational_t, rational_t, rational_t), "?set_color@widget@@UAEXMMM@Z");
+
+	PATCH_PUSH_RET_POLY(0x007B30E0, widget::get_shear_angle, "?get_shear_angle@widget@@UBEMXZ");
 }
 
 void patch_rectf(void)

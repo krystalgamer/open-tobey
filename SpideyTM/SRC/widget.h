@@ -309,7 +309,8 @@ public:
   // @Patch - moved and changed type
 	EXPORT virtual void   move_to( float _x, float _y);
 
-  virtual void message_handler( message_id_t message, message_id_t overflow = 0, rational_t parm0 = 0, rational_t parm1 = 0 );
+	// @Patch - remove
+  //virtual void message_handler( message_id_t message, message_id_t overflow = 0, rational_t parm0 = 0, rational_t parm1 = 0 );
   static void prepare_to_render();
   static void finish_render();
 
@@ -343,7 +344,6 @@ public:
 
   virtual void   rotate_to( time_value_t wt, time_value_t d, rational_t a );
   //virtual void   fade_to( time_value_t wt, time_value_t d, rational_t alpha );
-  PADDING_VIRTUAL();
   bool is_faded() const;
 
 
@@ -413,7 +413,11 @@ public:
   // for pc sorting:  convert DC rhw to PC z
   static rational_t get_pc_z( rational_t _rhw );
 
-  PADDING_VIRTUAL();
+  EXPORT virtual void set_shear_angle(float);
+  EXPORT virtual float get_shear_angle(void) const;
+
+  PADDING_VIRTUAL(); // @TODO figure out
+
   EXPORT virtual void   set_color( color c );
   EXPORT virtual void   set_color( color c[4] );
   EXPORT virtual void   set_color( time_value_t wt, time_value_t d, color c );
@@ -564,7 +568,7 @@ public:
   virtual void init();  // required before menu will work; do after all children added (also done by show)
 
   virtual void show();
-  virtual void message_handler( message_id_t message, message_id_t overflow = 0, rational_t parm0 = 0, rational_t parm1 = 0 );
+  //virtual void message_handler( message_id_t message, message_id_t overflow = 0, rational_t parm0 = 0, rational_t parm1 = 0 );
 
   virtual menu_item_widget *get_prev_item() const; // will skip items marked to skip; does wraparound
   virtual menu_item_widget *get_next_item() const; // will skip items marked to skip; does wraparound
