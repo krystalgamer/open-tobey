@@ -271,7 +271,7 @@ public:
 
   EXPORT virtual void show();
   EXPORT virtual void hide();
-  EXPORT virtual void ignore_parent() { set_flag( WFLAG_Ignore_Parent, true ); }
+  EXPORT virtual void   flush();
 
   // @Ok
   // @Matching
@@ -306,13 +306,13 @@ public:
   static void finish_render();
 
 
+  EXPORT virtual void ignore_parent() { set_flag( WFLAG_Ignore_Parent, true ); }
   void remove_child( widget *child );
 
   widget *get_parent() const { return ( parent ); }
 
 	void           add_wevent( wevent *e );
 
-  virtual void   flush();
   bool           wevent_run_list_empty() const { return ( wevent_run_list.empty() ); }
 
   // a timed way to hide and show...

@@ -307,9 +307,12 @@ void widget::show()
 
 
 
+// @Ok
+// @Matching
 void widget::hide()
 {
-  if ( is_shown() )
+	// @Patch - it was calling is_shown
+  if (!(this->flags & WFLAG_Shown))
   {
     flush();
 
@@ -2534,6 +2537,9 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, get_height, 3);
 
 	VALIDATE_VTABLE(widget, show, 5);
+	VALIDATE_VTABLE(widget, hide, 6);
+
+	VALIDATE_VTABLE(widget, flush, 7);
 
 	VALIDATE_VTABLE(widget, obey_parent, 8);
 	VALIDATE_VTABLE(widget, ignore_parent_showing, 9);
@@ -2571,4 +2577,5 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B2280, widget::ignoring_parent_showing, "?ignoring_parent_showing@widget@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007B22A0, widget::override_ignore_showing, "?override_ignore_showing@widget@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007B2730, widget::show, "?show@widget@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x007B27B0, widget::hide, "?hide@widget@@UAEXXZ");
 }
