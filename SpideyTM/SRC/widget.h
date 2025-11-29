@@ -371,6 +371,8 @@ public:
 
   rational_t get_abs_angle() const { return( abs_angle ); }
 
+  // @Ok
+  // @Matching
   color get_abs_col( int i ) const { return( abs_col[i] ); }
 
   widget_list_t &get_children() { return children; }
@@ -383,7 +385,6 @@ public:
   virtual void update_pos();
   virtual void update_scale();
   virtual void update_rot();
-  virtual void update_col();
 
   static void reset_rhw_2d_val() { rhw_2d_val[rhw_2d_layer] = rhw_layer_ranges[rhw_2d_layer][0]; }
   static void set_rhw_2d_layer( rhw_layer_e rhw_layer )
@@ -422,6 +423,9 @@ public:
 
   PADDING_VIRTUAL();
   PADDING_VIRTUAL();
+  // @Patch - moved down
+  EXPORT virtual void update_col();
+
   // @Ok
   // @Matching
   EXPORT virtual bool is_entity(void) const { return (false); }

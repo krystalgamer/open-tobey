@@ -2535,6 +2535,11 @@ void validate_widget(void)
 	VALIDATE(widget, abs_x, 0x3C);
 	VALIDATE(widget, abs_y, 0x40);
 
+	VALIDATE(widget, col, 0x70);
+	VALIDATE(widget, abs_col, 0xB0);
+	VALIDATE(widget, abs_col, 0xB0);
+	VALIDATE(widget, base_col, 0xF0);
+
 	VALIDATE(widget, layer, 0x15C);
 
 	VALIDATE_VTABLE(widget, is_shown, 1);
@@ -2558,6 +2563,7 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
 
+	VALIDATE_VTABLE(widget, update_col, 41);
 	VALIDATE_VTABLE(widget, is_entity, 42);
 	VALIDATE_VTABLE(widget, set_layer, 43);
 
