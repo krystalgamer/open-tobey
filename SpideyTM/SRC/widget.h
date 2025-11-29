@@ -255,6 +255,7 @@ public:
 
   // @Patch - added
   EXPORT bool is_wevents_pending(void) const;
+  EXPORT void remove_wevents(void);
 
   // @Patch - made it virtual
   EXPORT virtual bool is_shown() const;

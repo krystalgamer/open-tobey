@@ -512,6 +512,18 @@ void widget::add_wevent( wevent* e )
   }
 }
 
+// @Ok
+// @NotMatching - stl shenanigans
+void widget::remove_wevents(void)
+{
+	for (wevent_list_t::const_iterator it = this->wevent_run_list.begin(); it != this->wevent_run_list.end(); it++)
+	{
+		delete *it;
+	}
+
+	this->wevent_run_list.resize(0);
+	this->wevent_run_list.clear();
+}
 
 // @Ok
 // @Matching
@@ -2714,6 +2726,7 @@ void patch_widget(void)
 
 	PATCH_PUSH_RET_POLY(0x0049C290, widget::get_width_text, "?get_widget_text@widget@@UBEPBDXZ");
 	PATCH_PUSH_RET(0x007B2230, widget::is_wevents_pending);
+	PATCH_PUSH_RET(0x007B21A0, widget::remove_wevents);
 }
 
 void patch_rectf(void)
