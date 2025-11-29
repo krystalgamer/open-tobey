@@ -788,6 +788,8 @@ void widget::move_to( time_value_t wt, time_value_t d, short _x, short _y )
 
 
 
+// @Ok
+// @Matching
 void widget::scale_to( rational_t hs, rational_t vs )
 {
   S[0] = hs;
@@ -817,6 +819,7 @@ void widget::rotate_to( rational_t a )
 
 void widget::rotate_to( time_value_t wt, time_value_t d, rational_t a )
 {
+	PANIC;
   rotate_wevent *e = NEW rotate_wevent( this, wt, d, a );
   add_wevent( e );
 }
@@ -2656,6 +2659,19 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
 
+	void   (widget::*scale_to_ttr)(time_value_t, time_value_t, rational_t) = &widget::scale_to;
+	VALIDATE_VTABLE_POLY(widget, scale_to, scale_to_ttr, 19);
+
+	void   (widget::*scale_to_r)(rational_t) = &widget::scale_to;
+	VALIDATE_VTABLE_POLY(widget, scale_to, scale_to_r, 20);
+
+	void   (widget::*scale_to_ttrr)( time_value_t, time_value_t , rational_t , rational_t ) = &widget::scale_to;
+	VALIDATE_VTABLE_POLY(widget, scale_to, scale_to_ttrr, 21);
+
+	void   (widget::*scale_to_rr)( rational_t, rational_t) = &widget::scale_to;
+	VALIDATE_VTABLE_POLY(widget, scale_to, scale_to_rr, 22);
+
+
 	void (widget::*rotate_to_ttr)(time_value_t, time_value_t, rational_t) = &widget::rotate_to;
 	VALIDATE_VTABLE_POLY(widget, rotate_to, rotate_to_ttr, 23);
 
@@ -2748,6 +2764,8 @@ void patch_widget(void)
 
 	PATCH_PUSH_RET_POLY(0x007B30A0, widget::rotate_along_axis, "?rotate_along_axis@widget@@UAEXMMM@Z");
 	PATCH_PUSH_RET_POLY(0x007B2FF0, widget::rotate_to, "?rotate_to@widget@@UAEXM@Z");
+
+	PATCH_PUSH_RET_POLY(0x007B2F10, widget::rotate_to, "?scale_to@widget@@UAEXMM@Z");
 }
 
 void patch_rectf(void)

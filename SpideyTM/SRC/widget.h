@@ -336,11 +336,12 @@ public:
 
   // animation and wevent functions
   virtual void   move_to( time_value_t wt, time_value_t d, short _x, short _y );
-	virtual void   scale_to( rational_t hs, rational_t vs );
-  virtual void   scale_to( time_value_t wt, time_value_t d, rational_t hs, rational_t vs );
-  virtual void   scale_to( rational_t s ) { scale_to( s, s ); }
+	EXPORT virtual void   scale_to( rational_t hs, rational_t vs );
+	EXPORT virtual void   scale_to( time_value_t wt, time_value_t d, rational_t hs, rational_t vs );
+	EXPORT virtual void   scale_to( rational_t s ) { scale_to( s, s ); }
 
-  virtual void   scale_to( time_value_t wt, time_value_t d, rational_t s ) { scale_to( wt, d, s, s ); }
+  EXPORT virtual void   scale_to( time_value_t wt, time_value_t d, rational_t s ) { scale_to( wt, d, s, s ); }
+
 	EXPORT virtual void   rotate_to( rational_t a );
 
   EXPORT virtual void   rotate_to( time_value_t wt, time_value_t d, rational_t a );
