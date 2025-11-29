@@ -643,9 +643,33 @@ void widget::update_scale()
 
 
 
+// @Ok
+// @Matching
 void widget::update_rot()
 {
-	PANIC;
+	if ( parent && !ignoring_parent() )
+	{
+		base_angle = parent->get_abs_angle();
+	}
+
+	abs_angle = angle + base_angle;
+
+	rational_t ct, st;
+	fast_sin_cos_approx( abs_angle, &st, &ct );
+
+	R[0][0] = ct;
+	R[0][1] = -st;
+
+	R[1][0] = st;
+	R[1][1] = ct;
+
+	// recurse through children
+	widget_list_t::iterator child;
+
+	for( child = children.begin(); child != children.end(); ++child )
+	{
+		(*child)->update_rot();
+	}
 }
 
 
@@ -2538,10 +2562,16 @@ void validate_widget(void)
 	VALIDATE(widget, abs_x, 0x3C);
 	VALIDATE(widget, abs_y, 0x40);
 
+	VALIDATE(widget, angle, 0x54);
+	VALIDATE(widget, abs_angle, 0x58);
+	VALIDATE(widget, base_angle, 0x5C);
+
+	VALIDATE(widget, R, 0x60);
+
 	VALIDATE(widget, col, 0x70);
 	VALIDATE(widget, abs_col, 0xB0);
-	VALIDATE(widget, abs_col, 0xB0);
 	VALIDATE(widget, base_col, 0xF0);
+
 
 	VALIDATE(widget, layer, 0x15C);
 
@@ -2566,7 +2596,9 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
 
+	VALIDATE_VTABLE(widget, update_rot, 40);
 	VALIDATE_VTABLE(widget, update_col, 41);
+
 	VALIDATE_VTABLE(widget, is_entity, 42);
 	VALIDATE_VTABLE(widget, set_layer, 43);
 
@@ -2605,4 +2637,5 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B1780, widget::set_layer, "?set_layer@widget@@UAEXW4widget_layer_e@1@@Z");
 	PATCH_PUSH_RET_POLY(0x0049C2D0, widget::is_entity, "?is_entity@widget@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007B2C50, widget::update_col, "?update_col@widget@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x007B2BC0, widget::update_rot, "?update_rot@widget@@UAEXXZ");
 }
