@@ -31,5 +31,13 @@ inline rational_t fast_acos(rational_t a)
 }
 
 
+// @Ok
+// @Matching
+inline void fast_sin_cos_approx( fp rads, fp* sinx, fp* cosx )
+{
+  *sinx = sin(rads);
+  *cosx = cos(rads);
+}
+
 
 #endif
