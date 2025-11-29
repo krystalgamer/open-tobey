@@ -414,6 +414,12 @@ public:
   // for pc sorting:  convert DC rhw to PC z
   static rational_t get_pc_z( rational_t _rhw );
 
+  PADDING_VIRTUAL();
+  PADDING_VIRTUAL();
+  PADDING_VIRTUAL();
+  EXPORT virtual void focus(void);
+  EXPORT virtual void unfocus(void);
+
 protected:
   // @Patch - moved
   unsigned int flags;

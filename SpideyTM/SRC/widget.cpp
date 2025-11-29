@@ -989,6 +989,15 @@ rational_t widget::get_pc_z( rational_t _rhw )
   */
 }
 
+// @Ok
+// @Matching
+void widget::focus(void)
+{
+}
+
+void widget::unfocus(void)
+{
+}
 
 //-----------------------------------------------------------------
 
@@ -2553,6 +2562,9 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
 
+	VALIDATE_VTABLE(widget, focus, 44);
+	VALIDATE_VTABLE(widget, unfocus, 45);
+
 	VALIDATE_VAL(WFLAG_Ignore_Parent, 4);
 	VALIDATE_VAL(WFLAG_Ignore_Parent_Showing, 8);
 }
@@ -2578,4 +2590,6 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B22A0, widget::override_ignore_showing, "?override_ignore_showing@widget@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x007B2730, widget::show, "?show@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x007B27B0, widget::hide, "?hide@widget@@UAEXXZ");
+
+	PATCH_PUSH_RET_POLY(0x0049C2F0, widget::focus, "?focus@widget@@UAEXXZ");
 }
