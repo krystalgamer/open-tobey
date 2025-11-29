@@ -367,6 +367,8 @@ public:
   float get_abs_x();
   float get_abs_y();
 
+  // @Ok
+  // @Matching
   rational_t get_abs_scale( int i ) const { return( abs_S[i] ); }
 
   // @Ok
