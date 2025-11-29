@@ -2642,6 +2642,8 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, get_width, 2);
 	VALIDATE_VTABLE(widget, get_height, 3);
 
+	VALIDATE_VTABLE(widget, get_widget_text, 4);
+
 	VALIDATE_VTABLE(widget, show, 5);
 	VALIDATE_VTABLE(widget, hide, 6);
 
@@ -2768,6 +2770,8 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B2F10, widget::scale_to(rational_t, rational_t), "?scale_to@widget@@UAEXMM@Z");
 	PATCH_PUSH_RET_POLY(0x0049C2B0, widget::scale_to(rational_t), "?scale_to@widget@@UAEXM@Z");
 	PATCH_PUSH_RET_POLY(0x007B2FC0, widget::scale_to(time_value_t, time_value_t, rational_t), "?scale_to@widget@@UAEXMMM@Z");
+
+	PATCH_PUSH_RET_POLY(0x0049C290, widget::get_width_text, "?get_widget_text@widget@@UBEPBDXZ");
 }
 
 void patch_rectf(void)

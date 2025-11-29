@@ -275,7 +275,9 @@ public:
       flags &= ~f;
   }
 
-  PADDING_VIRTUAL();
+  // @Ok
+  // @Matching
+  EXPORT virtual const char* get_widget_text(void) const { return NULL; }
 
   EXPORT virtual void show();
   EXPORT virtual void hide();
