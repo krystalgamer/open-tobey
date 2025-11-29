@@ -139,36 +139,8 @@ void wevent::set_time_left( time_value_t t )
 
 rational_t wevent::get_lerp( time_value_t t )
 {
-  rational_t lerp;
-
-  if (elapsed < wait_time)
-    lerp = 0.0f;
-  else if ( duration == 0.0f || active_time_left() == 0.0f )
-  {
-    lerp = 1.0f;
-  }
-  else
-  {
-    if ( owner->linear_animation )
-    {
-      lerp = t / active_time_left();
-    }
-    else
-    {
-      lerp = active_time_elapsed() / duration;
-    }
-    if (lerp > 1.0f) lerp = 1.0f;
-  }
-
-
-  // print lerp to screen
-#if 0
-  char work_str[256];
-  sprintf( work_str, "LERP: %2.5f, ELAPSED: %2.5f", lerp, elapsed );
-  hw_rasta::inst()->print( work_str, vector2di(250,52) ); // 450, 60
-#endif
-
-  return lerp;
+	PANIC;
+	return 0.0f;
 }
 
 
@@ -220,46 +192,7 @@ void wevent::frame_advance( time_value_t time_inc )
 widget::widget( const char *_widget_name, widget *_parent, short _x, short _y )
   : widget_name( stringx( _widget_name ) ), parent( _parent ), x( _x ), y( _y )
 {
-  int i;
-
-  type = WTYPE_Other;
-
-  flags = 0;                // widgets start out hidden
-  linear_animation = true;
-  use_proj_matrix = false;
-  next_state = WSTATE_None;
-  state_wait_time = 0.0f;
-
-  base_x = 0;
-  base_y = 0;
-  orig_x = orig_y = 0;
-  base_S[0] = base_S[1] = S[0] = S[1] = 1.0f;
-  R[0][0] = R[1][1] = 1.0f;
-  R[0][1] = R[1][0] = 0.0f;
-  base_angle = angle = 0.0f;
-  for ( i = 0; i < 4; ++i )
-  {
-    base_col[i].r = base_col[i].g = base_col[i].b = base_col[i].a = 1.0f;
-    col[i].r = col[i].g = col[i].b = col[i].a = 1.0f;
-  }
-
-  if ( parent )
-  {
-    parent->add_child( this );
-  }
-  else
-  {
-    // reset 2d rhw vals if unparented widget
-    for ( i = 0; i < NUM_RHW_LAYERS; ++i )
-    {
-      rhw_2d_val[i] = rhw_layer_ranges[i][0];
-    }
-  }
-
-  update_pos();
-  update_scale();
-  update_rot();
-  update_col();
+	PANIC;
 }
 
 
@@ -580,6 +513,12 @@ void widget::add_wevent( wevent* e )
 }
 
 
+// @Ok
+// @Matching
+bool widget::is_wevents_pending(void) const
+{
+	return this->wevent_run_list.size() > 0;
+}
 
 void widget::flush()
 {
@@ -2610,6 +2549,8 @@ void validate_widget(void)
 	VALIDATE(widget, parent, 0x10);
 	VALIDATE(widget, children, 0x1C);
 
+	VALIDATE(widget, wevent_run_list, 0x28);
+
 	VALIDATE(widget, x, 0x34);
 	VALIDATE(widget, y, 0x38);
 	VALIDATE(widget, abs_x, 0x3C);
@@ -2772,6 +2713,7 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B2FC0, widget::scale_to(time_value_t, time_value_t, rational_t), "?scale_to@widget@@UAEXMMM@Z");
 
 	PATCH_PUSH_RET_POLY(0x0049C290, widget::get_width_text, "?get_widget_text@widget@@UBEPBDXZ");
+	PATCH_PUSH_RET(0x007B2230, widget::is_wevents_pending);
 }
 
 void patch_rectf(void)

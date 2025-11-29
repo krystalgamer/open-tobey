@@ -253,6 +253,9 @@ public:
   widget( const char *_widget_name, widget *_parent, short _x, short _y );
   EXPORT virtual ~widget();
 
+  // @Patch - added
+  EXPORT bool is_wevents_pending(void) const;
+
   // @Patch - made it virtual
   EXPORT virtual bool is_shown() const;
 
@@ -330,11 +333,11 @@ public:
   // a timed way to hide and show...
   void set_next_state( widget_state_e state, time_value_t wait_time ) { next_state = state; state_wait_time = wait_time; }
   // getting rid of this...
-  void set_linear_animation( bool _linear_animation ) { linear_animation = _linear_animation; }
+  //void set_linear_animation( bool _linear_animation ) { linear_animation = _linear_animation; }
 
 
   // sometimes we want to use current projection matrix
-  void set_use_proj_matrix( bool _use_proj_matrix ) { use_proj_matrix = _use_proj_matrix; }
+  //void set_use_proj_matrix( bool _use_proj_matrix ) { use_proj_matrix = _use_proj_matrix; }
 
   // animation and wevent functions
   virtual void   move_to( time_value_t wt, time_value_t d, short _x, short _y );
@@ -471,9 +474,11 @@ protected:
   widget_type_e type;
   PADDING(4);
   widget_list_t children;
-  bool linear_animation;   // Is animation linear or time active / time left?
-  bool use_proj_matrix;   // use current projection matrix when rendering?
+	wevent_list_t wevent_run_list;      // list of currently running wevents (ordered by time of activation)
+  //bool linear_animation;   // Is animation linear or time active / time left?
+  //bool use_proj_matrix;   // use current projection matrix when rendering?
   widget_state_e next_state;
+
 
   time_value_t state_wait_time;
 
@@ -505,9 +510,6 @@ protected:
 
 	PADDING(4);
 	widget_layer_e layer;
-
-	// @Patch - moved down here
-	wevent_list_t wevent_run_list;      // list of currently running wevents (ordered by time of activation)
 
 
   // rhw stuff
