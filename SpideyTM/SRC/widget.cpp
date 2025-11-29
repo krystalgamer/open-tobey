@@ -424,14 +424,14 @@ float widget::get_y()
 
 // @Ok
 // @Matching
-float widget::get_abs_x()
+INLINE float widget::get_abs_x()
 {
 	return( abs_x );
 }
 
 // @Ok
 // @Matching
-float widget::get_abs_y()
+INLINE float widget::get_abs_y()
 {
 	return( abs_y );
 }
@@ -602,6 +602,8 @@ void widget::flush()
 
 
 
+// @Ok
+// @Matching
 void widget::update_pos()
 {
   if ( parent && !ignoring_parent() )
@@ -2563,6 +2565,8 @@ void validate_widget(void)
 	VALIDATE(widget, y, 0x38);
 	VALIDATE(widget, abs_x, 0x3C);
 	VALIDATE(widget, abs_y, 0x40);
+	VALIDATE(widget, base_x, 0x44);
+	VALIDATE(widget, base_y, 0x48);
 
 	VALIDATE(widget, angle, 0x54);
 	VALIDATE(widget, abs_angle, 0x58);
