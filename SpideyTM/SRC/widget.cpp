@@ -852,6 +852,8 @@ void widget::set_color( time_value_t wt, time_value_t d, color c )
 }
 
 
+// @Ok
+// @Matching
 void widget::set_color( rational_t r, rational_t g, rational_t b )
 {
   set_color( color( r, g, b, col[0].a ) );
@@ -2703,6 +2705,7 @@ void patch_widget(void)
 
 	PATCH_PUSH_RET_POLY(0x007B1890, widget::set_color(color), "?set_color@widget@@UAEXVcolor@@@Z");
 	PATCH_PUSH_RET_POLY(0x007B18E0, widget::set_color(color[4]), "?set_color@widget@@UAEXQAVcolor@@@Z");
+	PATCH_PUSH_RET_POLY(0x007B1A70, widget::set_color(rational_t, rational_t, rational_t), "?set_color@widget@@UAEXMMM@Z");
 }
 
 void patch_rectf(void)
