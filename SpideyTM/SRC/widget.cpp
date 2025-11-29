@@ -995,6 +995,8 @@ void widget::focus(void)
 {
 }
 
+// @Ok
+// @Matching
 void widget::unfocus(void)
 {
 }
@@ -2592,4 +2594,5 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B27B0, widget::hide, "?hide@widget@@UAEXXZ");
 
 	PATCH_PUSH_RET_POLY(0x0049C2F0, widget::focus, "?focus@widget@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x0049C310, widget::unfocus, "?unfocus@widget@@UAEXXZ");
 }
