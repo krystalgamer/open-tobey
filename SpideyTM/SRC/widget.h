@@ -224,6 +224,14 @@ public:
 
   };
 
+  // @Patch - added and guesses
+  enum widget_layer_e
+  {
+	  WLAYER_ZERO,
+  };
+
+
+
   enum rhw_layer_e  // see top of widget.cpp for explanation
   {
     RHW0,
@@ -372,8 +380,6 @@ public:
 
   widget *find_child_by_name( stringx name ); // uses match with widget_name
 
-  virtual void set_layer( rhw_layer_e rhw_layer ) {};
-
   virtual void update_pos();
   virtual void update_scale();
   virtual void update_rot();
@@ -417,6 +423,10 @@ public:
   PADDING_VIRTUAL();
   PADDING_VIRTUAL();
   PADDING_VIRTUAL();
+  // @Patch - changed the type
+  EXPORT virtual void set_layer( widget_layer_e layer );
+
+
   EXPORT virtual void focus(void);
   EXPORT virtual void unfocus(void);
 
@@ -461,6 +471,8 @@ protected:
   rational_t abs_S[2], base_S[2];
 	rectf subrect;          // subrect of widget which is actually displayed
 
+	PADDING(4);
+	widget_layer_e layer;
 
   // rhw stuff
   // For the DC, widgets are assigned an rhw layer to determine where they sort.
@@ -599,7 +611,7 @@ public:
   virtual rational_t    get_height() { return ( h ); }  // height before scaling
   bool          is_open() { return ( flags & WFLAG_Open ); }
 
-  virtual void set_layer( rhw_layer_e rhw_layer );
+  virtual void set_layer(widget_layer_e);
 
 
   virtual void  frame_advance( time_value_t time_inc );
@@ -683,7 +695,7 @@ public:
   void set_rhw( rational_t _rhw );  // replaces rhw assigned in constructor and decrements rhw counter,
                                     // since it got incremented by get_next_rhw_2d_val
 
-  virtual void set_layer( rhw_layer_e rhw_layer );
+  virtual void set_layer(widget_layer_e);
 
 protected:
   friend class text_block_widget;
@@ -748,7 +760,7 @@ public:
 
   uint8 get_num_lines_used() const { return num_lines_used; }
 
-  virtual void set_layer( rhw_layer_e rhw_layer );
+  virtual void set_layer(widget_layer_e);
 
 protected:
   void clear_lines();
@@ -807,7 +819,7 @@ public:
   virtual void update_rot();
 
 
-  virtual void set_layer( rhw_layer_e rhw_layer );
+  virtual void set_layer(widget_layer_e);
 
 protected:
   void init();

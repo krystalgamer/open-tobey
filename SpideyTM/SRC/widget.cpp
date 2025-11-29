@@ -991,6 +991,19 @@ rational_t widget::get_pc_z( rational_t _rhw )
 
 // @Ok
 // @Matching
+// @Patch - added the content
+void widget::set_layer(widget_layer_e layer)
+{
+	this->layer = layer;
+	widget_list_t::iterator child;
+	for( child = children.begin(); child != children.end(); ++child )
+	{
+		(*child)->set_layer(layer);
+	}
+}
+
+// @Ok
+// @Matching
 void widget::focus(void)
 {
 }
@@ -1001,6 +1014,7 @@ void widget::unfocus(void)
 {
 }
 
+// - widget::end
 //-----------------------------------------------------------------
 
 menu_item_widget::menu_item_widget( const char *_widget_name, widget *_parent, short _x, short _y, const char *_item_desc )
@@ -1406,12 +1420,9 @@ void bitmap_widget::set_tc()
   tc[3] = texture_coord((subrect.get_right() - 0.5f) / ( w * abs_S[0] ), (subrect.get_bottom() - 0.5f) / ( h * abs_S[1]) );
 }
 
-void bitmap_widget::set_layer( rhw_layer_e rhw_layer )
+void bitmap_widget::set_layer(widget_layer_e)
 {
-  set_rhw_2d_layer(rhw_layer);
-  rhw = get_next_rhw_2d_val();
-  z = get_pc_z( rhw );
-  restore_last_rhw_2d_layer();
+	PANIC;
 }
 
 void bitmap_widget::frame_advance( time_value_t time_inc )
@@ -1641,12 +1652,9 @@ void text_widget::set_rhw( rational_t _rhw )
 }
 
 
-void text_widget::set_layer( rhw_layer_e rhw_layer )
+void text_widget::set_layer(widget_layer_e)
 {
-  set_rhw_2d_layer(rhw_layer);
-  rhw = get_next_rhw_2d_val();
-  z = get_pc_z( rhw );
-  restore_last_rhw_2d_layer();
+	PANIC;
 }
 
 
@@ -1843,19 +1851,9 @@ rational_t text_block_widget::get_height() const
   return height;
 }
 
-void text_block_widget::set_layer( rhw_layer_e rhw_layer )
+void text_block_widget::set_layer(widget_layer_e)
 {
-  set_rhw_2d_layer(rhw_layer);
-
-  widget_list_t::const_iterator it = children.begin();
-  widget_list_t::const_iterator it_end = children.end();
-  for( ; it != it_end; ++it )
-  {
-    ((text_widget*)(*it))->rhw = get_next_rhw_2d_val();
-    ((text_widget*)(*it))->z = get_pc_z( ((text_widget*)(*it))->rhw );
-  }
-
-  restore_last_rhw_2d_layer();
+	PANIC;
 }
 
 //-----------------------------------------------------------------
@@ -1903,15 +1901,9 @@ void vrep_widget::init()
 	PANIC;
 }
 
-void vrep_widget::set_layer( rhw_layer_e rhw_layer )
+void vrep_widget::set_layer(widget_layer_e)
 {
-  set_rhw_3d_layer(rhw_layer);
-
-  rhw_half_range = (rhw_layer_ranges[rhw_3d_layer][1]-rhw_layer_ranges[rhw_3d_layer][0])/2;
-  rhw_midpoint = rhw_layer_ranges[rhw_3d_layer][0] + rhw_half_range;
-  z = get_pc_z( rhw_midpoint );
-
-  restore_last_rhw_3d_layer();
+	PANIC;
 }
 
 
@@ -2543,6 +2535,8 @@ void validate_widget(void)
 	VALIDATE(widget, abs_x, 0x3C);
 	VALIDATE(widget, abs_y, 0x40);
 
+	VALIDATE(widget, layer, 0x15C);
+
 	VALIDATE_VTABLE(widget, is_shown, 1);
 	VALIDATE_VTABLE(widget, get_width, 2);
 	VALIDATE_VTABLE(widget, get_height, 3);
@@ -2563,6 +2557,8 @@ void validate_widget(void)
 
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
+
+	VALIDATE_VTABLE(widget, set_layer, 43);
 
 	VALIDATE_VTABLE(widget, focus, 44);
 	VALIDATE_VTABLE(widget, unfocus, 45);
@@ -2595,4 +2591,6 @@ void patch_widget(void)
 
 	PATCH_PUSH_RET_POLY(0x0049C2F0, widget::focus, "?focus@widget@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x0049C310, widget::unfocus, "?unfocus@widget@@UAEXXZ");
+
+	PATCH_PUSH_RET_POLY(0x007B1780, widget::set_layer, "?set_layer@widget@@UAEXW4widget_layer_e@1@@Z");
 }
