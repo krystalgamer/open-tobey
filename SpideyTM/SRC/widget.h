@@ -341,9 +341,9 @@ public:
   virtual void   scale_to( rational_t s ) { scale_to( s, s ); }
 
   virtual void   scale_to( time_value_t wt, time_value_t d, rational_t s ) { scale_to( wt, d, s, s ); }
-	virtual void   rotate_to( rational_t a );
+	EXPORT virtual void   rotate_to( rational_t a );
 
-  virtual void   rotate_to( time_value_t wt, time_value_t d, rational_t a );
+  EXPORT virtual void   rotate_to( time_value_t wt, time_value_t d, rational_t a );
   //virtual void   fade_to( time_value_t wt, time_value_t d, rational_t alpha );
   bool is_faded() const;
 
