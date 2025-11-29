@@ -2765,7 +2765,8 @@ void patch_widget(void)
 	PATCH_PUSH_RET_POLY(0x007B30A0, widget::rotate_along_axis, "?rotate_along_axis@widget@@UAEXMMM@Z");
 	PATCH_PUSH_RET_POLY(0x007B2FF0, widget::rotate_to, "?rotate_to@widget@@UAEXM@Z");
 
-	PATCH_PUSH_RET_POLY(0x007B2F10, widget::rotate_to, "?scale_to@widget@@UAEXMM@Z");
+	PATCH_PUSH_RET_POLY(0x007B2F10, widget::scale_to(rational_t, rational_t), "?scale_to@widget@@UAEXMM@Z");
+	PATCH_PUSH_RET_POLY(0x0049C2B0, widget::scale_to(rational_t), "?scale_to@widget@@UAEXM@Z");
 }
 
 void patch_rectf(void)

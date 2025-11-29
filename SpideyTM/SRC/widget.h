@@ -338,6 +338,8 @@ public:
   virtual void   move_to( time_value_t wt, time_value_t d, short _x, short _y );
 	EXPORT virtual void   scale_to( rational_t hs, rational_t vs );
 	EXPORT virtual void   scale_to( time_value_t wt, time_value_t d, rational_t hs, rational_t vs );
+	// @Ok
+	// @Matching
 	EXPORT virtual void   scale_to( rational_t s ) { scale_to( s, s ); }
 
   EXPORT virtual void   scale_to( time_value_t wt, time_value_t d, rational_t s ) { scale_to( wt, d, s, s ); }
