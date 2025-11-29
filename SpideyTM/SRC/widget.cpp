@@ -819,6 +819,8 @@ void widget::rotate_to( time_value_t wt, time_value_t d, rational_t a )
 
 
 
+// @Ok
+// @Matching
 void widget::set_color( color c )
 {
   for ( int i = 0; i < 4; ++i )
@@ -856,6 +858,8 @@ void widget::set_color( rational_t r, rational_t g, rational_t b )
 
 
 
+// @Ok
+// @Matching
 void widget::fade_to( rational_t alpha )
 {
   for ( int i = 0; i < 4; ++i )
@@ -867,8 +871,10 @@ void widget::fade_to( rational_t alpha )
 
 
 
+	/*
 void widget::fade_to( time_value_t wt, time_value_t d, rational_t alpha )
 {
+	PANIC;
   color c;
   c.r = col[0].r;
   c.g = col[0].g;
@@ -877,6 +883,7 @@ void widget::fade_to( time_value_t wt, time_value_t d, rational_t alpha )
   color_wevent *e = NEW color_wevent( this, wt, d, c );
   add_wevent( e );
 }
+  */
 
 
 
@@ -2620,6 +2627,21 @@ void validate_widget(void)
 	VALIDATE_VTABLE(widget, frame_advance, 15);
 	VALIDATE_VTABLE(widget, render, 16);
 
+	void (widget::*ptr_set_color_rrr)(rational_t, rational_t, rational_t) = &widget::set_color;
+	VALIDATE_VTABLE_POLY(widget, set_color(color), ptr_set_color_rrr, 29);
+
+	void (widget::*ptr_set_color_ttc)(time_value_t, time_value_t, color) = &widget::set_color;
+	VALIDATE_VTABLE_POLY(widget, set_color(color), ptr_set_color_ttc, 30);
+
+	void (widget::*ptr_set_color_ca)(color[4]) = &widget::set_color;
+	VALIDATE_VTABLE_POLY(widget, set_color(color), ptr_set_color_ca, 31);
+
+	void (widget::*ptr_set_color_c)(color) = &widget::set_color;
+	VALIDATE_VTABLE_POLY(widget, set_color(color), ptr_set_color_c, 32);
+
+	// @TODO - there's two deal with it future me
+	VALIDATE_VTABLE(widget, fade_to, 34);
+
 	VALIDATE_VTABLE(widget, set_subrect, 35);
 	VALIDATE_VTABLE(widget, set_origin, 36);
 
@@ -2675,6 +2697,9 @@ void patch_widget(void)
 
 	PATCH_PUSH_RET_POLY(0x007B3220, widget::set_origin, "?set_origin@widget@@UAEXMM@Z");
 	PATCH_PUSH_RET_POLY(0x007B31E0, widget::set_subrect, "?set_subrect@widget@@UAEXMMMM@Z");
+	PATCH_PUSH_RET_POLY(0x007B28F0, widget::fade_to(rational_t), "?fade_to@widget@@UAEXM@Z");
+
+	PATCH_PUSH_RET_POLY(0x007B1890, widget::set_color(color), "?set_color@widget@@UAEXVcolor@@@Z");
 }
 
 void patch_rectf(void)

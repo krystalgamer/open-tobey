@@ -342,12 +342,8 @@ public:
 	virtual void   rotate_to( rational_t a );
 
   virtual void   rotate_to( time_value_t wt, time_value_t d, rational_t a );
-	virtual void   set_color( color c );
-  virtual void   set_color( color c[4] );
-  virtual void   set_color( time_value_t wt, time_value_t d, color c );
-  virtual void   set_color( rational_t r, rational_t g, rational_t b );
-  virtual void   fade_to( rational_t alpha );
-  virtual void   fade_to( time_value_t wt, time_value_t d, rational_t alpha );
+  //virtual void   fade_to( time_value_t wt, time_value_t d, rational_t alpha );
+  PADDING_VIRTUAL();
   bool is_faded() const;
 
 
@@ -418,7 +414,13 @@ public:
   static rational_t get_pc_z( rational_t _rhw );
 
   PADDING_VIRTUAL();
-  PADDING_VIRTUAL();
+  EXPORT virtual void   set_color( color c );
+  EXPORT virtual void   set_color( color c[4] );
+  EXPORT virtual void   set_color( time_value_t wt, time_value_t d, color c );
+  EXPORT virtual void   set_color( rational_t r, rational_t g, rational_t b );
+
+  PADDING_VIRTUAL(); // another fade_to
+  EXPORT virtual void   fade_to( rational_t alpha );
   //@Ok
   //@Matching
 	EXPORT virtual void   set_subrect( float x0, float y0, float x1, float y1 ) { subrect = rectf( x0, y0, x1, y1 ); }

@@ -41,4 +41,8 @@ void validate_vtable_index(
 	validate_vtable_index(expected, get_thunk_address(0, &cls::member), #cls, #member);\
 }
 
+#define VALIDATE_VTABLE_POLY(cls, member, func, expected) {\
+	validate_vtable_index(expected, get_thunk_address(0, func), #cls, #member);\
+}
+
 #endif
