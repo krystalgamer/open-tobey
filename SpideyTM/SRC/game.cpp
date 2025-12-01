@@ -1929,6 +1929,12 @@ int game::is_refresh_at_50hz(void) const
 	return 0;
 }
 
+// @Ok
+// @Matching
+void game::enable_PAL(bool)
+{
+}
+
 void skip_intros(void)
 {
 	// @TODO
@@ -1951,4 +1957,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C0BE0, game::is_PAL_allowed);
 	PATCH_PUSH_RET(0x005C0C00, game::is_PAL_enabled);
 	PATCH_PUSH_RET(0x005C0C20, game::is_refresh_at_50hz);
+	PATCH_PUSH_RET(0x005C0C40, game::enable_PAL);
 }
