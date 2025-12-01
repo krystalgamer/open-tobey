@@ -193,6 +193,7 @@ public:
 	EXPORT void enable_PAL(bool);
 	EXPORT void set_widescreen(bool);
 	EXPORT int get_widescreen(void) const;
+	EXPORT int get_platform(void) const;
 
     void frame_advance();
     void render();

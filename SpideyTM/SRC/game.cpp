@@ -1952,6 +1952,13 @@ int game::get_widescreen(void) const
 	return g_inside_widescreen;
 }
 
+// @Ok
+// @Matching
+int game::get_platform(void) const
+{
+	return 1;
+}
+
 void skip_intros(void)
 {
 	// @TODO
@@ -1977,4 +1984,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C0C40, game::enable_PAL);
 	PATCH_PUSH_RET(0x005C0C60, game::set_widescreen);
 	PATCH_PUSH_RET(0x005C15F0, game::get_widescreen);
+	PATCH_PUSH_RET(0x005C1610, game::get_platform);
 }
