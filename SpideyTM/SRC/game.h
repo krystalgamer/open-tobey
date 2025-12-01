@@ -359,7 +359,7 @@ public:
   	bool was_goal_completed() {return flag.goal_completed;}
 
 
-    void enable_marky_cam( bool enable = true, bool sync = true, rational_t priority = MIN_CAMERA_PRIORITY ) { PANIC; }
+    void enable_marky_cam( bool enable = true, bool sync = true, rational_t priority = MIN_CAMERA_PRIORITY );
     void load_new_level( const stringx &new_level_name );
 
     game_info &get_game_info() { return(info); }

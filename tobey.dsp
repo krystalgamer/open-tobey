@@ -858,6 +858,10 @@ SOURCE=.\SpideyTM\SRC\zlib\zutil.h
 
 SOURCE=.\SpideyTM\SRC\HWOSPC\pc_audio.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\pc_movieplayer.h
+# End Source File
 # End Group
 # Begin Group "NSL"
 

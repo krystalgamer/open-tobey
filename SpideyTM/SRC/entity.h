@@ -72,7 +72,6 @@ class camera;
 // @Patch
 struct nglTexture;
 struct nglMesh;
-struct nglVector;
 
 //typedef graph<stringx,region*,portal*> region_graph;
 //typedef region_graph::node region_node;

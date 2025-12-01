@@ -212,6 +212,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\filespec.obj" \
 	"$(INTDIR)\frame_info.obj" \
 	"$(INTDIR)\game.obj" \
+	"$(INTDIR)\game_process.obj" \
 	"$(INTDIR)\geomgr.obj" \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\hull.obj" \
@@ -250,6 +251,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\sound_interface.obj" \
 	"$(INTDIR)\stringx.obj" \
 	"$(INTDIR)\terrain.obj" \
+	"$(INTDIR)\text_font.obj" \
 	"$(INTDIR)\textfile.obj" \
 	"$(INTDIR)\time_interface.obj" \
 	"$(INTDIR)\trigger.obj" \
@@ -263,11 +265,9 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_errmsg.obj" \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
-	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\zip_filter.obj" \
 	"$(INTDIR)\widget.obj" \
-	"$(INTDIR)\text_font.obj" \
-	"$(INTDIR)\game_process.obj"
+	"$(INTDIR)\x86_math.obj" \
+	"$(INTDIR)\zip_filter.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -458,6 +458,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\filespec.obj" \
 	"$(INTDIR)\frame_info.obj" \
 	"$(INTDIR)\game.obj" \
+	"$(INTDIR)\game_process.obj" \
 	"$(INTDIR)\geomgr.obj" \
 	"$(INTDIR)\global.obj" \
 	"$(INTDIR)\hull.obj" \
@@ -496,6 +497,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\sound_interface.obj" \
 	"$(INTDIR)\stringx.obj" \
 	"$(INTDIR)\terrain.obj" \
+	"$(INTDIR)\text_font.obj" \
 	"$(INTDIR)\textfile.obj" \
 	"$(INTDIR)\time_interface.obj" \
 	"$(INTDIR)\trigger.obj" \
@@ -509,11 +511,9 @@ LINK32_OBJS= \
 	"$(INTDIR)\w32_errmsg.obj" \
 	"$(INTDIR)\w32_file.obj" \
 	"$(INTDIR)\wds.obj" \
-	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\zip_filter.obj" \
 	"$(INTDIR)\widget.obj" \
-	"$(INTDIR)\text_font.obj" \
-	"$(INTDIR)\game_process.obj"
+	"$(INTDIR)\x86_math.obj" \
+	"$(INTDIR)\zip_filter.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
