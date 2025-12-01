@@ -1405,6 +1405,10 @@ SOURCE=.\SpideyTM\SRC\my_export.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\my_panic.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\my_patch.h
 # End Source File
 # Begin Source File

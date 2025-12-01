@@ -567,9 +567,5 @@ class stringx;
 #define sqrt(x) sqrtf(x)
 */
 
-#define STRINGIFY(x) #x
-#define TOSTRING(x) STRINGIFY(x)
-#define PANIC_AT TOSTRING(__FILE__) ":" TOSTRING(__LINE__)
-#define PANIC { OutputDebugStringA("IMMA GONNA KILLMYSELF" PANIC_AT); __asm { int 3 }; exit(1); }
-
+#include "my_panic.h"
 #endif

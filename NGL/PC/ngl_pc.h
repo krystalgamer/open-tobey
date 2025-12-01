@@ -126,12 +126,14 @@ extern nglMatrix nglMatrixID;
 // Set the matrix to the identity.
 inline static void nglIdentityMatrix(nglMatrix &mat)
 {
-	memcpy(mat, nglMatrixID, sizeof(nglMatrix));
+	//memcpy(mat, nglMatrixID, sizeof(nglMatrix));
+	LEAN_PANIC;
 }
 
 inline static void nglMatrixIdentity(nglMatrix &mat)
 {
-	memcpy(mat, nglMatrixID, sizeof(nglMatrix));
+	//memcpy(mat, nglMatrixID, sizeof(nglMatrix));
+	LEAN_PANIC;
 }
 
 // Multiply two matrices (src2 * src1).
@@ -139,7 +141,7 @@ inline static void nglMatrixIdentity(nglMatrix &mat)
 inline static void nglMatrixMul(nglMatrix &dest, const nglMatrix &src1, const nglMatrix &src2)
 {
 
-	PANIC;
+	LEAN_PANIC;
 	//XGMatrixMultiply((XGMATRIX *)&dest, (XGMATRIX *)&src2, (XGMATRIX *)&src1);
 
 }
@@ -148,7 +150,7 @@ inline static void nglMatrixMul(nglMatrix &dest, const nglMatrix &src1, const ng
 inline static void nglMulMatrix(nglMatrix &dest, const nglMatrix &src1, const nglMatrix &src2)
 {
 
-	PANIC;
+	LEAN_PANIC;
 	//XGMatrixMultiply((XGMATRIX *)&dest, (XGMATRIX *)&src2, (XGMATRIX *)&src1);
 }
 
@@ -156,7 +158,7 @@ inline static void nglMulMatrix(nglMatrix &dest, const nglMatrix &src1, const ng
 // Tranform a matrix by a vector.
 inline static void nglApplyMatrix(nglVector &dest, const nglMatrix &msrc, const nglVector &vsrc)
 {
-	PANIC;
+	LEAN_PANIC;
 	//XGVec4Transform((XGVECTOR4 *)&dest, (XGVECTOR4 *)&vsrc, (XGMATRIX *)&msrc);
 }
 
@@ -220,7 +222,7 @@ void nglSetSystemCallbacks(nglSystemCallbackStruct *Callbacks);
 
 ---------------------------------------------------------------------------------------------------------*/
 
-void nglPrintf(const char *Format, ...);
+EXPORT void nglPrintf(const char *Format, ...);
 void nglWarning(const char *Format, ...);
 void nglError(const char *Format, ...);
 void nglLog(const char *Format, ...);
@@ -234,8 +236,6 @@ void nglReleaseFile(nglFileBuf *File);
 void *nglMemAlloc(uint32 Size, uint32 Align = 0, bool WriteCombined = 0);
 void nglMemFree(void *Ptr);
 
-
-EXPORT void nglPrintf(const char *Format, ...);
 
 EXPORT void nglSetFogRange(float Near, float Far, float Min, float Max);
 EXPORT void nglSetFogColor(float R, float G, float B);

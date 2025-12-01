@@ -146,18 +146,7 @@ Random *g_random_r_ptr;
 //--------------------------------------------------------------
 void clear_zbuffer()
 {
-
-#if defined(TARGET_PC) && 1
-	//  For now, this was a hack anyway.
-	//  if (g_game_ptr->get_total_delta() < 1.0f/20) // skip this minor visual improvement if we're getting slow framerate
-	{
-		// clear zbuffer to sort interface stuff in front of world!
-
-		hw_rasta::inst()->set_zbuffering( false, true );
-		render_quad_2d(vector2d(0.0f,0.0f),vector2d(1.0f,1.0f),0.999f,color32(0,0,0,0));
-		hw_rasta::inst()->set_zbuffering( true, false );
-	}
-#endif
+	PANIC;
 }
 
 
