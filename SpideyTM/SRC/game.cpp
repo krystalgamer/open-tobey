@@ -1937,11 +1937,19 @@ void game::enable_PAL(bool)
 
 // @Ok
 int g_inside_widescreen;
+
 // @Ok
 // @Matching
 void game::set_widescreen(bool a1)
 {
 	g_inside_widescreen = a1;
+}
+
+// @Ok
+// @Matching
+int game::get_widescreen(void) const
+{
+	return g_inside_widescreen;
 }
 
 void skip_intros(void)
@@ -1968,4 +1976,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C0C20, game::is_refresh_at_50hz);
 	PATCH_PUSH_RET(0x005C0C40, game::enable_PAL);
 	PATCH_PUSH_RET(0x005C0C60, game::set_widescreen);
+	PATCH_PUSH_RET(0x005C15F0, game::get_widescreen);
 }

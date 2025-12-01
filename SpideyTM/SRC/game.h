@@ -192,6 +192,7 @@ public:
 	EXPORT int is_refresh_at_50hz(void) const;
 	EXPORT void enable_PAL(bool);
 	EXPORT void set_widescreen(bool);
+	EXPORT int get_widescreen(void) const;
 
     void frame_advance();
     void render();
