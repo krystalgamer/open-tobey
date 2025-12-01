@@ -1935,6 +1935,15 @@ void game::enable_PAL(bool)
 {
 }
 
+// @Ok
+int g_inside_widescreen;
+// @Ok
+// @Matching
+void game::set_widescreen(bool a1)
+{
+	g_inside_widescreen = a1;
+}
+
 void skip_intros(void)
 {
 	// @TODO
@@ -1958,4 +1967,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C0C00, game::is_PAL_enabled);
 	PATCH_PUSH_RET(0x005C0C20, game::is_refresh_at_50hz);
 	PATCH_PUSH_RET(0x005C0C40, game::enable_PAL);
+	PATCH_PUSH_RET(0x005C0C60, game::set_widescreen);
 }
