@@ -186,6 +186,9 @@ public:
     game();
     ~game();
 
+	// @Patch - added
+	EXPORT int is_PAL_allowed(void) const;
+
     void frame_advance();
     void render();
 
@@ -704,6 +707,10 @@ public:
 	void LoadingStateSkipSurfer(bool surfer1);
 	void LoadingProgressUpdate();
 	void SetStashSize(int loading_state, int size);
+
+
+private:
+	PADDING(0x310-0x1EC);
 };
 
 extern game* g_game_ptr;

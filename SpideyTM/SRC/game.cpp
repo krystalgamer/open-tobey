@@ -1908,6 +1908,13 @@ void game::set_player_handicap(int hero, int new_handicap)
 
 */
 
+// @Ok
+// @Matching
+int game::is_PAL_allowed(void) const
+{
+	return 0;
+}
+
 void skip_intros(void)
 {
 	// @TODO
@@ -1918,6 +1925,7 @@ void skip_intros(void)
 
 void validate_game(void)
 {
+	VALIDATE_SIZE(game, 0x310);
 }
 
 #include "my_patch.h"
@@ -1925,4 +1933,6 @@ void validate_game(void)
 void patch_game(void)
 {
 	PATCH_PUSH_RET(0x005C1930, skip_intros);
+
+	PATCH_PUSH_RET(0x005C0BE0, game::is_PAL_allowed);
 }
