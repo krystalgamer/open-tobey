@@ -188,6 +188,7 @@ public:
 
 	// @Patch - added
 	EXPORT int is_PAL_allowed(void) const;
+	EXPORT int is_PAL_enabled(void) const;
 
     void frame_advance();
     void render();

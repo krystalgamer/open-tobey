@@ -1915,6 +1915,13 @@ int game::is_PAL_allowed(void) const
 	return 0;
 }
 
+// @Ok
+// @Matching
+int game::is_PAL_enabled(void) const
+{
+	return 0;
+}
+
 void skip_intros(void)
 {
 	// @TODO
@@ -1935,4 +1942,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C1930, skip_intros);
 
 	PATCH_PUSH_RET(0x005C0BE0, game::is_PAL_allowed);
+	PATCH_PUSH_RET(0x005C0C00, game::is_PAL_enabled);
 }
