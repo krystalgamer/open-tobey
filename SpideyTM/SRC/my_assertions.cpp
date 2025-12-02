@@ -125,6 +125,7 @@ void validate_val(int a, int b, const char* name)
 {
 	if (a != b)
 	{
+		FAIL_VALIDATION = 1;
 		printf("[!] Different value for %s, got %d expected %d\n", name, a, b);
 		fflush(stdout);
 	}
