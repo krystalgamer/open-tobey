@@ -203,6 +203,7 @@ public:
 	EXPORT void set_fog_color(color);
 	EXPORT void set_fog_distance(float, float);
 	EXPORT color get_fog_color(void) const;
+	EXPORT float get_fog_start_distance(void) const;
 
     void frame_advance();
     void render();

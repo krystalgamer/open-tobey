@@ -2000,6 +2000,13 @@ color game::get_fog_color(void) const
 	return this->the_world->get_fog_color();
 }
 
+// @Ok
+// @Matching
+float game::get_fog_start_distance(void) const
+{
+	return this->the_world->get_fog_start_distance();
+}
+
 
 void skip_intros(void)
 {
@@ -2029,8 +2036,10 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C0C60, game::set_widescreen);
 	PATCH_PUSH_RET(0x005C15F0, game::get_widescreen);
 	PATCH_PUSH_RET(0x005C1610, game::get_platform);
+
 	PATCH_PUSH_RET(0x005C23A0, game::set_default_volumes);
 	PATCH_PUSH_RET(0x005C2460, game::set_fog_color);
 	PATCH_PUSH_RET(0x005C24A0, game::set_fog_distance);
 	PATCH_PUSH_RET(0x005C2500, game::get_fog_color);
+	PATCH_PUSH_RET(0x005C2540, game::get_fog_start_distance);
 }
