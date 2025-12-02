@@ -1993,6 +1993,12 @@ void game::set_fog_distance(float start, float end)
 	this->the_world->set_fog_distance(start, end);
 }
 
+// @Ok
+// @Matching
+color game::get_fog_color(void) const
+{
+	return this->the_world->get_fog_color();
+}
 
 
 void skip_intros(void)
@@ -2026,4 +2032,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C23A0, game::set_default_volumes);
 	PATCH_PUSH_RET(0x005C2460, game::set_fog_color);
 	PATCH_PUSH_RET(0x005C24A0, game::set_fog_distance);
+	PATCH_PUSH_RET(0x005C2500, game::get_fog_color);
 }
