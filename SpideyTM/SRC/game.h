@@ -35,6 +35,7 @@
 
 // @Patch
 #include "color.h"
+#include "..\..\NSL\COMMON\nsl.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -205,6 +206,7 @@ public:
 	EXPORT color get_fog_color(void) const;
 	EXPORT float get_fog_start_distance(void) const;
 	EXPORT float get_fog_end_distance(void) const;
+	EXPORT bool is_music_playing_now(void);
 
     void frame_advance();
     void render();
@@ -530,6 +532,8 @@ public:
 	bool					recordChain;
 	GameEventRecipient		eventRecipient;
 	*/
+	PADDING(0x10);
+	nslSoundId field_64;
 
 	// *** Two Player Data ***
 	
@@ -728,7 +732,7 @@ public:
 
 
 private:
-	PADDING(0x310-0x1EC);
+	PADDING(0x310-0x1EC-0x14);
 };
 
 extern game* g_game_ptr;

@@ -2014,6 +2014,12 @@ float game::get_fog_end_distance(void) const
 	return this->the_world->get_fog_end_distance();
 }
 
+// @Ok
+// @Matching
+bool game::is_music_playing_now(void)
+{
+	return nslGetSoundStatus(this->field_64) == NSL_SOUNDSTATUS_PLAYING;
+}
 
 void skip_intros(void)
 {
@@ -2028,6 +2034,8 @@ void validate_game(void)
 	VALIDATE_SIZE(game, 0x310);
 
 	VALIDATE(game, the_world, 0x28);
+
+	VALIDATE(game, field_64, 0x64);
 }
 
 #include "my_patch.h"
@@ -2050,4 +2058,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C2500, game::get_fog_color);
 	PATCH_PUSH_RET(0x005C2540, game::get_fog_start_distance);
 	PATCH_PUSH_RET(0x005C2560, game::get_fog_end_distance);
+	PATCH_PUSH_RET(0x005CA1C0, game::is_music_playing_now);
 }
