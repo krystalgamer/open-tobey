@@ -2028,6 +2028,13 @@ bool game::is_music_playing(void)
 	return nslGetSoundStatus(this->field_64) != NSL_SOUNDSTATUS_INVALID;
 }
 
+// @Ok
+// @Matching
+float game::stealth_cheat_enabled(void) const
+{
+	return 0.0f;
+}
+
 void skip_intros(void)
 {
 	// @TODO
@@ -2070,4 +2077,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C2560, game::get_fog_end_distance);
 	PATCH_PUSH_RET(0x005CA1C0, game::is_music_playing_now);
 	PATCH_PUSH_RET(0x005CA190, game::is_music_playing);
+	PATCH_PUSH_RET(0x005CA9A0, game::stealth_cheat_enabled);
 }
