@@ -207,6 +207,7 @@ public:
 	EXPORT float get_fog_start_distance(void) const;
 	EXPORT float get_fog_end_distance(void) const;
 	EXPORT bool is_music_playing_now(void);
+	EXPORT bool is_music_playing(void);
 
     void frame_advance();
     void render();
