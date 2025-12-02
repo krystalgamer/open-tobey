@@ -1959,6 +1959,28 @@ int game::get_platform(void) const
 	return 1;
 }
 
+// @Ok
+// @Matching
+void game::set_default_volumes(void)
+{
+	if (!localize_manager::inst()->get_language_id())
+	{
+		nslxSetVolume(NSL_SOURCETYPE_MOVIE, 0.75);
+		nslxSetVolume(NSL_SOURCETYPE_MUSIC, 0.65);
+		nslxSetVolume(NSL_SOURCETYPE_VOICE, 1.0);
+		nslxSetVolume(NSL_SOURCETYPE_SFX, 0.65);
+	}
+	else
+	{
+		nslxSetVolume(NSL_SOURCETYPE_MOVIE, 0.75);
+		nslxSetVolume(NSL_SOURCETYPE_MUSIC, 0.45);
+		nslxSetVolume(NSL_SOURCETYPE_VOICE, 1.0);
+		nslxSetVolume(NSL_SOURCETYPE_SFX, 0.55);
+	}
+}
+
+
+
 void skip_intros(void)
 {
 	// @TODO
@@ -1985,4 +2007,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C0C60, game::set_widescreen);
 	PATCH_PUSH_RET(0x005C15F0, game::get_widescreen);
 	PATCH_PUSH_RET(0x005C1610, game::get_platform);
+	PATCH_PUSH_RET(0x005C23A0, game::set_default_volumes);
 }

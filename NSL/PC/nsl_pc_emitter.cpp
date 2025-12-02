@@ -75,3 +75,8 @@ void nslReleaseEmitter( nslEmitterId emitterToRelease )
 
 	func(emitterToRelease);
 }
+
+
+void nslxSetVolume( nslSourceTypeEnum typeOfSound, float newVolume )
+{
+}

@@ -194,6 +194,7 @@ public:
 	EXPORT void set_widescreen(bool);
 	EXPORT int get_widescreen(void) const;
 	EXPORT int get_platform(void) const;
+	EXPORT void set_default_volumes(void);
 
     void frame_advance();
     void render();

@@ -307,6 +307,8 @@ void  nslSetMasterVolume( float newVolume );
 float nslGetMasterVolume();
 
 void  nslSetVolume( nslSourceTypeEnum typeOfSound, float newVolume );
+// @Patch - they look the same but just to be sure
+void  nslxSetVolume( nslSourceTypeEnum typeOfSound, float newVolume );
 float nslGetVolume( nslSourceTypeEnum typeOfSound);
 
 

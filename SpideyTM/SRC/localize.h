@@ -25,6 +25,11 @@ class localize_manager : public singleton
 		std::map<stringx, stringx> unk;
 
 	public:
+		static inline localize_manager* inst()
+		{
+			// @Hardcode
+			return *reinterpret_cast<localize_manager**>(0x00911A08);
+		}
 		EXPORT int get_language_id(void) const;
 
 };
