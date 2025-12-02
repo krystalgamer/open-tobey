@@ -759,6 +759,10 @@ class world_dynamics_system
 
 	EXPORT void set_fog_color(color);
 
+	// @Ok
+	// @Matching
+	EXPORT color get_fog_color(void) const { return this->fog_color; }
+
 	// @Patch - added
 	EXPORT void set_fog_distance(float, float);
 
