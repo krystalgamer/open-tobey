@@ -79,4 +79,8 @@ void nslReleaseEmitter( nslEmitterId emitterToRelease )
 
 void nslxSetVolume( nslSourceTypeEnum typeOfSound, float newVolume )
 {
+	typedef void (*func_ptr)(nslSourceTypeEnum, float);
+	func_ptr func = (func_ptr)0x007EDAB0;
+
+	func(typeOfSound, newVolume);
 }

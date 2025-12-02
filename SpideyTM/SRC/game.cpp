@@ -1979,6 +1979,13 @@ void game::set_default_volumes(void)
 	}
 }
 
+// @Ok
+// @Matching
+void game::set_fog_color(color c)
+{
+	this->the_world->set_fog_color(c);
+}
+
 
 
 void skip_intros(void)
@@ -1992,6 +1999,8 @@ void skip_intros(void)
 void validate_game(void)
 {
 	VALIDATE_SIZE(game, 0x310);
+
+	VALIDATE(game, the_world, 0x28);
 }
 
 #include "my_patch.h"
@@ -2008,4 +2017,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C15F0, game::get_widescreen);
 	PATCH_PUSH_RET(0x005C1610, game::get_platform);
 	PATCH_PUSH_RET(0x005C23A0, game::set_default_volumes);
+	PATCH_PUSH_RET(0x005C2460, game::set_fog_color);
 }

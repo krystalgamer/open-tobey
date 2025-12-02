@@ -32,6 +32,11 @@
 
 #include "timer.h"
 
+
+// @Patch
+#include "color.h"
+
+
 ////////////////////////////////////////////////////////////////////////////////
 //  forward-declared classes
 ////////////////////////////////////////////////////////////////////////////////
@@ -195,6 +200,7 @@ public:
 	EXPORT int get_widescreen(void) const;
 	EXPORT int get_platform(void) const;
 	EXPORT void set_default_volumes(void);
+	EXPORT void set_fog_color(color);
 
     void frame_advance();
     void render();
@@ -470,7 +476,6 @@ public:
 
   // BETH: the_world was made public for front end purposes
   public:
-    world_dynamics_system * the_world;
     Random                  rstream;
     Random                  rstream_r;
   private:
@@ -483,6 +488,8 @@ public:
     //game_camera *       	current_game_camera;
     mic *           		current_mic;
     message_board*          mb;
+	// @Patch - moved down
+    world_dynamics_system * the_world;
     material*               p_blank_material;
 
     interface_widget*       my_interface_widget;
