@@ -201,6 +201,7 @@ public:
 	EXPORT int get_platform(void) const;
 	EXPORT void set_default_volumes(void);
 	EXPORT void set_fog_color(color);
+	EXPORT void set_fog_distance(float, float);
 
     void frame_advance();
     void render();

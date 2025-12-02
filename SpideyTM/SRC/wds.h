@@ -759,6 +759,9 @@ class world_dynamics_system
 
 	EXPORT void set_fog_color(color);
 
+	// @Patch - added
+	EXPORT void set_fog_distance(float, float);
+
 	EXPORT bool is_scene_anim_playing(void) const;
 };
 

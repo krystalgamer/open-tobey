@@ -4591,6 +4591,15 @@ void world_dynamics_system::set_fog_range(rational_t f_min, rational_t f_max)
 	nglSetFogRange(this->fog_near, this->fog_far, this->fog_min, this->fog_max);
 }
 
+void world_dynamics_system::set_fog_distance(float start, float end)
+{
+	// @TODO
+	typedef void (__fastcall *func_ptr)(world_dynamics_system*, int, float, float);
+	func_ptr func = (func_ptr)0x00637910;
+
+	func(this, 0, start, end);
+}
+
 // @Ok
 // @Matching
 void world_dynamics_system::set_global_time_dilation(rational_t a2)
