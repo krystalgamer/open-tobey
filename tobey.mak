@@ -94,6 +94,7 @@ CLEAN :
 	-@erase "$(INTDIR)\light.obj"
 	-@erase "$(INTDIR)\lightmgr.obj"
 	-@erase "$(INTDIR)\link_interface.obj"
+	-@erase "$(INTDIR)\localize.obj"
 	-@erase "$(INTDIR)\maketree.obj"
 	-@erase "$(INTDIR)\material.obj"
 	-@erase "$(INTDIR)\matfac.obj"
@@ -267,7 +268,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\widget.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\zip_filter.obj"
+	"$(INTDIR)\zip_filter.obj" \
+	"$(INTDIR)\localize.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -339,6 +341,7 @@ CLEAN :
 	-@erase "$(INTDIR)\light.obj"
 	-@erase "$(INTDIR)\lightmgr.obj"
 	-@erase "$(INTDIR)\link_interface.obj"
+	-@erase "$(INTDIR)\localize.obj"
 	-@erase "$(INTDIR)\maketree.obj"
 	-@erase "$(INTDIR)\material.obj"
 	-@erase "$(INTDIR)\matfac.obj"
@@ -513,7 +516,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\wds.obj" \
 	"$(INTDIR)\widget.obj" \
 	"$(INTDIR)\x86_math.obj" \
-	"$(INTDIR)\zip_filter.obj"
+	"$(INTDIR)\zip_filter.obj" \
+	"$(INTDIR)\localize.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -913,6 +917,12 @@ SOURCE=.\SpideyTM\SRC\lightmgr.cpp
 SOURCE=.\SpideyTM\SRC\link_interface.cpp
 
 "$(INTDIR)\link_interface.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\localize.cpp
+
+"$(INTDIR)\localize.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

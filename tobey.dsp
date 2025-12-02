@@ -345,6 +345,10 @@ SOURCE=.\SpideyTM\SRC\link_interface.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\localize.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\material.cpp
 # End Source File
 # Begin Source File
