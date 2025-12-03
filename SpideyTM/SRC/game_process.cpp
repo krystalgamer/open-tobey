@@ -53,18 +53,19 @@ int game::get_cur_state() const
 // @Matching
 void game::push_process( game_process &process )
 {
+	// @Patch - push_back and back instead of front
   process_stack.push_back(process);
   process_stack.back().reset_index();
   process_stack.back().set_timer( 0.0f );
 }
 
+// @Ok
+// @Matching
 void game::pop_process()
 {
-	/*
+	// @Patch-  pop_back instead of front
   assert( process_stack.size() != 0 );
-  process_stack.pop_front();
-  */
-	PANIC;
+  process_stack.pop_back();
 }
 
 /*
@@ -107,4 +108,5 @@ void patch_game_process(void)
 {
 	PATCH_PUSH_RET(0x005E40C0, game::go_next_state);
 	PATCH_PUSH_RET(0x005E3FF0, game::push_process);
+	PATCH_PUSH_RET(0x005E4070, game::pop_process);
 }
