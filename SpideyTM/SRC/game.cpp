@@ -2078,6 +2078,15 @@ void game::level_has_intro_scene_anim(void)
 	this->play_intro = true;
 }
 
+// @Ok
+// @Matching
+void game::enqueue_movie(const char *movie_name)
+{
+	stringx mov(movie_name);
+
+	this->movie_queue.push_back(mov);
+}
+
 void skip_intros(void)
 {
 	// @TODO
@@ -2094,6 +2103,8 @@ void validate_game(void)
 
 	VALIDATE(game, field_64, 0x64);
 	VALIDATE(game, process_stack, 0x9C);
+
+	VALIDATE(game, movie_queue, 0xA8);
 
 	VALIDATE(game, play_intro, 0x18F);
 
@@ -2133,4 +2144,6 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C9B20, game::was_start_pressed);
 	PATCH_PUSH_RET(0x005E3FB0, game::intro_scene_has_started);
 	PATCH_PUSH_RET(0x005E3FD0, game::level_has_intro_scene_anim);
+
+	PATCH_PUSH_RET(0x005E3D80, game::enqueue_movie);
 }

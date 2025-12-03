@@ -213,6 +213,7 @@ public:
 	EXPORT void level_has_intro_scene_anim(void);
 
 	EXPORT void reset_control_mappings(void);
+	EXPORT void enqueue_movie(const char*);
 
     void frame_advance();
     void render();
@@ -586,10 +587,13 @@ public:
 	// @Patch - issa vector
     std::vector<game_process>      process_stack;      // front process in stack is only one active
 
-
-    vector3d cam_pos[10];
-
-	PADDING(0x18F-0x120);
+	// @Patch - removed
+    //vector3d cam_pos[10];
+	
+	// @Patch - added
+	std::vector<stringx> movie_queue;
+	
+	PADDING(0x18F-0xAC-0xC);
 
 	// @Patch - added
 	bool play_intro;
