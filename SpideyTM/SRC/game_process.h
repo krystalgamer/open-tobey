@@ -37,6 +37,8 @@ public:
   EXPORT void reset_index();
   EXPORT void set_index(int i);
 
+  // @Ok
+  // @Matching
   EXPORT void set_timer( time_value_t _timer ) { timer = _timer; }
   EXPORT time_value_t get_timer() const { return timer; }
 

@@ -51,9 +51,9 @@ int game::get_cur_state() const
 
 void game::push_process( game_process &process )
 {
-  process_stack.insert(process_stack.begin(), process);
-  process_stack.front().reset_index();
-  process_stack.front().set_timer( 0.0f );
+  process_stack.push_back(process);
+  process_stack.back().reset_index();
+  process_stack.back().set_timer( 0.0f );
 }
 
 void game::pop_process()
@@ -96,8 +96,8 @@ void validate_game_process(void)
 {
 	VALIDATE_SIZE(game_process, 0x18);
 
-	//VALIDATE(game_process, timer, 0);
 	VALIDATE(game_process, index, 0x8);
+	VALIDATE(game_process, timer, 0x10);
 }
 
 #include "my_patch.h"
