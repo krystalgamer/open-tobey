@@ -49,6 +49,8 @@ int game::get_cur_state() const
 
 ////////////////////////////////////////////////////////////////
 
+// @Ok
+// @Matching
 void game::push_process( game_process &process )
 {
   process_stack.push_back(process);
@@ -104,4 +106,5 @@ void validate_game_process(void)
 void patch_game_process(void)
 {
 	PATCH_PUSH_RET(0x005E40C0, game::go_next_state);
+	PATCH_PUSH_RET(0x005E3FF0, game::push_process);
 }
