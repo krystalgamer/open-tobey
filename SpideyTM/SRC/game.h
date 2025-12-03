@@ -214,6 +214,7 @@ public:
 
 	EXPORT void reset_control_mappings(void);
 	EXPORT void enqueue_movie(const char*);
+	EXPORT void stop_music(void);
 
     void frame_advance();
     void render();
@@ -301,14 +302,16 @@ public:
 	HeadToHeadMode *	get_play_mode_head_to_head(void) { return play_mode.headToHead; }
 	*/
 
-	int     get_num_ai_players() { return num_ai_players; }
-	void    set_num_ai_players(int i);
+	//int     get_num_ai_players() { return num_ai_players; }
+	//void    set_num_ai_players(int i);
 
 	// *** Two-player stuff ***
+	/*
 	int           get_num_players() { return num_players; }
 	int			  get_num_active_players(void) { return num_active_players; }
 	bool		  is_splitscreen(void) { return num_active_players > 1 && num_ai_players == 0; }
-	int           get_active_player(void) { return active_player; }
+	*/
+	int           get_active_player(void) { PANIC; return 0; }
 
 	// @Patch
 	//const recti & get_player_viewport(const int playerIdx);
@@ -536,8 +539,14 @@ public:
 	bool					recordChain;
 	GameEventRecipient		eventRecipient;
 	*/
-	PADDING(0x10);
+
+	PADDING(4);
+
+	int field_58;
+	float field_5C;
+	float field_60;
 	nslSoundId field_64;
+	pstring field_68;
 
 	// *** Two Player Data ***
 	
@@ -546,11 +555,11 @@ public:
 	PlayMode				play_mode;			// game mode's runtime state data
 	camera *				player_cam[MAX_PLAYERS];
 	recti					player_viewports[MAX_PLAYERS];
-	*/
     int                     num_players;        // # of players (heroes)
     int                     num_ai_players;
 	int						num_active_players;
     int                     active_player;      // in multi-player alternating, which player is active
+												// */
 
 	// @Patch
 	//int player_devices[MAX_PLAYERS];
@@ -580,9 +589,9 @@ public:
 
     vector3d        base_cam_position;
     hires_clock_t   real_clock;
+	/*
     stringx         level_prefix;
-
-	PADDING(0x8);
+	*/
 
 	// @Patch - issa vector
     std::vector<game_process>      process_stack;      // front process in stack is only one active
@@ -593,7 +602,7 @@ public:
 	// @Patch - added
 	std::vector<stringx> movie_queue;
 	
-	PADDING(0x18F-0xAC-0xC);
+	PADDING(0x18F-0xAC-0xC+4);
 
 	// @Patch - added
 	bool play_intro;

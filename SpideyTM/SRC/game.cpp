@@ -744,50 +744,7 @@ bool game::is_letterbox_active() const
 //--------------------------------------------------------------
 void game::show_debug_info()
 {
-
-	entity * hero_ptr;
-	hero_ptr = g_world_ptr->get_hero_ptr(active_player);
-	region_graph::node* rgn = hero_ptr->get_region();
-	stringx hero_sector_name("none");
-	if ( rgn )
-		hero_sector_name = rgn->get_data()->get_name();
-
-
-	color32 col = rgn ? color32(192,192,128) : color32(192,128,0);
-	hw_rasta::inst()->print("HERO @ "+v3tos(hero_ptr->get_abs_position())+" "+hero_sector_name,
-		vector2di(14,52), col);
-	//  int i;
-
-	stringx camera_sector_name = current_view_camera->get_region()? current_view_camera->get_region()->get_data()->get_name() : stringx("none");
-	sector* sec = g_world_ptr->get_the_terrain().find_sector( current_view_camera->terrain_position() );
-	col = sec ? color32(192,192,128) : color32(192,128,0);
-	hw_rasta::inst()->print("CAMERA @ "+v3tos(current_view_camera->get_abs_position())+" "+camera_sector_name,
-		vector2di(14,28), col);
-
-	camera * scene_analyzer_cam = find_camera(entity_id("SCENE_ANALYZER_CAM"));
-
-	sec = g_world_ptr->get_the_terrain().find_sector( scene_analyzer_cam->terrain_position() );
-	col = sec ? color32(192,192,128) : color32(192,128,0);
-	hw_rasta::inst()->print("ANALYZER @ "+v3tos(scene_analyzer_cam->get_abs_position())+" "+camera_sector_name,
-		vector2di(14,14), col);
-
-#ifdef GCCULL
-	char buffer[160];
-	i = 0;
-
-	list<sound_stream *>::iterator si;
-	for (si = g_stream_play_list.begin(); si!=g_stream_play_list.end(); ++si)
-	{
-		if (*si)
-		{
-			int icolor = (i<MAX_STREAM_BUFFERS)?255:128;
-			int isplaying = ((*si)->is_playing())?255:128;
-			sprintf(buffer,"%s : %.2f", (*si)->get_file_name().c_str(), (*si)->get_volume());
-			hw_rasta::inst()->print(buffer, vector2di(20,320+(i*14)), color32(isplaying,icolor,0) );
-			++i;
-		}
-	}
-#endif
+	PANIC;
 }
 
 
@@ -858,14 +815,7 @@ bool game::was_B_pressed() const
 
 void game::freeze_hero( bool freeze )
 {
-	for (int i = 0; i < num_active_players; i++)
-	{
-		if (the_world && the_world->get_hero_ptr(i))
-
-			the_world->get_hero_ptr(i)->set_invulnerable(freeze);
-	}
-
-	flag.hero_frozen = freeze;
+	PANIC;
 }
 
 void game::turn_user_cam_on(bool user_cam_status)
@@ -948,34 +898,7 @@ void game::end_level( void )
 // In alternating multiplayer modes, the level restarts with the next player.
 void game::end_run(void)
 {
-	// Single player.
-	if (num_players == 1)
-		pause();
-	// Multiplayer.
-	else
-	{
-		// Alternating.
-		if (num_active_players == 1)
-		{
-			// Begin next player's turn.
-
-			if (active_player+1 < num_players)
-			{
-				set_active_player(active_player+1);
-				retry_level();
-			}
-			// All players have had their turn.
-
-			else
-			{
-				pause();
-			}
-
-		}
-		// Splitscreen.
-		else
-			pause();
-	}
+	PANIC;
 }
 
 //	retry_mode()
@@ -1587,15 +1510,6 @@ void game::draw_debug_labels()
 #endif
 }
 
-void game::set_num_ai_players(int i) {
-
-	assert (i < 2 && i >= 0);
-	num_ai_players = i;
-
-
-
-}
-
 
 void game::LoadingStateInit()
 {
@@ -1629,38 +1543,7 @@ void game::LoadingStateReset()
 
 void game::LoadingStateUpdate()
 {
-	switch(current_loading_state)
-	{
-
-	case LOADING_COMMON_STASH:
-	case LOADING_BEACH_STASH:
-	case LOADING_HERO_1_STASH:
-	case LOADING_HERO_1_AUX_STASH:
-
-	case LOADING_HERO_2_STASH:
-	case LOADING_HERO_2_AUX_STASH:
-		if(current_loading_sub_state < 0)	// done
-
-		{
-			current_loading_state++;
-			current_loading_sub_state = 0;
-
-		}
-		else
-
-			current_loading_sub_state++;
-		break;
-	default: current_loading_state++; break;
-	}
-
-	// skip second surfer loading if only 1 player
-	if(num_players != 2 && (current_loading_state == LOADING_HERO_2_STASH ||
-		current_loading_state == LOADING_HERO_2_AUX_STASH ||
-		current_loading_state == LOADING_HERO_2_REST))
-		current_loading_state = LOADING_SCENE_END;
-
-	start_drawing_map = true;
-
+	PANIC;
 }
 
 
@@ -1709,58 +1592,7 @@ void game::LoadingStateSkipSurfer(bool surfer1)
 
 void game::LoadingProgressUpdate()
 {
-	// right now, there are 4 stash loads, and 9 in between states.
-	// if i estimate that the 4 stash loads take 20% apiece, then the
-	// in between states take up 2.22% apiece
-
-	// this is all a gross generalization, of course
-
-	/*
-	loading_progress = 0.0222f * current_loading_state;
-
-	  if(current_loading_state > LOADING_HERO_2)
-	  loading_progress += 0.8f;
-
-	  else if(current_loading_state == LOADING_HERO_2)
-	  loading_progress += 0.6f + 0.2f*stash_loading_percent;
-	  else if(current_loading_state == LOADING_HERO_1)
-
-	  loading_progress += 0.4f + 0.2f*stash_loading_percent;
-	  else if(current_loading_state > LOADING_BEACH_STASH)
-	  loading_progress += 0.4f;
-	  else if(current_loading_state == LOADING_BEACH_STASH)
-	  loading_progress += 0.2f + 0.2f*stash_loading_percent;
-	  else if(current_loading_state == LOADING_COMMON_STASH)
-	  loading_progress += 0.2f*stash_loading_percent;
-	*/
-
-	if(num_players == 1)
-	{
-		total_sub_states_surfer2 = 0;
-		total_sub_states_surfer2_aux = 0;
-	}
-
-	int total_states = LOADING_STATE_DONE + total_sub_states_common +
-		total_sub_states_beach + total_sub_states_surfer1 +
-		total_sub_states_surfer1_aux + total_sub_states_surfer2 +
-		total_sub_states_surfer2_aux;
-
-	int total = current_loading_state + current_loading_sub_state;
-
-	if(current_loading_state > LOADING_COMMON_STASH) total += total_sub_states_common;
-	if(current_loading_state > LOADING_BEACH_STASH) total += total_sub_states_beach;
-	if(current_loading_state > LOADING_HERO_1_STASH) total += total_sub_states_surfer1;
-
-	if(current_loading_state > LOADING_HERO_1_AUX_STASH) total += total_sub_states_surfer1_aux;
-
-	if(current_loading_state > LOADING_HERO_2_STASH) total += total_sub_states_surfer2;
-	if(current_loading_state > LOADING_HERO_2_AUX_STASH) total += total_sub_states_surfer2_aux;
-
-	loading_progress = total/((float) total_states);
-
-	if(loading_progress < last_loading_progress)
-		loading_progress = last_loading_progress;
-	last_loading_progress = loading_progress;
+	PANIC;
 }
 
 void game::SetStashSize(int loading_state, int size)
@@ -2087,6 +1919,25 @@ void game::enqueue_movie(const char *movie_name)
 	this->movie_queue.push_back(mov);
 }
 
+// @Ok
+// @Matching
+void game::stop_music(void)
+{
+	if (this->field_64)
+	{
+		nslStopSound(this->field_64);
+
+		if (this->field_58 == 3)
+		{
+			this->field_60 = 0.0f;
+			this->field_58 = 2;
+			this->field_5C = 0.0f;
+		}
+
+		this->field_68 = "";
+	}
+}
+
 void skip_intros(void)
 {
 	// @TODO
@@ -2101,7 +1952,13 @@ void validate_game(void)
 
 	VALIDATE(game, the_world, 0x28);
 
+	VALIDATE(game, field_58, 0x58);
+	VALIDATE(game, field_5C, 0x5C);
+	VALIDATE(game, field_60, 0x60);
 	VALIDATE(game, field_64, 0x64);
+
+	VALIDATE(game, field_68, 0x68);
+
 	VALIDATE(game, process_stack, 0x9C);
 
 	VALIDATE(game, movie_queue, 0xA8);
@@ -2146,4 +2003,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005E3FD0, game::level_has_intro_scene_anim);
 
 	PATCH_PUSH_RET(0x005E3D80, game::enqueue_movie);
+	PATCH_PUSH_RET(0x005CA410, game::stop_music);
 }

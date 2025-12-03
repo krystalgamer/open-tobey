@@ -84,3 +84,10 @@ void nslxSetVolume( nslSourceTypeEnum typeOfSound, float newVolume )
 
 	func(typeOfSound, newVolume);
 }
+
+void nslStopSound(nslSoundId id)
+{
+	typedef void (*func_ptr)(nslSoundId);
+	func_ptr func = (func_ptr)0x0081E300;
+	func(id);
+}
