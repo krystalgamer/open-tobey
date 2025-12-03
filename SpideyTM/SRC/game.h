@@ -209,6 +209,7 @@ public:
 	EXPORT bool is_music_playing_now(void);
 	EXPORT bool is_music_playing(void);
 	EXPORT float stealth_cheat_enabled(void) const;
+	EXPORT void intro_scene_has_started(void);
 
 	EXPORT void reset_control_mappings(void);
 
@@ -587,15 +588,23 @@ public:
     int cam_pos_in_use_count;
     rational_t cam_in_motion_timer;
 
+	PADDING(0x3);
+
+	// @Patch - added
+	bool play_intro;
+
 	  // frame rate stuff
     time_value_t total_delta;
     time_value_t flip_delta;
+
     time_value_t limit_delta;
 
     time_value_t min_delta;
 
     time_value_t max_delta;
     time_value_t avg_delta;
+	
+
 
     // *** Sound stream related member data ***
 #ifdef GCCULL
@@ -736,7 +745,7 @@ public:
 
 
 private:
-	PADDING(0x310-0x1EC-0x14);
+	PADDING(0x310-0x1EC-0x14-4);
 };
 
 extern game* g_game_ptr;

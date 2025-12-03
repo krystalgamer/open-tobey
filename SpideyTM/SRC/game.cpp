@@ -2064,6 +2064,13 @@ void game::reset_control_mappings(void)
 	this->setup_inputs();
 }
 
+// @Ok
+// @Matching
+void game::intro_scene_has_started(void)
+{
+	this->play_intro = false;
+}
+
 void skip_intros(void)
 {
 	// @TODO
@@ -2079,6 +2086,8 @@ void validate_game(void)
 	VALIDATE(game, the_world, 0x28);
 
 	VALIDATE(game, field_64, 0x64);
+
+	VALIDATE(game, play_intro, 0x18F);
 
 	VALIDATE_VAL(NSL_SOUNDSTATUS_INVALID, 0);
 	VALIDATE_VAL(NSL_SOUNDSTATUS_PLAYING, 3);
@@ -2113,4 +2122,5 @@ void patch_game(void)
 
 	PATCH_PUSH_RET(0x005C9ED0, game::reset_control_mappings);
 	PATCH_PUSH_RET(0x005C9B20, game::was_start_pressed);
+	PATCH_PUSH_RET(0x005E3FB0, game::intro_scene_has_started);
 }
