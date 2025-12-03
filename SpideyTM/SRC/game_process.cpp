@@ -59,10 +59,13 @@ void game::pop_process()
   process_stack.pop_back();
 }
 
+// @Ok
+// @Matching
 int game::get_cur_state() const
 {
   assert( process_stack.size() != 0 );
 
+  // @Patch - front to back
   return process_stack.back().get_cur_state();
 }
 
@@ -100,4 +103,5 @@ void patch_game_process(void)
 	PATCH_PUSH_RET(0x005E40C0, game::go_next_state);
 	PATCH_PUSH_RET(0x005E3FF0, game::push_process);
 	PATCH_PUSH_RET(0x005E4070, game::pop_process);
+	PATCH_PUSH_RET(0x005E4090, game::get_cur_state);
 }
