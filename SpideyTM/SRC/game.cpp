@@ -829,13 +829,18 @@ bool game::was_select_pressed() const
 // @Matching
 bool game::was_A_pressed() const
 {
+	// @Patch - removed
 	//return input_mgr::inst()->get_control_state( JOYSTICK_DEVICE, PFE_A ) == AXIS_MAX;
 	return false;
 }
 
+// @Ok
+// @Matching
 bool game::was_B_pressed() const
 {
-	return input_mgr::inst()->get_control_state( JOYSTICK_DEVICE, PFE_B ) == AXIS_MAX;
+	// @Patch - removed
+	//return input_mgr::inst()->get_control_state( JOYSTICK_DEVICE, PFE_B ) == AXIS_MAX;
+	return false;
 }
 //-----------------------------------------------------------------
 
@@ -2083,4 +2088,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005CA9A0, game::stealth_cheat_enabled);
 
 	PATCH_PUSH_RET(0x005C9B40, game::was_A_pressed);
+	PATCH_PUSH_RET(0x005C9B60, game::was_B_pressed);
 }
