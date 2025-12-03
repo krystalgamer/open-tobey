@@ -74,6 +74,8 @@ int game::get_cur_state() const
 }
 */
 
+// @Ok
+// @Matching
 void game::go_next_state()
 {
   assert( process_stack.size() != 0 );
@@ -101,4 +103,5 @@ void validate_game_process(void)
 #include "my_patch.h"
 void patch_game_process(void)
 {
+	PATCH_PUSH_RET(0x005E40C0, game::go_next_state);
 }
