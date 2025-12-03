@@ -166,6 +166,10 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\d3d_rasterize.cpp
 
 SOURCE=.\SpideyTM\SRC\HWOSPC\pc_audio.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\pc_input.cpp
+# End Source File
 # End Group
 # Begin Group "NSL No. 1"
 

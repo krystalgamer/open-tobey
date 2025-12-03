@@ -802,6 +802,12 @@ void game::setup_input_registrations()
 
 void game::setup_inputs()
 {
+	// @TODO
+	typedef void (__fastcall *func_ptr)(game*);
+	func_ptr func = (func_ptr)0x005C9800;
+
+	func(this);
+	return;
 	PANIC;
 }
 
@@ -2043,6 +2049,15 @@ float game::stealth_cheat_enabled(void) const
 	return 0.0f;
 }
 
+// @Ok
+// @Matching
+void game::reset_control_mappings(void)
+{
+	input_mgr::inst()->clear_mapping();
+	input_mgr::inst()->scan_devices();
+	this->setup_inputs();
+}
+
 void skip_intros(void)
 {
 	// @TODO
@@ -2089,4 +2104,6 @@ void patch_game(void)
 
 	PATCH_PUSH_RET(0x005C9B40, game::was_A_pressed);
 	PATCH_PUSH_RET(0x005C9B60, game::was_B_pressed);
+
+	PATCH_PUSH_RET(0x005C9ED0, game::reset_control_mappings);
 }

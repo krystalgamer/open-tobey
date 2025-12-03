@@ -106,6 +106,7 @@ CLEAN :
 	-@erase "$(INTDIR)\path.obj"
 	-@erase "$(INTDIR)\pc_algebra.obj"
 	-@erase "$(INTDIR)\pc_audio.obj"
+	-@erase "$(INTDIR)\pc_input.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\pmesh.obj"
 	-@erase "$(INTDIR)\po.obj"
@@ -224,6 +225,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\light.obj" \
 	"$(INTDIR)\lightmgr.obj" \
 	"$(INTDIR)\link_interface.obj" \
+	"$(INTDIR)\localize.obj" \
 	"$(INTDIR)\material.obj" \
 	"$(INTDIR)\matfac.obj" \
 	"$(INTDIR)\mcs.obj" \
@@ -269,7 +271,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\widget.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\localize.obj"
+	"$(INTDIR)\pc_input.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -353,6 +355,7 @@ CLEAN :
 	-@erase "$(INTDIR)\path.obj"
 	-@erase "$(INTDIR)\pc_algebra.obj"
 	-@erase "$(INTDIR)\pc_audio.obj"
+	-@erase "$(INTDIR)\pc_input.obj"
 	-@erase "$(INTDIR)\pc_timer.obj"
 	-@erase "$(INTDIR)\pmesh.obj"
 	-@erase "$(INTDIR)\po.obj"
@@ -472,6 +475,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\light.obj" \
 	"$(INTDIR)\lightmgr.obj" \
 	"$(INTDIR)\link_interface.obj" \
+	"$(INTDIR)\localize.obj" \
 	"$(INTDIR)\material.obj" \
 	"$(INTDIR)\matfac.obj" \
 	"$(INTDIR)\mcs.obj" \
@@ -517,7 +521,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\widget.obj" \
 	"$(INTDIR)\x86_math.obj" \
 	"$(INTDIR)\zip_filter.obj" \
-	"$(INTDIR)\localize.obj"
+	"$(INTDIR)\pc_input.obj"
 
 "$(OUTDIR)\tobey.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -666,6 +670,12 @@ SOURCE=.\SpideyTM\SRC\HWOSPC\d3d_rasterize.cpp
 SOURCE=.\SpideyTM\SRC\HWOSPC\pc_audio.cpp
 
 "$(INTDIR)\pc_audio.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=.\SpideyTM\SRC\HWOSPC\pc_input.cpp
+
+"$(INTDIR)\pc_input.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

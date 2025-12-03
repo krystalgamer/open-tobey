@@ -3,10 +3,10 @@
 
 
 
-#include "global.h"
-#include "hwmath.h"
-#include "singleton.h"
-#include "types.h"	// For uint64
+#include "..\global.h"
+#include "..\hwmath.h"
+#include "..\singleton.h"
+#include "..\types.h"	// For uint64
 
 typedef float time_value_t;
 

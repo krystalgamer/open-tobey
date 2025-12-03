@@ -325,6 +325,13 @@ void input_mgr::unmap_control( control_id_t control )
 // Clear all axis->control mappings.
 void input_mgr::clear_mapping()
 {
+	// @TODO
+	typedef void (__fastcall *func_ptr)(input_mgr*);
+	func_ptr func = (func_ptr)0x007C4060;
+	func(this);
+	return;
+
+	PANIC;
 	control_map_t::iterator it = control_map.begin();
 	for ( ; it != control_map.end(); ++it )
 		(*it).second.mapping = device_axis_list_t();

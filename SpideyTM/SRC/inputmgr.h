@@ -450,6 +450,9 @@ public:
 	// Linking to different hwos??.lib files makes this prototype point to different functions.
 	// It must be implemented in each hwos?? library, along with the platform specific input devices.
 	void scan_devices();
+
+	// @Patch - added
+	EXPORT void clear_mappings();
 	
 	// Get a pointer to a specific device by name.  This function will return 0 if the device
 	// is not present.
