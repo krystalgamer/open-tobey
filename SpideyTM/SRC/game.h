@@ -517,9 +517,6 @@ public:
     script_mfg              m_script_mfg;
 #endif
 
-	// @Patch
-    //std::list<game_process>      process_stack;      // front process in stack is only one active
-
 	//po						snapshotPrevCamPo;
 	camera *				snapshotPrevCam;
 
@@ -584,15 +581,24 @@ public:
     hires_clock_t   real_clock;
     stringx         level_prefix;
 
-    vector3d cam_pos[10];
-    vector3d cam_targ[10];
-    int cam_pos_in_use_count;
-    rational_t cam_in_motion_timer;
+	PADDING(0x8);
 
-	PADDING(0x3);
+	// @Patch - issa vector
+    std::vector<game_process>      process_stack;      // front process in stack is only one active
+
+
+    vector3d cam_pos[10];
+
+	PADDING(0x18F-0x120);
 
 	// @Patch - added
 	bool play_intro;
+
+	// @Patch - removed
+    //vector3d cam_targ[10];
+
+    int cam_pos_in_use_count;
+    rational_t cam_in_motion_timer;
 
 	  // frame rate stuff
     time_value_t total_delta;
@@ -746,7 +752,7 @@ public:
 
 
 private:
-	PADDING(0x310-0x1EC-0x14-4);
+	PADDING(0x310-0x1EC-0x14-4-8);
 };
 
 extern game* g_game_ptr;

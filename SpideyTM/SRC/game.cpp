@@ -19,7 +19,7 @@
 //#include "fogmgr.h"
 #include "game.h"
 #include "game_info.h"
-//#include "game_process.h"
+#include "game_process.h"
 //#include "gamefile.h"
 //#include "GameData.h"
 //#include "osGameSaver.h"
@@ -2093,8 +2093,10 @@ void validate_game(void)
 	VALIDATE(game, the_world, 0x28);
 
 	VALIDATE(game, field_64, 0x64);
+	VALIDATE(game, process_stack, 0x9C);
 
 	VALIDATE(game, play_intro, 0x18F);
+
 
 	VALIDATE_VAL(NSL_SOUNDSTATUS_INVALID, 0);
 	VALIDATE_VAL(NSL_SOUNDSTATUS_PLAYING, 3);

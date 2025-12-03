@@ -30,7 +30,7 @@ public:
   EXPORT game_process();
   EXPORT game_process( const char *_name, const game_state_e *_flow, int _num_states );
 
-  EXPORT ~game_process();
+  EXPORT ~game_process() {}
 
   EXPORT game_state_e get_cur_state() const { return flow[index]; }
   EXPORT void go_next_state();
