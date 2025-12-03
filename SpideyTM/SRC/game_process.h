@@ -32,6 +32,8 @@ public:
 
   EXPORT ~game_process() {}
 
+  // @Ok
+  // @Matching
   EXPORT game_state_e get_cur_state() const { return flow[index]; }
   EXPORT void go_next_state();
   EXPORT void reset_index();

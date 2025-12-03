@@ -38,15 +38,6 @@ void game_process::set_index(int i)
 	assert(index < num_states);
 }
 
-
-int game::get_cur_state() const
-{
-	typedef int (__fastcall *func_ptr)(const game*);
-	func_ptr func = (func_ptr)0x005E4090;
-
-	return func(this);
-}
-
 ////////////////////////////////////////////////////////////////
 
 // @Ok
@@ -68,14 +59,12 @@ void game::pop_process()
   process_stack.pop_back();
 }
 
-/*
 int game::get_cur_state() const
 {
   assert( process_stack.size() != 0 );
 
-  return process_stack.front().get_cur_state();
+  return process_stack.back().get_cur_state();
 }
-*/
 
 // @Ok
 // @Matching
@@ -98,6 +87,8 @@ INLINE void game::reset_index()
 void validate_game_process(void)
 {
 	VALIDATE_SIZE(game_process, 0x18);
+
+	VALIDATE(game_process, flow, 0x4);
 
 	VALIDATE(game_process, index, 0x8);
 	VALIDATE(game_process, timer, 0x10);
