@@ -813,8 +813,12 @@ void game::setup_inputs()
 
 
 //-----------------------------------------------------------------
+// @Ok
+// @Matching
 bool game::was_start_pressed() const
 {
+	// @Patch - removed
+	/*
 #ifndef TARGET_GC
 	return input_mgr::inst()->get_control_state( JOYSTICK_DEVICE, PFE_START ) == AXIS_MAX;
 #else
@@ -823,6 +827,8 @@ bool game::was_start_pressed() const
   bool z= input_mgr::inst()->get_control_state( JOYSTICK_DEVICE, PFE_Z ) == AXIS_MAX ;
   return start && !z;
 #endif
+*/
+	return false;
 }
 
 bool game::was_select_pressed() const
@@ -2106,4 +2112,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C9B60, game::was_B_pressed);
 
 	PATCH_PUSH_RET(0x005C9ED0, game::reset_control_mappings);
+	PATCH_PUSH_RET(0x005C9B20, game::was_start_pressed);
 }
