@@ -67,6 +67,7 @@ void validate_widget(void);
 void validate_text_font(void);
 void validate_rectf(void);
 void validate_localize_manager(void);
+void validate_game_process(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -129,4 +130,5 @@ void patch_widget(void);
 void patch_text_font(void);
 void patch_rectf(void);
 void patch_localize_manager(void);
+void patch_game_process(void);
 #endif

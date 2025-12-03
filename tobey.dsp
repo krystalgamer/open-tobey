@@ -1249,6 +1249,10 @@ SOURCE=.\SpideyTM\SRC\game_info_vars.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SpideyTM\SRC\game_process.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SpideyTM\SRC\generator.h
 # End Source File
 # Begin Source File
