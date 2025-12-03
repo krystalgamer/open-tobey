@@ -126,6 +126,8 @@ class pstring
       return *this;
     }
 
+	// @Ok
+	// @Matching
     EXPORT pstring& operator = (const char *str)
 
     {
