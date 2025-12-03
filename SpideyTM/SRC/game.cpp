@@ -2071,6 +2071,13 @@ void game::intro_scene_has_started(void)
 	this->play_intro = false;
 }
 
+// @Ok
+// @Matching
+void game::level_has_intro_scene_anim(void)
+{
+	this->play_intro = true;
+}
+
 void skip_intros(void)
 {
 	// @TODO
@@ -2123,4 +2130,5 @@ void patch_game(void)
 	PATCH_PUSH_RET(0x005C9ED0, game::reset_control_mappings);
 	PATCH_PUSH_RET(0x005C9B20, game::was_start_pressed);
 	PATCH_PUSH_RET(0x005E3FB0, game::intro_scene_has_started);
+	PATCH_PUSH_RET(0x005E3FD0, game::level_has_intro_scene_anim);
 }

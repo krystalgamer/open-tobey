@@ -210,6 +210,7 @@ public:
 	EXPORT bool is_music_playing(void);
 	EXPORT float stealth_cheat_enabled(void) const;
 	EXPORT void intro_scene_has_started(void);
+	EXPORT void level_has_intro_scene_anim(void);
 
 	EXPORT void reset_control_mappings(void);
 
