@@ -370,14 +370,14 @@ public:
 	// Moved here to fix a bug
 	void set_active_player(const int n);
 
-    bool was_start_pressed() const;
-    bool was_select_pressed() const;
-    bool was_A_pressed() const;
-    bool was_B_pressed() const;
+    EXPORT bool was_start_pressed() const;
+    EXPORT bool was_select_pressed() const;
+    EXPORT bool was_A_pressed() const;
+    EXPORT bool was_B_pressed() const;
 
-    void pause();		// called when the user pauses the game
-    void unpause();		// called when the user unpauses the game
-    bool is_paused() const;
+    EXPORT void pause();		// called when the user pauses the game
+    EXPORT void unpause();		// called when the user unpauses the game
+    EXPORT bool is_paused() const;
 
 	  void on_goal_completed() {flag.goal_completed = true;}
   	bool was_goal_completed() {return flag.goal_completed;}
