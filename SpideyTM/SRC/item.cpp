@@ -380,14 +380,14 @@ bool item::is_same_item( const item& b ) const
 }
 
 
-void item::render(camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct)
-
+// @Ok
+// @Matching
+void item::render(rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct)
 {
-  if ( count > 0 )
-  {
-    entity::render( camera_link, detail, flavor, entity_translucency_pct );
-  }
-
+	if ( count > 0 )
+	{
+		entity::render(detail, flavor, entity_translucency_pct );
+	}
 }
 
 // @Ok
@@ -1178,7 +1178,8 @@ void visual_item::render( camera* camera_link, rational_t detail, render_flavor_
 #endif
 
 
-  entity::render( camera_link, detail, flavor, entity_translucency_pct );
+  PANIC;
+  //entity::render( camera_link, detail, flavor, entity_translucency_pct );
 
 /*!
   if ( owner && owner->is_a_character() )
@@ -1422,4 +1423,5 @@ void validate_item(void)
 void patch_item(void)
 {
 	PATCH_PUSH_RET_POLY(0x005FD8E0, item::set_count, "?set_count@item@@UAEXH@Z");
+	PATCH_PUSH_RET_POLY(0x005FDBD0, item::render, "?render@item@@UAEXMIM@Z");
 }

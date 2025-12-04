@@ -548,7 +548,8 @@ class entity : public bone
   public:
     /*** Virtual Interfaces =) ***/
     EXPORT virtual void frame_advance( time_value_t t );
-    EXPORT virtual void render( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct );
+	// @Patch - removed first arg camera*
+    EXPORT virtual void render( rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct );
 
 	// @Patch - doesn't exist
     //EXPORT virtual void rendershadow( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct, rational_t scale );

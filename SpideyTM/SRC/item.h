@@ -122,7 +122,8 @@ public:
   virtual int get_number() const {return count;}
 
   virtual void frame_advance(time_value_t t);
-  virtual void render(camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct);
+  
+  EXPORT virtual void render(rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct);
 
   bool check_for_pickup();
   virtual bool give_to_entity(entity * target);

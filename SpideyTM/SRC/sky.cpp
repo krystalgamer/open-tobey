@@ -46,6 +46,6 @@ void sky::render( camera* camera_link, rational_t detail, render_flavor_t flavor
   set_rel_position( p );
 
   // now do the render
-  entity::render( camera_link, detail, flavor, entity_translucency_pct );
+  entity::render(detail, flavor, entity_translucency_pct );
 }
 

@@ -1519,10 +1519,12 @@ extern profiler_timer proftimer_visrep_rend_inst;
 
 extern bool loresmodelbydefault;
 
-void entity::render( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct )
+void entity::render(rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct )
 {
-	// @TODO
-	PANIC;
+	typedef void (__fastcall *func_ptr)(entity*, int, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct );
+
+	func_ptr func = (func_ptr)0x004EDAC0;
+	func(this, 0, detail, flavor, entity_translucency_pct);
 }
 
 
