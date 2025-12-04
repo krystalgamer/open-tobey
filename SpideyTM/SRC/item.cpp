@@ -776,6 +776,8 @@ void item::preload()
 }
 
 
+// @Ok
+// @Matching
 bool item::is_picked_up()
 {
   return picked_up;
@@ -1424,4 +1426,6 @@ void patch_item(void)
 {
 	PATCH_PUSH_RET_POLY(0x005FD8E0, item::set_count, "?set_count@item@@UAEXH@Z");
 	PATCH_PUSH_RET_POLY(0x005FDBD0, item::render, "?render@item@@UAEXMIM@Z");
+
+	PATCH_PUSH_RET_POLY(0x005FE8C0, item::is_picked_up, "?is_picked_up@item@@UAE_NXZ");
 }
