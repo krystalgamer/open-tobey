@@ -880,9 +880,11 @@ static std::vector<region_node*> new_regions(32);  // permanent
 
 
 void entity::compute_sector( terrain& ter, bool use_high_res_intersect )
-
 {
-	PANIC;
+	typedef void (__fastcall *func_ptr)(entity*, int, terrain&, bool);
+	func_ptr func = (func_ptr)0x004EADE0;
+
+	func(this, 0, ter, use_high_res_intersect);
 }
 
 
@@ -1082,6 +1084,7 @@ const po& entity::get_last_po()
 
 // @Ok
 // @Matching
+// @Patch - rewrote everything
 void entity::set_family_visible( bool _vis, bool _cur_variant_only )
 {
 	this->set_visible(_vis);

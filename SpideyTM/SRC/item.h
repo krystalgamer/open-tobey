@@ -113,7 +113,8 @@ public:
 
   virtual void inc_count() {count++;}
   virtual void dec_count() {count--;}
-  virtual void set_count(int c){count=c;}
+
+  EXPORT virtual void set_count(int c);
 
 
   virtual bool is_usable() const { return get_count() > 0; }
@@ -185,10 +186,13 @@ protected:
 
 //  int dread_net_use_cue;
 
+  bool item_init_rel;
+  float item_count_rel_two;
+	
+
 
   int max_num;
 //  bool need_to_initialize;  // this flag tells us if the item needs to perform special post-load initialization
-
 
 #if _ENABLE_WORLD_EDITOR
   int original_count;
@@ -230,8 +234,6 @@ protected:
   // This virtual function, used only for debugging purposes, returns the
   // name of the given local signal
   virtual const char* get_signal_name( unsigned short idx ) const;
-private:
-  PADDING(8);
 };
 
 inline item* find_item( const entity_id& id , bool unknown_ok = FIND_ENTITY_UNKNOWN_NOT_OK )

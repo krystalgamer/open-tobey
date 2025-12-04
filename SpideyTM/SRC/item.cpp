@@ -390,6 +390,24 @@ void item::render(camera* camera_link, rational_t detail, render_flavor_t flavor
 
 }
 
+// @Ok
+// @Matching
+void item::set_count(int c)
+{
+	this->count = c;
+	// @Patch - added this
+	if (this->picked_up)
+	{
+		if (c)
+		{
+			this->set_family_visible(true, false);
+			this->compute_sector(GET_WORLD_PTR->get_the_terrain(), false);
+
+			this->picked_up = false;
+			this->item_count_rel_two = 0.0f;
+		}
+	}
+}
 
 
 bool item::check_for_pickup()
@@ -1379,10 +1397,29 @@ void morphable_item::dump_ranges()
 void validate_item(void)
 {
 	VALIDATE_SIZE(item, 0x128);
+
+	VALIDATE(item, usage_type, 0xF8);
+	VALIDATE(item, name, 0xFC);
+
+	VALIDATE(item, count, 0x104);
+	VALIDATE(item, default_count, 0x108);
+
+	VALIDATE(item, picked_up, 0x10C);
+
+	VALIDATE(item, pickup_timer, 0x110);
+	VALIDATE(item, icon_scale, 0x114);
+	VALIDATE(item, interface_orientation, 0x118);
+
+	VALIDATE(item, item_init_rel, 0x11C);
+
+	VALIDATE(item, item_count_rel_two, 0x120);
+
+	VALIDATE(item, max_num, 0x124);
 }
 
 
 #include "my_patch.h"
 void patch_item(void)
 {
+	PATCH_PUSH_RET_POLY(0x005FD8E0, item::set_count, "?set_count@item@@UAEXH@Z");
 }
