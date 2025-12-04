@@ -816,6 +816,8 @@ void item::frame_advance( time_value_t t )
 
 
 
+// @Ok
+// @Matching
 void item::apply_effects( entity* target )
 {
   raise_signal( USE );
@@ -1428,4 +1430,7 @@ void patch_item(void)
 	PATCH_PUSH_RET_POLY(0x005FDBD0, item::render, "?render@item@@UAEXMIM@Z");
 
 	PATCH_PUSH_RET_POLY(0x005FE8C0, item::is_picked_up, "?is_picked_up@item@@UAE_NXZ");
+	PATCH_PUSH_RET_POLY(0x005FEBE0, item::apply_effects, "?apply_effects@item@@UAEXPAVentity@@@Z");
+
+	VALIDATE_VAL(item::USE, 0x27);
 }
