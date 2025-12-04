@@ -1364,10 +1364,12 @@ void morphable_item::frame_advance(time_value_t t)
     set_range_visrep(count);
 }
 
+// @Ok
+// @Matching
 INLINE void morphable_item::set_range_visrep(int cnt)
 {
 	std::vector<morphable_item_range *>::iterator range = ranges.begin();
-  std::vector<morphable_item_range *>::iterator range_end = ranges.end();
+	std::vector<morphable_item_range *>::iterator range_end = ranges.end();
 
   for( ; range != range_end; ++range)
   {
