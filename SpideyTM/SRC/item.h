@@ -257,6 +257,9 @@ inline item* find_item( const entity_id& id , bool unknown_ok = FIND_ENTITY_UNKN
 
 class visual_item : public entity
 {
+	friend void validate_visual_item(void);
+	friend void patch_visual_item(void);
+
 protected:
   friend class gun;
   friend class thrown_item;
@@ -294,7 +297,7 @@ public:
 
   virtual render_flavor_t render_passes_needed() const;
 
-  virtual void render( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct );
+  EXPORT virtual void render(rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct );
 
   void set_owner( entity *pOwner ) { owner = pOwner;}
 

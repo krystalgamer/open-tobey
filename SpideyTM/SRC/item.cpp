@@ -1150,7 +1150,9 @@ render_flavor_t visual_item::render_passes_needed() const
   return passes;
 }
 
-void visual_item::render( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct )
+// @Ok
+// @Matching
+void visual_item::render(rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct )
 {
 
 #if _VIS_ITEM_DEBUG_HELPER
@@ -1184,8 +1186,7 @@ void visual_item::render( camera* camera_link, rational_t detail, render_flavor_
 #endif
 
 
-  PANIC;
-  //entity::render( camera_link, detail, flavor, entity_translucency_pct );
+	entity::render(detail, flavor, entity_translucency_pct );
 
 /*!
   if ( owner && owner->is_a_character() )
@@ -1424,8 +1425,20 @@ void validate_item(void)
 	VALIDATE(item, max_num, 0x124);
 }
 
+void validate_visual_item(void)
+{
+	VALIDATE_SIZE(visual_item, 0xF8);
+
+	VALIDATE(visual_item, owner, 0xF4);
+}
+
 
 #include "my_patch.h"
+void patch_visual_item(void)
+{
+	PATCH_PUSH_RET_POLY(0x005FF280, visual_item::render, "?render@visual_item@@UAEXMIM@Z");
+}
+
 void patch_item(void)
 {
 	PATCH_PUSH_RET_POLY(0x005FD8E0, item::set_count, "?set_count@item@@UAEXH@Z");
