@@ -1131,6 +1131,8 @@ light_manager* visual_item::get_light_set()
   return NULL;
 }
 
+// @Ok
+// @Matching
 render_flavor_t visual_item::render_passes_needed() const
 {
 
@@ -1440,6 +1442,7 @@ void patch_visual_item(void)
 {
 	PATCH_PUSH_RET_POLY(0x005FF280, visual_item::render, "?render@visual_item@@UAEXMIM@Z");
 	PATCH_PUSH_RET_POLY(0x005FF220, visual_item::get_light_set, "?get_light_set@visual_item@@UAEPAVlight_manager@@XZ");
+	PATCH_PUSH_RET_POLY(0x005FF260, visual_item::get_light_set, "?render_passes_needed@visual_item@@UBEIXZ");
 }
 
 void patch_item(void)

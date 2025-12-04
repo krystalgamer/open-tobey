@@ -1740,8 +1740,11 @@ render_flavor_t entity::render_passes_needed() const
   }
   return passes;
   */
-	PANIC;
-	return 2;
+	// @TODO
+	typedef render_flavor_t (__fastcall *func_ptr)(const entity*);
+	func_ptr func = (func_ptr)0x004EFC00;
+
+	return func(this);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

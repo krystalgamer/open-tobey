@@ -295,7 +295,7 @@ public:
 
   EXPORT virtual light_manager* get_light_set();
 
-  virtual render_flavor_t render_passes_needed() const;
+  EXPORT virtual render_flavor_t render_passes_needed() const;
 
   EXPORT virtual void render(rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct );
 
