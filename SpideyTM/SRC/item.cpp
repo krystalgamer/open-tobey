@@ -1119,6 +1119,8 @@ void visual_item::alter_placement(rational_t s, const vector3d& p, const vector3
 #endif
 
 
+// @Ok
+// @Matching
 light_manager* visual_item::get_light_set()
 {
   if(owner)
@@ -1437,6 +1439,7 @@ void validate_visual_item(void)
 void patch_visual_item(void)
 {
 	PATCH_PUSH_RET_POLY(0x005FF280, visual_item::render, "?render@visual_item@@UAEXMIM@Z");
+	PATCH_PUSH_RET_POLY(0x005FF220, visual_item::get_light_set, "?get_light_set@visual_item@@UAEPAVlight_manager@@XZ");
 }
 
 void patch_item(void)

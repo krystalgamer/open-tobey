@@ -293,7 +293,7 @@ public:
   virtual void alter_placement(rational_t s, const vector3d& p, const vector3d& r);
 #endif
 
-  virtual light_manager* get_light_set();
+  EXPORT virtual light_manager* get_light_set();
 
   virtual render_flavor_t render_passes_needed() const;
 
