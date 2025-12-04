@@ -788,6 +788,12 @@ const rational_t ITEM_ROTATION_SPEED = PI;
 
 void item::frame_advance( time_value_t t )
 {
+
+	typedef void (__fastcall *func_ptr)(item*, int, time_value_t);
+	func_ptr func = (func_ptr)0x005FE8E0;
+	func(this, 0, t);
+	return;
+PANIC;
   if ( !is_picked_up() )
   {
     if ( has_physical_ifc() )
@@ -1356,6 +1362,8 @@ void morphable_item::copy_instance_data( const morphable_item& b )
   old_count = -1;
 }
 
+// @Ok
+// @Matching
 void morphable_item::frame_advance(time_value_t t)
 {
   item::frame_advance(t);
@@ -1459,6 +1467,7 @@ void validate_morphable_item_range(void)
 
 void patch_morphable_item(void)
 {
+	PATCH_PUSH_RET_POLY(0x00600250, morphable_item::frame_advance, "?frame_advance@morphable_item@@UAEXM@Z");
 }
 
 void patch_visual_item(void)

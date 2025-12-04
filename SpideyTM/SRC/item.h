@@ -404,7 +404,7 @@ protected:
   void dump_ranges();
 
 public:
-  virtual void frame_advance(time_value_t t);
+  EXPORT virtual void frame_advance(time_value_t t);
 };
 
 
