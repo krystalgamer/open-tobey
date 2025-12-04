@@ -133,7 +133,7 @@ public:
 
   virtual void preload();
 
-  virtual void apply_effects( entity* target );
+  EXPORT virtual void apply_effects( entity* target );
 
   EXPORT bool is_picked_up();
   void set_picked_up(bool x){picked_up = x;}

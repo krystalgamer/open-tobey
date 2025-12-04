@@ -1437,6 +1437,11 @@ void validate_item(void)
 	VALIDATE(item, item_count_rel_two, 0x120);
 
 	VALIDATE(item, max_num, 0x124);
+
+	VALIDATE_VAL(item::USE, 0x27);
+	VALIDATE_VAL(item::SCHWING, 0x28);
+	VALIDATE_VAL(item::DETONATE, 0x29);
+	VALIDATE_VAL(item::ARMED, 0x2A);
 }
 
 void validate_visual_item(void)
@@ -1486,9 +1491,4 @@ void patch_item(void)
 	PATCH_PUSH_RET_POLY(0x005FEBE0, item::apply_effects, "?apply_effects@item@@UAEXPAVentity@@@Z");
 
 	PATCH_PUSH_RET(0x005FEDB0, item::register_signals);
-
-	VALIDATE_VAL(item::USE, 0x27);
-	VALIDATE_VAL(item::SCHWING, 0x28);
-	VALIDATE_VAL(item::DETONATE, 0x29);
-	VALIDATE_VAL(item::ARMOR, 0x2A);
 }
