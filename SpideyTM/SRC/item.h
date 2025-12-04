@@ -33,6 +33,8 @@ class vm_executable;
 //    Item lists destroy their items when they are destroyed, regardless of count (even 0).
 class item : public entity
 {
+	friend void validate_item(void);
+	friend void patch_item(void);
 // Types
 public:
 
@@ -228,6 +230,8 @@ protected:
   // This virtual function, used only for debugging purposes, returns the
   // name of the given local signal
   virtual const char* get_signal_name( unsigned short idx ) const;
+private:
+  PADDING(8);
 };
 
 inline item* find_item( const entity_id& id , bool unknown_ok = FIND_ENTITY_UNKNOWN_NOT_OK )

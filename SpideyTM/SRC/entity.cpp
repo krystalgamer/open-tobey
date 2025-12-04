@@ -1080,24 +1080,20 @@ const po& entity::get_last_po()
 	return po();
 }
 
+// @Ok
+// @Matching
 void entity::set_family_visible( bool _vis, bool _cur_variant_only )
 {
-  set_visible( _vis );
-/*!  if( has_children() )
-  {
-    list<entity*>::iterator ch;
-    for( ch = ci->children.begin(); ch != ci->children.end(); ++ch )
-    {
+	this->set_visible(_vis);
 
-      if( (!_cur_variant_only) || (*ch)->is_flagged( EFLAG_MISC_MEMBER_OF_VARIANT ) )
-      {
+	for (
+			entity* child_iterator = reinterpret_cast<entity*>(link_ifc()->get_first_child());
+			child_iterator;
+			child_iterator = reinterpret_cast<entity*>(child_iterator->link_ifc()->get_next_sibling()))
+	{
+		child_iterator->set_family_visible(_vis, _cur_variant_only);
+	}
 
-        (*ch)->set_family_visible( _vis, _cur_variant_only );
-      }
-    }
-
-  }
-!*/
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -3897,6 +3893,7 @@ void patch_entity(void)
 	PATCH_PUSH_RET(0x004EC250, entity::copy_flags);
 
 	PATCH_PUSH_RET(0x004E2F50, entity::create_box_trigger_ifc);
+	PATCH_PUSH_RET(0x004EBE50, entity::set_family_visible);
 }
 
 void patch_entity_id(void)

@@ -190,6 +190,7 @@ extern "C" EXPORT int run_assertions(void)
 
 	validate_localize_manager();
 	validate_game_process();
+	validate_item();
 
 	return FAIL_VALIDATION;
 }
@@ -323,6 +324,7 @@ void game_patches()
 	patch_localize_manager();
 
 	patch_game_process();
+	patch_item();
 }
 
 #pragma pack(push,1)

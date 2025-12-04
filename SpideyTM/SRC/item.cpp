@@ -1374,3 +1374,15 @@ void morphable_item::dump_ranges()
       ++range_iter;
   }
 }
+
+#include "my_assertions.h"
+void validate_item(void)
+{
+	VALIDATE_SIZE(item, 0x128);
+}
+
+
+#include "my_patch.h"
+void patch_item(void)
+{
+}
