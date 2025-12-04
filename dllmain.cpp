@@ -194,6 +194,7 @@ extern "C" EXPORT int run_assertions(void)
 	validate_item();
 	validate_visual_item();
 	validate_morphable_item();
+	validate_morphable_item_range();
 
 	return FAIL_VALIDATION;
 }

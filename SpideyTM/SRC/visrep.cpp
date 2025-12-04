@@ -124,7 +124,7 @@ visual_rep* find_visual_rep( const stringx& visrep_name )
 	typedef visual_rep* (*func_ptr)(const stringx&);
 	func_ptr func = (func_ptr)0x005B1580;
 
-	return func(visual_rep);
+	return func(visrep_name);
 }
 
 time_value_t visual_rep::get_ending_time() const

@@ -308,6 +308,7 @@ private:
 
 class morphable_item_range
 {
+	friend void validate_morphable_item_range(void);
 protected:
   morphable_item_range()
   {
@@ -337,6 +338,8 @@ protected:
     return(r);
   }
 
+  // @Ok
+  // @Matching
   bool in_range(int num) { return(num >= low && (num <= high || high == -1)); }
 
   int low;

@@ -71,6 +71,7 @@ void validate_game_process(void);
 void validate_item(void);
 void validate_visual_item(void);
 void validate_morphable_item(void);
+void validate_morphable_item_range(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);

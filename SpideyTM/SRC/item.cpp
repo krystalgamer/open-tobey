@@ -1364,7 +1364,7 @@ void morphable_item::frame_advance(time_value_t t)
     set_range_visrep(count);
 }
 
-void morphable_item::set_range_visrep(int cnt)
+INLINE void morphable_item::set_range_visrep(int cnt)
 {
 	std::vector<morphable_item_range *>::iterator range = ranges.begin();
   std::vector<morphable_item_range *>::iterator range_end = ranges.end();
@@ -1439,8 +1439,19 @@ void validate_visual_item(void)
 void validate_morphable_item(void)
 {
 	VALIDATE_SIZE(morphable_item, 0x138);
+
+	VALIDATE(morphable_item, ranges, 0x128);
+	VALIDATE(morphable_item, old_count, 0x134);
 }
 
+void validate_morphable_item_range(void)
+{
+	VALIDATE_SIZE(morphable_item_range, 0x10);
+
+	VALIDATE(morphable_item_range, low, 0x0);
+	VALIDATE(morphable_item_range, high, 0x4);
+	VALIDATE(morphable_item_range, vis_rep, 0x8);
+}
 
 #include "my_patch.h"
 
