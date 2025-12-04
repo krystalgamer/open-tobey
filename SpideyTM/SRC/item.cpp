@@ -876,6 +876,8 @@ int item::get_max_allowed(character *chr)
 // signal_manager.  This call must be performed before any signal objects are
 // actually created for this class (via signaller::signal_ptr(); see signal.h).
 
+// @Ok
+// @Matching
 void item::register_signals()
 {
   #define MAC(label,str)  signal_manager::inst()->insert( str, label );
@@ -1432,5 +1434,10 @@ void patch_item(void)
 	PATCH_PUSH_RET_POLY(0x005FE8C0, item::is_picked_up, "?is_picked_up@item@@UAE_NXZ");
 	PATCH_PUSH_RET_POLY(0x005FEBE0, item::apply_effects, "?apply_effects@item@@UAEXPAVentity@@@Z");
 
+	PATCH_PUSH_RET(0x005FEDB0, item::register_signals);
+
 	VALIDATE_VAL(item::USE, 0x27);
+	VALIDATE_VAL(item::SCHWING, 0x28);
+	VALIDATE_VAL(item::DETONATE, 0x29);
+	VALIDATE_VAL(item::ARMOR, 0x2A);
 }
