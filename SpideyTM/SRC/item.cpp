@@ -1436,8 +1436,18 @@ void validate_visual_item(void)
 	VALIDATE(visual_item, owner, 0xF4);
 }
 
+void validate_morphable_item(void)
+{
+	VALIDATE_SIZE(morphable_item, 0x138);
+}
+
 
 #include "my_patch.h"
+
+void patch_morphable_item(void)
+{
+}
+
 void patch_visual_item(void)
 {
 	PATCH_PUSH_RET_POLY(0x005FF280, visual_item::render, "?render@visual_item@@UAEXMIM@Z");

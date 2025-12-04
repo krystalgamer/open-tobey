@@ -121,8 +121,10 @@ void unload_visual_rep( visual_rep* discard )
 // been loaded.
 visual_rep* find_visual_rep( const stringx& visrep_name )
 {
-	PANIC;
-	return NULL;
+	typedef visual_rep* (*func_ptr)(const stringx&);
+	func_ptr func = (func_ptr)0x005B1580;
+
+	return func(visual_rep);
 }
 
 time_value_t visual_rep::get_ending_time() const

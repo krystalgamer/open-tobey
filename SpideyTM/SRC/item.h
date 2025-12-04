@@ -351,6 +351,8 @@ protected:
 
 class morphable_item : public item
 {
+	friend void patch_morphable_item(void);
+	friend void validate_morphable_item(void);
 public:
   morphable_item( const entity_id& _id, unsigned int _flags );
 

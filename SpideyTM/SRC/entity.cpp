@@ -985,10 +985,17 @@ void entity::force_region( region_node* r )
   add_region( r );
 }
 
+// @Ok
+// @Matching
 void entity::change_visrep( const stringx& new_visrep_name )
 {
-  unload_visual_rep( my_visrep );
-  my_visrep = find_visual_rep( new_visrep_name );
+	// @Note - why??
+	if (this)
+	{
+		this->get_vrep();
+	}
+
+	my_visrep = find_visual_rep( new_visrep_name );
 }
 
 
@@ -3902,6 +3909,8 @@ void patch_entity(void)
 
 	PATCH_PUSH_RET(0x004E2F50, entity::create_box_trigger_ifc);
 	PATCH_PUSH_RET(0x004EBE50, entity::set_family_visible);
+
+	PATCH_PUSH_RET(0x004EBA40, entity::change_visrep);
 }
 
 void patch_entity_id(void)
