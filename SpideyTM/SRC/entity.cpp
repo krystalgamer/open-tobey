@@ -1490,10 +1490,19 @@ void entity::delete_visrep()
 // @Patch - removed
 //extern profiler_timer proftimer_adv_visrep;
 
+// @Ok
+// @Matching
+// @Patch - removed the profiling stuff
 void entity::advance_age( time_value_t t )
 {
-	// @TODO
-	PANIC;
+	//  age += t;
+	set_age(get_age()+t);
+	//START_PROF_TIMER(proftimer_adv_visrep);
+	if( my_visrep && my_visrep->get_type()==VISREP_PMESH )
+	{
+		((vr_pmesh*)my_visrep)->anim_uvs( t );
+	}
+	//STOP_PROF_TIMER(proftimer_adv_visrep);
 }
 
 
@@ -1707,7 +1716,7 @@ void entity::invalidate_colgeom()
 
 // @Ok
 // @Matching
-time_value_t entity::get_age() const
+INLINE time_value_t entity::get_age() const
 {
 //  return age;
 
@@ -1717,7 +1726,7 @@ time_value_t entity::get_age() const
 
 // @Ok
 // @Matching
-void entity::set_age(time_value_t new_age)
+INLINE void entity::set_age(time_value_t new_age)
 {
   frame_time_info.set_age(new_age);
 }
@@ -3917,6 +3926,8 @@ void patch_entity(void)
 	PATCH_PUSH_RET(0x004EBE50, entity::set_family_visible);
 
 	PATCH_PUSH_RET(0x004EBA40, entity::change_visrep);
+
+	PATCH_PUSH_RET_POLY(0x004ECDD0, entity::advance_age, "?advance_age@entity@@UAEXM@Z");
 }
 
 void patch_entity_id(void)
