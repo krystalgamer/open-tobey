@@ -187,7 +187,7 @@ public:
   bool is_linked() const    { return(linked); }
   void set_linked(bool l)   { linked = l; }
 
-  virtual bool parse_instance( const stringx& pcf, chunk_file& fs );
+  EXPORT virtual bool parse_instance( const stringx& pcf, chunk_file& fs );
 
 
 //!  virtual int get_max_allowed(character *chr);
