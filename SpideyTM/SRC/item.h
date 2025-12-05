@@ -145,10 +145,12 @@ public:
   virtual bool is_brain_weapon() const { return(false); }
 
 
-  virtual void holster(bool make_visible = true)    {}
-  virtual void draw(bool make_visible = true)       {}
-  virtual void hide()       {}
-  virtual void show()       {}
+  // @Ok
+  // @Matching
+  EXPORT virtual void holster(bool make_visible = true)    {}
+  EXPORT virtual void draw(bool make_visible = true)       {}
+  EXPORT virtual void hide()       {}
+  EXPORT virtual void show()       {}
 
   bool is_linked() const    { return(linked); }
   void set_linked(bool l)   { linked = l; }

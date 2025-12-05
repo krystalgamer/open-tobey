@@ -1717,5 +1717,7 @@ void patch_item(void)
 	PATCH_PUSH_RET_POLY(0x005FE8C0, item::is_picked_up, "?is_picked_up@item@@UAE_NXZ");
 	PATCH_PUSH_RET_POLY(0x005FEBE0, item::apply_effects, "?apply_effects@item@@UAEXPAVentity@@@Z");
 
-	PATCH_PUSH_RET(0x005FEDB0, item::register_signals);
+	PATCH_PUSH_RET     (0x005FEDB0, item::register_signals);
+
+	PATCH_PUSH_RET_POLY(0x005FCA50, item::holster, "?holster@item@@UAEX_N@Z");
 }
