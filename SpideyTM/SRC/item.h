@@ -111,6 +111,8 @@ public:
   EXPORT usage_t get_usage_type() const { return usage_type; }
   bool is_same_item( const item& b ) const;
 
+  // @Ok
+  // @Matching
   EXPORT virtual int get_count() const {return count;}
 
   // @Ok
