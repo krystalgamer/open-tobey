@@ -399,6 +399,8 @@ class world_dynamics_system
     inline script_manager * get_script_manager() { return &scriptman; }
 
 
+	// @Ok
+	// @Matching
     script_object* get_current_level_global_script_object() const { return cur_global_so; }
     script_object::instance* get_current_level_global_script_object_instance() const { return cur_global_so_inst; }
 
@@ -546,14 +548,19 @@ class world_dynamics_system
 
     // scripting
     script_manager scriptman;
-    script_object* cur_global_so;
+
+	PADDING(4);
 
 	// @Patch - moved around
     entfile_map entfiles;
 
-    script_object::instance* cur_global_so_inst;
+	PADDING(0x1A0-0x164-0xC);
 
-	PADDING(0x1B0-0x174);
+	// @Patch - moved around
+    script_object* cur_global_so;
+	PADDING(0x1AC-0x1A0-4);
+
+    script_object::instance* cur_global_so_inst;
 
     // This flag is useful for filtering operations that we only wish to perform
     // during the initial load of the scene.  Note that this flag will be FALSE
