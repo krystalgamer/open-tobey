@@ -1725,4 +1725,5 @@ void patch_item(void)
 	PATCH_PUSH_RET_POLY(0x005FCAB0, item::show, "?show@item@@UAEXXZ");
 
 	PATCH_PUSH_RET_POLY(0x005FCA30, item::is_brain_weapon, "?is_brain_weapon@item@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x005E7BD0, item::is_armor, "?is_armor@item@@UBE_NXZ");
 }

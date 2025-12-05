@@ -143,6 +143,8 @@ public:
 
   EXPORT virtual bool is_ammo()   const { return (get_usage_type() == AMMO); }
   EXPORT virtual bool is_health() const { return (get_usage_type() == HEALTH); }
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_armor()  const { return (get_usage_type() == ARMOR); }
   EXPORT virtual bool is_brain_weapon() const { return(false); }
 
