@@ -151,6 +151,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual void draw(bool make_visible = true)       {}
+  // @Ok
+  // @Matching
   EXPORT virtual void hide()       {}
   EXPORT virtual void show()       {}
 
