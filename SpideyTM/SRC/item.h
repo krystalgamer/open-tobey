@@ -101,7 +101,7 @@ public:
   virtual entity* make_instance( const entity_id& _id,
                                  unsigned int _flags ) const;
 protected:
-  virtual void copy_instance_data( const item& b );
+  EXPORT virtual void copy_instance_data( const item& b );
 
 // Misc.
 public:

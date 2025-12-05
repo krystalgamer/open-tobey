@@ -310,6 +310,8 @@ entity* item::make_instance( const entity_id& _id,
 }
 
 
+// @Ok
+// @Matching
 void item::copy_instance_data( const item& b )
 {
   entity::copy_instance_data( b );
@@ -1420,6 +1422,8 @@ void validate_item(void)
 {
 	VALIDATE_SIZE(item, 0x128);
 
+	VALIDATE(item, linked, 0xF6);
+
 	VALIDATE(item, usage_type, 0xF8);
 	VALIDATE(item, name, 0xFC);
 
@@ -1735,4 +1739,6 @@ void patch_item(void)
 	PATCH_PUSH_RET_POLY(0x005E7B20, item::dec_count, "?dec_count@item@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x005E7B00, item::inc_count, "?inc_count@item@@UAEXXZ");
 	PATCH_PUSH_RET_POLY(0x005E7AE0, item::get_count, "?get_count@item@@UBEHXZ");
+
+	PATCH_PUSH_RET_POLY(0x005FD960, item::copy_instance_data, "?copy_instance_data@item@@MAEXABV1@@Z");
 }
