@@ -113,7 +113,11 @@ public:
 
   EXPORT virtual int get_count() const {return count;}
 
+  // @Ok
+  // @Matching
   EXPORT virtual void inc_count() {count++;}
+  // @Ok
+  // @Matching
   EXPORT virtual void dec_count() {count--;}
 
   EXPORT virtual void set_count(int c);
