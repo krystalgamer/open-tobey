@@ -121,7 +121,9 @@ public:
 
   virtual bool is_usable() const { return get_count() > 0; }
 
-  virtual int get_number() const {return count;}
+  // @Ok
+  // @Matching
+  EXPORT virtual int get_number() const {return count;}
 
   virtual void frame_advance(time_value_t t);
   
