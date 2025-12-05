@@ -72,6 +72,8 @@ public:
   /////////////////////////////////////////////////////////////////////////////
   // entity class identification
   public:
+	// @Ok
+	// @Matching
     EXPORT virtual bool is_an_item() const { return true; }
 
 // NEWENT File I/O
@@ -153,7 +155,7 @@ public:
 
   EXPORT virtual void apply_effects( entity* target );
 
-  EXPORT bool is_picked_up();
+  EXPORT virtual bool is_picked_up();
   EXPORT void set_picked_up(bool x){picked_up = x;}
   EXPORT void set_pickup_timer(rational_t t){pickup_timer = t;}
 
