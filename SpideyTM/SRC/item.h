@@ -111,10 +111,10 @@ public:
   EXPORT usage_t get_usage_type() const { return usage_type; }
   bool is_same_item( const item& b ) const;
 
-  virtual int get_count() const {return count;}
+  EXPORT virtual int get_count() const {return count;}
 
-  virtual void inc_count() {count++;}
-  virtual void dec_count() {count--;}
+  EXPORT virtual void inc_count() {count++;}
+  EXPORT virtual void dec_count() {count--;}
 
   EXPORT virtual void set_count(int c);
 
