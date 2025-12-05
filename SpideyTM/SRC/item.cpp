@@ -714,9 +714,6 @@ bool item::give_to_entity(entity *target)
 }
 
 
-
-// @Ok
-// @Matching
 void item::spawn_preload_script()
 {
   if(!preload_script_called)
@@ -744,6 +741,8 @@ void item::spawn_preload_script()
 }
 
 
+// @Ok
+// @Matching
 void item::spawn_item_script()
 {
 
@@ -754,11 +753,11 @@ void item::spawn_item_script()
     // search for matching script function
     stringx fname = get_name() + "_callbacks(item)";
     fname.to_lower();
-    script_object* gso = g_world_ptr->get_current_level_global_script_object();
+    script_object* gso = GET_WORLD_PTR->get_current_level_global_script_object();
     int fidx = gso->find_func( fname );
     if ( fidx >= 0 )
     {
-      script_object::instance* gsoi = g_world_ptr->get_current_level_global_script_object_instance();
+      script_object::instance* gsoi = GET_WORLD_PTR->get_current_level_global_script_object_instance();
       // spawn thread for function
       char parms[4];
 
