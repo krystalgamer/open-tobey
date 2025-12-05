@@ -148,6 +148,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual void holster(bool make_visible = true)    {}
+  // @Ok
+  // @Matching
   EXPORT virtual void draw(bool make_visible = true)       {}
   EXPORT virtual void hide()       {}
   EXPORT virtual void show()       {}

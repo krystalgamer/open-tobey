@@ -1720,4 +1720,5 @@ void patch_item(void)
 	PATCH_PUSH_RET     (0x005FEDB0, item::register_signals);
 
 	PATCH_PUSH_RET_POLY(0x005FCA50, item::holster, "?holster@item@@UAEX_N@Z");
+	PATCH_PUSH_RET_POLY(0x005FCA70, item::draw, "?draw@item@@UAEX_N@Z");
 }
