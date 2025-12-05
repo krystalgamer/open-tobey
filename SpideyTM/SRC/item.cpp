@@ -1727,4 +1727,5 @@ void patch_item(void)
 	PATCH_PUSH_RET_POLY(0x005FCA30, item::is_brain_weapon, "?is_brain_weapon@item@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x005E7BD0, item::is_armor, "?is_armor@item@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x005E7BB0, item::is_health, "?is_health@item@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x005E7B90, item::is_ammo, "?is_ammo@item@@UBE_NXZ");
 }
