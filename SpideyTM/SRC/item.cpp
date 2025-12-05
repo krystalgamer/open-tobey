@@ -841,19 +841,21 @@ void item::apply_effects( entity* target )
 
 
 
+// @Ok
+// @Matching
 // This function allows parsing instance data according to entity type.
 // If it recognizes the given chunk_flavor as a chunk of instance
 // data for this type, it will parse the data; otherwise it will hand
 // the parsing up to the parent class.
 bool item::parse_instance( const stringx& pcf, chunk_file& fs )
 {
-  if ( pcf == stringx("item") )
+  if ( pcf == "item" )
   {
     stringx cf;
     for ( serial_in(fs,&cf); cf!=chunkend_label; serial_in(fs,&cf) )
     {
 
-      if ( cf == stringx("count") )
+      if ( cf == "count")
       {
         serial_in( fs, &count );
 
@@ -1748,4 +1750,5 @@ void patch_item(void)
 	PATCH_PUSH_RET_POLY(0x005E7BF0, item::possibly_active, "?possibly_active@item@@UBE_NXZ");
 	PATCH_PUSH_RET_POLY(0x005FDA20, item::initialize, "?spawn_item_script@item@@QAEXXZ");
 	PATCH_PUSH_RET_POLY(0x005E7AC0, item::is_an_item, "?is_an_item@item@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x005FEC00, item::parse_instance, "?parse_instance@item@@UAE_NABVstringx@@AAVchunk_file@@@Z");
 }

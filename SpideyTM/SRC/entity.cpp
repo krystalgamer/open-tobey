@@ -2972,6 +2972,10 @@ void entity::process_extra_scene_flags(unsigned int scn_flags)
 
 bool entity::parse_instance( const stringx& pcf, chunk_file& fs )
 {
+	typedef bool (__fastcall *func_ptr)(entity*, int, const stringx&, chunk_file&);
+	func_ptr func = (func_ptr)0x004F3DA0;
+
+	return func(this, 0, pfc, fs);
 	// @TODO
 	PANIC;
 	return true;

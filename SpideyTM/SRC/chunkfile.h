@@ -157,6 +157,6 @@ extern const chunk_flavor CHUNK_END;    // only flexible chunks need the chunken
 extern const chunk_flavor CHUNK_SPF;    // seconds-per-frame for animatable files (.tam & .ban)
 extern const chunk_flavor CHUNK_SCALE;  // scale factor for meshes or whatever else.
 
-extern const stringx chunkend_label;
+extern const char* chunkend_label;
 
 #endif

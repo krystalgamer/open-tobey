@@ -33,7 +33,9 @@ const chunk_flavor CHUNK_END    ("chunkend"); // only flexible chunks need the c
 const chunk_flavor CHUNK_SPF    ("spf");      // seconds-per-frame for animatable files (.tam & .ban)
 const chunk_flavor CHUNK_SCALE  ("scale");    // scale factor for meshes or whatever else.
 
-const stringx chunkend_label( "chunkend" );
+// @Patch - made it const char*
+// @Neat - to undo the optimization make it a const char* so the code starts matching
+const char* chunkend_label =  "chunkend";
 
 bool chunk_file::noquotes=false;
 
