@@ -713,6 +713,8 @@ bool item::give_to_entity(entity *target)
 
 
 
+// @Ok
+// @Matching
 void item::spawn_preload_script()
 {
   if(!preload_script_called)

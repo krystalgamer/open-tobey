@@ -4643,6 +4643,9 @@ void validate_wds(void)
 
 	VALIDATE(world_dynamics_system, entfiles, 0x164);
 
+	VALIDATE(world_dynamics_system, cur_global_so, 0x1A0);
+	VALIDATE(world_dynamics_system, cur_global_so_inst, 0x1AC);
+
 	VALIDATE(world_dynamics_system, loading_from_scn_file, 0x1B0);
 
 

@@ -67,12 +67,12 @@ public:
   virtual ~item();
 
 	// This function allows the entity to any post-level-load initialization
-	virtual void initialize();
+	EXPORT virtual void initialize();
 
   /////////////////////////////////////////////////////////////////////////////
   // entity class identification
   public:
-    virtual bool is_an_item() const { return true; }
+    EXPORT virtual bool is_an_item() const { return true; }
 
 // NEWENT File I/O
 public:
