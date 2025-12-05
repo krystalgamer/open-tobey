@@ -400,7 +400,7 @@ protected:
   std::vector<morphable_item_range *> ranges;
   int old_count;
 
-  void set_range_visrep(int cnt);
+  EXPORT void set_range_visrep(int cnt);
   void dump_ranges();
 
 public:
