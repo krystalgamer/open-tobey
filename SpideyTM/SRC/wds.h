@@ -402,6 +402,8 @@ class world_dynamics_system
 	// @Ok
 	// @Matching
     script_object* get_current_level_global_script_object() const { return cur_global_so; }
+	// @Ok
+	// @Matching
     script_object::instance* get_current_level_global_script_object_instance() const { return cur_global_so_inst; }
 
     void spawn_misc_preload_scripts();
