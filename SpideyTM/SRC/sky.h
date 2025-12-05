@@ -25,7 +25,9 @@ public:
 
 // entity class identification
 public:
-  virtual bool is_a_sky() const { return true; }
+  // @Ok
+  // @Matching
+  EXPORT virtual bool is_a_sky() const { return true; }
 
 /////////////////////////////////////////////////////////////////////////////
 

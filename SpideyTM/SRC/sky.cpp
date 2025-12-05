@@ -69,4 +69,5 @@ void validate_sky(void)
 void patch_sky(void)
 {
 	PATCH_PUSH_RET_POLY(0x0060B6C0, sky::render, "?render@sky@@UAEXMIM@Z");
+	PATCH_PUSH_RET_POLY(0x0060B5C0, sky::is_a_sky, "?is_a_sky@sky@@UBE_NXZ");
 }
