@@ -106,7 +106,9 @@ protected:
 // Misc.
 public:
   const stringx& get_name() const { return name; }
-  usage_t get_usage_type() const { return usage_type; }
+  // @Ok
+  // @Matching
+  EXPORT usage_t get_usage_type() const { return usage_type; }
   bool is_same_item( const item& b ) const;
 
   virtual int get_count() const {return count;}
