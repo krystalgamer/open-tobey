@@ -142,6 +142,8 @@ public:
   EXPORT void set_pickup_timer(rational_t t){pickup_timer = t;}
 
   EXPORT virtual bool is_ammo()   const { return (get_usage_type() == AMMO); }
+  // @Ok
+  // @Matching
   EXPORT virtual bool is_health() const { return (get_usage_type() == HEALTH); }
   // @Ok
   // @Matching
