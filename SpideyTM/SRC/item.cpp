@@ -1722,4 +1722,5 @@ void patch_item(void)
 	PATCH_PUSH_RET_POLY(0x005FCA50, item::holster, "?holster@item@@UAEX_N@Z");
 	PATCH_PUSH_RET_POLY(0x005FCA70, item::draw, "?draw@item@@UAEX_N@Z");
 	PATCH_PUSH_RET_POLY(0x005FCA90, item::hide, "?hide@item@@UAEXXZ");
+	PATCH_PUSH_RET_POLY(0x005FCAB0, item::show, "?show@item@@UAEXXZ");
 }

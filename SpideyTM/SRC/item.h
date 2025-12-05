@@ -154,6 +154,8 @@ public:
   // @Ok
   // @Matching
   EXPORT virtual void hide()       {}
+  // @Ok
+  // @Matching
   EXPORT virtual void show()       {}
 
   bool is_linked() const    { return(linked); }
