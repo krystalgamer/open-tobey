@@ -72,6 +72,7 @@ void validate_item(void);
 void validate_visual_item(void);
 void validate_morphable_item(void);
 void validate_morphable_item_range(void);
+void validate_sky(void);
 
 void patch_vm_stack(void);
 void patch_vm_thread(void);
@@ -138,4 +139,5 @@ void patch_game_process(void);
 void patch_item(void);
 void patch_visual_item(void);
 void patch_morphable_item(void);
+void patch_sky(void);
 #endif

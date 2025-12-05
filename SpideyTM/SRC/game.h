@@ -225,7 +225,9 @@ public:
     interface_widget*       get_interface_widget() const { assert(my_interface_widget); return my_interface_widget; }
     script_widget_holder_t* get_script_widget_holder() const { assert(script_widget_holder); return script_widget_holder; }
     gamefile_t *    get_gamefile() const { assert(gamefile); return gamefile; }
-    camera *        get_current_view_camera() { assert (current_view_camera); return current_view_camera; }
+	// @Patch - moved implementation to cpp, added arg too
+    camera *        get_current_view_camera(int);
+
     //game_camera *   get_current_game_camera() { assert (current_game_camera); return current_game_camera; }
     void            set_current_camera(camera *cam);
     message_board * get_message_board() { assert(mb); return mb; }

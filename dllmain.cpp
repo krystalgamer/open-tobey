@@ -195,6 +195,7 @@ extern "C" EXPORT int run_assertions(void)
 	validate_visual_item();
 	validate_morphable_item();
 	validate_morphable_item_range();
+	validate_sky();
 
 	return FAIL_VALIDATION;
 }
@@ -331,6 +332,8 @@ void game_patches()
 	patch_item();
 	patch_visual_item();
 	patch_morphable_item();
+
+	patch_sky();
 }
 
 #pragma pack(push,1)

@@ -2975,7 +2975,7 @@ bool entity::parse_instance( const stringx& pcf, chunk_file& fs )
 	typedef bool (__fastcall *func_ptr)(entity*, int, const stringx&, chunk_file&);
 	func_ptr func = (func_ptr)0x004F3DA0;
 
-	return func(this, 0, pfc, fs);
+	return func(this, 0, pcf, fs);
 	// @TODO
 	PANIC;
 	return true;

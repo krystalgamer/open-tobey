@@ -1938,6 +1938,12 @@ void game::stop_music(void)
 	}
 }
 
+camera * game::get_current_view_camera(int)
+{
+	assert (current_view_camera);
+	return current_view_camera;
+}
+
 void skip_intros(void)
 {
 	// @TODO

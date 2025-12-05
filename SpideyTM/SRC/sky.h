@@ -8,6 +8,8 @@
 
 class sky : public entity
 {
+	friend void validate_sky(void);
+	friend void patch_sky(void);
 public:
   sky( const entity_id& eid, entity_flavor_t _flavor=ENTITY_SKY );
 
@@ -29,7 +31,7 @@ public:
 
 // render interface
 public:
-  virtual void render( camera* camera_link, rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct );
+  EXPORT virtual void render(rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct );
 };
 
 

@@ -936,7 +936,7 @@ void world_dynamics_system::render_debug( camera *camera_link )
 	{
 
 		vector3d vec;
-		camera* cam = app::inst()->get_game()->get_current_view_camera();
+		camera* cam = app::inst()->get_game()->get_current_view_camera(69);
 		vector3d cam_face = cam->get_abs_po().get_facing();
 		vector3d cam_pos = cam->get_abs_position();
 		bool vis_check = g_camera_out_of_world;
@@ -1993,7 +1993,7 @@ void world_dynamics_system::render(camera* camera_link)
       {
 
 		  vector3d vec;
-		  camera* cam = app::inst()->get_game()->get_current_view_camera();
+		  camera* cam = app::inst()->get_game()->get_current_view_camera(69);
 		  vector3d cam_face = cam->get_abs_po().get_facing();
 
 		  vector3d cam_pos = cam->get_abs_position();
@@ -2216,7 +2216,7 @@ void world_dynamics_system::render(camera* camera_link)
 								  instance_render_info iri(port->get_max_faces(),
 									  identity_matrix,
 									  0,
-									  app::inst()->get_game()->get_current_view_camera()->get_region(),
+									  app::inst()->get_game()->get_current_view_camera(69)->get_region(),
 									  0,
 									  color32(236, 161, 0, 96),
 									  FORCE_TRANSLUCENCY,
@@ -4090,7 +4090,7 @@ void world_dynamics_system::_build_render_data_ents( render_data& rd )
 	view2world.invert();
 
 
-	const po& campo = app::inst()->get_game()->get_current_view_camera()->get_abs_po();   // Changed from get_current_game_cam()
+	const po& campo = app::inst()->get_game()->get_current_view_camera(69)->get_abs_po();   // Changed from get_current_game_cam()
 	// because I'm eliminating that variable, not used in KSPS. 10/22/01 -DL
 
 	rd.cam = campo.get_position();
