@@ -1710,6 +1710,7 @@ void patch_morphable_item(void)
 {
 	PATCH_PUSH_RET_POLY(0x00600250, morphable_item::frame_advance, "?frame_advance@morphable_item@@UAEXM@Z");
 	PATCH_PUSH_RET     (0x00600320, morphable_item::set_range_visrep);
+	PATCH_PUSH_RET_POLY(0x005FF3E0, morphable_item::is_a_morphable_item, "?is_a_morphable_item@morphable_item@@UBE_NXZ");
 }
 
 void patch_visual_item(void)

@@ -404,7 +404,9 @@ public:
 /////////////////////////////////////////////////////////////////////////////
 // entity class identification
 public:
-  virtual bool is_a_morphable_item() const { return true; }
+  // @Ok
+  // @Matching
+  EXPORT virtual bool is_a_morphable_item() const { return true; }
 
 // NEWENT File I/O
 public:
