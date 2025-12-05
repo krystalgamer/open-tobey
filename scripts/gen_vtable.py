@@ -2,7 +2,7 @@ import sys
 
 def main():
     lines = None
-    with open ('vtable.txt', 'r') as fp:
+    with open ('vtable_item.txt', 'r') as fp:
         lines = fp.readlines()
 
     lines = map(lambda x: x.strip(), lines)
@@ -10,7 +10,9 @@ def main():
 
     for i, line in enumerate(lines):
         func = line.split('__')[0]
-        print(f'VALIDATE_VTABLE(entity, {func}, {i+1});')
+
+        func = func[func.rindex(' ')+1:]
+        print(f'VALIDATE_VTABLE(item, {func}, {i});')
 
     return 0
 
