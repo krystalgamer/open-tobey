@@ -344,6 +344,8 @@ void item::copy_instance_data( const item& b )
 
 
 // This function allows the entity to any post-level-load initialization
+// @Ok
+// @Matching
 void item::initialize()
 {
 //  if ( need_to_initialize )
@@ -725,12 +727,12 @@ void item::spawn_preload_script()
     // there might be a script function for preloading additional assets needed by item
     stringx preload_func_name = get_name() + "_preload()";
     preload_func_name.to_lower();
-    script_object* gso = g_world_ptr->get_current_level_global_script_object();
+    script_object* gso = GET_WORLD_PTR->get_current_level_global_script_object();
     assert( gso );
     int fidx = gso->find_func( preload_func_name );
     if ( fidx >= 0 )
     {
-      script_object::instance* gsoi = g_world_ptr->get_current_level_global_script_object_instance();
+      script_object::instance* gsoi = GET_WORLD_PTR->get_current_level_global_script_object_instance();
       assert( gsoi );
       // spawn thread for function
 
@@ -1744,4 +1746,5 @@ void patch_item(void)
 
 	PATCH_PUSH_RET_POLY(0x005FD960, item::copy_instance_data, "?copy_instance_data@item@@MAEXABV1@@Z");
 	PATCH_PUSH_RET_POLY(0x005E7BF0, item::possibly_active, "?possibly_active@item@@UBE_NXZ");
+	PATCH_PUSH_RET_POLY(0x005FDA20, item::initialize, "?spawn_item_script@item@@QAEXXZ");
 }
