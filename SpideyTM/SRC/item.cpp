@@ -1730,4 +1730,5 @@ void patch_item(void)
 	PATCH_PUSH_RET_POLY(0x005E7B90, item::is_ammo, "?is_ammo@item@@UBE_NXZ");
 
 	PATCH_PUSH_RET_POLY(0x005E7B70, item::get_number, "?get_number@item@@UBEHXZ");
+	PATCH_PUSH_RET_POLY(0x005E7B40, item::is_usable, "?is_usable@item@@UBE_NXZ");
 }

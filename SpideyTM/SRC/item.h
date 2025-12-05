@@ -119,7 +119,9 @@ public:
   EXPORT virtual void set_count(int c);
 
 
-  virtual bool is_usable() const { return get_count() > 0; }
+  // @Ok
+  // @Matching
+  EXPORT virtual bool is_usable() const { return get_count() > 0; }
 
   // @Ok
   // @Matching
