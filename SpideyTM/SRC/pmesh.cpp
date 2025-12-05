@@ -986,10 +986,11 @@ void vr_pmesh::clear_lighting()
 #endif
 }
 
+// @Ok
+// @Matching
 void vr_pmesh::anim_uvs( time_value_t t )
-
 {
-	PANIC;
+	// @Patch - should be empty
 }
 
 
@@ -1717,4 +1718,5 @@ void validate_vr_pmesh(void)
 
 void patch_vr_pmesh(void)
 {
+	PATCH_PUSH_RET(0x005AAC40, vr_pmesh::anim_uvs);
 }
