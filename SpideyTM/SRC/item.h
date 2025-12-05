@@ -136,13 +136,13 @@ public:
   EXPORT virtual void apply_effects( entity* target );
 
   EXPORT bool is_picked_up();
-  void set_picked_up(bool x){picked_up = x;}
-  void set_pickup_timer(rational_t t){pickup_timer = t;}
+  EXPORT void set_picked_up(bool x){picked_up = x;}
+  EXPORT void set_pickup_timer(rational_t t){pickup_timer = t;}
 
-  virtual bool is_ammo()   const { return (get_usage_type() == AMMO); }
-  virtual bool is_health() const { return (get_usage_type() == HEALTH); }
-  virtual bool is_armor()  const { return (get_usage_type() == ARMOR); }
-  virtual bool is_brain_weapon() const { return(false); }
+  EXPORT virtual bool is_ammo()   const { return (get_usage_type() == AMMO); }
+  EXPORT virtual bool is_health() const { return (get_usage_type() == HEALTH); }
+  EXPORT virtual bool is_armor()  const { return (get_usage_type() == ARMOR); }
+  EXPORT virtual bool is_brain_weapon() const { return(false); }
 
 
   // @Ok
