@@ -1741,4 +1741,5 @@ void patch_item(void)
 	PATCH_PUSH_RET_POLY(0x005E7AE0, item::get_count, "?get_count@item@@UBEHXZ");
 
 	PATCH_PUSH_RET_POLY(0x005FD960, item::copy_instance_data, "?copy_instance_data@item@@MAEXABV1@@Z");
+	PATCH_PUSH_RET_POLY(0x005E7BF0, item::possibly_active, "?possibly_active@item@@UBE_NXZ");
 }

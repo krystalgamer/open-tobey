@@ -105,6 +105,12 @@ protected:
 
 // Misc.
 public:
+
+  // @Ok
+  // @Matching
+  // @Patch -added
+  EXPORT virtual bool possibly_active() const { return this->picked_up == 0; }
+
   const stringx& get_name() const { return name; }
   // @Ok
   // @Matching
@@ -138,12 +144,12 @@ public:
   EXPORT virtual void render(rational_t detail, render_flavor_t flavor, rational_t entity_translucency_pct);
 
   bool check_for_pickup();
-  virtual bool give_to_entity(entity * target);
+  EXPORT virtual bool give_to_entity(entity * target);
 
 
   void spawn_item_script();
 
-  virtual void preload();
+  EXPORT virtual void preload();
 
   EXPORT virtual void apply_effects( entity* target );
 

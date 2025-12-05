@@ -743,6 +743,12 @@ entity* entity::make_instance( const entity_id& _id,
 
 void entity::copy_instance_data( const entity& b )
 {
+	typedef void (__fastcall *func_ptr)(entity*, int, const entity&);
+	func_ptr func = (func_ptr)0x004E9740;
+
+	func(this, 0, b);
+	return;
+
 	// @TODO
 	PANIC;
 }
